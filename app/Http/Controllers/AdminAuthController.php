@@ -28,7 +28,9 @@ class AdminAuthController extends Controller
             'password' => 'required',
         ]);
 
-        if (Auth::guard('admin')->attempt($request->only('email', 'password'))) {
+        $remember = $request->has('remember');
+
+        if (Auth::guard('admin')->attempt($request->only('email', 'password'), $remember)) {
             return redirect()->route('admin.dashboard');
         }
 

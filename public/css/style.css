@@ -1,0 +1,211 @@
+@font-face {
+    font-family: 'ArgentumSans';
+    src: url('/fonts/ArgentumSans-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ArgentumSans';
+    src: url('/fonts/ArgentumSans-BlackItalic.ttf') format('truetype');
+    font-weight: 900;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'ArgentumSans';
+    src: url('/fonts/ArgentumSans-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ArgentumSans';
+    src: url('/fonts/ArgentumSans-BoldItalic.ttf') format('truetype');
+    font-weight: 700;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'ArgentumSans';
+    src: url('/fonts/ArgentumSans-ExtraBold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ArgentumSans';
+    src: url('/fonts/ArgentumSans-ExtraBoldItalic.ttf') format('truetype');
+    font-weight: 800;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'ArgentumSans';
+    src: url('/fonts/ArgentumSans-ExtraLight.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ArgentumSans';
+    src: url('/fonts/ArgentumSans-ExtraLightItalic.ttf') format('truetype');
+    font-weight: 200;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'ArgentumSans';
+    src: url('/fonts/ArgentumSans-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'ArgentumSans';
+    src: url('/fonts/ArgentumSans-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ArgentumSans';
+    src: url('/fonts/ArgentumSans-LightItalic.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'ArgentumSans';
+    src: url('/fonts/ArgentumSans-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ArgentumSans';
+    src: url('/fonts/ArgentumSans-MediumItalic.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'ArgentumSans';
+    src: url('/fonts/ArgentumSans-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ArgentumSans';
+    src: url('/fonts/ArgentumSans-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ArgentumSans';
+    src: url('/fonts/ArgentumSans-SemiBoldItalic.ttf') format('truetype');
+    font-weight: 600;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'ArgentumSans';
+    src: url('/fonts/ArgentumSans-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ArgentumSans';
+    src: url('/fonts/ArgentumSans-ThinItalic.ttf') format('truetype');
+    font-weight: 100;
+    font-style: italic;
+}
+
+body,
+* {
+    font-family: 'ArgentumSans', sans-serif;
+    font-weight: 300;
+    text-transform: uppercase;
+    /* Regular */
+}
+
+body {
+    background-color: #efefef !important;
+}
+
+
+.primary-font-size {
+    font-size: 0.70vw !important;
+    color: black !important;
+}
+
+.secondary-font-size {
+    font-size: 0.7rem !important;
+}
+
+.link-normal {
+    text-decoration: none;
+    color: black;
+}
+
+
+.fs-12 {
+    font-size: 12px;
+}
+
+.fw-400 {
+    font-weight: 400 !important;
+}
+
+
+.custom-swiper-button {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    width: 40px !important;
+    height: 40px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-swiper-button::after {
+    color: white;
+    font-size: 20px !important;
+}
+
+.product_title {
+    font-size: 12px;
+    margin-bottom: 0px;
+    font-weight: 400;
+}
+
+.product_price {
+    font-size: 10px;
+}
+
+.discover_more_btn {
+    border: 1px solid black;
+    text-decoration: none;
+    color: black;
+    padding: 8px 20px;
+    font-size: 10px;
+    font-weight: 300;
+    transition: all 0.2s;
+}
+
+.discover_more_btn:hover {
+    border-radius: 20px;
+    background-color: black;
+    color: white;
+}
+
+footer ul li,
+footer h6,
+footer p {
+    font-size: 12px !important;
+    padding-bottom: 10px;
+    font: 300;
+}
