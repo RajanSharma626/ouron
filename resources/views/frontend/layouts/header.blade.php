@@ -1,5 +1,5 @@
 <header>
-    <nav class="navbar sticky-top navbar-expand-lg py-0 bg-light">
+    <nav class="navbar sticky-top navbar-expand-lg py-0 secondary-bg">
         <div class="container-fluid px-4">
             <div class="d-flex w-100 justify-content-between align-items-center">
                 <!-- Left: Logo -->

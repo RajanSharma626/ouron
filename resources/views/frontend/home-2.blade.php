@@ -10,17 +10,14 @@
             <div class="swiper swiper-container">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
-                        <a href=""><img src="{{ asset('images/banner/banner.webp') }}" class="img-fluid"
-                                alt="Slide 1"></a>
+                        <a href=""><img
+                                src="https://crazymonk.in/cdn/shop/files/Banner_for_Website_front_page_1.jpg?v=1740377697&width=2000"
+                                class="img-fluid" alt="Slide 1"></a>
                     </div>
                     <div class="swiper-slide">
-                        <a href=""><img src="{{ asset('images/banner/banner-2.webp') }}" class="img-fluid"
-                                alt="Slide 2"></a>
-                    </div>
-                    <div class="swiper-slide">
-                        <a href="">
-                            <img src="{{ asset('images/banner/banner-3.webp') }}" class="img-fluid" alt="Slide 3">
-                        </a>
+                        <a href=""><img
+                                src="https://crazymonk.in/cdn/shop/files/2_b664a848-4712-42a2-bfe4-9377e1c2aa27.jpg?v=1733744646&width=2000"
+                                class="img-fluid" alt="Slide 2"></a>
                     </div>
                 </div>
                 <!-- Add Pagination -->
@@ -36,70 +33,70 @@
 
     {{-- ============================================= New Arrival Section Start ==================================== --}}
     <section class="new_arrival_section mt-4">
-        <div class="container-fluid">
+        <div class="container">
             <div class="row justify-content-between mb-3 align-items-center">
                 <div class="col">
                     <p class="text-uppercase secondary-font-size mb-0 ">New Arrivals</p>
                 </div>
                 <div class="col text-end">
-                    <a href="" class="link-normal p-2 discover_more_btn">Discover More</a>
+                    <a href="" class="link-normal p-2 discover_more_btn rounded rounded">Discover More</a>
                 </div>
             </div>
 
-            <div class="row g-1">
+            <div class="row g-4">
                 <div class="col-3">
-                    <div class="product_img">
-                        <img src="https://bluorng.com/cdn/shop/files/WHITE_WILD_BUNCH_FRONT_FLYING.jpg?v=1738932437&width=360"
-                            alt="" class="img-fluid">
-                    </div>
-                    <div class="product_info mt-2">
-                        <h3 class="product_title">
-                            The Clash T-shirt
-                        </h3>
-                        <p class="product_price text-muted">
-                            RS. 4,995
-                        </p>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="product_img">
-                        <img src="https://bluorng.com/cdn/shop/files/BLACKWILDBUNCHFRONTFLYING.jpg?v=1738932421&width=360"
-                            alt="" class="img-fluid">
-                    </div>
-                    <div class="product_info mt-2">
-                        <h3 class="product_title">
-                            The Clash T-shirt
-                        </h3>
-                        <p class="product_price text-muted">
-                            RS. 4,995
-                        </p>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="product_img">
-                        <img src="https://bluorng.com/cdn/shop/files/hbh_kb.jpg?v=1738849531&width=360" alt=""
+                    <div class="product_img2">
+                        <img src="https://crazymonk.in/cdn/shop/files/Kaiju_2.jpg?v=1735804167&width=360" alt=""
                             class="img-fluid">
                     </div>
                     <div class="product_info mt-2">
-                        <h3 class="product_title">
+                        <h3 class="product_title2">
                             The Clash T-shirt
                         </h3>
-                        <p class="product_price text-muted">
-                            RS. 4,995
+                        <p class="product_price2 text-muted">
+                            RS. 4,995 <s>RS. 5,995</s>
                         </p>
                     </div>
                 </div>
                 <div class="col-3">
-                    <div class="product_img">
-                        <img src="https://bluorng.com/cdn/shop/files/DSC099288.jpg?v=1738849896&width=360" alt=""
+                    <div class="product_img2">
+                        <img src="https://crazymonk.in/cdn/shop/files/UltraEgo_1.jpg?v=1735804165&width=360" alt=""
                             class="img-fluid">
                     </div>
                     <div class="product_info mt-2">
-                        <h3 class="product_title">
+                        <h3 class="product_title2">
                             The Clash T-shirt
                         </h3>
-                        <p class="product_price text-muted">
-                            RS. 4,995
+                        <p class="product_price2 text-muted">
+                            RS. 4,995 <s>RS. 5,995</s>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="product_img2">
+                        <img src="https://crazymonk.in/cdn/shop/files/NagiBlueLock_1.jpg?v=1735804175&width=360"
+                            alt="" class="img-fluid">
+                    </div>
+                    <div class="product_info mt-2">
+                        <h3 class="product_title2">
+                            The Clash T-shirt
+                        </h3>
+                        <p class="product_price2 text-muted">
+                            RS. 4,995 <s>RS. 5,995</s>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="product_img2">
+                        <img src="https://crazymonk.in/cdn/shop/files/2_13a45b93-3208-47ee-ae4b-b50fbc00bd6f.jpg?v=1736671203&width=360"
+                            alt="" class="img-fluid">
+                    </div>
+                    <div class="product_info mt-2">
+                        <h3 class="product_title2">
+                            The Clash T-shirt
+                        </h3>
+                        <p class="product_price2 text-muted">
+                            RS. 4,995 <s>RS. 5,995</s>
                         </p>
                     </div>
                 </div>
@@ -107,7 +104,7 @@
 
             <div class="row py-4">
                 <div class="col-12 text-center">
-                    <a href="" class="discover_more_btn">Discover More</a>
+                    <a href="" class="discover_more_btn rounded">Discover More</a>
                 </div>
             </div>
         </div>
@@ -117,70 +114,70 @@
 
     {{-- ============================================= Design Collection Section Start ==================================== --}}
     <section class="design_collection_section mt-4">
-        <div class="container-fluid">
+        <div class="container">
             <div class="row justify-content-between mb-3 align-items-center">
                 <div class="col">
                     <p class="text-uppercase secondary-font-size mb-0">Design Collection</p>
                 </div>
                 <div class="col text-end">
-                    <a href="" class="link-normal p-2  discover_more_btn">Discover More</a>
+                    <a href="" class="link-normal p-2  discover_more_btn rounded">Discover More</a>
                 </div>
             </div>
 
-            <div class="row g-1">
+            <div class="row g-4">
                 <div class="col-3">
-                    <div class="product_img">
-                        <img src="https://bluorng.com/cdn/shop/files/WHITE_WILD_BUNCH_FRONT_FLYING.jpg?v=1738932437&width=360"
-                            alt="" class="img-fluid">
-                    </div>
-                    <div class="product_info mt-2">
-                        <h3 class="product_title">
-                            The Clash T-shirt
-                        </h3>
-                        <p class="product_price text-muted">
-                            RS. 4,995
-                        </p>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="product_img">
-                        <img src="https://bluorng.com/cdn/shop/files/BLACKWILDBUNCHFRONTFLYING.jpg?v=1738932421&width=360"
-                            alt="" class="img-fluid">
-                    </div>
-                    <div class="product_info mt-2">
-                        <h3 class="product_title">
-                            The Clash T-shirt
-                        </h3>
-                        <p class="product_price text-muted">
-                            RS. 4,995
-                        </p>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="product_img">
-                        <img src="https://bluorng.com/cdn/shop/files/hbh_kb.jpg?v=1738849531&width=360" alt=""
+                    <div class="product_img2">
+                        <img src="https://crazymonk.in/cdn/shop/files/Kaiju_2.jpg?v=1735804167&width=360" alt=""
                             class="img-fluid">
                     </div>
                     <div class="product_info mt-2">
-                        <h3 class="product_title">
+                        <h3 class="product_title2">
                             The Clash T-shirt
                         </h3>
-                        <p class="product_price text-muted">
-                            RS. 4,995
+                        <p class="product_price2 text-muted">
+                            RS. 4,995 <s>RS. 5,995</s>
                         </p>
                     </div>
                 </div>
                 <div class="col-3">
-                    <div class="product_img">
-                        <img src="https://bluorng.com/cdn/shop/files/DSC099288.jpg?v=1738849896&width=360" alt=""
+                    <div class="product_img2">
+                        <img src="https://crazymonk.in/cdn/shop/files/UltraEgo_1.jpg?v=1735804165&width=360" alt=""
                             class="img-fluid">
                     </div>
                     <div class="product_info mt-2">
-                        <h3 class="product_title">
+                        <h3 class="product_title2">
                             The Clash T-shirt
                         </h3>
-                        <p class="product_price text-muted">
-                            RS. 4,995
+                        <p class="product_price2 text-muted">
+                            RS. 4,995 <s>RS. 5,995</s>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="product_img2">
+                        <img src="https://crazymonk.in/cdn/shop/files/NagiBlueLock_1.jpg?v=1735804175&width=360"
+                            alt="" class="img-fluid">
+                    </div>
+                    <div class="product_info mt-2">
+                        <h3 class="product_title2">
+                            The Clash T-shirt
+                        </h3>
+                        <p class="product_price2 text-muted">
+                            RS. 4,995 <s>RS. 5,995</s>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="product_img2">
+                        <img src="https://crazymonk.in/cdn/shop/files/2_13a45b93-3208-47ee-ae4b-b50fbc00bd6f.jpg?v=1736671203&width=360"
+                            alt="" class="img-fluid">
+                    </div>
+                    <div class="product_info mt-2">
+                        <h3 class="product_title2">
+                            The Clash T-shirt
+                        </h3>
+                        <p class="product_price2 text-muted">
+                            RS. 4,995 <s>RS. 5,995</s>
                         </p>
                     </div>
                 </div>
@@ -188,7 +185,7 @@
 
             <div class="row py-4">
                 <div class="col-12 text-center">
-                    <a href="" class="discover_more_btn">Discover More</a>
+                    <a href="" class="discover_more_btn rounded">Discover More</a>
                 </div>
             </div>
         </div>
@@ -200,126 +197,70 @@
 
     {{-- ============================================= All Product Section Start ==================================== --}}
     <section class="design_collection_section mt-4">
-        <div class="container-fluid">
+        <div class="container">
             <div class="row justify-content-between mb-3 align-items-center">
                 <div class="col">
                     <p class="text-uppercase secondary-font-size mb-0">All Products</p>
                 </div>
                 <div class="col text-end">
-                    <a href="" class="link-normal p-2  discover_more_btn">Discover More</a>
+                    <a href="" class="link-normal p-2  discover_more_btn rounded">Discover More</a>
                 </div>
             </div>
 
-            <div class="row g-1">
+            <div class="row g-4">
                 <div class="col-3">
-                    <div class="product_img">
-                        <img src="https://bluorng.com/cdn/shop/files/WHITE_WILD_BUNCH_FRONT_FLYING.jpg?v=1738932437&width=360"
-                            alt="" class="img-fluid">
-                    </div>
-                    <div class="product_info mt-2">
-                        <h3 class="product_title">
-                            The Clash T-shirt
-                        </h3>
-                        <p class="product_price text-muted">
-                            RS. 4,995
-                        </p>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="product_img">
-                        <img src="https://bluorng.com/cdn/shop/files/BLACKWILDBUNCHFRONTFLYING.jpg?v=1738932421&width=360"
-                            alt="" class="img-fluid">
-                    </div>
-                    <div class="product_info mt-2">
-                        <h3 class="product_title">
-                            The Clash T-shirt
-                        </h3>
-                        <p class="product_price text-muted">
-                            RS. 4,995
-                        </p>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="product_img">
-                        <img src="https://bluorng.com/cdn/shop/files/hbh_kb.jpg?v=1738849531&width=360" alt=""
+                    <div class="product_img2">
+                        <img src="https://crazymonk.in/cdn/shop/files/Kaiju_2.jpg?v=1735804167&width=360" alt=""
                             class="img-fluid">
                     </div>
                     <div class="product_info mt-2">
-                        <h3 class="product_title">
+                        <h3 class="product_title2">
                             The Clash T-shirt
                         </h3>
-                        <p class="product_price text-muted">
-                            RS. 4,995
+                        <p class="product_price2 text-muted">
+                            RS. 4,995 <s>RS. 5,995</s>
                         </p>
                     </div>
                 </div>
                 <div class="col-3">
-                    <div class="product_img">
-                        <img src="https://bluorng.com/cdn/shop/files/DSC099288.jpg?v=1738849896&width=360" alt=""
-                            class="img-fluid">
-                    </div>
-                    <div class="product_info mt-2">
-                        <h3 class="product_title">
-                            The Clash T-shirt
-                        </h3>
-                        <p class="product_price text-muted">
-                            RS. 4,995
-                        </p>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="product_img">
-                        <img src="https://bluorng.com/cdn/shop/files/DSC081771.jpg?v=1735887429&width=360" alt=""
-                            class="img-fluid">
-                    </div>
-                    <div class="product_info mt-2">
-                        <h3 class="product_title">
-                            The Clash T-shirt
-                        </h3>
-                        <p class="product_price text-muted">
-                            RS. 4,995
-                        </p>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="product_img">
-                        <img src="https://bluorng.com/cdn/shop/files/tshirt3backwithgradient.jpg?v=1738600993&width=360"
+                    <div class="product_img2">
+                        <img src="https://crazymonk.in/cdn/shop/files/UltraEgo_1.jpg?v=1735804165&width=360"
                             alt="" class="img-fluid">
                     </div>
                     <div class="product_info mt-2">
-                        <h3 class="product_title">
+                        <h3 class="product_title2">
                             The Clash T-shirt
                         </h3>
-                        <p class="product_price text-muted">
-                            RS. 4,995
+                        <p class="product_price2 text-muted">
+                            RS. 4,995 <s>RS. 5,995</s>
                         </p>
                     </div>
                 </div>
                 <div class="col-3">
-                    <div class="product_img">
-                        <img src="https://bluorng.com/cdn/shop/files/Untitled-1front.jpg?v=1738659142&width=360"
+                    <div class="product_img2">
+                        <img src="https://crazymonk.in/cdn/shop/files/NagiBlueLock_1.jpg?v=1735804175&width=360"
                             alt="" class="img-fluid">
                     </div>
                     <div class="product_info mt-2">
-                        <h3 class="product_title">
+                        <h3 class="product_title2">
                             The Clash T-shirt
                         </h3>
-                        <p class="product_price text-muted">
-                            RS. 4,995
+                        <p class="product_price2 text-muted">
+                            RS. 4,995 <s>RS. 5,995</s>
                         </p>
                     </div>
                 </div>
                 <div class="col-3">
-                    <div class="product_img">
-                        <img src="https://bluorng.com/cdn/shop/files/DSC081775.jpg?v=1735887829&width=360" alt=""
-                            class="img-fluid">
+                    <div class="product_img2">
+                        <img src="https://crazymonk.in/cdn/shop/files/2_13a45b93-3208-47ee-ae4b-b50fbc00bd6f.jpg?v=1736671203&width=360"
+                            alt="" class="img-fluid">
                     </div>
                     <div class="product_info mt-2">
-                        <h3 class="product_title">
+                        <h3 class="product_title2">
                             The Clash T-shirt
                         </h3>
-                        <p class="product_price text-muted">
-                            RS. 4,995
+                        <p class="product_price2 text-muted">
+                            RS. 4,995 <s>RS. 5,995</s>
                         </p>
                     </div>
                 </div>
@@ -327,7 +268,7 @@
 
             <div class="row py-4">
                 <div class="col-12 text-center">
-                    <a href="" class="discover_more_btn">Discover More</a>
+                    <a href="" class="discover_more_btn rounded">Discover More</a>
                 </div>
             </div>
         </div>

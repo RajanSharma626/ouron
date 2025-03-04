@@ -16,9 +16,9 @@
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center gap-1">
-                            <h4 class="card-title flex-grow-1">All Product List</h4>
+                            <h4 class="card-title flex-grow-1">Edit Product </h4>
 
-                            <a href="{{ route('admin.products.add') }}" class="btn btn-sm btn-primary">
+                            <a href="" class="btn btn-sm btn-primary">
                                 Add Product
                             </a>
 
@@ -124,30 +124,14 @@
                         <div class="card-footer border-top">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-end mb-0">
-                                    <!-- Previous Button -->
-                                    @if ($products->onFirstPage())
-                                        <li class="page-item disabled"><span class="page-link">Previous</span></li>
-                                    @else
-                                        <li class="page-item">
-                                            <a class="page-link" href="{{ $products->previousPageUrl() }}">Previous</a>
-                                        </li>
-                                    @endif
-
-                                    <!-- Page Numbers -->
-                                    @foreach ($products->getUrlRange(1, $products->lastPage()) as $page => $url)
-                                        <li class="page-item {{ $page == $products->currentPage() ? 'active' : '' }}">
-                                            <a class="page-link" href="{{ $url }}">{{ $page }}</a>
-                                        </li>
-                                    @endforeach
-
-                                    <!-- Next Button -->
-                                    @if ($products->hasMorePages())
-                                        <li class="page-item">
-                                            <a class="page-link" href="{{ $products->nextPageUrl() }}">Next</a>
-                                        </li>
-                                    @else
-                                        <li class="page-item disabled"><span class="page-link">Next</span></li>
-                                    @endif
+                                    <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a>
+                                    </li>
+                                    <li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a>
+                                    </li>
                                 </ul>
                             </nav>
                         </div>

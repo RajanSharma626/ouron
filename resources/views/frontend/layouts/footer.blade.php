@@ -1,4 +1,4 @@
-<footer class="py-5 pb-0 mt-5">
+<footer class="py-5 pb-0 mt-5 secondary-bg">
     <div class="container">
         <div class="row justify-content-between">
             <!-- Left: Logo -->
@@ -37,7 +37,7 @@
     </div>
 
     <!-- Bottom Social Media Links -->
-    <div class="bg-black text-white text-center py-2">
+    <div class="primary-bg text-white text-center py-2">
         <div class="container">
             <div class="row">
                 <div class="col">

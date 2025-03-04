@@ -124,9 +124,106 @@
     font-style: italic;
 }
 
+/* Webfont: Qurova-Bold */
+@font-face {
+    font-family: 'Qurova';
+    src: url('/fonts/Qurova/Qurova-Bold.eot');
+    /* IE9 Compat Modes */
+    src: url('/fonts/Qurova/Qurova-Bold.eot?#iefix') format('embedded-opentype'),
+        /* IE6-IE8 */
+        url('/fonts/Qurova/Qurova-Bold.woff') format('woff'),
+        /* Modern Browsers */
+        url('/fonts/Qurova/Qurova-Bold.woff2') format('woff2'),
+        /* Modern Browsers */
+        url('/fonts/Qurova/Qurova-Bold.ttf') format('truetype');
+    /* Safari, Android, iOS */
+    font-style: normal;
+    font-weight: bold;
+    text-rendering: optimizeLegibility;
+}
+
+/* Webfont: Qurova-Light */
+@font-face {
+    font-family: 'QurovaLight';
+    src: url('/fonts/Qurova/Qurova-Light.eot');
+    /* IE9 Compat Modes */
+    src: url('/fonts/Qurova/Qurova-Light.eot?#iefix') format('embedded-opentype'),
+        /* IE6-IE8 */
+        url('/fonts/Qurova/Qurova-Light.woff') format('woff'),
+        /* Modern Browsers */
+        url('/fonts/Qurova/Qurova-Light.woff2') format('woff2'),
+        /* Modern Browsers */
+        url('/fonts/Qurova/Qurova-Light.ttf') format('truetype');
+    /* Safari, Android, iOS */
+    font-style: normal;
+    font-weight: normal;
+    text-rendering: optimizeLegibility;
+}
+
+/* Webfont: Qurova-Medium */
+@font-face {
+    font-family: 'QurovaMed';
+    src: url('/fonts/Qurova/Qurova-Medium.eot');
+    /* IE9 Compat Modes */
+    src: url('/fonts/Qurova/Qurova-Medium.eot?#iefix') format('embedded-opentype'),
+        /* IE6-IE8 */
+        url('/fonts/Qurova/Qurova-Medium.woff') format('woff'),
+        /* Modern Browsers */
+        url('/fonts/Qurova/Qurova-Medium.woff2') format('woff2'),
+        /* Modern Browsers */
+        url('/fonts/Qurova/Qurova-Medium.ttf') format('truetype');
+    /* Safari, Android, iOS */
+    font-style: normal;
+    font-weight: normal;
+    text-rendering: optimizeLegibility;
+}
+
+/* Webfont: Qurova-Regular */
+@font-face {
+    font-family: 'Qurova';
+    src: url('/fonts/Qurova/Qurova-Regular.eot');
+    src: url('/fonts/Qurova/Qurova-Regular.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/Qurova/Qurova-Regular.woff') format('woff'),
+        url('/fonts/Qurova/Qurova-Regular.woff2') format('woff2'),
+        url('/fonts/Qurova/Qurova-Regular.ttf') format('truetype');
+    font-style: normal;
+    font-weight: normal;
+    text-rendering: optimizeLegibility;
+}
+
+
+/* Webfont: Qurova-SemiBold */
+@font-face {
+    font-family: 'QurovaSemBd';
+    src: url('/fonts/Qurova/Qurova-SemiBold.eot');
+    /* IE9 Compat Modes */
+    src: url('/fonts/Qurova/Qurova-SemiBold.eot?#iefix') format('embedded-opentype'),
+        /* IE6-IE8 */
+        url('/fonts/Qurova/Qurova-SemiBold.woff') format('woff'),
+        /* Modern Browsers */
+        url('/fonts/Qurova/Qurova-SemiBold.woff2') format('woff2'),
+        /* Modern Browsers */
+        url('/fonts/Qurova/Qurova-SemiBold.ttf') format('truetype');
+    /* Safari, Android, iOS */
+    font-style: normal;
+    font-weight: normal;
+    text-rendering: optimizeLegibility;
+}
+
+:root {
+    --primary-color: #315B46;
+    --secondary-color: #EAE7C3;
+    --primary-font: 'Qurova', sans-serif;
+    --secondary-font: 'ArgentumSans', sans-serif;
+}
+
+
+
+
+
 body,
 * {
-    font-family: 'ArgentumSans', sans-serif;
+    font-family: var(--primary-font);
     font-weight: 300;
     text-transform: uppercase;
     /* Regular */
@@ -138,15 +235,19 @@ body {
 
 
 .primary-font-size {
-    font-size: 0.70vw !important;
+    font-size: 0.80vw !important;
     color: black !important;
 }
 
-.secondary-font-size {
-    font-size: 0.7rem !important;
+.fs-1rem {
+    font-size: 1rem !important;
 }
 
-.link-normal {
+.fs-70rem {
+    font-size: 0.70rem !important;
+}
+
+.fs .link-normal {
     text-decoration: none;
     color: black;
 }
@@ -158,6 +259,16 @@ body {
 
 .fw-400 {
     font-weight: 400 !important;
+}
+
+.primary-bg {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+.secondary-bg {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
 }
 
 
@@ -182,14 +293,27 @@ body {
     font-weight: 400;
 }
 
+.product_title2 {
+    font-size: 14px;
+    margin-bottom: 0px;
+    font-weight: 400;
+}
+
+.product_img2 img{
+    border-radius: 10px;
+}
+
 .product_price {
     font-size: 10px;
 }
+.product_price2 {
+    font-size: 12px;
+}
 
 .discover_more_btn {
-    border: 1px solid black;
+    border: 1px solid var(--primary-color);
     text-decoration: none;
-    color: black;
+    color: var(--primary-color);
     padding: 8px 20px;
     font-size: 10px;
     font-weight: 300;
@@ -198,8 +322,8 @@ body {
 
 .discover_more_btn:hover {
     border-radius: 20px;
-    background-color: black;
-    color: white;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
 }
 
 footer ul li,
