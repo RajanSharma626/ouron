@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -9,9 +10,9 @@ Route::get('/', function () {
     return view('frontend.home');
 })->name('home');
 
-Route::get('/home-2', function () {
-    return view('frontend.home-2');
-})->name('home-2');
+Route::get('/product/{slug}', function () {
+    return view('frontend.product-detail');
+})->name('product.detail');
 
 
 
@@ -36,7 +37,15 @@ Route::middleware(['admin.auth'])->prefix('admin')->group(function () {
         return view('admin.product-edit');
     })->name('admin.products.edit');
 
-    Route::get('/products/add', function () {
-        return view('admin.product-add');
-    })->name('admin.products.add');
+    Route::get('/products/add', [ProductController::class, 'add'])->name('admin.products.add');
+
+    Route::get('/category', [CategoryController::class, 'index'])->name('admin.category');
+
+    Route::get('/category/add', function () {
+        return view('admin.category-add');
+    })->name('admin.category.add');
+
+    Route::post('/category/store', [CategoryController::class, 'store'])->name('category.store');
+
+    Route::get('/category/delete/{id}', [CategoryController::class, 'destroy'])->name('category.delete');
 });

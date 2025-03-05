@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Str;
@@ -20,6 +21,12 @@ class ProductController extends Controller
         return view('admin.products.create');
     }
 
+
+    public function add()
+    {
+        $categories = Category::all();
+        return view('admin.product-add', compact('categories'));
+    }
 
     // Store a new product
     public function store(Request $request)

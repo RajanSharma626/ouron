@@ -46,61 +46,72 @@
                 </div>
             </div>
 
-            <div class="row g-1">
+            <div class="row g-2">
                 <div class="col-3">
-                    <div class="product_img">
-                        <img src="https://bluorng.com/cdn/shop/files/WHITE_WILD_BUNCH_FRONT_FLYING.jpg?v=1738932437&width=360"
-                            alt="" class="img-fluid">
-                    </div>
-                    <div class="product_info mt-2">
-                        <h3 class="product_title">
-                            The Clash T-shirt
-                        </h3>
-                        <p class="product_price text-muted">
-                            RS. 4,995
-                        </p>
+                    <div class="product_card">
+                        <div class="product_img">
+                            <img src="https://bluorng.com/cdn/shop/files/WHITE_WILD_BUNCH_FRONT_FLYING.jpg?v=1738932437&width=360"
+                                alt="" class="img-fluid">
+                        </div>
+                        <div class="product_info p-2 pb-0">
+                            <h3 class="product_title">
+                                The Clash T-shirt
+                            </h3>
+                            <p class="product_price text-muted">
+                                RS. 4,995
+                            </p>
+                        </div>
                     </div>
                 </div>
                 <div class="col-3">
-                    <div class="product_img">
-                        <img src="https://bluorng.com/cdn/shop/files/BLACKWILDBUNCHFRONTFLYING.jpg?v=1738932421&width=360"
-                            alt="" class="img-fluid">
-                    </div>
-                    <div class="product_info mt-2">
-                        <h3 class="product_title">
-                            The Clash T-shirt
-                        </h3>
-                        <p class="product_price text-muted">
-                            RS. 4,995
-                        </p>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="product_img">
-                        <img src="https://bluorng.com/cdn/shop/files/hbh_kb.jpg?v=1738849531&width=360" alt=""
-                            class="img-fluid">
-                    </div>
-                    <div class="product_info mt-2">
-                        <h3 class="product_title">
-                            The Clash T-shirt
-                        </h3>
-                        <p class="product_price text-muted">
-                            RS. 4,995
-                        </p>
+                    <div class="product_card">
+
+                        <div class="product_img">
+                            <img src="https://bluorng.com/cdn/shop/files/BLACKWILDBUNCHFRONTFLYING.jpg?v=1738932421&width=360"
+                                alt="" class="img-fluid">
+                        </div>
+                        <div class="product_info p-2 pb-0">
+                            <h3 class="product_title">
+                                The Clash T-shirt
+                            </h3>
+                            <p class="product_price text-muted">
+                                RS. 4,995
+                            </p>
+                        </div>
                     </div>
                 </div>
                 <div class="col-3">
-                    <div class="product_img">
-                        <img src="https://bluorng.com/cdn/shop/files/DSC099288.jpg?v=1738849896&width=360" alt=""
-                            class="img-fluid">
+                    <div class="product_card">
+
+                        <div class="product_img">
+                            <img src="https://bluorng.com/cdn/shop/files/hbh_kb.jpg?v=1738849531&width=360" alt=""
+                                class="img-fluid">
+                        </div>
+                        <div class="product_info p-2 pb-0">
+                            <h3 class="product_title">
+                                The Clash T-shirt
+                            </h3>
+                            <p class="product_price text-muted">
+                                RS. 4,995
+                            </p>
+                        </div>
                     </div>
-                    <div class="product_info mt-2">
-                        <h3 class="product_title">
-                            The Clash T-shirt
-                        </h3>
-                        <p class="product_price text-muted">
-                            RS. 4,995
-                        </p>
+                </div>
+                <div class="col-3">
+                    <div class="product_card">
+
+                        <div class="product_img">
+                            <img src="https://bluorng.com/cdn/shop/files/DSC099288.jpg?v=1738849896&width=360"
+                                alt="" class="img-fluid">
+                        </div>
+                        <div class="product_info p-2 pb-0">
+                            <h3 class="product_title">
+                                The Clash T-shirt
+                            </h3>
+                            <p class="product_price text-muted">
+                                RS. 4,995
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -114,74 +125,255 @@
     </section>
     {{-- ============================================= New Arrival Section End ==================================== --}}
 
+    <div class="container-fluid py-5">
+        <div class="row">
+            <div class="col-12">
+                <a href=""><img
+                        src="https://crazymonk.in/cdn/shop/files/Banner_for_Website_front_page_1.jpg?v=1740377697&width=2000"
+                        class="img-fluid" alt="Slide 1"></a>
+            </div>
+        </div>
 
-    {{-- ============================================= Design Collection Section Start ==================================== --}}
-    <section class="design_collection_section mt-4">
+    </div>
+
+
+    {{-- ============================================= All Product Section Start ==================================== --}}
+    <section class="design_collection_section py-5">
         <div class="container-fluid">
             <div class="row justify-content-between mb-3 align-items-center">
                 <div class="col">
-                    <p class="text-uppercase secondary-font-size mb-0">Design Collection</p>
+                    <p class="text-uppercase secondary-font-size mb-0">All Products</p>
                 </div>
                 <div class="col text-end">
                     <a href="" class="link-normal p-2  discover_more_btn">Discover More</a>
                 </div>
             </div>
 
-            <div class="row g-1">
+            <div class="row g-2">
                 <div class="col-3">
-                    <div class="product_img">
-                        <img src="https://bluorng.com/cdn/shop/files/WHITE_WILD_BUNCH_FRONT_FLYING.jpg?v=1738932437&width=360"
-                            alt="" class="img-fluid">
-                    </div>
-                    <div class="product_info mt-2">
-                        <h3 class="product_title">
-                            The Clash T-shirt
-                        </h3>
-                        <p class="product_price text-muted">
-                            RS. 4,995
-                        </p>
+                    <div class="product_card">
+                        <div class="product_img">
+                            <img src="https://bluorng.com/cdn/shop/files/WHITE_WILD_BUNCH_FRONT_FLYING.jpg?v=1738932437&width=360"
+                                alt="" class="img-fluid">
+                        </div>
+                        <div class="product_info p-2 pb-0">
+                            <h3 class="product_title">
+                                The Clash T-shirt
+                            </h3>
+                            <p class="product_price text-muted">
+                                RS. 4,995
+                            </p>
+                        </div>
                     </div>
                 </div>
                 <div class="col-3">
-                    <div class="product_img">
-                        <img src="https://bluorng.com/cdn/shop/files/BLACKWILDBUNCHFRONTFLYING.jpg?v=1738932421&width=360"
-                            alt="" class="img-fluid">
-                    </div>
-                    <div class="product_info mt-2">
-                        <h3 class="product_title">
-                            The Clash T-shirt
-                        </h3>
-                        <p class="product_price text-muted">
-                            RS. 4,995
-                        </p>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="product_img">
-                        <img src="https://bluorng.com/cdn/shop/files/hbh_kb.jpg?v=1738849531&width=360" alt=""
-                            class="img-fluid">
-                    </div>
-                    <div class="product_info mt-2">
-                        <h3 class="product_title">
-                            The Clash T-shirt
-                        </h3>
-                        <p class="product_price text-muted">
-                            RS. 4,995
-                        </p>
+                    <div class="product_card">
+
+                        <div class="product_img">
+                            <img src="https://bluorng.com/cdn/shop/files/BLACKWILDBUNCHFRONTFLYING.jpg?v=1738932421&width=360"
+                                alt="" class="img-fluid">
+                        </div>
+                        <div class="product_info p-2 pb-0">
+                            <h3 class="product_title">
+                                The Clash T-shirt
+                            </h3>
+                            <p class="product_price text-muted">
+                                RS. 4,995
+                            </p>
+                        </div>
                     </div>
                 </div>
                 <div class="col-3">
-                    <div class="product_img">
-                        <img src="https://bluorng.com/cdn/shop/files/DSC099288.jpg?v=1738849896&width=360" alt=""
-                            class="img-fluid">
+                    <div class="product_card">
+
+                        <div class="product_img">
+                            <img src="https://bluorng.com/cdn/shop/files/hbh_kb.jpg?v=1738849531&width=360" alt=""
+                                class="img-fluid">
+                        </div>
+                        <div class="product_info p-2 pb-0">
+                            <h3 class="product_title">
+                                The Clash T-shirt
+                            </h3>
+                            <p class="product_price text-muted">
+                                RS. 4,995
+                            </p>
+                        </div>
                     </div>
-                    <div class="product_info mt-2">
-                        <h3 class="product_title">
-                            The Clash T-shirt
-                        </h3>
-                        <p class="product_price text-muted">
-                            RS. 4,995
-                        </p>
+                </div>
+                <div class="col-3">
+                    <div class="product_card">
+
+                        <div class="product_img">
+                            <img src="https://bluorng.com/cdn/shop/files/DSC099288.jpg?v=1738849896&width=360"
+                                alt="" class="img-fluid">
+                        </div>
+                        <div class="product_info p-2 pb-0">
+                            <h3 class="product_title">
+                                The Clash T-shirt
+                            </h3>
+                            <p class="product_price text-muted">
+                                RS. 4,995
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-3">
+                    <div class="product_card">
+                        <div class="product_img">
+                            <img src="https://bluorng.com/cdn/shop/files/WHITE_WILD_BUNCH_FRONT_FLYING.jpg?v=1738932437&width=360"
+                                alt="" class="img-fluid">
+                        </div>
+                        <div class="product_info p-2 pb-0">
+                            <h3 class="product_title">
+                                The Clash T-shirt
+                            </h3>
+                            <p class="product_price text-muted">
+                                RS. 4,995
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="product_card">
+
+                        <div class="product_img">
+                            <img src="https://bluorng.com/cdn/shop/files/BLACKWILDBUNCHFRONTFLYING.jpg?v=1738932421&width=360"
+                                alt="" class="img-fluid">
+                        </div>
+                        <div class="product_info p-2 pb-0">
+                            <h3 class="product_title">
+                                The Clash T-shirt
+                            </h3>
+                            <p class="product_price text-muted">
+                                RS. 4,995
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="product_card">
+
+                        <div class="product_img">
+                            <img src="https://bluorng.com/cdn/shop/files/hbh_kb.jpg?v=1738849531&width=360" alt=""
+                                class="img-fluid">
+                        </div>
+                        <div class="product_info p-2 pb-0">
+                            <h3 class="product_title">
+                                The Clash T-shirt
+                            </h3>
+                            <p class="product_price text-muted">
+                                RS. 4,995
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="product_card">
+
+                        <div class="product_img">
+                            <img src="https://bluorng.com/cdn/shop/files/DSC099288.jpg?v=1738849896&width=360"
+                                alt="" class="img-fluid">
+                        </div>
+                        <div class="product_info p-2 pb-0">
+                            <h3 class="product_title">
+                                The Clash T-shirt
+                            </h3>
+                            <p class="product_price text-muted">
+                                RS. 4,995
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row py-4">
+                <div class="col-12 text-center">
+                    <a href="" class="discover_more_btn">Discover More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    {{-- ============================================= All Product Section End ==================================== --}}
+
+    {{-- ============================================= Best seller Section Start ==================================== --}}
+    <section class="design_collection_section py-5">
+        <div class="container-fluid">
+            <div class="row justify-content-between mb-3 align-items-center">
+                <div class="col">
+                    <p class="text-uppercase secondary-font-size mb-0">Best Seller</p>
+                </div>
+                <div class="col text-end">
+                    <a href="" class="link-normal p-2  discover_more_btn">Discover More</a>
+                </div>
+            </div>
+
+            <div class="row g-2">
+                <div class="col-3">
+                    <div class="product_card">
+                        <div class="product_img">
+                            <img src="https://bluorng.com/cdn/shop/files/WHITE_WILD_BUNCH_FRONT_FLYING.jpg?v=1738932437&width=360"
+                                alt="" class="img-fluid">
+                        </div>
+                        <div class="product_info p-2 pb-0">
+                            <h3 class="product_title">
+                                The Clash T-shirt
+                            </h3>
+                            <p class="product_price text-muted">
+                                RS. 4,995
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="product_card">
+
+                        <div class="product_img">
+                            <img src="https://bluorng.com/cdn/shop/files/BLACKWILDBUNCHFRONTFLYING.jpg?v=1738932421&width=360"
+                                alt="" class="img-fluid">
+                        </div>
+                        <div class="product_info p-2 pb-0">
+                            <h3 class="product_title">
+                                The Clash T-shirt
+                            </h3>
+                            <p class="product_price text-muted">
+                                RS. 4,995
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="product_card">
+
+                        <div class="product_img">
+                            <img src="https://bluorng.com/cdn/shop/files/hbh_kb.jpg?v=1738849531&width=360" alt=""
+                                class="img-fluid">
+                        </div>
+                        <div class="product_info p-2 pb-0">
+                            <h3 class="product_title">
+                                The Clash T-shirt
+                            </h3>
+                            <p class="product_price text-muted">
+                                RS. 4,995
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="product_card">
+
+                        <div class="product_img">
+                            <img src="https://bluorng.com/cdn/shop/files/DSC099288.jpg?v=1738849896&width=360"
+                                alt="" class="img-fluid">
+                        </div>
+                        <div class="product_info p-2 pb-0">
+                            <h3 class="product_title">
+                                The Clash T-shirt
+                            </h3>
+                            <p class="product_price text-muted">
+                                RS. 4,995
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -196,143 +388,6 @@
     {{-- ============================================= Design Collection Section End ==================================== --}}
 
 
-
-
-    {{-- ============================================= All Product Section Start ==================================== --}}
-    <section class="design_collection_section mt-4">
-        <div class="container-fluid">
-            <div class="row justify-content-between mb-3 align-items-center">
-                <div class="col">
-                    <p class="text-uppercase secondary-font-size mb-0">All Products</p>
-                </div>
-                <div class="col text-end">
-                    <a href="" class="link-normal p-2  discover_more_btn">Discover More</a>
-                </div>
-            </div>
-
-            <div class="row g-1">
-                <div class="col-3">
-                    <div class="product_img">
-                        <img src="https://bluorng.com/cdn/shop/files/WHITE_WILD_BUNCH_FRONT_FLYING.jpg?v=1738932437&width=360"
-                            alt="" class="img-fluid">
-                    </div>
-                    <div class="product_info mt-2">
-                        <h3 class="product_title">
-                            The Clash T-shirt
-                        </h3>
-                        <p class="product_price text-muted">
-                            RS. 4,995
-                        </p>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="product_img">
-                        <img src="https://bluorng.com/cdn/shop/files/BLACKWILDBUNCHFRONTFLYING.jpg?v=1738932421&width=360"
-                            alt="" class="img-fluid">
-                    </div>
-                    <div class="product_info mt-2">
-                        <h3 class="product_title">
-                            The Clash T-shirt
-                        </h3>
-                        <p class="product_price text-muted">
-                            RS. 4,995
-                        </p>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="product_img">
-                        <img src="https://bluorng.com/cdn/shop/files/hbh_kb.jpg?v=1738849531&width=360" alt=""
-                            class="img-fluid">
-                    </div>
-                    <div class="product_info mt-2">
-                        <h3 class="product_title">
-                            The Clash T-shirt
-                        </h3>
-                        <p class="product_price text-muted">
-                            RS. 4,995
-                        </p>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="product_img">
-                        <img src="https://bluorng.com/cdn/shop/files/DSC099288.jpg?v=1738849896&width=360" alt=""
-                            class="img-fluid">
-                    </div>
-                    <div class="product_info mt-2">
-                        <h3 class="product_title">
-                            The Clash T-shirt
-                        </h3>
-                        <p class="product_price text-muted">
-                            RS. 4,995
-                        </p>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="product_img">
-                        <img src="https://bluorng.com/cdn/shop/files/DSC081771.jpg?v=1735887429&width=360" alt=""
-                            class="img-fluid">
-                    </div>
-                    <div class="product_info mt-2">
-                        <h3 class="product_title">
-                            The Clash T-shirt
-                        </h3>
-                        <p class="product_price text-muted">
-                            RS. 4,995
-                        </p>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="product_img">
-                        <img src="https://bluorng.com/cdn/shop/files/tshirt3backwithgradient.jpg?v=1738600993&width=360"
-                            alt="" class="img-fluid">
-                    </div>
-                    <div class="product_info mt-2">
-                        <h3 class="product_title">
-                            The Clash T-shirt
-                        </h3>
-                        <p class="product_price text-muted">
-                            RS. 4,995
-                        </p>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="product_img">
-                        <img src="https://bluorng.com/cdn/shop/files/Untitled-1front.jpg?v=1738659142&width=360"
-                            alt="" class="img-fluid">
-                    </div>
-                    <div class="product_info mt-2">
-                        <h3 class="product_title">
-                            The Clash T-shirt
-                        </h3>
-                        <p class="product_price text-muted">
-                            RS. 4,995
-                        </p>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="product_img">
-                        <img src="https://bluorng.com/cdn/shop/files/DSC081775.jpg?v=1735887829&width=360" alt=""
-                            class="img-fluid">
-                    </div>
-                    <div class="product_info mt-2">
-                        <h3 class="product_title">
-                            The Clash T-shirt
-                        </h3>
-                        <p class="product_price text-muted">
-                            RS. 4,995
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row py-4">
-                <div class="col-12 text-center">
-                    <a href="" class="discover_more_btn">Discover More</a>
-                </div>
-            </div>
-        </div>
-    </section>
-    {{-- ============================================= All Product Section End ==================================== --}}
 
 
     {{-- ============================================= Marquee Section Start ==================================== --}}

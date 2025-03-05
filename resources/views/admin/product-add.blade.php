@@ -58,16 +58,11 @@
                                             data-choices-groups data-placeholder="Select Categories"
                                             name="choices-single-groups">
                                             <option value="">Choose a categories</option>
-                                            <option value="Fashion">Fashion</option>
-                                            <option value="Electronics">Electronics</option>
-                                            <option value="Footwear">Footwear</option>
-                                            <option value="Sportswear">Sportswear</option>
-                                            <option value="Watches">Watches</option>
-                                            <option value="Furniture">Furniture</option>
-                                            <option value="Appliances">Appliances</option>
-                                            <option value="Headphones">Headphones</option>
-                                            <option value="Other Accessories">Other Accessories</option>
+                                            @foreach ($categories as $category)
+                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            @endforeach
                                         </select>
+
                                     </form>
                                 </div>
                             </div>

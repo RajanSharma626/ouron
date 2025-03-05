@@ -212,13 +212,10 @@
 
 :root {
     --primary-color: #315B46;
-    --secondary-color: #EAE7C3;
+    --secondary-color: #f0efdf;
     --primary-font: 'Qurova', sans-serif;
     --secondary-font: 'ArgentumSans', sans-serif;
 }
-
-
-
 
 
 body,
@@ -299,13 +296,14 @@ body {
     font-weight: 400;
 }
 
-.product_img2 img{
+.product_img2 img {
     border-radius: 10px;
 }
 
 .product_price {
     font-size: 10px;
 }
+
 .product_price2 {
     font-size: 12px;
 }
@@ -332,4 +330,15 @@ footer p {
     font-size: 12px !important;
     padding-bottom: 10px;
     font: 300;
+}
+
+.product_card {
+    background-color: var(--secondary-color);
+    color: #315B46;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+    border-radius: 5px;
+}
+
+.product_card img {
+    border-radius: 5px 5px 0px 0px;
 }
