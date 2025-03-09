@@ -297,7 +297,7 @@
     {{-- ============================================= All Product Section End ==================================== --}}
 
     {{-- ============================================= Best seller Section Start ==================================== --}}
-    <section class="design_collection_section py-5">
+    <section class="best_seller_section py-5">
         <div class="container-fluid">
             <div class="row justify-content-between mb-3 align-items-center">
                 <div class="col">
@@ -385,7 +385,7 @@
             </div>
         </div>
     </section>
-    {{-- ============================================= Design Collection Section End ==================================== --}}
+    {{-- ============================================= Best Seller Section End ==================================== --}}
 
 
 
@@ -404,6 +404,123 @@
         </div>
     </section>
     {{-- ============================================= Marquee Section End ==================================== --}}
+
+
+    {{-- ============================================= Blogs Section Start ==================================== --}}
+    <section class="blogs_section py-5">
+        <div class="container-fluid">
+            <div class="row justify-content-between mb-3 align-items-center">
+                <div class="col">
+                    <p class="text-uppercase secondary-font-size mb-0">Latest Blogs</p>
+                </div>
+                <div class="col text-end">
+                    <a href="" class="link-normal p-2  discover_more_btn">Discover More</a>
+                </div>
+            </div>
+
+            <div class="row g-2">
+                <div class="col-3">
+                    <div class="product_card">
+                        <div class="product_img">
+                            <img src="https://bluorng.com/cdn/shop/files/WHITE_WILD_BUNCH_FRONT_FLYING.jpg?v=1738932437&width=360"
+                                alt="" class="img-fluid">
+                        </div>
+                        <div class="product_info p-2 pb-0">
+                            <h3 class="product_title">
+                                The Clash T-shirt
+                            </h3>
+                            <p class="product_price text-muted">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, at?
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="product_card">
+
+                        <div class="product_img">
+                            <img src="https://bluorng.com/cdn/shop/files/BLACKWILDBUNCHFRONTFLYING.jpg?v=1738932421&width=360"
+                                alt="" class="img-fluid">
+                        </div>
+                        <div class="product_info p-2 pb-0">
+                            <h3 class="product_title">
+                                The Clash T-shirt
+                            </h3>
+                            <p class="product_price text-muted">
+                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non, aspernatur!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="product_card">
+
+                        <div class="product_img">
+                            <img src="https://bluorng.com/cdn/shop/files/hbh_kb.jpg?v=1738849531&width=360" alt=""
+                                class="img-fluid">
+                        </div>
+                        <div class="product_info p-2 pb-0">
+                            <h3 class="product_title">
+                                The Clash T-shirt
+                            </h3>
+                            <p class="product_price text-muted">
+                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non, aspernatur!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="product_card">
+
+                        <div class="product_img">
+                            <img src="https://bluorng.com/cdn/shop/files/DSC099288.jpg?v=1738849896&width=360"
+                                alt="" class="img-fluid">
+                        </div>
+                        <div class="product_info p-2 pb-0">
+                            <h3 class="product_title">
+                                The Clash T-shirt
+                            </h3>
+                            <p class="product_price text-muted">
+                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non, aspernatur!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row py-4">
+                <div class="col-12 text-center">
+                    <a href="" class="discover_more_btn">Discover More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    {{-- ============================================= Best Seller Section End ==================================== --}}
+
+    {{-- ============================================= Newsletter Section ==================================== --}}
+    <section class="newsletter_section py-5 primary-bg">
+        <div class="container-fluid py-5">
+            <div class="row justify-content-center">
+                <div class="col-6">
+                    <div class="newsletter_content text-center">
+                        <h3 class="newsletter
+                            title">Subscribe to our Newsletter</h3>
+                        <p class="newsletter
+                            text text-normal">Sign up for our weekly
+                            newsletter to get the
+                            latest news, updates and amazing offers delivered directly in your inbox.</p>
+                        <form action="" class="newsletter_form">
+                            <div class="input-group">
+                                <input type="email" class="form-control" placeholder="Enter your email">
+                                <button class="btn subscribe_btn border-start">Subscribe</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {{-- ============================================= Newsletter Section End ==================================== --}}
 
 
 

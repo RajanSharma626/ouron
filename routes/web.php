@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CatProductsController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -10,9 +11,46 @@ Route::get('/', function () {
     return view('frontend.home');
 })->name('home');
 
+Route::get('/about-us', function () {
+    return view('frontend.about-us');
+})->name('about.us');
+
+Route::get('/faq', function () {
+    return view('frontend.faq');
+})->name('faq');
+
+Route::get('/contact-us', function () {
+    return view('frontend.contact-us');
+})->name('contact.us');
+
+Route::get('/blogs', function () {
+    return view('frontend.blogs');
+})->name('blogs');
+
 Route::get('/product/{slug}', function () {
     return view('frontend.product-detail');
 })->name('product.detail');
+
+
+Route::get('/all-product', [CatProductsController::class, 'allProduct'])->name('all-product');
+
+
+// Policy Routes
+Route::get('/shipping-policy', function () {
+    return view('frontend.shipping-policy');
+})->name('shipping-policy');
+
+Route::get('/refund-exchange-policy', function () {
+    return view('frontend.refund-exchange-policy');
+})->name('refund-exchange-policy');
+
+Route::get('/terms-and-conditions', function () {
+    return view('frontend.terms-and-conditions');
+})->name('terms-and-conditions');
+
+Route::get('/privacy-policy', function () {
+    return view('frontend.privacy-policy');
+})->name('privacy-policy');
 
 
 
@@ -33,19 +71,18 @@ Route::middleware(['admin.auth'])->prefix('admin')->group(function () {
 
     Route::get('/products', [ProductController::class, 'index'])->name('admin.products');
 
-    Route::get('/products/edit', function () {
-        return view('admin.product-edit');
-    })->name('admin.products.edit');
+    Route::get('/products/edit/{id}', [ProductController::class, 'edit'])->name('admin.products.edit');
 
     Route::get('/products/add', [ProductController::class, 'add'])->name('admin.products.add');
+    Route::post('/products/store', [ProductController::class, 'store'])->name('admin.products.store');
+    Route::get('/products/delete/{id}', [ProductController::class, 'destroy'])->name('product.delete');
+    Route::post('/products/update', [ProductController::class, 'update'])->name('product.update');
+
 
     Route::get('/category', [CategoryController::class, 'index'])->name('admin.category');
-
     Route::get('/category/add', function () {
         return view('admin.category-add');
     })->name('admin.category.add');
-
     Route::post('/category/store', [CategoryController::class, 'store'])->name('category.store');
-
     Route::get('/category/delete/{id}', [CategoryController::class, 'destroy'])->name('category.delete');
 });

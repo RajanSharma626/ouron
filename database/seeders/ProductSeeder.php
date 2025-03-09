@@ -21,7 +21,7 @@ class ProductSeeder extends Seeder
             'discount_price' => 90.00,
             'stock' => 50,
             'sku' => 'PROD12345',
-            'category' => 'Clothing',
+            'category_id' => '1',
             'images' => json_encode(["image1.jpg", "image2.jpg"]),
             'status' => 'active',
         ]);

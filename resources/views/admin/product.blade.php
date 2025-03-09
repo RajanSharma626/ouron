@@ -14,6 +14,21 @@
 
             <div class="row">
                 <div class="col-xl-12">
+                    @if (session('success'))
+                        <div class="col-12">
+                            <div class="alert alert-success text-truncate mb-3" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        </div>
+                    @endif
+
+                    @if (session('error'))
+                        <div class="col-12">
+                            <div class="alert alert-danger text-truncate mb-3" role="alert">
+                                {{ session('error') }}
+                            </div>
+                        </div>
+                    @endif
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center gap-1">
                             <h4 class="card-title flex-grow-1">All Product List</h4>
@@ -77,8 +92,9 @@
                                                         <div>
                                                             <a href="#!"
                                                                 class="text-dark fw-medium fs-15">{{ $product->name }}</a>
-                                                            <p class="text-muted mb-0 mt-1 fs-13"><span>Size : </span>S , M
-                                                                , L , Xl </p>
+                                                            <p class="text-muted mb-0 mt-1 fs-13"><span>Size :
+                                                                </span>{{ implode(', ', json_decode($product->sizes, true) ?? []) }}
+                                                            </p>
                                                         </div>
                                                     </div>
 
@@ -91,7 +107,7 @@
                                                             Item</span> Left</p>
                                                     {{-- <p class="mb-0 text-muted">155 Sold</p> --}}
                                                 </td>
-                                                <td> {{ $product->category }}</td>
+                                                <td> {{ $product->category->name ?? 'N/A' }}</td>
                                                 <td>
                                                     @if ($product->status == 'active')
                                                         <span class="badge badge-soft-success me-1">Active</span>
@@ -109,7 +125,8 @@
                                                             class="btn btn-soft-primary btn-sm"><iconify-icon
                                                                 icon="solar:pen-2-broken"
                                                                 class="align-middle fs-18"></iconify-icon></a>
-                                                        <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon
+                                                        <a href="{{ route('product.delete', $product->id) }}"
+                                                            class="btn btn-soft-danger btn-sm"><iconify-icon
                                                                 icon="solar:trash-bin-minimalistic-2-broken"
                                                                 class="align-middle fs-18"></iconify-icon></a>
                                                     </div>

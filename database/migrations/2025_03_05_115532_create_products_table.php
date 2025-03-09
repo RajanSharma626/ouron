@@ -17,12 +17,16 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->decimal('price', 10, 2);
+            $table->json('sizes')->nullable(); // Store sizes as JSON
+            $table->json('colors')->nullable(); // Store colors as JSON
             $table->decimal('discount_price', 10, 2)->nullable();
             $table->integer('stock')->default(0);
             $table->string('sku')->unique()->nullable();
-            $table->string('category')->nullable();
+            $table->unsignedBigInteger('category_id')->nullable(); // Corrected category column
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->json('images')->nullable(); // Store multiple images
             $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

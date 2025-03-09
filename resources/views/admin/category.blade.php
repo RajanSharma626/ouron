@@ -18,6 +18,13 @@
                         </div>
                     </div>
                 @endif
+                @if (session('error'))
+                    <div class="col-12">
+                        <div class="alert alert-danger text-truncate mb-3" role="alert">
+                            {{ session('error') }}
+                        </div>
+                    </div>
+                @endif
 
                 <div class="col-xl-12">
                     <div class="card">

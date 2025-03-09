@@ -19,7 +19,7 @@
                             <a class="nav-link text-uppercase primary-font-size fw-400" href="#">Apparel</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-uppercase primary-font-size fw-400" href="#">All Product</a>
+                            <a class="nav-link text-uppercase primary-font-size fw-400" href="{{route('all-product')}}">All Product</a>
                         </li>
                     </ul>
                 </div>

@@ -1,141 +1,141 @@
 @font-face {
-    font-family: 'ArgentumSans';
-    src: url('/fonts/ArgentumSans-Black.ttf') format('truetype');
+    font-family: "ArgentumSans";
+    src: url("/fonts/ArgentumSans-Black.ttf") format("truetype");
     font-weight: 900;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'ArgentumSans';
-    src: url('/fonts/ArgentumSans-BlackItalic.ttf') format('truetype');
+    font-family: "ArgentumSans";
+    src: url("/fonts/ArgentumSans-BlackItalic.ttf") format("truetype");
     font-weight: 900;
     font-style: italic;
 }
 
 @font-face {
-    font-family: 'ArgentumSans';
-    src: url('/fonts/ArgentumSans-Bold.ttf') format('truetype');
+    font-family: "ArgentumSans";
+    src: url("/fonts/ArgentumSans-Bold.ttf") format("truetype");
     font-weight: 700;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'ArgentumSans';
-    src: url('/fonts/ArgentumSans-BoldItalic.ttf') format('truetype');
+    font-family: "ArgentumSans";
+    src: url("/fonts/ArgentumSans-BoldItalic.ttf") format("truetype");
     font-weight: 700;
     font-style: italic;
 }
 
 @font-face {
-    font-family: 'ArgentumSans';
-    src: url('/fonts/ArgentumSans-ExtraBold.ttf') format('truetype');
+    font-family: "ArgentumSans";
+    src: url("/fonts/ArgentumSans-ExtraBold.ttf") format("truetype");
     font-weight: 800;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'ArgentumSans';
-    src: url('/fonts/ArgentumSans-ExtraBoldItalic.ttf') format('truetype');
+    font-family: "ArgentumSans";
+    src: url("/fonts/ArgentumSans-ExtraBoldItalic.ttf") format("truetype");
     font-weight: 800;
     font-style: italic;
 }
 
 @font-face {
-    font-family: 'ArgentumSans';
-    src: url('/fonts/ArgentumSans-ExtraLight.ttf') format('truetype');
+    font-family: "ArgentumSans";
+    src: url("/fonts/ArgentumSans-ExtraLight.ttf") format("truetype");
     font-weight: 200;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'ArgentumSans';
-    src: url('/fonts/ArgentumSans-ExtraLightItalic.ttf') format('truetype');
+    font-family: "ArgentumSans";
+    src: url("/fonts/ArgentumSans-ExtraLightItalic.ttf") format("truetype");
     font-weight: 200;
     font-style: italic;
 }
 
 @font-face {
-    font-family: 'ArgentumSans';
-    src: url('/fonts/ArgentumSans-Italic.ttf') format('truetype');
+    font-family: "ArgentumSans";
+    src: url("/fonts/ArgentumSans-Italic.ttf") format("truetype");
     font-weight: normal;
     font-style: italic;
 }
 
 @font-face {
-    font-family: 'ArgentumSans';
-    src: url('/fonts/ArgentumSans-Light.ttf') format('truetype');
+    font-family: "ArgentumSans";
+    src: url("/fonts/ArgentumSans-Light.ttf") format("truetype");
     font-weight: 300;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'ArgentumSans';
-    src: url('/fonts/ArgentumSans-LightItalic.ttf') format('truetype');
+    font-family: "ArgentumSans";
+    src: url("/fonts/ArgentumSans-LightItalic.ttf") format("truetype");
     font-weight: 300;
     font-style: italic;
 }
 
 @font-face {
-    font-family: 'ArgentumSans';
-    src: url('/fonts/ArgentumSans-Medium.ttf') format('truetype');
+    font-family: "ArgentumSans";
+    src: url("/fonts/ArgentumSans-Medium.ttf") format("truetype");
     font-weight: 500;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'ArgentumSans';
-    src: url('/fonts/ArgentumSans-MediumItalic.ttf') format('truetype');
+    font-family: "ArgentumSans";
+    src: url("/fonts/ArgentumSans-MediumItalic.ttf") format("truetype");
     font-weight: 500;
     font-style: italic;
 }
 
 @font-face {
-    font-family: 'ArgentumSans';
-    src: url('/fonts/ArgentumSans-Regular.ttf') format('truetype');
+    font-family: "ArgentumSans";
+    src: url("/fonts/ArgentumSans-Regular.ttf") format("truetype");
     font-weight: 400;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'ArgentumSans';
-    src: url('/fonts/ArgentumSans-SemiBold.ttf') format('truetype');
+    font-family: "ArgentumSans";
+    src: url("/fonts/ArgentumSans-SemiBold.ttf") format("truetype");
     font-weight: 600;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'ArgentumSans';
-    src: url('/fonts/ArgentumSans-SemiBoldItalic.ttf') format('truetype');
+    font-family: "ArgentumSans";
+    src: url("/fonts/ArgentumSans-SemiBoldItalic.ttf") format("truetype");
     font-weight: 600;
     font-style: italic;
 }
 
 @font-face {
-    font-family: 'ArgentumSans';
-    src: url('/fonts/ArgentumSans-Thin.ttf') format('truetype');
+    font-family: "ArgentumSans";
+    src: url("/fonts/ArgentumSans-Thin.ttf") format("truetype");
     font-weight: 100;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'ArgentumSans';
-    src: url('/fonts/ArgentumSans-ThinItalic.ttf') format('truetype');
+    font-family: "ArgentumSans";
+    src: url("/fonts/ArgentumSans-ThinItalic.ttf") format("truetype");
     font-weight: 100;
     font-style: italic;
 }
 
 /* Webfont: Qurova-Bold */
 @font-face {
-    font-family: 'Qurova';
-    src: url('/fonts/Qurova/Qurova-Bold.eot');
+    font-family: "Qurova";
+    src: url("/fonts/Qurova/Qurova-Bold.eot");
     /* IE9 Compat Modes */
-    src: url('/fonts/Qurova/Qurova-Bold.eot?#iefix') format('embedded-opentype'),
+    src: url("/fonts/Qurova/Qurova-Bold.eot?#iefix") format("embedded-opentype"),
         /* IE6-IE8 */
-        url('/fonts/Qurova/Qurova-Bold.woff') format('woff'),
+        url("/fonts/Qurova/Qurova-Bold.woff") format("woff"),
         /* Modern Browsers */
-        url('/fonts/Qurova/Qurova-Bold.woff2') format('woff2'),
+        url("/fonts/Qurova/Qurova-Bold.woff2") format("woff2"),
         /* Modern Browsers */
-        url('/fonts/Qurova/Qurova-Bold.ttf') format('truetype');
+        url("/fonts/Qurova/Qurova-Bold.ttf") format("truetype");
     /* Safari, Android, iOS */
     font-style: normal;
     font-weight: bold;
@@ -144,16 +144,16 @@
 
 /* Webfont: Qurova-Light */
 @font-face {
-    font-family: 'QurovaLight';
-    src: url('/fonts/Qurova/Qurova-Light.eot');
+    font-family: "QurovaLight";
+    src: url("/fonts/Qurova/Qurova-Light.eot");
     /* IE9 Compat Modes */
-    src: url('/fonts/Qurova/Qurova-Light.eot?#iefix') format('embedded-opentype'),
+    src: url("/fonts/Qurova/Qurova-Light.eot?#iefix") format("embedded-opentype"),
         /* IE6-IE8 */
-        url('/fonts/Qurova/Qurova-Light.woff') format('woff'),
+        url("/fonts/Qurova/Qurova-Light.woff") format("woff"),
         /* Modern Browsers */
-        url('/fonts/Qurova/Qurova-Light.woff2') format('woff2'),
+        url("/fonts/Qurova/Qurova-Light.woff2") format("woff2"),
         /* Modern Browsers */
-        url('/fonts/Qurova/Qurova-Light.ttf') format('truetype');
+        url("/fonts/Qurova/Qurova-Light.ttf") format("truetype");
     /* Safari, Android, iOS */
     font-style: normal;
     font-weight: normal;
@@ -162,16 +162,16 @@
 
 /* Webfont: Qurova-Medium */
 @font-face {
-    font-family: 'QurovaMed';
-    src: url('/fonts/Qurova/Qurova-Medium.eot');
+    font-family: "QurovaMed";
+    src: url("/fonts/Qurova/Qurova-Medium.eot");
     /* IE9 Compat Modes */
-    src: url('/fonts/Qurova/Qurova-Medium.eot?#iefix') format('embedded-opentype'),
+    src: url("/fonts/Qurova/Qurova-Medium.eot?#iefix") format("embedded-opentype"),
         /* IE6-IE8 */
-        url('/fonts/Qurova/Qurova-Medium.woff') format('woff'),
+        url("/fonts/Qurova/Qurova-Medium.woff") format("woff"),
         /* Modern Browsers */
-        url('/fonts/Qurova/Qurova-Medium.woff2') format('woff2'),
+        url("/fonts/Qurova/Qurova-Medium.woff2") format("woff2"),
         /* Modern Browsers */
-        url('/fonts/Qurova/Qurova-Medium.ttf') format('truetype');
+        url("/fonts/Qurova/Qurova-Medium.ttf") format("truetype");
     /* Safari, Android, iOS */
     font-style: normal;
     font-weight: normal;
@@ -180,43 +180,317 @@
 
 /* Webfont: Qurova-Regular */
 @font-face {
-    font-family: 'Qurova';
-    src: url('/fonts/Qurova/Qurova-Regular.eot');
-    src: url('/fonts/Qurova/Qurova-Regular.eot?#iefix') format('embedded-opentype'),
-        url('/fonts/Qurova/Qurova-Regular.woff') format('woff'),
-        url('/fonts/Qurova/Qurova-Regular.woff2') format('woff2'),
-        url('/fonts/Qurova/Qurova-Regular.ttf') format('truetype');
+    font-family: "Qurova";
+    src: url("/fonts/Qurova/Qurova-Regular.eot");
+    src: url("/fonts/Qurova/Qurova-Regular.eot?#iefix") format("embedded-opentype"),
+        url("/fonts/Qurova/Qurova-Regular.woff") format("woff"),
+        url("/fonts/Qurova/Qurova-Regular.woff2") format("woff2"),
+        url("/fonts/Qurova/Qurova-Regular.ttf") format("truetype");
     font-style: normal;
     font-weight: normal;
     text-rendering: optimizeLegibility;
 }
 
-
 /* Webfont: Qurova-SemiBold */
 @font-face {
-    font-family: 'QurovaSemBd';
-    src: url('/fonts/Qurova/Qurova-SemiBold.eot');
+    font-family: "QurovaSemBd";
+    src: url("/fonts/Qurova/Qurova-SemiBold.eot");
     /* IE9 Compat Modes */
-    src: url('/fonts/Qurova/Qurova-SemiBold.eot?#iefix') format('embedded-opentype'),
+    src: url("/fonts/Qurova/Qurova-SemiBold.eot?#iefix") format("embedded-opentype"),
         /* IE6-IE8 */
-        url('/fonts/Qurova/Qurova-SemiBold.woff') format('woff'),
+        url("/fonts/Qurova/Qurova-SemiBold.woff") format("woff"),
         /* Modern Browsers */
-        url('/fonts/Qurova/Qurova-SemiBold.woff2') format('woff2'),
+        url("/fonts/Qurova/Qurova-SemiBold.woff2") format("woff2"),
         /* Modern Browsers */
-        url('/fonts/Qurova/Qurova-SemiBold.ttf') format('truetype');
+        url("/fonts/Qurova/Qurova-SemiBold.ttf") format("truetype");
     /* Safari, Android, iOS */
     font-style: normal;
     font-weight: normal;
     text-rendering: optimizeLegibility;
 }
 
-:root {
-    --primary-color: #315B46;
-    --secondary-color: #f0efdf;
-    --primary-font: 'Qurova', sans-serif;
-    --secondary-font: 'ArgentumSans', sans-serif;
+/**
+ * @license
+ *
+ * Font Family: Switzer
+ * Designed by: Jérémie Hornus
+ * URL: https://www.fontshare.com/fonts/switzer
+ * © 2022 Indian Type Foundry
+ *
+ * Font Styles:
+ * Switzer Variable(Variable font)
+ * Switzer Variable Italic(Variable font)
+ * Switzer Thin
+ * Switzer Thin Italic
+ * Switzer Extralight
+ * Switzer Extralight Italic
+ * Switzer Light
+ * Switzer Light Italic
+ * Switzer Regular
+ * Switzer Italic
+ * Switzer Medium
+ * Switzer Medium Italic
+ * Switzer Semibold
+ * Switzer Semibold Italic
+ * Switzer Bold
+ * Switzer Bold Italic
+ * Switzer Extrabold         
+ * Switzer Extrabold Italic
+ * Switzer Black
+ * Switzer Black Italic
+ *
+*/
+
+
+/**
+* This is a variable font
+* You can controll variable axes as shown below:
+* font-variation-settings: 'wght' 400.0;
+*
+* available axes:
+
+* 'wght' (range from 100.0 to 900.0)
+
+*/
+
+@font-face {
+    font-family: 'Switzer-Variable';
+    src: url('/fonts/Switzer/Switzer-Variable.woff2') format('woff2'),
+        url('/fonts/Switzer/Switzer-Variable.woff') format('woff'),
+        url('/fonts/Switzer/Switzer-Variable.ttf') format('truetype');
+    font-weight: 100 900;
+    font-display: swap;
+    font-style: normal;
 }
 
+
+/**
+  * This is a variable font
+  * You can controll variable axes as shown below:
+  * font-variation-settings: 'wght' 400.0;
+  *
+  * available axes:
+  
+  * 'wght' (range from 100.0 to 900.0)
+  
+  */
+
+@font-face {
+    font-family: 'Switzer-VariableItalic';
+    src: url('/fonts/Switzer/Switzer-VariableItalic.woff2') format('woff2'),
+        url('/fonts/Switzer/Switzer-VariableItalic.woff') format('woff'),
+        url('/fonts/Switzer/Switzer-VariableItalic.ttf') format('truetype');
+    font-weight: 100 900;
+    font-display: swap;
+    font-style: italic;
+}
+
+
+@font-face {
+    font-family: 'Switzer-Thin';
+    src: url('/fonts/Switzer/Switzer-Thin.woff2') format('woff2'),
+        url('/fonts/Switzer/Switzer-Thin.woff') format('woff'),
+        url('/fonts/Switzer/Switzer-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-display: swap;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'Switzer-ThinItalic';
+    src: url('/fonts/Switzer/Switzer-ThinItalic.woff2') format('woff2'),
+        url('/fonts/Switzer/Switzer-ThinItalic.woff') format('woff'),
+        url('/fonts/Switzer/Switzer-ThinItalic.ttf') format('truetype');
+    font-weight: 100;
+    font-display: swap;
+    font-style: italic;
+}
+
+
+@font-face {
+    font-family: 'Switzer-Extralight';
+    src: url('/fonts/Switzer/Switzer-Extralight.woff2') format('woff2'),
+        url('/fonts/Switzer/Switzer-Extralight.woff') format('woff'),
+        url('/fonts/Switzer/Switzer-Extralight.ttf') format('truetype');
+    font-weight: 200;
+    font-display: swap;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'Switzer-ExtralightItalic';
+    src: url('/fonts/Switzer/Switzer-ExtralightItalic.woff2') format('woff2'),
+        url('/fonts/Switzer/Switzer-ExtralightItalic.woff') format('woff'),
+        url('/fonts/Switzer/Switzer-ExtralightItalic.ttf') format('truetype');
+    font-weight: 200;
+    font-display: swap;
+    font-style: italic;
+}
+
+
+@font-face {
+    font-family: 'Switzer-Light';
+    src: url('/fonts/Switzer/Switzer-Light.woff2') format('woff2'),
+        url('/fonts/Switzer/Switzer-Light.woff') format('woff'),
+        url('/fonts/Switzer/Switzer-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-display: swap;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'Switzer-LightItalic';
+    src: url('/fonts/Switzer/Switzer-LightItalic.woff2') format('woff2'),
+        url('/fonts/Switzer/Switzer-LightItalic.woff') format('woff'),
+        url('/fonts/Switzer/Switzer-LightItalic.ttf') format('truetype');
+    font-weight: 300;
+    font-display: swap;
+    font-style: italic;
+}
+
+
+@font-face {
+    font-family: 'Switzer-Regular';
+    src: url('/fonts/Switzer/Switzer-Regular.woff2') format('woff2'),
+        url('/fonts/Switzer/Switzer-Regular.woff') format('woff'),
+        url('/fonts/Switzer/Switzer-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-display: swap;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'Switzer-Italic';
+    src: url('/fonts/Switzer/Switzer-Italic.woff2') format('woff2'),
+        url('/fonts/Switzer/Switzer-Italic.woff') format('woff'),
+        url('/fonts/Switzer/Switzer-Italic.ttf') format('truetype');
+    font-weight: 400;
+    font-display: swap;
+    font-style: italic;
+}
+
+
+@font-face {
+    font-family: 'Switzer-Medium';
+    src: url('/fonts/Switzer/Switzer-Medium.woff2') format('woff2'),
+        url('/fonts/Switzer/Switzer-Medium.woff') format('woff'),
+        url('/fonts/Switzer/Switzer-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-display: swap;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'Switzer-MediumItalic';
+    src: url('/fonts/Switzer/Switzer-MediumItalic.woff2') format('woff2'),
+        url('/fonts/Switzer/Switzer-MediumItalic.woff') format('woff'),
+        url('/fonts/Switzer/Switzer-MediumItalic.ttf') format('truetype');
+    font-weight: 500;
+    font-display: swap;
+    font-style: italic;
+}
+
+
+@font-face {
+    font-family: 'Switzer-Semibold';
+    src: url('/fonts/Switzer/Switzer-Semibold.woff2') format('woff2'),
+        url('/fonts/Switzer/Switzer-Semibold.woff') format('woff'),
+        url('/fonts/Switzer/Switzer-Semibold.ttf') format('truetype');
+    font-weight: 600;
+    font-display: swap;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'Switzer-SemiboldItalic';
+    src: url('/fonts/Switzer/Switzer-SemiboldItalic.woff2') format('woff2'),
+        url('/fonts/Switzer/Switzer-SemiboldItalic.woff') format('woff'),
+        url('/fonts/Switzer/Switzer-SemiboldItalic.ttf') format('truetype');
+    font-weight: 600;
+    font-display: swap;
+    font-style: italic;
+}
+
+
+@font-face {
+    font-family: 'Switzer-Bold';
+    src: url('/fonts/Switzer/Switzer-Bold.woff2') format('woff2'),
+        url('/fonts/Switzer/Switzer-Bold.woff') format('woff'),
+        url('/fonts/Switzer/Switzer-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-display: swap;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'Switzer-BoldItalic';
+    src: url('/fonts/Switzer/Switzer-BoldItalic.woff2') format('woff2'),
+        url('/fonts/Switzer/Switzer-BoldItalic.woff') format('woff'),
+        url('/fonts/Switzer/Switzer-BoldItalic.ttf') format('truetype');
+    font-weight: 700;
+    font-display: swap;
+    font-style: italic;
+}
+
+
+@font-face {
+    font-family: 'Switzer-Extrabold';
+    src: url('/fonts/Switzer/Switzer-Extrabold.woff2') format('woff2'),
+        url('/fonts/Switzer/Switzer-Extrabold.woff') format('woff'),
+        url('/fonts/Switzer/Switzer-Extrabold.ttf') format('truetype');
+    font-weight: 800;
+    font-display: swap;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'Switzer-ExtraboldItalic';
+    src: url('/fonts/Switzer/Switzer-ExtraboldItalic.woff2') format('woff2'),
+        url('/fonts/Switzer/Switzer-ExtraboldItalic.woff') format('woff'),
+        url('/fonts/Switzer/Switzer-ExtraboldItalic.ttf') format('truetype');
+    font-weight: 800;
+    font-display: swap;
+    font-style: italic;
+}
+
+
+@font-face {
+    font-family: 'Switzer-Black';
+    src: url('/fonts/Switzer/Switzer-Black.woff2') format('woff2'),
+        url('/fonts/Switzer/Switzer-Black.woff') format('woff'),
+        url('/fonts/Switzer/Switzer-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-display: swap;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'Switzer-BlackItalic';
+    src: url('/fonts/Switzer/Switzer-BlackItalic.woff2') format('woff2'),
+        url('/fonts/Switzer/Switzer-BlackItalic.woff') format('woff'),
+        url('/fonts/Switzer/Switzer-BlackItalic.ttf') format('truetype');
+    font-weight: 900;
+    font-display: swap;
+    font-style: italic;
+}
+
+
+
+:root {
+    --primary-color: #315b46;
+    --secondary-color: #f0efdf;
+    --primary-font: "Qurova", sans-serif;
+    --secondary-font: "ArgentumSans", sans-serif;
+}
 
 body,
 * {
@@ -230,9 +504,8 @@ body {
     background-color: #efefef !important;
 }
 
-
 .primary-font-size {
-    font-size: 0.80vw !important;
+    font-size: 0.8vw !important;
     color: black !important;
 }
 
@@ -240,15 +513,14 @@ body {
     font-size: 1rem !important;
 }
 
-.fs-70rem {
-    font-size: 0.70rem !important;
+.fs-07rem {
+    font-size: 0.7rem !important;
 }
 
-.fs .link-normal {
+.link-normal {
     text-decoration: none;
     color: black;
 }
-
 
 .fs-12 {
     font-size: 12px;
@@ -256,6 +528,10 @@ body {
 
 .fw-400 {
     font-weight: 400 !important;
+}
+
+.primary-color {
+    color: var(--primary-color);
 }
 
 .primary-bg {
@@ -267,7 +543,6 @@ body {
     background-color: var(--secondary-color);
     color: var(--primary-color);
 }
-
 
 .custom-swiper-button {
     background-color: rgba(0, 0, 0, 0.5);
@@ -308,6 +583,10 @@ body {
     font-size: 12px;
 }
 
+.text-normal {
+    text-transform: none !important;
+}
+
 .discover_more_btn {
     border: 1px solid var(--primary-color);
     text-decoration: none;
@@ -334,11 +613,114 @@ footer p {
 
 .product_card {
     background-color: var(--secondary-color);
-    color: #315B46;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+    color: #315b46;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px,
+        rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
     border-radius: 5px;
 }
 
 .product_card img {
     border-radius: 5px 5px 0px 0px;
+}
+
+.size_box {
+    border: 1px solid rgba(49, 91, 70, 0.308);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: var(--secondary-color);
+}
+
+.size_box:hover {
+    cursor: pointer;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+.size_box.active {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+.checkout_btn {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    border: 1px solid var(--primary-color);
+    padding: 10px 20px;
+    font-weight: 300;
+    border-radius: 5px;
+    transition: all 0.2s;
+}
+
+.checkout_btn:hover {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    border: 1px solid rgba(49, 91, 70, 0.308);
+}
+
+.product_images {
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+.product_images::-webkit-scrollbar {
+    width: 3px;
+}
+
+.product_images::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color);
+    border-radius: 10px;
+}
+
+.subscribe_btn {
+    color: var(--primary-color) !important;
+    background-color: var(--secondary-color) !important;
+}
+
+.policy-content h5,
+.policy-content h1,
+.policy-content li,
+.policy-content p,
+.policy-content a,
+.policy-content b {
+    font-family: Arial, Helvetica, sans-serif;
+    text-transform: none !important;
+}
+
+
+.list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.custom-btn {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    border: 1px solid var(--primary-color);
+    width: 100%;
+    transition: all 0.2s;
+}
+
+.custom-btn:hover {
+    background-color: transparent !important;
+    color: var(--primary-colorr) !important;
+}
+
+.custom-active {
+    background-color: transparent !important;
+    color: var(--primary-colorr) !important;
+}
+
+.custom_filter {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: none;
+    /* padding: 10px 15px; */
+    /* border-radius: 5px; */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
