@@ -11,7 +11,15 @@
         <div class="container-xxl">
 
             <div class="row">
-
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
                 <div class="col-xl-12 col-lg-12 ">
                     <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -22,7 +30,7 @@
                             <div class="card-body dropzone" id="product-dropzone">
                                 <!-- File Upload -->
                                 <div class="fallback">
-                                    <input name="images" type="file" multiple hidden id="product-images" />
+                                    <input name="images[]" type="file" multiple hidden id="product-images" required/>
                                 </div>
                                 <div class="dz-message needsclick" id="dropzone-message">
                                     <i class="bx bx-cloud-upload fs-48 text-primary"></i>
@@ -95,31 +103,37 @@
                                             <h5 class="text-dark fw-medium">Size :</h5>
                                             <div class="d-flex flex-wrap gap-2" role="group"
                                                 aria-label="Basic checkbox toggle button group">
-                                                <input type="checkbox" class="btn-check" name="size[]" id="size-xs1" value="XS">
+                                                <input type="checkbox" class="btn-check" name="size[]" id="size-xs1"
+                                                    value="XS">
                                                 <label
                                                     class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
                                                     for="size-xs1">XS</label>
 
-                                                <input type="checkbox" class="btn-check" name="size[]" id="size-s1" value="S">
+                                                <input type="checkbox" class="btn-check" name="size[]" id="size-s1"
+                                                    value="S">
                                                 <label
                                                     class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
                                                     for="size-s1">S</label>
 
-                                                <input type="checkbox" class="btn-check" name="size[]" id="size-m1" value="M">
+                                                <input type="checkbox" class="btn-check" name="size[]" id="size-m1"
+                                                    value="M">
                                                 <label
                                                     class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
                                                     for="size-m1">M</label>
 
-                                                <input type="checkbox" class="btn-check" name="size[]" id="size-xl1" value="XL">
+                                                <input type="checkbox" class="btn-check" name="size[]" id="size-xl1"
+                                                    value="XL">
                                                 <label
                                                     class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
                                                     for="size-xl1">XL</label>
 
-                                                <input type="checkbox" class="btn-check" name="size[]" id="size-xxl1" value="XXL">
+                                                <input type="checkbox" class="btn-check" name="size[]" id="size-xxl1"
+                                                    value="XXL">
                                                 <label
                                                     class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
                                                     for="size-xxl1">XXL</label>
-                                                <input type="checkbox" class="btn-check" name="size[]" id="size-3xl1" value="3XL">
+                                                <input type="checkbox" class="btn-check" name="size[]" id="size-3xl1"
+                                                    value="3XL">
                                                 <label
                                                     class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
                                                     for="size-3xl1">3XL</label>
@@ -130,55 +144,21 @@
                                     <div class="col-lg-5">
                                         <div class="mt-3">
                                             <h5 class="text-dark fw-medium">Colors :</h5>
-                                            <div class="d-flex flex-wrap gap-2" role="group"
+                                            <div class="d-flex flex-wrap gap-2 color-container" role="group"
                                                 aria-label="Basic checkbox toggle button group">
-                                                <input type="checkbox" class="btn-check" name="color[]" id="color-dark1">
+                                                <div class="input-group mt-2">
+                                                    <input type="text" id="new-color" class="form-control"
+                                                        placeholder="Enter hex color code">
+                                                    <button type="button" id="add-color" class="btn btn-primary">Add
+                                                        Color</button>
+                                                </div>
+                                                <input type="checkbox" class="btn-check" name="color[]" id="color-white"
+                                                    value="#FFFFFF" checked>
                                                 <label
                                                     class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                    for="color-dark1"> <i
-                                                        class="bx bxs-circle fs-18 text-dark"></i></label>
-
-                                                <input type="checkbox" class="btn-check" name="color[]" id="color-yellow1">
-                                                <label
-                                                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                    for="color-yellow1"> <i
-                                                        class="bx bxs-circle fs-18 text-warning"></i></label>
-
-                                                <input type="checkbox" class="btn-check" name="color[]" id="color-white1">
-                                                <label
-                                                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                    for="color-white1"> <i
-                                                        class="bx bxs-circle fs-18 text-white"></i></label>
-
-                                                <input type="checkbox" class="btn-check" name="color[]" id="color-red1">
-                                                <label
-                                                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                    for="color-red1"> <i
-                                                        class="bx bxs-circle fs-18 text-primary"></i></label>
-
-                                                <input type="checkbox" class="btn-check" name="color[]" id="color-green1">
-                                                <label
-                                                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                    for="color-green1"> <i
-                                                        class="bx bxs-circle fs-18 text-success"></i></label>
-
-                                                <input type="checkbox" class="btn-check" name="color[]" id="color-blue1">
-                                                <label
-                                                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                    for="color-blue1"> <i
-                                                        class="bx bxs-circle fs-18 text-danger"></i></label>
-
-                                                <input type="checkbox" class="btn-check" name="color[]" id="color-sky1">
-                                                <label
-                                                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                    for="color-sky1"> <i
-                                                        class="bx bxs-circle fs-18 text-info"></i></label>
-
-                                                <input type="checkbox" class="btn-check" name="color[]" id="color-gray1">
-                                                <label
-                                                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                    for="color-gray1"> <i
-                                                        class="bx bxs-circle fs-18 text-secondary"></i></label>
+                                                    for="color-white">
+                                                    <i class="bx bxs-circle fs-18" style="color: #FFFFFF"></i>
+                                                </label>
 
                                             </div>
                                         </div>
@@ -208,16 +188,6 @@
                                                 class="form-control" placeholder="Quantity">
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
-                                        <label for="product-stock" class="form-label">Tag</label>
-                                        <select class="form-control" id="choices-multiple-remove-button" data-choices
-                                            data-choices-removeItem name="choices-multiple-remove-button" multiple>
-                                            <option value="Fashion" selected>Fashion</option>
-                                            <option value="Electronics">Electronics</option>
-                                            <option value="Watches">Watches</option>
-                                            <option value="Headphones">Headphones</option>
-                                        </select>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -230,17 +200,17 @@
                                     <div class="col-lg-4">
                                         <label for="product-price" class="form-label">Price</label>
                                         <div class="input-group mb-3">
-                                            <span class="input-group-text fs-20"><i class='bx bx-dollar'></i></span>
+                                            <span class="input-group-text fs-20"><i class='bx bx-rupee'></i></span>
                                             <input type="number" id="product-price" name="product_price"
                                                 class="form-control" placeholder="000">
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
-                                        <label for="product-discount" class="form-label">Discount</label>
+                                        <label for="product-discount" class="form-label">Discount %</label>
                                         <div class="input-group mb-3">
                                             <span class="input-group-text fs-20"><i class='bx bxs-discount'></i></span>
                                             <input type="number" id="product-discount" name="discount_price"
-                                                class="form-control" placeholder="000">
+                                                class="form-control" placeholder="0%">
                                         </div>
                                     </div>
                                 </div>
@@ -314,5 +284,21 @@
                 reader.readAsDataURL(file);
             }
         }
+    </script>
+
+    <script>
+        document.getElementById('add-color').addEventListener('click', function() {
+            const newColor = document.getElementById('new-color').value;
+            if (newColor) {
+                const colorContainer = document.querySelector('.color-container');
+                const colorId = 'color-' + newColor.replace('#', '');
+                const colorInput = `<input type="checkbox" class="btn-check" name="color[]" id="${colorId}" value="${newColor}">
+<label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center" for="${colorId}">
+<i class="bx bxs-circle fs-18" style="color: ${newColor}"></i>
+</label>`;
+                colorContainer.insertAdjacentHTML('beforeend', colorInput);
+                document.getElementById('new-color').value = '';
+            }
+        });
     </script>
 @endsection

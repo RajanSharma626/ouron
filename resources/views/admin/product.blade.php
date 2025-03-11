@@ -73,6 +73,11 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @php
+
+                                            Log::info($products);
+
+                                        @endphp
 
                                         @foreach ($products as $product)
                                             <tr>
@@ -86,8 +91,10 @@
                                                     <div class="d-flex align-items-center gap-2">
                                                         <div
                                                             class="rounded bg-light avatar-md d-flex align-items-center justify-content-center">
-                                                            <img src="{{ asset('admin/images/product/p-1.png') }}"
-                                                                alt="" class="avatar-md">
+
+                                                            <img src="{{ asset($product->firstimage->img) }}" alt=""
+                                                                class="avatar-md">
+
                                                         </div>
                                                         <div>
                                                             <a href="#!"

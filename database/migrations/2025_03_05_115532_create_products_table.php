@@ -19,7 +19,7 @@ return new class extends Migration
             $table->decimal('price', 10, 2);
             $table->json('sizes')->nullable(); // Store sizes as JSON
             $table->json('colors')->nullable(); // Store colors as JSON
-            $table->decimal('discount_price', 10, 2)->nullable();
+            $table->integer('discount_price')->nullable();
             $table->integer('stock')->default(0);
             $table->string('sku')->unique()->nullable();
             $table->unsignedBigInteger('category_id')->nullable(); // Corrected category column

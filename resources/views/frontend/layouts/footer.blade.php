@@ -12,12 +12,12 @@
                 <h6>HELP</h6>
                 <ul class="list-unstyled text-muted">
                     <li><a href="#" class="text-decoration-none text-muted">MEMBERS LOGIN</a></li>
-                    <li><a href="#" class="text-decoration-none text-muted">PLACE AN EXCHANGE/RETURN REQUEST</a>
+                    <li><a href="" class="text-decoration-none text-muted">PLACE AN EXCHANGE/RETURN REQUEST</a>
                     </li>
-                    <li><a href="#" class="text-decoration-none text-muted">EXCHANGE/RETURNS POLICY</a></li>
-                    <li><a href="#" class="text-decoration-none text-muted">FAQ</a></li>
-                    <li><a href="#" class="text-decoration-none text-muted">TERMS</a></li>
-                    <li><a href="#" class="text-decoration-none text-muted">SHIPPING</a></li>
+                    <li><a href="{{route('refund-exchange-policy')}}" class="text-decoration-none text-muted">EXCHANGE/RETURNS POLICY</a></li>
+                    <li><a href="{{route('faq')}}" class="text-decoration-none text-muted">FAQ</a></li>
+                    <li><a href="{{route('terms-and-conditions')}}" class="text-decoration-none text-muted">TERMS</a></li>
+                    <li><a href="{{route('shipping-policy')}}" class="text-decoration-none text-muted">SHIPPING</a></li>
                 </ul>
             </div>
 
@@ -28,7 +28,7 @@
                     <li><a href="#" class="text-decoration-none text-muted">STORY</a></li>
                     <li><a href="#" class="text-decoration-none text-muted">OUR STORES</a></li>
                     <li><a href="#" class="text-decoration-none text-muted">CAREERS</a></li>
-                    <li><a href="#" class="text-decoration-none text-muted">CONTACT US</a></li>
+                    <li><a href="{{route('contact.us')}}" class="text-decoration-none text-muted">CONTACT US</a></li>
                     <li><a href="#" class="text-decoration-none text-muted">COLLABORATIONS</a></li>
                     <li><a href="#" class="text-decoration-none text-muted">BLOGS</a></li>
                 </ul>

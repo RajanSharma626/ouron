@@ -9,14 +9,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Str;
-use Intervention\Image\Facades\Image;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
+
 
 class ProductController extends Controller
 {
     public function index()
     {
         $products = Product::whereNull('deleted_at')
-            ->with('category')
+            ->with(['category', 'firstimage'])
             ->paginate(10);
         return view('admin.product', compact('products'));
     }
@@ -60,6 +62,8 @@ class ProductController extends Controller
             'size.*' => 'string',
             'color' => 'nullable|array',
             'color.*' => 'string',
+            'images' => 'required|array',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg',
         ]);
 
         $product = Product::create([
@@ -71,7 +75,6 @@ class ProductController extends Controller
             'stock' => $request->product_stock,
             'sku' => $request->sku,
             'category_id' => $request->product_category,
-            'images' => json_encode($request->images),
             'sizes' => json_encode($request->size),
             'colors' => json_encode($request->color),
             'status' => 'active',
@@ -79,12 +82,14 @@ class ProductController extends Controller
 
         // Process images
         if ($request->hasFile('images')) {
+            $imagePaths = [];
             foreach ($request->file('images') as $index => $image) {
                 if (!$image->isValid()) {
                     return back()->withErrors(['images' => 'Invalid file uploaded.']);
                 }
-                $this->storeProductImages($image, $product->id, $index == 0);
+                $imagePaths[] = $this->storeProductImages($image, $product->id, $index == 0);
             }
+            $product->update(['images' => json_encode($imagePaths)]);
         } else {
             return back()->withErrors(['images' => 'No images found in request.']);
         }
@@ -101,29 +106,39 @@ class ProductController extends Controller
         }
 
         $filename = uniqid() . '.' . $image->getClientOriginalExtension();
-        $path = 'public/products/' . $filename;
+        $destinationPath = public_path("uploads/products/");
 
-        try {
-            Storage::put($path, file_get_contents($image));
-        } catch (\Exception $e) {
-            Log::error('Error saving image: ' . $e->getMessage());
-            return;
+        // Ensure the directory exists
+        if (!file_exists($destinationPath)) {
+            mkdir($destinationPath, 0777, true);
         }
 
-        $qualities = ['high' => 90, 'medium' => 60, 'low' => 30];
+        // Save the original file
+        $image->move($destinationPath, $filename);
 
-        foreach ($qualities as $key => $quality) {
-            try {
-                $img = Image::make($image)->encode('jpg', $quality);
-                Storage::put("public/products/{$key}_{$filename}", $img);
-            } catch (\Exception $e) {
-                Log::error("Error generating {$key} quality image: " . $e->getMessage());
-            }
+        // Create multiple sizes
+        $sizes = [
+            '165' => 165,
+            '360' => 360,
+            '533' => 533,
+            '720' => 720,
+            '940' => 940,
+            '1066' => 1066,
+            '1080' => 1080
+        ];
+
+        $manager = new ImageManager(new Driver());
+        $originalImage = $manager->read($destinationPath . $filename);
+
+        foreach ($sizes as $key => $width) {
+            $resizedImage = $originalImage->scale($width);
+            $resizedImage->save("{$destinationPath}{$key}_{$filename}", quality: 75); // Adjust quality as needed
         }
 
+        // Store in database (use base path without 'uploads/')
         ProductImg::create([
             'product_id' => $product_id,
-            'img' => $filename,
+            'img' => "/uploads/products/{$filename}",
             'is_main' => $is_main,
             'sort' => 0,
         ]);
