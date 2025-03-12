@@ -9,7 +9,7 @@
 
             <div class="row justify-content-between mb-3 align-items-center">
                 <div class="col">
-                    <p class="text-uppercase secondary-font-size mb-0">All Products</p>
+                    <p class="text-uppercase heading-font mb-0">All Products</p>
                 </div>
             </div>
 
@@ -53,7 +53,7 @@
                                 The Clash T-shirt
                             </h3>
                             <p class="product_price text-muted">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, at?
+                                RS. 4,995
                             </p>
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                                 The Clash T-shirt
                             </h3>
                             <p class="product_price text-muted">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non, aspernatur!
+                                RS. 4,995
                             </p>
                         </div>
                     </div>
@@ -87,7 +87,7 @@
                                 The Clash T-shirt
                             </h3>
                             <p class="product_price text-muted">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non, aspernatur!
+                                RS. 4,995
                             </p>
                         </div>
                     </div>
@@ -104,7 +104,7 @@
                                 The Clash T-shirt
                             </h3>
                             <p class="product_price text-muted">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non, aspernatur!
+                                RS. 4,995
                             </p>
                         </div>
                     </div>
@@ -121,7 +121,7 @@
                                 The Clash T-shirt
                             </h3>
                             <p class="product_price text-muted">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, at?
+                                RS. 4,995
                             </p>
                         </div>
                     </div>
@@ -138,7 +138,7 @@
                                 The Clash T-shirt
                             </h3>
                             <p class="product_price text-muted">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non, aspernatur!
+                                RS. 4,995
                             </p>
                         </div>
                     </div>
@@ -155,7 +155,7 @@
                                 The Clash T-shirt
                             </h3>
                             <p class="product_price text-muted">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non, aspernatur!
+                                RS. 4,995
                             </p>
                         </div>
                     </div>
@@ -172,7 +172,7 @@
                                 The Clash T-shirt
                             </h3>
                             <p class="product_price text-muted">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non, aspernatur!
+                                RS. 4,995
                             </p>
                         </div>
                     </div>

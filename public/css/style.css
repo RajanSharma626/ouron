@@ -23,13 +23,12 @@
  * Switzer Semibold Italic
  * Switzer Bold
  * Switzer Bold Italic
- * Switzer Extrabold         
+ * Switzer Extrabold
  * Switzer Extrabold Italic
  * Switzer Black
  * Switzer Black Italic
  *
 */
-
 
 /**
 * This is a variable font
@@ -43,15 +42,14 @@
 */
 
 @font-face {
-    font-family: 'Switzer-Variable';
-    src: url('/fonts/Switzer/Switzer-Variable.woff2') format('woff2'),
-        url('/fonts/Switzer/Switzer-Variable.woff') format('woff'),
-        url('/fonts/Switzer/Switzer-Variable.ttf') format('truetype');
+    font-family: "Switzer-Variable";
+    src: url("/fonts/Switzer/Switzer-Variable.woff2") format("woff2"),
+        url("/fonts/Switzer/Switzer-Variable.woff") format("woff"),
+        url("/fonts/Switzer/Switzer-Variable.ttf") format("truetype");
     font-weight: 100 900;
     font-display: swap;
     font-style: normal;
 }
-
 
 /**
   * This is a variable font
@@ -59,220 +57,200 @@
   * font-variation-settings: 'wght' 400.0;
   *
   * available axes:
-  
+
   * 'wght' (range from 100.0 to 900.0)
-  
+
   */
 
 @font-face {
-    font-family: 'Switzer-VariableItalic';
-    src: url('/fonts/Switzer/Switzer-VariableItalic.woff2') format('woff2'),
-        url('/fonts/Switzer/Switzer-VariableItalic.woff') format('woff'),
-        url('/fonts/Switzer/Switzer-VariableItalic.ttf') format('truetype');
+    font-family: "Switzer-VariableItalic";
+    src: url("/fonts/Switzer/Switzer-VariableItalic.woff2") format("woff2"),
+        url("/fonts/Switzer/Switzer-VariableItalic.woff") format("woff"),
+        url("/fonts/Switzer/Switzer-VariableItalic.ttf") format("truetype");
     font-weight: 100 900;
     font-display: swap;
     font-style: italic;
 }
 
-
 @font-face {
-    font-family: 'Switzer-Thin';
-    src: url('/fonts/Switzer/Switzer-Thin.woff2') format('woff2'),
-        url('/fonts/Switzer/Switzer-Thin.woff') format('woff'),
-        url('/fonts/Switzer/Switzer-Thin.ttf') format('truetype');
+    font-family: "Switzer-Thin";
+    src: url("/fonts/Switzer/Switzer-Thin.woff2") format("woff2"),
+        url("/fonts/Switzer/Switzer-Thin.woff") format("woff"),
+        url("/fonts/Switzer/Switzer-Thin.ttf") format("truetype");
     font-weight: 100;
     font-display: swap;
     font-style: normal;
 }
 
-
 @font-face {
-    font-family: 'Switzer-ThinItalic';
-    src: url('/fonts/Switzer/Switzer-ThinItalic.woff2') format('woff2'),
-        url('/fonts/Switzer/Switzer-ThinItalic.woff') format('woff'),
-        url('/fonts/Switzer/Switzer-ThinItalic.ttf') format('truetype');
+    font-family: "Switzer-ThinItalic";
+    src: url("/fonts/Switzer/Switzer-ThinItalic.woff2") format("woff2"),
+        url("/fonts/Switzer/Switzer-ThinItalic.woff") format("woff"),
+        url("/fonts/Switzer/Switzer-ThinItalic.ttf") format("truetype");
     font-weight: 100;
     font-display: swap;
     font-style: italic;
 }
 
-
 @font-face {
-    font-family: 'Switzer-Extralight';
-    src: url('/fonts/Switzer/Switzer-Extralight.woff2') format('woff2'),
-        url('/fonts/Switzer/Switzer-Extralight.woff') format('woff'),
-        url('/fonts/Switzer/Switzer-Extralight.ttf') format('truetype');
+    font-family: "Switzer-Extralight";
+    src: url("/fonts/Switzer/Switzer-Extralight.woff2") format("woff2"),
+        url("/fonts/Switzer/Switzer-Extralight.woff") format("woff"),
+        url("/fonts/Switzer/Switzer-Extralight.ttf") format("truetype");
     font-weight: 200;
     font-display: swap;
     font-style: normal;
 }
 
-
 @font-face {
-    font-family: 'Switzer-ExtralightItalic';
-    src: url('/fonts/Switzer/Switzer-ExtralightItalic.woff2') format('woff2'),
-        url('/fonts/Switzer/Switzer-ExtralightItalic.woff') format('woff'),
-        url('/fonts/Switzer/Switzer-ExtralightItalic.ttf') format('truetype');
+    font-family: "Switzer-ExtralightItalic";
+    src: url("/fonts/Switzer/Switzer-ExtralightItalic.woff2") format("woff2"),
+        url("/fonts/Switzer/Switzer-ExtralightItalic.woff") format("woff"),
+        url("/fonts/Switzer/Switzer-ExtralightItalic.ttf") format("truetype");
     font-weight: 200;
     font-display: swap;
     font-style: italic;
 }
 
-
 @font-face {
-    font-family: 'Switzer-Light';
-    src: url('/fonts/Switzer/Switzer-Light.woff2') format('woff2'),
-        url('/fonts/Switzer/Switzer-Light.woff') format('woff'),
-        url('/fonts/Switzer/Switzer-Light.ttf') format('truetype');
+    font-family: "Switzer-Light";
+    src: url("/fonts/Switzer/Switzer-Light.woff2") format("woff2"),
+        url("/fonts/Switzer/Switzer-Light.woff") format("woff"),
+        url("/fonts/Switzer/Switzer-Light.ttf") format("truetype");
     font-weight: 300;
     font-display: swap;
     font-style: normal;
 }
 
-
 @font-face {
-    font-family: 'Switzer-LightItalic';
-    src: url('/fonts/Switzer/Switzer-LightItalic.woff2') format('woff2'),
-        url('/fonts/Switzer/Switzer-LightItalic.woff') format('woff'),
-        url('/fonts/Switzer/Switzer-LightItalic.ttf') format('truetype');
+    font-family: "Switzer-LightItalic";
+    src: url("/fonts/Switzer/Switzer-LightItalic.woff2") format("woff2"),
+        url("/fonts/Switzer/Switzer-LightItalic.woff") format("woff"),
+        url("/fonts/Switzer/Switzer-LightItalic.ttf") format("truetype");
     font-weight: 300;
     font-display: swap;
     font-style: italic;
 }
 
-
 @font-face {
-    font-family: 'Switzer-Regular';
-    src: url('/fonts/Switzer/Switzer-Regular.woff2') format('woff2'),
-        url('/fonts/Switzer/Switzer-Regular.woff') format('woff'),
-        url('/fonts/Switzer/Switzer-Regular.ttf') format('truetype');
+    font-family: "Switzer-Regular";
+    src: url("/fonts/Switzer/Switzer-Regular.woff2") format("woff2"),
+        url("/fonts/Switzer/Switzer-Regular.woff") format("woff"),
+        url("/fonts/Switzer/Switzer-Regular.ttf") format("truetype");
     font-weight: 400;
     font-display: swap;
     font-style: normal;
 }
 
-
 @font-face {
-    font-family: 'Switzer-Italic';
-    src: url('/fonts/Switzer/Switzer-Italic.woff2') format('woff2'),
-        url('/fonts/Switzer/Switzer-Italic.woff') format('woff'),
-        url('/fonts/Switzer/Switzer-Italic.ttf') format('truetype');
+    font-family: "Switzer-Italic";
+    src: url("/fonts/Switzer/Switzer-Italic.woff2") format("woff2"),
+        url("/fonts/Switzer/Switzer-Italic.woff") format("woff"),
+        url("/fonts/Switzer/Switzer-Italic.ttf") format("truetype");
     font-weight: 400;
     font-display: swap;
     font-style: italic;
 }
 
-
 @font-face {
-    font-family: 'Switzer-Medium';
-    src: url('/fonts/Switzer/Switzer-Medium.woff2') format('woff2'),
-        url('/fonts/Switzer/Switzer-Medium.woff') format('woff'),
-        url('/fonts/Switzer/Switzer-Medium.ttf') format('truetype');
+    font-family: "Switzer-Medium";
+    src: url("/fonts/Switzer/Switzer-Medium.woff2") format("woff2"),
+        url("/fonts/Switzer/Switzer-Medium.woff") format("woff"),
+        url("/fonts/Switzer/Switzer-Medium.ttf") format("truetype");
     font-weight: 500;
     font-display: swap;
     font-style: normal;
 }
 
-
 @font-face {
-    font-family: 'Switzer-MediumItalic';
-    src: url('/fonts/Switzer/Switzer-MediumItalic.woff2') format('woff2'),
-        url('/fonts/Switzer/Switzer-MediumItalic.woff') format('woff'),
-        url('/fonts/Switzer/Switzer-MediumItalic.ttf') format('truetype');
+    font-family: "Switzer-MediumItalic";
+    src: url("/fonts/Switzer/Switzer-MediumItalic.woff2") format("woff2"),
+        url("/fonts/Switzer/Switzer-MediumItalic.woff") format("woff"),
+        url("/fonts/Switzer/Switzer-MediumItalic.ttf") format("truetype");
     font-weight: 500;
     font-display: swap;
     font-style: italic;
 }
 
-
 @font-face {
-    font-family: 'Switzer-Semibold';
-    src: url('/fonts/Switzer/Switzer-Semibold.woff2') format('woff2'),
-        url('/fonts/Switzer/Switzer-Semibold.woff') format('woff'),
-        url('/fonts/Switzer/Switzer-Semibold.ttf') format('truetype');
+    font-family: "Switzer-Semibold";
+    src: url("/fonts/Switzer/Switzer-Semibold.woff2") format("woff2"),
+        url("/fonts/Switzer/Switzer-Semibold.woff") format("woff"),
+        url("/fonts/Switzer/Switzer-Semibold.ttf") format("truetype");
     font-weight: 600;
     font-display: swap;
     font-style: normal;
 }
 
-
 @font-face {
-    font-family: 'Switzer-SemiboldItalic';
-    src: url('/fonts/Switzer/Switzer-SemiboldItalic.woff2') format('woff2'),
-        url('/fonts/Switzer/Switzer-SemiboldItalic.woff') format('woff'),
-        url('/fonts/Switzer/Switzer-SemiboldItalic.ttf') format('truetype');
+    font-family: "Switzer-SemiboldItalic";
+    src: url("/fonts/Switzer/Switzer-SemiboldItalic.woff2") format("woff2"),
+        url("/fonts/Switzer/Switzer-SemiboldItalic.woff") format("woff"),
+        url("/fonts/Switzer/Switzer-SemiboldItalic.ttf") format("truetype");
     font-weight: 600;
     font-display: swap;
     font-style: italic;
 }
 
-
 @font-face {
-    font-family: 'Switzer-Bold';
-    src: url('/fonts/Switzer/Switzer-Bold.woff2') format('woff2'),
-        url('/fonts/Switzer/Switzer-Bold.woff') format('woff'),
-        url('/fonts/Switzer/Switzer-Bold.ttf') format('truetype');
+    font-family: "Switzer-Bold";
+    src: url("/fonts/Switzer/Switzer-Bold.woff2") format("woff2"),
+        url("/fonts/Switzer/Switzer-Bold.woff") format("woff"),
+        url("/fonts/Switzer/Switzer-Bold.ttf") format("truetype");
     font-weight: 700;
     font-display: swap;
     font-style: normal;
 }
 
-
 @font-face {
-    font-family: 'Switzer-BoldItalic';
-    src: url('/fonts/Switzer/Switzer-BoldItalic.woff2') format('woff2'),
-        url('/fonts/Switzer/Switzer-BoldItalic.woff') format('woff'),
-        url('/fonts/Switzer/Switzer-BoldItalic.ttf') format('truetype');
+    font-family: "Switzer-BoldItalic";
+    src: url("/fonts/Switzer/Switzer-BoldItalic.woff2") format("woff2"),
+        url("/fonts/Switzer/Switzer-BoldItalic.woff") format("woff"),
+        url("/fonts/Switzer/Switzer-BoldItalic.ttf") format("truetype");
     font-weight: 700;
     font-display: swap;
     font-style: italic;
 }
 
-
 @font-face {
-    font-family: 'Switzer-Extrabold';
-    src: url('/fonts/Switzer/Switzer-Extrabold.woff2') format('woff2'),
-        url('/fonts/Switzer/Switzer-Extrabold.woff') format('woff'),
-        url('/fonts/Switzer/Switzer-Extrabold.ttf') format('truetype');
+    font-family: "Switzer-Extrabold";
+    src: url("/fonts/Switzer/Switzer-Extrabold.woff2") format("woff2"),
+        url("/fonts/Switzer/Switzer-Extrabold.woff") format("woff"),
+        url("/fonts/Switzer/Switzer-Extrabold.ttf") format("truetype");
     font-weight: 800;
     font-display: swap;
     font-style: normal;
 }
 
-
 @font-face {
-    font-family: 'Switzer-ExtraboldItalic';
-    src: url('/fonts/Switzer/Switzer-ExtraboldItalic.woff2') format('woff2'),
-        url('/fonts/Switzer/Switzer-ExtraboldItalic.woff') format('woff'),
-        url('/fonts/Switzer/Switzer-ExtraboldItalic.ttf') format('truetype');
+    font-family: "Switzer-ExtraboldItalic";
+    src: url("/fonts/Switzer/Switzer-ExtraboldItalic.woff2") format("woff2"),
+        url("/fonts/Switzer/Switzer-ExtraboldItalic.woff") format("woff"),
+        url("/fonts/Switzer/Switzer-ExtraboldItalic.ttf") format("truetype");
     font-weight: 800;
     font-display: swap;
     font-style: italic;
 }
 
-
 @font-face {
-    font-family: 'Switzer-Black';
-    src: url('/fonts/Switzer/Switzer-Black.woff2') format('woff2'),
-        url('/fonts/Switzer/Switzer-Black.woff') format('woff'),
-        url('/fonts/Switzer/Switzer-Black.ttf') format('truetype');
+    font-family: "Switzer-Black";
+    src: url("/fonts/Switzer/Switzer-Black.woff2") format("woff2"),
+        url("/fonts/Switzer/Switzer-Black.woff") format("woff"),
+        url("/fonts/Switzer/Switzer-Black.ttf") format("truetype");
     font-weight: 900;
     font-display: swap;
     font-style: normal;
 }
 
-
 @font-face {
-    font-family: 'Switzer-BlackItalic';
-    src: url('/fonts/Switzer/Switzer-BlackItalic.woff2') format('woff2'),
-        url('/fonts/Switzer/Switzer-BlackItalic.woff') format('woff'),
-        url('/fonts/Switzer/Switzer-BlackItalic.ttf') format('truetype');
+    font-family: "Switzer-BlackItalic";
+    src: url("/fonts/Switzer/Switzer-BlackItalic.woff2") format("woff2"),
+        url("/fonts/Switzer/Switzer-BlackItalic.woff") format("woff"),
+        url("/fonts/Switzer/Switzer-BlackItalic.ttf") format("truetype");
     font-weight: 900;
     font-display: swap;
     font-style: italic;
 }
-
-
 
 :root {
     --primary-color: #315b46;
@@ -298,8 +276,16 @@ body {
     color: black !important;
 }
 
+.heading-font {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
 .fs-1rem {
     font-size: 1rem !important;
+}
+.fs-1-5rem {
+    font-size: 1.5rem !important;
 }
 
 .fs-07rem {
@@ -348,16 +334,17 @@ body {
     font-size: 20px !important;
 }
 
-.product_title {
-    font-size: 12px;
-    margin-bottom: 0px;
-    font-weight: 400;
-}
-
-.product_title2 {
+.product_title,
+.blog_title {
     font-size: 14px;
     margin-bottom: 0px;
-    font-weight: 400;
+    font-weight: bold;
+}
+
+.blog_short_desc {
+    font-size: 12px;
+    margin-bottom: 0px;
+    text-transform: none;
 }
 
 .product_img2 img {
@@ -365,12 +352,13 @@ body {
 }
 
 .product_price {
-    font-size: 10px;
+    font-size: 14px;
+    font-weight: bold;
 }
 
-.product_price2 {
+/* .product_price2 {
     font-size: 12px;
-}
+} */
 
 .text-normal {
     text-transform: none !important;
@@ -400,16 +388,18 @@ footer p {
     font: 300;
 }
 
-.product_card {
+.product_card,
+.blog_card {
     background-color: var(--secondary-color);
     color: #315b46;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px,
         rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
-.product_card img {
-    border-radius: 5px 5px 0px 0px;
+.product_card img,
+.blog_card img {
+    border-radius: 10px 10px 0px 0px;
 }
 
 .size_box {
@@ -474,10 +464,8 @@ footer p {
 .policy-content p,
 .policy-content a,
 .policy-content b {
-    font-family: Arial, Helvetica, sans-serif;
     text-transform: none !important;
 }
-
 
 .list {
     list-style-type: none;
@@ -512,4 +500,63 @@ footer p {
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: #315b46 !important;
+    color: var(--secondary-color) !important;
+}
+
+.size {
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+}
+
+.size img {
+    border-radius: 50%;
+}
+
+.size.active {
+    border: 2px solid #315b46;
+}
+
+.size:hover .size_img {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+.color-circle {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    cursor: pointer;
+}
+
+input[type="radio"]:checked + label .color-circle {
+    border: 3px solid #000;
+}
+
+.like-heart {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.filled-heart {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.like-heart:hover .filled-heart {
+    opacity: 1;
+}
+
+.like-heart:hover .outline-heart {
+    opacity: 0;
 }

@@ -28,44 +28,106 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-5 col-12 p-md-5 py-4 py-md-0">
-                    <h1 class="fs-4 mb-0">Loose Fit Shirt</h1>
+                    <div class="row justify-content-between align-items-center mb-2">
+                        <div class="col">
+                            <h1 class="fs-4 mb-0 fw-bold">Loose Fit Shirt</h1>
+                        </div>
+
+                        <div class="col text-end">
+                            <div class="like-heart">
+                                <i class="bi bi-heart fs-3 outline-heart"></i>
+                                <i class="bi bi-heart-fill fs-3 text-danger filled-heart"></i>
+                            </div>
+                        </div>
+                    </div>
                     <h5>Rs. 2,999.00</h5>
                     <p class="text-muted">MRP inclusive of all taxes </p>
 
                     <div class="row justify-content-between align-items-center mb-2">
-                        <div class="col"><b>Size:</b></div>
-                        <div class="col text-end"><a href="#!" class="primary-color">Size Guide</a></div>
+                        <div class="row justify-content-between align-items-center mb-2">
+                            <div class="col"><b>Color:</b></div>
+                        </div>
+                        <div class="col-12 d-flex gap-1">
+                            <div class="color">
+                                <input class="form-check-input d-none" type="radio" name="color" id="color-red"
+                                    value="red">
+                                <label class="form-check-label" for="color-red">
+                                    <span class="color-circle" style="background-color: #ff0000;"></span>
+                                </label>
+                            </div>
+                            <div class="color">
+                                <input class="form-check-input d-none" type="radio" name="color" id="color-blue"
+                                    value="blue">
+                                <label class="form-check-label" for="color-blue">
+                                    <span class="color-circle" style="background-color: #0000ff;"></span>
+                                </label>
+                            </div>
+                            <div class="color">
+                                <input class="form-check-input d-none" type="radio" name="color" id="color-green"
+                                    value="green">
+                                <label class="form-check-label" for="color-green">
+                                    <span class="color-circle" style="background-color: #008000;"></span>
+                                </label>
+                            </div>
+                            <div class="color">
+                                <input class="form-check-input d-none" type="radio" name="color" id="color-yellow"
+                                    value="yellow">
+                                <label class="form-check-label" for="color-yellow">
+                                    <span class="color-circle" style="background-color: #ffff00;"></span>
+                                </label>
+                            </div>
+                        </div>
+
                     </div>
 
-                    <div class="row justify-content-start gap-1">
-                        <div class="col">
-                            <div class="size_box">
-                                <span>S</span>
-                            </div>
+                    <div class="row justify-content-between align-items-center mb-2">
+                        <div class="row justify-content-between align-items-center mb-2">
+                            <div class="col"><b>Size:</b></div>
+                            <div class="col text-end"><a href="#!" class="primary-color">Size Guide</a></div>
                         </div>
-                        <div class="col">
-                            <div class="size_box active">
-                                <span>M</span>
+                        <div class="col-12 d-flex gap-3 py-2">
+                            <div class="size">
+                                <img src="{{ asset('/images/sizes/xs.svg') }}" class="img-fluid size_img" alt="">
                             </div>
-                        </div>
-                        <div class="col">
-                            <div class="size_box">
-                                <span>L</span>
+                            <div class="size">
+                                <img src="{{ asset('/images/sizes/s.svg') }}" class="img-fluid size_img" alt="">
                             </div>
-                        </div>
-                        <div class="col">
-                            <div class="size_box">
-                                <span>XL</span>
+                            <div class="size">
+                                <img src="{{ asset('/images/sizes/m.svg') }}" class="img-fluid size_img" alt="">
+                            </div>
+                            <div class="size">
+                                <img src="{{ asset('/images/sizes/l.svg') }}" class="img-fluid size_img" alt="">
+                            </div>
+                            <div class="size">
+                                <img src="{{ asset('/images/sizes/xl.svg') }}" class="img-fluid size_img" alt="">
+                            </div>
+                            <div class="size">
+                                <img src="{{ asset('/images/sizes/xxl.svg') }}" class="img-fluid size_img" alt="">
+                            </div>
+                            <div class="size">
+                                <img src="{{ asset('/images/sizes/3xl.svg') }}" class="img-fluid size_img" alt="">
                             </div>
                         </div>
                     </div>
 
-                    <div class="row py-3">
-                        <div class="col-md-6 col-12 mb-3 mb-md-0">
+
+                    <div class="row py-3 g-2">
+                        <div class="col-md-6 col-12 mb-md-0">
                             <button class="checkout_btn w-100">Add to Cart</button>
                         </div>
-                        <div class="col-md-6 col-12 mb-3 mb-md-0">
+                        <div class="col-md-6 col-12 mb-md-0">
+                            <button class="checkout_btn w-100">Story</button>
+                        </div>
+                        <div class="col-12 mb-md-0">
                             <button class="checkout_btn w-100">Buy Now</button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="text-normal">
+                                <i class="bi bi-info-circle"></i> Delivery Time : 2-7 days
+                            </p>
                         </div>
                     </div>
 
@@ -81,7 +143,8 @@
                                 </h2>
                                 <div id="flush-collapseOne" class="accordion-collapse collapse"
                                     data-bs-parent="#accordionFlushExample">
-                                    <div class="accordion-body">Placeholder content for this accordion, which is intended to
+                                    <div class="accordion-body">Placeholder content for this accordion, which is intended
+                                        to
                                         demonstrate the <code>.accordion-flush</code> class. This is the first item's
                                         accordion body.</div>
                                 </div>
@@ -96,7 +159,8 @@
                                 </h2>
                                 <div id="flush-collapseTwo" class="accordion-collapse collapse"
                                     data-bs-parent="#accordionFlushExample">
-                                    <div class="accordion-body">Placeholder content for this accordion, which is intended to
+                                    <div class="accordion-body">Placeholder content for this accordion, which is intended
+                                        to
                                         demonstrate the <code>.accordion-flush</code> class. This is the second item's
                                         accordion body. Let's imagine this being filled with some actual content.</div>
                                 </div>
@@ -111,7 +175,8 @@
                                 </h2>
                                 <div id="flush-collapseThree" class="accordion-collapse collapse"
                                     data-bs-parent="#accordionFlushExample">
-                                    <div class="accordion-body">Placeholder content for this accordion, which is intended to
+                                    <div class="accordion-body">Placeholder content for this accordion, which is intended
+                                        to
                                         demonstrate the <code>.accordion-flush</code> class. This is the third item's
                                         accordion body. Nothing more exciting happening here in terms of content, but just
                                         filling up the space to make it look, at least at first glance, a bit more

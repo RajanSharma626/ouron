@@ -97,14 +97,14 @@
                     <p>
                         You may request an exchange/return if:
                     </p>
-                    <ul class="mb-5 list">
-                        <li class="text-normal"> ✅ The product does not fit.
+                    <ul class="mb-5">
+                        <li class="text-normal"> The product does not fit.
                         </li>
-                        <li class="text-normal"> ✅ The product or packaging was damaged during shipping.
+                        <li class="text-normal"> The product or packaging was damaged during shipping.
                         </li>
-                        <li class="text-normal"> ✅ The product is defective.
+                        <li class="text-normal"> The product is defective.
                         </li>
-                        <li class="text-normal"> ✅ Parts or accessories are missing.
+                        <li class="text-normal"> Parts or accessories are missing.
                         </li>
                     </ul>
 
@@ -121,14 +121,14 @@
                     <h5>
                         DAMAGED OR MISSING ITEMS
                     </h5>
-                    <ul class="mb-5 list">
-                        <li class="text-normal">✔ Be unused, undamaged, and in original condition.
+                    <ul class="mb-5 ">
+                        <li class="text-normal"> Be unused, undamaged, and in original condition.
                         </li>
-                        <li class="text-normal">✔ Have all brand tags, packaging, and accessories intact.
+                        <li class="text-normal"> Have all brand tags, packaging, and accessories intact.
                         </li>
-                        <li class="text-normal">✔ Have no stains, scratches, tears, or any signs of wear.
+                        <li class="text-normal"> Have no stains, scratches, tears, or any signs of wear.
                         </li>
-                        <li class="text-normal">✔ Be returned as a full set (if purchased as a set).
+                        <li class="text-normal"> Be returned as a full set (if purchased as a set).
                         </li>
                     </ul>
 
