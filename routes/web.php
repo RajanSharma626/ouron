@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CatProductsController;
+use App\Http\Controllers\LoginAuth;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,35 @@ Route::get('/blogs', function () {
 Route::get('/product/{slug}', function () {
     return view('frontend.product-detail');
 })->name('product.detail');
+
+
+// login
+Route::get('/login', [LoginAuth::class, 'index'])->name('login');
+Route::post('/login', [LoginAuth::class, 'login'])->name('login.auth');
+
+// register
+Route::get('/register', [LoginAuth::class, 'register'])->name('register');
+Route::post('/register', [LoginAuth::class, 'registerUser'])->name('registerUser');
+
+
+// verify otp
+Route::get('login/otp-verify', [LoginAuth::class, 'otpVerify'])->name('otp-verify');
+Route::post('login/otp-verify', [LoginAuth::class, 'verifyOtp'])->name('verify-otp');
+
+// logout
+Route::post('/logout', [LoginAuth::class, 'logout'])->name('logout');
+
+//profile
+Route::middleware(['user.auth'])->group(function () {
+    Route::get('/profile', [LoginAuth::class, 'profile'])->name('profile');
+    Route::post('/profile', [LoginAuth::class, 'updateProfile'])->name('update-profile');
+});
+
+//checkout 
+Route::get('/checkout', function () {
+    return view('frontend.checkout');
+})->name('checkout');
+
 
 
 Route::get('/all-product', [CatProductsController::class, 'allProduct'])->name('all-product');

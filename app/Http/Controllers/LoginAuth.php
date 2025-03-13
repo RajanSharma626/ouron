@@ -1,0 +1,132 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+
+class LoginAuth extends Controller
+{
+    public function index()
+    {
+        return view('frontend.login');
+    }
+
+    public function register()
+    {
+        return view('frontend.register');
+    }
+
+    public function login(Request $request)
+    {
+        $request->validate([
+            'phone' => 'required|digits:10'
+        ]);
+
+        $user = User::where('phone', $request->phone)->first();
+
+        if ($user) {
+            // Generate a new OTP
+            $user->otp = rand(100000, 999999);
+            $user->otp_expires_at = now()->addMinutes(5);
+            $user->save();
+
+            // Send OTP to user's phone using a service like Twilio
+            $this->sendOtpToPhone("+91" . $user->phone, $user->otp);
+
+            return redirect()->route('otp-verify')->with('user_id', $user->id);
+        }
+
+        return redirect()->route('login')->with('error', 'Phone number not registered');
+    }
+
+    public function registerUser(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'phone' => 'required|unique:users,phone'
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            // 'otp' => bcrypt(rand(100000, 999999)), // Encrypt the OTP
+            'otp' => rand(100000, 999999), // Encrypt the OTP
+            'otp_expires_at' => now()->addMinutes(5) // Set OTP expiration time
+        ]);
+
+        // Send OTP to user's phone using a service like Twilio
+        $this->sendOtpToPhone("+91" . $user->phone, $user->otp);
+
+        return redirect()->route('otp-verify')->with('user_id', $user->id);
+    }
+
+    private function sendOtpToPhone($phone, $otp)
+    {
+        $sid = env('TWILIO_SID');
+        $token = env('TWILIO_AUTH_TOKEN');
+        $twilioPhone = env('TWILIO_PHONE_NUMBER');
+
+        // Debugging: Check if credentials are loaded
+        if (!$sid || !$token || !$twilioPhone) {
+            Log::error("Twilio credentials are missing in .env");
+            throw new \Exception("Twilio credentials are missing. Check your .env file.");
+        }
+
+        try {
+            $twilio = new \Twilio\Rest\Client($sid, $token);
+            $message = $twilio->messages->create($phone, [
+                'from' => $twilioPhone,
+                'body' => "Your Ouron Login OTP is: $otp"
+            ]);
+        } catch (\Exception $e) {
+            Log::error("Twilio Error: " . $e->getMessage());
+            throw new \Exception("Error sending OTP via Twilio: " . $e->getMessage());
+        }
+    }
+
+
+    public function otpVerify()
+    {
+        return view('frontend.otp');
+    }
+
+    public function verifyOtp(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'otp' => 'required|numeric'
+        ]);
+
+        $user = User::find($request->user_id);
+
+        if ($user->otp == $request->otp) {
+            if ($user->otp_expires_at && $user->otp_expires_at->isFuture()) {
+                // OTP is correct and not expired, log the user in
+                Auth::login($user);
+
+                return redirect()->route('home')->with('success', 'Logged in successfully');
+            } else {
+                return redirect()->route('otp-verify')->with('error', 'OTP has expired');
+            }
+        }
+
+        return redirect()->route('otp-verify')->with('error', 'Invalid OTP');
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+
+        return redirect()->route('home');
+    }
+
+    public function profile()
+    {
+        return view('frontend.profile');
+    }
+}
