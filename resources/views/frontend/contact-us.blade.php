@@ -20,20 +20,20 @@
                     <form action="">
                         <div class="row">
                             <div class="col-12 col-md-6 mb-3">
-                                <input type="text" class="form-control fs-07rem py-2 px-3" placeholder="Name">
+                                <input type="text" class="form-control fs-07rem p-3" placeholder="Name">
                             </div>
                             <div class="col-12 col-md-6 mb-3">
-                                <input type="email" class="form-control fs-07rem py-2 px-3" placeholder="Email*">
+                                <input type="email" class="form-control fs-07rem p-3" placeholder="Email*">
                             </div>
                             <div class="col-12 mb-3">
-                                <input type="number" class="form-control fs-07rem py-2 px-3" placeholder="Phone Number*">
+                                <input type="number" class="form-control fs-07rem p-3" placeholder="Phone Number*">
                             </div>
                             <div class="col-12 mb-3">
-                                <textarea name="" class="form-control fs-07rem py-2 px-3" id="" placeholder="Comment"></textarea>
+                                <textarea name="" class="form-control fs-07rem p-3" id="" placeholder="Comment"></textarea>
                             </div>
 
                             <div class="col-12 text-center">
-                                <button class="btn btn-dark px-5">Submit</button>
+                                <button class="btn primary-bg px-5">Submit</button>
                             </div>
 
                         </div>

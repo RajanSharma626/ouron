@@ -51,26 +51,32 @@
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="productHeadingTwo">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#productCollapseTwo" aria-expanded="false" aria-controls="productCollapseTwo">
+                                        data-bs-target="#productCollapseTwo" aria-expanded="false"
+                                        aria-controls="productCollapseTwo">
                                         2. What payment methods do you accept?
                                     </button>
                                 </h2>
-                                <div id="productCollapseTwo" class="accordion-collapse collapse" aria-labelledby="productHeadingTwo" data-bs-parent="#faqAccordionProduct">
+                                <div id="productCollapseTwo" class="accordion-collapse collapse"
+                                    aria-labelledby="productHeadingTwo" data-bs-parent="#faqAccordionProduct">
                                     <div class="accordion-body">
-                                        <p>We accept various payment methods including major credit cards, PayPal, and bank transfers.</p>
+                                        <p>We accept various payment methods including major credit cards, PayPal, and bank
+                                            transfers.</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="productHeadingThree">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#productCollapseThree" aria-expanded="false" aria-controls="productCollapseThree">
+                                        data-bs-target="#productCollapseThree" aria-expanded="false"
+                                        aria-controls="productCollapseThree">
                                         3. Can I return a product if I am not satisfied?
                                     </button>
                                 </h2>
-                                <div id="productCollapseThree" class="accordion-collapse collapse" aria-labelledby="productHeadingThree" data-bs-parent="#faqAccordionProduct">
+                                <div id="productCollapseThree" class="accordion-collapse collapse"
+                                    aria-labelledby="productHeadingThree" data-bs-parent="#faqAccordionProduct">
                                     <div class="accordion-body">
-                                        <p>Yes, you can return your product within 30 days of purchase provided it meets our return criteria.</p>
+                                        <p>Yes, you can return your product within 30 days of purchase provided it meets our
+                                            return criteria.</p>
                                     </div>
                                 </div>
                             </div>

@@ -8,16 +8,16 @@
         <div class="container py-5">
             <div class="row">
                 <div class="col-md-5 mx-auto">
-                    <div class="card">
+                    <div class="border  p-4 rounded-3">
                         <div class="card-header ">
-                            <h5>Log in </h5>
+                            <h5 class="fw-bold text-center pb-3">Log in </h5>
                         </div>
                         <div class="card-body">
                             <form method="POST" action="{{ route('login.auth') }}">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="" class="text-normal form-label">Enter mobile number</label>
-                                    <input type="number" class="form-control p-2 text-normal" name="phone" required>
+                                    {{-- <label for="" class="text-normal form-label">Enter mobile number</label> --}}
+                                    <input type="number" class="form-control p-2 text-normal bg-none" placeholder="Enter Mobile no." min="0" name="phone" required>
                                 </div>
                                 @if (session('error'))
                                     <div class="text-danger text-normal">

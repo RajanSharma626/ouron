@@ -4,7 +4,7 @@
             <div class="d-flex w-100 justify-content-between align-items-center">
                 <!-- Left: Logo -->
                 <div class="d-flex align-items-center">
-                    <a class="navbar-brand py-0" href="{{route('home')}}">
+                    <a class="navbar-brand py-0" href="{{ route('home') }}">
                         <img src="{{ asset('images/logo/logo.svg') }}" alt="Logo" width="100">
                     </a>
                 </div>
@@ -13,11 +13,38 @@
                 <div class="text-center">
                     <ul class="navbar-nav gap-4 align-items-center d-flex">
                         <li class="nav-item">
-                            <a class="nav-link text-uppercase primary-font-size fw-400" href="{{route('new.in')}}">New in</a>
+                            <a class="nav-link text-uppercase primary-font-size fw-400" href="{{ route('new.in') }}">New
+                                in</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-uppercase primary-font-size fw-400" href="#">Apparel</a>
+
+                        <!-- Apparel Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link text-uppercase primary-font-size fw-400 dropdown-toggle" href="#"
+                                id="apparelDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Apparel
+                            </a>
+                            <ul class="dropdown-menu secondary-bg" aria-labelledby="apparelDropdown">
+                                <!-- First Sub Menu -->
+                                <li class="dropdown-submenu">
+                                    <a class="dropdown-item dropdown-toggle primary-font-size fw-400" href="#">Polo</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">T-Shirts</a></li>
+                                        <li><a class="dropdown-item" href="#">Jeans</a></li>
+                                        <li><a class="dropdown-item" href="#">Jackets</a></li>
+                                    </ul>
+                                </li>
+                                <!-- Second Sub Menu -->
+                                <li class="dropdown-submenu">
+                                    <a class="dropdown-item dropdown-toggle primary-font-size fw-400" href="#">Oversized</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Dresses</a></li>
+                                        <li><a class="dropdown-item" href="#">Tops</a></li>
+                                        <li><a class="dropdown-item" href="#">Skirts</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
                         </li>
+
                         <li class="nav-item">
                             <a class="nav-link text-uppercase primary-font-size fw-400"
                                 href="{{ route('all-product') }}">All Product</a>
@@ -59,26 +86,14 @@
                                     }
                                 @endphp
 
-                                <a class="nav-link d-flex align-items-center" href="{{route('profile')}}" id="profileDropdown">
+                                <a class="nav-link d-flex align-items-center" href="{{ route('profile') }}"
+                                    id="profileDropdown">
                                     <span
                                         class="rounded-circle primary-bg text-white d-flex justify-content-center align-items-center"
                                         style="width: 30px; height: 30px;">
                                         {{ $initials }}
                                     </span>
                                 </a>
-                                {{-- <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                                    <li><a class="dropdown-item text-normal" href="">Profile</a></li>
-                                    <li><a class="dropdown-item text-normal" href="">Orders</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li>
-                                        <form method="POST" action="{{ route('logout') }}">
-                                            @csrf
-                                            <button type="submit" class="dropdown-item">Logout</button>
-                                        </form>
-                                    </li>
-                                </ul> --}}
                             </li>
                         @endauth
                     </ul>

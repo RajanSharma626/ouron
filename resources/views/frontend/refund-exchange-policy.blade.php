@@ -29,24 +29,24 @@
                     <h5>
                         EXCHANGE & RETURN POLICY
                     </h5>
-                    <p class="text-normal">We offer exchanges and returns within 7 days from the date of delivery. Once your
+                    <p class="">We offer exchanges and returns within 7 days from the date of delivery. Once your
                         exchange/return request has been accepted, a confirmation email will be sent to your registered
                         email, and our logistics partner will attempt pickup within 24-48 hours.</p>
                     <ul class="mb-5">
-                        <li class="text-normal"><b class="fw-bold">Pickup Attempts:</b> Two pickup attempts will be made. If
+                        <li class=""><b class="fw-bold">Pickup Attempts:</b> Two pickup attempts will be made. If
                             unsuccessful, you
                             will need to ship the product back to our warehouse at your expense. Reverse pickup is subject
                             to service availability in your area.
                         </li>
-                        <li class="text-normal"><b class="fw-bold">Quality Check:</b> Upon receiving the returned product at
+                        <li class=""><b class="fw-bold">Quality Check:</b> Upon receiving the returned product at
                             our warehouse, it
                             will go through a quality check. Once approved, the exchange/return process will proceed.</li>
-                        <li class="text-normal">Wallet Payments
+                        <li class="">Wallet Payments
                         </li>
-                        <li class="text-normal"><b class="fw-bold">Processing Time:</b> Exchange requests are processed
+                        <li class=""><b class="fw-bold">Processing Time:</b> Exchange requests are processed
                             within 7-10 working days.
                         </li>
-                        <li class="text-normal"> <b class="fw-bold">Stock Availability:</b> If your requested exchange is
+                        <li class=""> <b class="fw-bold">Stock Availability:</b> If your requested exchange is
                             unavailable, we will
                             provide an alternative product or issue a store credit.
                         </li>
@@ -66,15 +66,15 @@
                         Important Notes:
                     </p>
                     <ul class="mb-5">
-                        <li class="text-normal">Products must be <b class="fw-bold">returned in their original
+                        <li class="">Products must be <b class="fw-bold">returned in their original
                                 condition</b>, unworn, unwashed, and undamaged, with all tags and packaging intact.
                         </li>
-                        <li class="text-normal"><b class="fw-bold">Products showing signs of wear or use will not be
+                        <li class=""><b class="fw-bold">Products showing signs of wear or use will not be
                                 eligible</b> for return/exchange.</li>
-                        <li class="text-normal"><b class="fw-bold">Store credits are valid for 3 months</b> and are
+                        <li class=""><b class="fw-bold">Store credits are valid for 3 months</b> and are
                             non-refundable.
                         </li>
-                        <li class="text-normal"><b class="fw-bold">Shipping charges</b> are non-refundable.
+                        <li class=""><b class="fw-bold">Shipping charges</b> are non-refundable.
                         </li>
                     </ul>
 
@@ -82,10 +82,10 @@
                         ORDER CANCELLATION
                     </h5>
                     <ul class="mb-5">
-                        <li class="text-normal"><b class="fw-bold">Cash on Delivery (COD) Orders:</b> Cancellations are only
+                        <li class=""><b class="fw-bold">Cash on Delivery (COD) Orders:</b> Cancellations are only
                             allowed before the order is dispatched from our warehouse.
                         </li>
-                        <li class="text-normal"><b class="fw-bold">Prepaid Orders:</b> All prepaid orders are final and
+                        <li class=""><b class="fw-bold">Prepaid Orders:</b> All prepaid orders are final and
                             non-refundable. Any refunds will be issued in the form of store credit.</li>
 
                     </ul>
@@ -98,13 +98,13 @@
                         You may request an exchange/return if:
                     </p>
                     <ul class="mb-5">
-                        <li class="text-normal"> The product does not fit.
+                        <li class=""> The product does not fit.
                         </li>
-                        <li class="text-normal"> The product or packaging was damaged during shipping.
+                        <li class=""> The product or packaging was damaged during shipping.
                         </li>
-                        <li class="text-normal"> The product is defective.
+                        <li class=""> The product is defective.
                         </li>
-                        <li class="text-normal"> Parts or accessories are missing.
+                        <li class=""> Parts or accessories are missing.
                         </li>
                     </ul>
 
@@ -113,7 +113,7 @@
                     </p>
 
                     <ul class="mb-5">
-                        <li class="text-normal">Products purchased during a sale, clearance, or promotional period are
+                        <li class="">Products purchased during a sale, clearance, or promotional period are
                             non-refundable and cannot be exchanged.
                         </li>
                     </ul>
@@ -122,13 +122,13 @@
                         DAMAGED OR MISSING ITEMS
                     </h5>
                     <ul class="mb-5 ">
-                        <li class="text-normal"> Be unused, undamaged, and in original condition.
+                        <li class=""> Be unused, undamaged, and in original condition.
                         </li>
-                        <li class="text-normal"> Have all brand tags, packaging, and accessories intact.
+                        <li class=""> Have all brand tags, packaging, and accessories intact.
                         </li>
-                        <li class="text-normal"> Have no stains, scratches, tears, or any signs of wear.
+                        <li class=""> Have no stains, scratches, tears, or any signs of wear.
                         </li>
-                        <li class="text-normal"> Be returned as a full set (if purchased as a set).
+                        <li class=""> Be returned as a full set (if purchased as a set).
                         </li>
                     </ul>
 
@@ -141,13 +141,13 @@
                     </h5>
                     <p>For any queries related to returns, refunds, or exchanges, contact us at:</p>
                     <ul class="mb-5 list">
-                        <li class="text-normal"><i class="bi bi-envelope"></i> Email: <a
+                        <li class=""><i class="bi bi-envelope"></i> Email: <a
                                 href="mailto:ordersupport@ouron.com">ordersupport@ouron.com</a>
                         </li>
-                        <li class="text-normal"><i class="bi bi-telephone-inbound"></i> Phone: <a
+                        <li class=""><i class="bi bi-telephone-inbound"></i> Phone: <a
                                 href="tel:+91 xxxxx-xxxxx">+91 xxxxx-xxxxx</a>
                         </li>
-                        <li class="text-normal"><i class="bi bi-clock-history"></i> Support Hours: <b>Monday – Saturday</b>
+                        <li class=""><i class="bi bi-clock-history"></i> Support Hours: <b>Monday – Saturday</b>
                             | <b>11:30 AM – 7:00 PM IST</b>
                         </li>
                     </ul>
