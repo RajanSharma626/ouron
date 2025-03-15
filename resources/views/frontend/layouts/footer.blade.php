@@ -10,7 +10,7 @@
 
             <!-- Center: Help Section -->
             <div class="col-md-3">
-                <h6>HELP</h6>
+                <h6 class="fw-bold">HELP</h6>
                 <ul class="list-unstyled text-muted">
                     <li><a href="" class="text-decoration-none text-muted">PLACE AN EXCHANGE/RETURN REQUEST</a>
                     </li>
@@ -26,10 +26,11 @@
 
             <!-- Right: Company Section -->
             <div class="col-md-3 text-center text-md-start">
-                <h6>COMPANY</h6>
+                <h6 class="fw-bold">COMPANY</h6>
                 <ul class="list-unstyled text-muted">
                     <li><a href="{{route('about.us')}}" class="text-decoration-none text-muted">STORY</a></li>
                     <li><a href="{{ route('contact.us') }}" class="text-decoration-none text-muted">CONTACT US</a></li>
+                    <li><a href="{{ route('blogs') }}" class="text-decoration-none text-muted">BLOGS</a></li>
                 </ul>
             </div>
         </div>

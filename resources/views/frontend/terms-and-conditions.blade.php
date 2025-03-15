@@ -12,7 +12,7 @@
                     <h1 class="text-center mb-5 fs-3">Terms and Conditions</h1>
 
                     <ol class="mb-5">
-                        <li class="text-normal mb-3">1. Introduction Welcome to <a href="www.ouron.in">www.ouron.in</a>
+                        <li class="text-normal mb-3"> Introduction Welcome to <a href="www.ouron.in">www.ouron.in</a>
                             ("Website"). This website is operated
                             by OURON. Throughout the site, the terms "we", "us", and "our" refer to OURON. By accessing or
                             using our Website, you agree to comply with and be bound by the following terms and conditions
