@@ -4,11 +4,16 @@ use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CatProductsController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\LoginAuth;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
+    return view('frontend.home');
+});
+
+Route::get('/home', function () {
     return view('frontend.home');
 })->name('home');
 
@@ -53,15 +58,19 @@ Route::post('/logout', [LoginAuth::class, 'logout'])->name('logout');
 Route::middleware(['user.auth'])->group(function () {
     Route::get('/profile', [LoginAuth::class, 'profile'])->name('profile');
     Route::post('/profile', [LoginAuth::class, 'updateProfile'])->name('update-profile');
+
+    //checkout
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+
+    //checkout store
+    Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout.store');
 });
 
-//checkout 
-Route::get('/checkout', function () {
-    return view('frontend.checkout');
-})->name('checkout');
 
 
 
+
+Route::get('/new-in', [CatProductsController::class, 'newIn'])->name('new.in');
 Route::get('/all-product', [CatProductsController::class, 'allProduct'])->name('all-product');
 
 
