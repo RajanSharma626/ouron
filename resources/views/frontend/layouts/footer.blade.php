@@ -12,7 +12,6 @@
             <div class="col-md-3">
                 <h6>HELP</h6>
                 <ul class="list-unstyled text-muted">
-                    <li><a href="#" class="text-decoration-none text-muted">MEMBERS LOGIN</a></li>
                     <li><a href="" class="text-decoration-none text-muted">PLACE AN EXCHANGE/RETURN REQUEST</a>
                     </li>
                     <li><a href="{{ route('refund-exchange-policy') }}"
@@ -29,12 +28,8 @@
             <div class="col-md-3 text-center text-md-start">
                 <h6>COMPANY</h6>
                 <ul class="list-unstyled text-muted">
-                    <li><a href="#" class="text-decoration-none text-muted">STORY</a></li>
-                    <li><a href="#" class="text-decoration-none text-muted">OUR STORES</a></li>
-                    <li><a href="#" class="text-decoration-none text-muted">CAREERS</a></li>
+                    <li><a href="{{route('about.us')}}" class="text-decoration-none text-muted">STORY</a></li>
                     <li><a href="{{ route('contact.us') }}" class="text-decoration-none text-muted">CONTACT US</a></li>
-                    <li><a href="#" class="text-decoration-none text-muted">COLLABORATIONS</a></li>
-                    <li><a href="#" class="text-decoration-none text-muted">BLOGS</a></li>
                 </ul>
             </div>
         </div>
@@ -63,50 +58,281 @@
 
 
 <div class="offcanvas offcanvas-end" tabindex="-1" id="cart" aria-labelledby="cartLabel">
-    <div class="offcanvas-header">
-        {{-- <h5 class="offcanvas-title fw-bold" id="cartLabel"><i class="bi bi-cart3"></i> Cart</h5> --}}
+    <div class="offcanvas-header border-bottom">
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <h5 class="offcanvas-title fw-bold mb-3" id="cartLabel"><i class="bi bi-cart3"></i> Cart</h5>
         <div class="cart-items">
             <!-- Example Cart Item -->
             <div class="cart-item d-flex justify-content-between align-items-center mb-3">
                 <div class="cart-item-info d-flex align-items-center">
                     <img src="https://bluorng.com/cdn/shop/files/tshirt4backwithgradient.jpg?v=1738601055&width=823"
-                        alt="Product Image" class="img-fluid" width="50">
+                        alt="Product Image" class="img-fluid rounded" width="80">
                     <div class="ms-3">
-                        <h6 class="mb-0 fw-bold">Product Name</h6>
-                        <small class="text-muted">Quantity: 1</small>
+                        <h6 class="mb-1 fw-bold">THE CLASH T-SHIRT</h6>
+                        <small class="text-muted d-block">RS. 4,995</small>
+                        <small class="text-muted">Size: XXXS</small>
                     </div>
                 </div>
-                <div class="cart-item-price">
-                    <h6 class="mb-0">$25.00</h6>
+                <div class="cart-item-price d-flex align-items-center">
+                    <button class="btn btn-sm border px-2">-</button>
+                    <span class="fw-bold mx-2">2</span>
+                    <button class="btn btn-sm border px-2">+</button>
+                    <button class="btn btn-sm text-danger ms-3"><i class="bi bi-trash"></i></button>
                 </div>
-                <button class="btn btn-sm btn-danger ms-3"><i class="bi bi-trash"></i></button>
             </div>
+            <!-- Add More Cart Items Here -->
+            <!-- Example Cart Item -->
             <div class="cart-item d-flex justify-content-between align-items-center mb-3">
                 <div class="cart-item-info d-flex align-items-center">
                     <img src="https://bluorng.com/cdn/shop/files/tshirt4backwithgradient.jpg?v=1738601055&width=823"
-                        alt="Product Image" class="img-fluid" width="50">
+                        alt="Product Image" class="img-fluid rounded" width="80">
                     <div class="ms-3">
-                        <h6 class="mb-0 fw-bold">Product Name</h6>
-                        <small class="text-muted">Quantity: 1</small>
+                        <h6 class="mb-1 fw-bold">THE CLASH T-SHIRT</h6>
+                        <small class="text-muted d-block">RS. 4,995</small>
+                        <small class="text-muted">Size: XXXS</small>
                     </div>
                 </div>
-                <div class="cart-item-price">
-                    <h6 class="mb-0">$25.00</h6>
+                <div class="cart-item-price d-flex align-items-center">
+                    <button class="btn btn-sm border px-2">-</button>
+                    <span class="fw-bold mx-2">2</span>
+                    <button class="btn btn-sm border px-2">+</button>
+                    <button class="btn btn-sm text-danger ms-3"><i class="bi bi-trash"></i></button>
                 </div>
-                <button class="btn btn-sm btn-danger ms-3"><i class="bi bi-trash"></i></button>
             </div>
-            <!-- Repeat Cart Item as needed -->
+            <!-- Add More Cart Items Here -->
+            <!-- Example Cart Item -->
+            <div class="cart-item d-flex justify-content-between align-items-center mb-3">
+                <div class="cart-item-info d-flex align-items-center">
+                    <img src="https://bluorng.com/cdn/shop/files/tshirt4backwithgradient.jpg?v=1738601055&width=823"
+                        alt="Product Image" class="img-fluid rounded" width="80">
+                    <div class="ms-3">
+                        <h6 class="mb-1 fw-bold">THE CLASH T-SHIRT</h6>
+                        <small class="text-muted d-block">RS. 4,995</small>
+                        <small class="text-muted">Size: XXXS</small>
+                    </div>
+                </div>
+                <div class="cart-item-price d-flex align-items-center">
+                    <button class="btn btn-sm border px-2">-</button>
+                    <span class="fw-bold mx-2">2</span>
+                    <button class="btn btn-sm border px-2">+</button>
+                    <button class="btn btn-sm text-danger ms-3"><i class="bi bi-trash"></i></button>
+                </div>
+            </div>
+            <!-- Add More Cart Items Here -->
+            <!-- Example Cart Item -->
+            <div class="cart-item d-flex justify-content-between align-items-center mb-3">
+                <div class="cart-item-info d-flex align-items-center">
+                    <img src="https://bluorng.com/cdn/shop/files/tshirt4backwithgradient.jpg?v=1738601055&width=823"
+                        alt="Product Image" class="img-fluid rounded" width="80">
+                    <div class="ms-3">
+                        <h6 class="mb-1 fw-bold">THE CLASH T-SHIRT</h6>
+                        <small class="text-muted d-block">RS. 4,995</small>
+                        <small class="text-muted">Size: XXXS</small>
+                    </div>
+                </div>
+                <div class="cart-item-price d-flex align-items-center">
+                    <button class="btn btn-sm border px-2">-</button>
+                    <span class="fw-bold mx-2">2</span>
+                    <button class="btn btn-sm border px-2">+</button>
+                    <button class="btn btn-sm text-danger ms-3"><i class="bi bi-trash"></i></button>
+                </div>
+            </div>
+            <!-- Add More Cart Items Here -->
+            <!-- Example Cart Item -->
+            <div class="cart-item d-flex justify-content-between align-items-center mb-3">
+                <div class="cart-item-info d-flex align-items-center">
+                    <img src="https://bluorng.com/cdn/shop/files/tshirt4backwithgradient.jpg?v=1738601055&width=823"
+                        alt="Product Image" class="img-fluid rounded" width="80">
+                    <div class="ms-3">
+                        <h6 class="mb-1 fw-bold">THE CLASH T-SHIRT</h6>
+                        <small class="text-muted d-block">RS. 4,995</small>
+                        <small class="text-muted">Size: XXXS</small>
+                    </div>
+                </div>
+                <div class="cart-item-price d-flex align-items-center">
+                    <button class="btn btn-sm border px-2">-</button>
+                    <span class="fw-bold mx-2">2</span>
+                    <button class="btn btn-sm border px-2">+</button>
+                    <button class="btn btn-sm text-danger ms-3"><i class="bi bi-trash"></i></button>
+                </div>
+            </div>
+            <!-- Add More Cart Items Here -->
+            <!-- Example Cart Item -->
+            <div class="cart-item d-flex justify-content-between align-items-center mb-3">
+                <div class="cart-item-info d-flex align-items-center">
+                    <img src="https://bluorng.com/cdn/shop/files/tshirt4backwithgradient.jpg?v=1738601055&width=823"
+                        alt="Product Image" class="img-fluid rounded" width="80">
+                    <div class="ms-3">
+                        <h6 class="mb-1 fw-bold">THE CLASH T-SHIRT</h6>
+                        <small class="text-muted d-block">RS. 4,995</small>
+                        <small class="text-muted">Size: XXXS</small>
+                    </div>
+                </div>
+                <div class="cart-item-price d-flex align-items-center">
+                    <button class="btn btn-sm border px-2">-</button>
+                    <span class="fw-bold mx-2">2</span>
+                    <button class="btn btn-sm border px-2">+</button>
+                    <button class="btn btn-sm text-danger ms-3"><i class="bi bi-trash"></i></button>
+                </div>
+            </div>
+            <!-- Add More Cart Items Here -->
+            <!-- Example Cart Item -->
+            <div class="cart-item d-flex justify-content-between align-items-center mb-3">
+                <div class="cart-item-info d-flex align-items-center">
+                    <img src="https://bluorng.com/cdn/shop/files/tshirt4backwithgradient.jpg?v=1738601055&width=823"
+                        alt="Product Image" class="img-fluid rounded" width="80">
+                    <div class="ms-3">
+                        <h6 class="mb-1 fw-bold">THE CLASH T-SHIRT</h6>
+                        <small class="text-muted d-block">RS. 4,995</small>
+                        <small class="text-muted">Size: XXXS</small>
+                    </div>
+                </div>
+                <div class="cart-item-price d-flex align-items-center">
+                    <button class="btn btn-sm border px-2">-</button>
+                    <span class="fw-bold mx-2">2</span>
+                    <button class="btn btn-sm border px-2">+</button>
+                    <button class="btn btn-sm text-danger ms-3"><i class="bi bi-trash"></i></button>
+                </div>
+            </div>
+            <!-- Add More Cart Items Here -->
+            <!-- Example Cart Item -->
+            <div class="cart-item d-flex justify-content-between align-items-center mb-3">
+                <div class="cart-item-info d-flex align-items-center">
+                    <img src="https://bluorng.com/cdn/shop/files/tshirt4backwithgradient.jpg?v=1738601055&width=823"
+                        alt="Product Image" class="img-fluid rounded" width="80">
+                    <div class="ms-3">
+                        <h6 class="mb-1 fw-bold">THE CLASH T-SHIRT</h6>
+                        <small class="text-muted d-block">RS. 4,995</small>
+                        <small class="text-muted">Size: XXXS</small>
+                    </div>
+                </div>
+                <div class="cart-item-price d-flex align-items-center">
+                    <button class="btn btn-sm border px-2">-</button>
+                    <span class="fw-bold mx-2">2</span>
+                    <button class="btn btn-sm border px-2">+</button>
+                    <button class="btn btn-sm text-danger ms-3"><i class="bi bi-trash"></i></button>
+                </div>
+            </div>
+            <!-- Add More Cart Items Here -->
+            <!-- Example Cart Item -->
+            <div class="cart-item d-flex justify-content-between align-items-center mb-3">
+                <div class="cart-item-info d-flex align-items-center">
+                    <img src="https://bluorng.com/cdn/shop/files/tshirt4backwithgradient.jpg?v=1738601055&width=823"
+                        alt="Product Image" class="img-fluid rounded" width="80">
+                    <div class="ms-3">
+                        <h6 class="mb-1 fw-bold">THE CLASH T-SHIRT</h6>
+                        <small class="text-muted d-block">RS. 4,995</small>
+                        <small class="text-muted">Size: XXXS</small>
+                    </div>
+                </div>
+                <div class="cart-item-price d-flex align-items-center">
+                    <button class="btn btn-sm border px-2">-</button>
+                    <span class="fw-bold mx-2">2</span>
+                    <button class="btn btn-sm border px-2">+</button>
+                    <button class="btn btn-sm text-danger ms-3"><i class="bi bi-trash"></i></button>
+                </div>
+            </div>
+            <!-- Add More Cart Items Here -->
+            <!-- Example Cart Item -->
+            <div class="cart-item d-flex justify-content-between align-items-center mb-3">
+                <div class="cart-item-info d-flex align-items-center">
+                    <img src="https://bluorng.com/cdn/shop/files/tshirt4backwithgradient.jpg?v=1738601055&width=823"
+                        alt="Product Image" class="img-fluid rounded" width="80">
+                    <div class="ms-3">
+                        <h6 class="mb-1 fw-bold">THE CLASH T-SHIRT</h6>
+                        <small class="text-muted d-block">RS. 4,995</small>
+                        <small class="text-muted">Size: XXXS</small>
+                    </div>
+                </div>
+                <div class="cart-item-price d-flex align-items-center">
+                    <button class="btn btn-sm border px-2">-</button>
+                    <span class="fw-bold mx-2">2</span>
+                    <button class="btn btn-sm border px-2">+</button>
+                    <button class="btn btn-sm text-danger ms-3"><i class="bi bi-trash"></i></button>
+                </div>
+            </div>
+            <!-- Add More Cart Items Here -->
+            <!-- Example Cart Item -->
+            <div class="cart-item d-flex justify-content-between align-items-center mb-3">
+                <div class="cart-item-info d-flex align-items-center">
+                    <img src="https://bluorng.com/cdn/shop/files/tshirt4backwithgradient.jpg?v=1738601055&width=823"
+                        alt="Product Image" class="img-fluid rounded" width="80">
+                    <div class="ms-3">
+                        <h6 class="mb-1 fw-bold">THE CLASH T-SHIRT</h6>
+                        <small class="text-muted d-block">RS. 4,995</small>
+                        <small class="text-muted">Size: XXXS</small>
+                    </div>
+                </div>
+                <div class="cart-item-price d-flex align-items-center">
+                    <button class="btn btn-sm border px-2">-</button>
+                    <span class="fw-bold mx-2">2</span>
+                    <button class="btn btn-sm border px-2">+</button>
+                    <button class="btn btn-sm text-danger ms-3"><i class="bi bi-trash"></i></button>
+                </div>
+            </div>
+            <!-- Add More Cart Items Here -->
+            <!-- Example Cart Item -->
+            <div class="cart-item d-flex justify-content-between align-items-center mb-3">
+                <div class="cart-item-info d-flex align-items-center">
+                    <img src="https://bluorng.com/cdn/shop/files/tshirt4backwithgradient.jpg?v=1738601055&width=823"
+                        alt="Product Image" class="img-fluid rounded" width="80">
+                    <div class="ms-3">
+                        <h6 class="mb-1 fw-bold">THE CLASH T-SHIRT</h6>
+                        <small class="text-muted d-block">RS. 4,995</small>
+                        <small class="text-muted">Size: XXXS</small>
+                    </div>
+                </div>
+                <div class="cart-item-price d-flex align-items-center">
+                    <button class="btn btn-sm border px-2">-</button>
+                    <span class="fw-bold mx-2">2</span>
+                    <button class="btn btn-sm border px-2">+</button>
+                    <button class="btn btn-sm text-danger ms-3"><i class="bi bi-trash"></i></button>
+                </div>
+            </div>
+            <!-- Add More Cart Items Here -->
+            <!-- Example Cart Item -->
+            <div class="cart-item d-flex justify-content-between align-items-center mb-3">
+                <div class="cart-item-info d-flex align-items-center">
+                    <img src="https://bluorng.com/cdn/shop/files/tshirt4backwithgradient.jpg?v=1738601055&width=823"
+                        alt="Product Image" class="img-fluid rounded" width="80">
+                    <div class="ms-3">
+                        <h6 class="mb-1 fw-bold">THE CLASH T-SHIRT</h6>
+                        <small class="text-muted d-block">RS. 4,995</small>
+                        <small class="text-muted">Size: XXXS</small>
+                    </div>
+                </div>
+                <div class="cart-item-price d-flex align-items-center">
+                    <button class="btn btn-sm border px-2">-</button>
+                    <span class="fw-bold mx-2">2</span>
+                    <button class="btn btn-sm border px-2">+</button>
+                    <button class="btn btn-sm text-danger ms-3"><i class="bi bi-trash"></i></button>
+                </div>
+            </div>
+            <!-- Add More Cart Items Here -->
         </div>
-        <div class="cart-total mt-4">
-            <h5>Total: $75.00</h5>
+
+        <!-- Cart Summary -->
+        <hr>
+        <div class="cart-total mt-3">
+            <h6 class="d-flex justify-content-between fw-bold">
+                <span>ESTIMATED TOTAL</span>
+                <span>RS. 9,990</span>
+            </h6>
+            <small class="text-muted">TAX INCLUDED. SHIPPING AND DISCOUNTS CALCULATED AT CHECKOUT.</small>
         </div>
-        <div class="d-grid gap-2 mt-4">
-            <a href="" class="primary-bg checkout_btn link-normal text-center">Checkout</a>
-            <a href="" class="btn btn-secondary">View Cart</a>
+
+        <!-- Gift Card Checkbox -->
+        <div class="form-check mt-3">
+            <input class="form-check-input" type="checkbox" id="giftCard">
+            <label class="form-check-label" for="giftCard">
+                HAVE A GIFT CARD?
+            </label>
+        </div>
+
+        <!-- Checkout Button -->
+        <div class="d-grid mt-4">
+            <a href="{{ route('checkout') }}" class="link-normal text-center checkout_btn">CHECK OUT</a>
         </div>
     </div>
 </div>

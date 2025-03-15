@@ -4,88 +4,144 @@
 
 @section('content')
 
-    <section class="product_detail py-5">
-        <div class="container py-5">
-            <div class="row">
-            <div class="col-md-4">
-                <div class="list-group">
-                    <a href="#profile" class="list-group-item list-group-item-action active" data-toggle="tab">Profile</a>
-                    <a href="#orders" class="list-group-item list-group-item-action" data-toggle="tab">Order History</a>
-                    <a href="#addresses" class="list-group-item list-group-item-action" data-toggle="tab">Addresses</a>
-                    <form action="{{ route('logout') }}" method="POST" class="mt-2">
-                        @csrf
-                        <button type="submit" class="list-group-item list-group-item-action text-left border-0 bg-transparent">Logout</button>
-                    </form>
+    <section class="py-5">
+        <div class="container">
+            <div class="profile-container row">
+                <!-- Sidebar -->
+                <div class="col-md-4">
+                    <div class="list-group">
+                        <a class="list-group-item list-group-item-action active" data-bs-toggle="tab"
+                            href="#profileTab">Profile</a>
+                        <a class="list-group-item list-group-item-action" data-bs-toggle="tab" href="#ordersTab">Order
+                            History</a>
+                        <a class="list-group-item list-group-item-action" data-bs-toggle="tab"
+                            href="#addressesTab">Addresses</a>
+                        <form action="{{ route('logout') }}" method="POST" class="mt-3">
+                            @csrf
+                            <button type="submit" class="btn btn-danger">Logout</button>
+                        </form>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-8">
-                <div class="tab-content">
-                    <div class="tab-pane fade show active" id="profile">
-                        <h3 class="mb-4">Profile Information</h3>
-                        <p><strong>Name:</strong> {{ auth()->user()->name }}</p>
-                        <p><strong>Email:</strong> {{ auth()->user()->email }}</p>
-                        <p><strong>Phone No:</strong> {{ auth()->user()->phone }}</p>
-                        <!-- Additional profile details can be added here -->
-                    </div>
-                    <div class="tab-pane fade" id="orders">
-                        <h3 class="mb-4">Order History</h3>
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Order #</th>
-                                        <th>Date</th>
-                                        <th>Status</th>
-                                        <th>Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {{-- @foreach($orders as $order)
-                                        <tr>
-                                            <td>{{ $order->id }}</td>
-                                            <td>{{ $order->created_at->format('d M Y') }}</td>
-                                            <td>{{ $order->status }}</td>
-                                            <td>${{ number_format($order->total, 2) }}</td>
-                                        </tr>
-                                    @endforeach --}}
-                                </tbody>
-                            </table>
+
+                <!-- Right Content -->
+                <div class="col-md-8">
+                    <div class="tab-content">
+                        <!-- Profile Tab -->
+                        <div class="tab-pane fade show active" id="profileTab">
+                            <h5 class="mb-4 fw-bold">Profile Detail</h5>
+                            <p><strong>Name:</strong> {{ auth()->user()->name }}</p>
+                            <p><strong>Email:</strong> {{ auth()->user()->email }}</p>
+                            <p><strong>Phone No:</strong> {{ auth()->user()->phone }}</p>
                         </div>
-                    </div>
-                    <div class="tab-pane fade" id="addresses">
-                        <h3 class="mb-4">Your Addresses</h3>
-                        <button class="btn btn-primary mb-3" data-toggle="collapse" data-target="#addAddressForm">
-                            Add New Address
-                        </button>
-                        <div class="collapse mb-4" id="addAddressForm">
-                            <div class="card card-body">
-                                <form method="POST" action="">
-                                    @csrf
-                                    <div class="form-group">
-                                        <label for="address">Address</label>
-                                        <textarea name="address" id="address" class="form-control" rows="3"></textarea>
+
+                        <!-- Orders Tab -->
+                        <div class="tab-pane fade" id="ordersTab">
+                            <div class="container">
+                                <h5 class="mb-4 fw-bold">Order History</h5>
+                                <div class="row">
+                                    <div class="col-12 mx-auto">
+                                        <div class="card custom-card-bg mb-4 check_product">
+                                            <div class="card-body">
+                                                <div class="d-flex align-items-center mb-3 border-bottom pb-3">
+                                                    <div class="position-relative">
+                                                        <img src="https://cdn.shopify.com/s/files/1/0514/9494/4962/files/View_recent_photos_128x128.jpg?v=1741692749"
+                                                            alt="Product" class="img-thumbnail"
+                                                            style="width: 80px; height: 80px;">
+                                                    </div>
+                                                    <div class="d-flex justify-content-between w-100 ms-3">
+                                                        <div>
+                                                            <h5 class="mb-0 fw-bold check_title">Product Title</h5>
+                                                            <p class="mb-1 check_title">Order #12345</p>
+                                                            <p class="mb-0 check_desc">Purchase Date: 12 Mar 2025</p>
+                                                        </div>
+                                                        <div class="text-end">
+                                                            <h6 class="mb-1">Total: ₹9,990</h6>
+                                                            <span class="badge bg-success">Completed</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex align-items-center mb-3 border-bottom pb-3">
+                                                    <div class="position-relative">
+                                                        <img src="https://cdn.shopify.com/s/files/1/0514/9494/4962/files/View_recent_photos_128x128.jpg?v=1741692749"
+                                                            alt="Product" class="img-thumbnail"
+                                                            style="width: 80px; height: 80px;">
+                                                    </div>
+                                                    <div class="d-flex justify-content-between w-100 ms-3">
+                                                        <div>
+                                                            <h5 class="mb-0 fw-bold check_title">Product Title</h5>
+                                                            <p class="mb-1 check_title">Order #12345</p>
+                                                            <p class="mb-0 check_desc">Purchase Date: 12 Mar 2025</p>
+                                                        </div>
+                                                        <div class="text-end">
+                                                            <h6 class="mb-1">Total: ₹9,990</h6>
+                                                            <span class="badge bg-success">Completed</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex align-items-center mb-3 border-bottom pb-3">
+                                                    <div class="position-relative">
+                                                        <img src="https://cdn.shopify.com/s/files/1/0514/9494/4962/files/View_recent_photos_128x128.jpg?v=1741692749"
+                                                            alt="Product" class="img-thumbnail"
+                                                            style="width: 80px; height: 80px;">
+                                                    </div>
+                                                    <div class="d-flex justify-content-between w-100 ms-3">
+                                                        <div>
+                                                            <h5 class="mb-0 fw-bold check_title">Product Title</h5>
+                                                            <p class="mb-1 check_title">Order #12345</p>
+                                                            <p class="mb-0 check_desc">Purchase Date: 12 Mar 2025</p>
+                                                        </div>
+                                                        <div class="text-end">
+                                                            <h6 class="mb-1">Total: ₹9,990</h6>
+                                                            <span class="badge bg-success">Completed</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+                                            </div>
+                                        </div>
+
                                     </div>
-                                    <div class="form-group form-check">
-                                        <input type="checkbox" class="form-check-input" id="primary" name="primary">
-                                        <label class="form-check-label" for="primary">Set as primary address</label>
-                                    </div>
-                                    <button type="submit" class="btn btn-success">Save Address</button>
-                                </form>
+                                </div>
                             </div>
+
                         </div>
-                        <ul class="list-group">
-                            {{-- @foreach($addresses as $address)
+
+
+                        <!-- Addresses Tab -->
+                        <div class="tab-pane fade" id="addressesTab">
+                            <h5 class="mb-4 fw-bold">Your Addresses</h5>
+                            <button class="btn btn-dark mb-3" data-bs-toggle="collapse" data-bs-target="#addAddressForm">
+                                Add New Address
+                            </button>
+                            <div class="collapse mb-4" id="addAddressForm">
+                                <div class="card card-body">
+                                    <form method="POST" action="">
+                                        @csrf
+                                        <div class="mb-3">
+                                            <label for="address" class="form-label">Address</label>
+                                            <textarea name="address" id="address" class="form-control" rows="3"></textarea>
+                                        </div>
+                                        <div class="form-check mb-3">
+                                            <input type="checkbox" class="form-check-input" id="primary" name="primary">
+                                            <label class="form-check-label" for="primary">Set as primary address</label>
+                                        </div>
+                                        <button type="submit" class="btn btn-success">Save Address</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <ul class="list-group">
+                                {{-- @foreach ($addresses as $address) --}}
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    {{ $address->address }}
-                                    @if($address->primary)
-                                        <span class="badge badge-primary">Primary</span>
-                                    @endif
+                                    123 Street, City, Country
+                                    <span class="badge bg-primary">Primary</span>
                                 </li>
-                            @endforeach --}}
-                        </ul>
+                                {{-- @endforeach --}}
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
             </div>
         </div>
     </section>

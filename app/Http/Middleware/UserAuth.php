@@ -18,6 +18,9 @@ class UserAuth
     {
         // Check if the user is not authenticated
         if (!Auth::check()) {
+            // Store the current URL in the session
+            $request->session()->put('url.intended', $request->url());
+
             // Redirect the user to the login page (or any other route as needed)
             return redirect()->route('login');
         }

@@ -1,10 +1,10 @@
 <header>
-    <nav class="navbar sticky-top navbar-expand-lg py-0 secondary-bg">
+    <nav class="navbar sticky-top navbar-expand-lg py-2 secondary-bg">
         <div class="container-fluid px-4">
             <div class="d-flex w-100 justify-content-between align-items-center">
                 <!-- Left: Logo -->
                 <div class="d-flex align-items-center">
-                    <a class="navbar-brand py-0" href="/">
+                    <a class="navbar-brand py-0" href="{{route('home')}}">
                         <img src="{{ asset('images/logo/logo.svg') }}" alt="Logo" width="100">
                     </a>
                 </div>
@@ -13,7 +13,7 @@
                 <div class="text-center">
                     <ul class="navbar-nav gap-4 align-items-center d-flex">
                         <li class="nav-item">
-                            <a class="nav-link text-uppercase primary-font-size fw-400" href="#">New in</a>
+                            <a class="nav-link text-uppercase primary-font-size fw-400" href="{{route('new.in')}}">New in</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-uppercase primary-font-size fw-400" href="#">Apparel</a>
