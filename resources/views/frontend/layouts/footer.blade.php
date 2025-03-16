@@ -1,61 +1,61 @@
-<footer class="py-5 pb-0 mt-5 secondary-bg">
+<footer class="pt-5 pb-3 secondary-bg primary-color">
     <div class="container">
-        <div class="row justify-content-between">
-            <!-- Left: Logo -->
-            <div class="col-md-4 text-center text-md-start">
-                <a href=""><img src="{{ asset('images/logo/logo.svg') }}" class="img-fluid" alt=""
-                        width="150"></a>
-                <p class="text-muted mt-3">&copy; 2025 Quron, ALL RIGHTS RESERVED.</p>
-            </div>
-
-            <!-- Center: Help Section -->
+        <div class="row">
+            <!-- Categories -->
             <div class="col-md-3">
-                <h6 class="fw-bold">HELP</h6>
-                <ul class="list-unstyled text-muted">
-                    <li><a href="" class="text-decoration-none text-muted">PLACE AN EXCHANGE/RETURN REQUEST</a>
-                    </li>
-                    <li><a href="{{ route('refund-exchange-policy') }}"
-                            class="text-decoration-none text-muted">EXCHANGE/RETURNS POLICY</a></li>
-                    <li><a href="{{ route('faq') }}" class="text-decoration-none text-muted">FAQ</a></li>
-                    <li><a href="{{ route('terms-and-conditions') }}" class="text-decoration-none text-muted">TERMS</a>
-                    </li>
-                    <li><a href="{{ route('shipping-policy') }}" class="text-decoration-none text-muted">SHIPPING</a>
-                    </li>
+                <h6 class="fw-bold">Categories</h6>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="primary-color text-decoration-none">Men</a></li>
+                    <li><a href="#" class="primary-color text-decoration-none">Women</a></li>
+                    <li><a href="#" class="primary-color text-decoration-none">Summer Tees</a></li>
+                    <li><a href="#" class="primary-color text-decoration-none">Oversized Tees</a></li>
+                    <li><a href="#" class="primary-color text-decoration-none">Travel Jogger</a></li>
+                    <li><a href="#" class="primary-color text-decoration-none">Fashion Joggers</a></li>
                 </ul>
             </div>
 
-            <!-- Right: Company Section -->
-            <div class="col-md-3 text-center text-md-start">
-                <h6 class="fw-bold">COMPANY</h6>
-                <ul class="list-unstyled text-muted">
-                    <li><a href="{{route('about.us')}}" class="text-decoration-none text-muted">STORY</a></li>
-                    <li><a href="{{ route('contact.us') }}" class="text-decoration-none text-muted">CONTACT US</a></li>
-                    <li><a href="{{ route('blogs') }}" class="text-decoration-none text-muted">BLOGS</a></li>
+            <!-- Need Help -->
+            <div class="col-md-3">
+                <h6 class="fw-bold">Need Help</h6>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="primary-color text-decoration-none">Track Your Order</a></li>
+                    <li><a href="{{ route('refund-exchange-policy') }}"
+                            class="primary-color text-decoration-none">Refund & Exchanges</a></li>
+                    <li><a href="{{ route('faq') }}" class="primary-color text-decoration-none">FAQs</a></li>
+                    <li><a href="{{ route('terms-and-conditions') }}" class="primary-color text-decoration-none">Terms &
+                            Condition</a></li>
+                    <li><a href="{{ route('shipping-policy') }}" class="primary-color text-decoration-none">Shipping
+                            Policy</a></li>
                 </ul>
+            </div>
+
+            <!-- Company -->
+            <div class="col-md-3">
+                <h6 class="fw-bold">Company</h6>
+                <ul class="list-unstyled">
+                    <li><a href="{{ route('about.us') }}" class="primary-color text-decoration-none">Story</a></li>
+                    <li><a href="{{ route('contact.us') }}" class="primary-color text-decoration-none">Contact Us</a>
+                    </li>
+                    <li><a href="{{ route('blogs') }}" class="primary-color text-decoration-none">Blogs</a></li>
+                </ul>
+            </div>
+
+            <!-- Get in touch (Social Media) -->
+            <div class="col-md-3">
+                <h6 class="fw-bold">Get in touch</h6>
+                <div class="d-flex gap-3">
+                    <a href="#" class="primary-color fs-4"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="primary-color fs-4"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="primary-color fs-4"><i class="bi bi-whatsapp"></i></a>
+                </div>
             </div>
         </div>
-    </div>
-
-    <!-- Bottom Social Media Links -->
-    <div class="primary-bg text-white text-center py-2">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <a href="#" class="text-white text-decoration-none fs-12">CONNECT</a>
-                </div>
-                <div class="col">
-                    <a href="#" class="text-white text-decoration-none fs-12">INSTAGRAM</a>
-                </div>
-                <div class="col">
-                    <a href="#" class="text-white text-decoration-none fs-12">YOUTUBE</a>
-                </div>
-                <div class="col">
-                    <a href="#" class="text-white text-decoration-none fs-12">LINKEDIN</a>
-                </div>
-            </div>
+        <div class="text-center mt-4 text-muted">
+            &copy; 2025 Quron, ALL RIGHTS RESERVED.
         </div>
     </div>
 </footer>
+
 
 
 <div class="offcanvas offcanvas-end" tabindex="-1" id="cart" aria-labelledby="cartLabel">

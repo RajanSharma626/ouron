@@ -35,11 +35,11 @@
 
 
     {{-- ============================================= New Arrival Section Start ==================================== --}}
-    <section class="new_arrival_section mt-4">
+    <section class="new_arrival_section mt-5">
         <div class="container-fluid">
             <div class="row justify-content-between mb-3 align-items-center">
                 <div class="col">
-                    <p class="text-uppercase secondary-font-size mb-0 heading-font">New Arrivals</p>
+                    <p class="text-uppercase mb-0 fw-bold">New Arrivals</p>
                 </div>
                 <div class="col text-end">
                     <a href="{{ route('new.in') }}" class="link-normal p-2 discover_more_btn">Discover More</a>
@@ -533,14 +533,14 @@
             <div class="row justify-content-center">
                 <div class="col-6">
                     <div class="newsletter_content text-center">
-                        <h2 class="newsletter
-                            title">Subscribe to our Newsletter</h2>
-                        <p class="newsletter text-normal">Sign up for our weekly
+                        <h3 class="newsletter
+                            title">Subscribe to our Newsletter</h3>
+                        <p class="newsletter_desc text-normal">Sign up for our weekly
                             newsletter to get the
                             latest news, updates and amazing offers delivered directly in your inbox.</p>
                         <form action="" class="newsletter_form">
                             <div class="input-group">
-                                <input type="email" class="form-control" placeholder="Enter your email">
+                                <input type="email" class="form-control p-2 px-3" placeholder="Enter your email">
                                 <button class="btn subscribe_btn border-start">Subscribe</button>
                             </div>
                         </form>
@@ -550,6 +550,48 @@
         </div>
     </section>
     {{-- ============================================= Newsletter Section End ==================================== --}}
+
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm" action="{{ route('login') }}" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Phone Number</label>
+                            <input type="number" class="form-control" min="0" name="phone" required>
+                        </div>
+                        <button type="submit" class="w-100 login_btn">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var loginModalEl = document.getElementById('loginModal');
+            var loginModal = new bootstrap.Modal(loginModalEl);
+            var modalClosedDate = localStorage.getItem("loginModalClosedDate");
+            var today = new Date().toDateString();
+
+            // Show the login modal if it hasn't been closed today
+            if (modalClosedDate !== today) {
+                loginModal.show();
+            }
+
+            // When the modal is closed, record today's date
+            loginModalEl.addEventListener('hidden.bs.modal', function() {
+                localStorage.setItem("loginModalClosedDate", today);
+            });
+        });
+    </script>
 
 @endsection
 
@@ -564,13 +606,33 @@
                 clickable: true,
             },
             autoplay: {
-                delay: 3000,
+                delay: 5000,
                 disableOnInteraction: false,
             },
             navigation: {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
             },
+        });
+        // Get navigation arrow elements
+        var nextArrow = document.querySelector('.swiper-button-next');
+        var prevArrow = document.querySelector('.swiper-button-prev');
+
+        // Initially hide the navigation arrows
+        if (nextArrow && prevArrow) {
+            nextArrow.style.opacity = 0;
+            prevArrow.style.opacity = 0;
+        }
+
+        // Show arrows only on hover
+        var swiperContainer = document.querySelector('.swiper-container');
+        swiperContainer.addEventListener('mouseenter', function() {
+            nextArrow.style.opacity = 1;
+            prevArrow.style.opacity = 1;
+        });
+        swiperContainer.addEventListener('mouseleave', function() {
+            nextArrow.style.opacity = 0;
+            prevArrow.style.opacity = 0;
         });
     </script>
 

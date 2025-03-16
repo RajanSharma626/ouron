@@ -21,6 +21,10 @@ Route::get('/about-us', function () {
     return view('frontend.about-us');
 })->name('about.us');
 
+Route::get('/wishlist', function () {
+    return view('frontend.wishlist');
+})->name('wishlist');
+
 Route::get('/faq', function () {
     return view('frontend.faq');
 })->name('faq');
