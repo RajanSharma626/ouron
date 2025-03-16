@@ -102,10 +102,12 @@
                                 <img src="{{ asset('/images/sizes/xl.svg') }}" class="img-fluid size_img" alt="">
                             </div>
                             <div class="size">
-                                <img src="{{ asset('/images/sizes/xxl.svg') }}" class="img-fluid size_img" alt="">
+                                <img src="{{ asset('/images/sizes/xxl.svg') }}" class="img-fluid size_img"
+                                    alt="">
                             </div>
                             <div class="size">
-                                <img src="{{ asset('/images/sizes/3xl.svg') }}" class="img-fluid size_img" alt="">
+                                <img src="{{ asset('/images/sizes/3xl.svg') }}" class="img-fluid size_img"
+                                    alt="">
                             </div>
                         </div>
                     </div>
@@ -186,6 +188,97 @@
                         </div>
                     </div>
 
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="new_arrival_section my-5">
+        <div class="container-fluid">
+            <div class="row justify-content-between mb-3 align-items-center">
+                <div class="col">
+                    <p class="text-uppercase mb-0 fw-bold">You may also like</p>
+                </div>
+                <div class="col text-end">
+                    <a href="{{ route('new.in') }}" class="link-normal p-2 discover_more_btn">Discover More</a>
+                </div>
+            </div>
+
+            <div class="row g-2">
+                <div class="col-3">
+                    <a href="/product/detail" class="text-decoration-none">
+                        <div class="product_card">
+                            <div class="product_img">
+                                <img src="https://bluorng.com/cdn/shop/files/WHITE_WILD_BUNCH_FRONT_FLYING.jpg?v=1738932437&width=360"
+                                    alt="" class="img-fluid">
+                            </div>
+                            <div class="product_info p-3">
+                                <h3 class="product_title">
+                                    The Clash T-shirt
+                                </h3>
+                                <p class="product_price mb-0 text-muted">
+                                    RS. 4,995
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-3">
+                    <a href="/product/detail" class="text-decoration-none">
+                        <div class="product_card">
+
+                            <div class="product_img">
+                                <img src="https://bluorng.com/cdn/shop/files/BLACKWILDBUNCHFRONTFLYING.jpg?v=1738932421&width=360"
+                                    alt="" class="img-fluid">
+                            </div>
+                            <div class="product_info p-3">
+                                <h3 class="product_title">
+                                    The Clash T-shirt
+                                </h3>
+                                <p class="product_price mb-0 text-muted">
+                                    RS. 4,995
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-3">
+                    <a href="/product/detail" class="text-decoration-none">
+                        <div class="product_card">
+
+                            <div class="product_img">
+                                <img src="https://bluorng.com/cdn/shop/files/hbh_kb.jpg?v=1738849531&width=360"
+                                    alt="" class="img-fluid">
+                            </div>
+                            <div class="product_info p-3">
+                                <h3 class="product_title">
+                                    The Clash T-shirt
+                                </h3>
+                                <p class="product_price mb-0 text-muted">
+                                    RS. 4,995
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-3">
+                    <a href="/product/detail" class="text-decoration-none">
+                        <div class="product_card">
+
+                            <div class="product_img">
+                                <img src="https://bluorng.com/cdn/shop/files/DSC099288.jpg?v=1738849896&width=360"
+                                    alt="" class="img-fluid">
+                            </div>
+                            <div class="product_info p-3">
+                                <h3 class="product_title">
+                                    The Clash T-shirt
+                                </h3>
+                                <p class="product_price mb-0 text-muted">
+                                    RS. 4,995
+                                </p>
+                            </div>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>

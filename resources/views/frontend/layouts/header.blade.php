@@ -1,4 +1,8 @@
 <header>
+
+    <div class="fs-07rem text-center primary-bg text-white py-2">
+        <strong>Coupon Offer:</strong> Use code <span class="fw-bold">SAVE20</span> at checkout for a 20% discount!
+    </div>
     <nav class="navbar sticky-top navbar-expand-lg py-2 secondary-bg">
         <div class="container-fluid px-4">
             <div class="d-flex w-100 justify-content-between align-items-center">
@@ -26,7 +30,8 @@
                             <ul class="dropdown-menu secondary-bg" aria-labelledby="apparelDropdown">
                                 <!-- First Sub Menu -->
                                 <li class="dropdown-submenu">
-                                    <a class="dropdown-item dropdown-toggle primary-font-size fw-400" href="#">Polo</a>
+                                    <a class="dropdown-item dropdown-toggle primary-font-size fw-400"
+                                        href="#">Polo</a>
                                     <ul class="dropdown-menu">
                                         <li><a class="dropdown-item" href="#">T-Shirts</a></li>
                                         <li><a class="dropdown-item" href="#">Jeans</a></li>
@@ -35,7 +40,8 @@
                                 </li>
                                 <!-- Second Sub Menu -->
                                 <li class="dropdown-submenu">
-                                    <a class="dropdown-item dropdown-toggle primary-font-size fw-400" href="#">Oversized</a>
+                                    <a class="dropdown-item dropdown-toggle primary-font-size fw-400"
+                                        href="#">Oversized</a>
                                     <ul class="dropdown-menu">
                                         <li><a class="dropdown-item" href="#">Dresses</a></li>
                                         <li><a class="dropdown-item" href="#">Tops</a></li>
@@ -48,6 +54,30 @@
                         <li class="nav-item">
                             <a class="nav-link text-uppercase primary-font-size fw-400"
                                 href="{{ route('all-product') }}">All Product</a>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link text-uppercase primary-font-size fw-400 dropdown-toggle" href="#"
+                                id="footwearDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Collection
+                            </a>
+                            <ul class="dropdown-menu secondary-bg" aria-labelledby="footwearDropdown">
+                                <!-- First Sub Menu -->
+                                <li class="dropdown-item">
+                                    <a class="primary-font-size fw-400 text-decoration-none" href="#">Collection
+                                        1</a>
+
+                                </li>
+                                <li class="dropdown-item">
+                                    <a class="primary-font-size fw-400 text-decoration-none" href="#">Collection
+                                        2</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-uppercase primary-font-size fw-400"
+                                href="{{ route('blogs') }}">Blogs</a>
                         </li>
                     </ul>
                 </div>
@@ -63,7 +93,14 @@
                             <a class="nav-link p-0" href="javascript:void(0)" data-bs-toggle="offcanvas"
                                 data-bs-target="#cart" aria-controls="cart">
                                 <div class="position-relative">
-                                    <i class="bi bi-cart3" aria-hidden="true"></i>
+                                    <i class="bi bi-handbag" aria-hidden="true"></i>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link p-0" href="{{ route('wishlist') }}">
+                                <div class="position-relative">
+                                    <i class="bi bi-heart"></i>
                                 </div>
                             </a>
                         </li>
