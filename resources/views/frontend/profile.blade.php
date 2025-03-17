@@ -6,7 +6,7 @@
 
     <section class="py-5">
         <div class="container">
-            <div class="profile-container row">
+            <div class="profile-container row py-5">
                 <!-- Sidebar -->
                 <div class="col-md-4">
                     <div class="list-group">
@@ -28,7 +28,7 @@
                     <div class="tab-content">
                         <!-- Profile Tab -->
                         <div class="tab-pane fade show active" id="profileTab">
-                            <h5 class="mb-4 fw-bold">Profile Detail</h5>
+                            <h5 class="mb-4 fw-bold">Contact Detail</h5>
                             <p><strong>Name:</strong> {{ auth()->user()->name }}</p>
                             <p><strong>Email:</strong> {{ auth()->user()->email }}</p>
                             <p><strong>Phone No:</strong> {{ auth()->user()->phone }}</p>

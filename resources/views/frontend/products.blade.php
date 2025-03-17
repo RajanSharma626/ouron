@@ -42,140 +42,233 @@
             </div>
 
             <div class="row g-2">
-                <div class="col-3">
-                    <div class="product_card">
-                        <div class="product_img">
-                            <img src="https://bluorng.com/cdn/shop/files/WHITE_WILD_BUNCH_FRONT_FLYING.jpg?v=1738932437&width=360"
-                                alt="" class="img-fluid">
-                        </div>
-                        <div class="product_info p-2 pb-0">
-                            <h3 class="product_title">
-                                The Clash T-shirt
-                            </h3>
-                            <p class="product_price text-muted">
-                                RS. 4,995
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="product_card">
+                <div class="col-6 col-md-3" data-aos="fade-up">
+                    <a href="/product/detail" class="text-decoration-none">
+                        <div class="product_card">
+                            <div class="product_img">
+                                <img src="https://bluorng.com/cdn/shop/files/wedacwsdz.jpg?v=1742189620&width=533"
+                                    alt="" class="img-fluid default_img">
+                                <img src="https://bluorng.com/cdn/shop/files/encwesdnc_bfd44569-186c-48b9-a88d-b75c2ecbdc4d.jpg?v=1742189608&width=533"
+                                    alt="" class="img-fluid hover_img">
+                            </div>
 
-                        <div class="product_img">
-                            <img src="https://bluorng.com/cdn/shop/files/BLACKWILDBUNCHFRONTFLYING.jpg?v=1738932421&width=360"
-                                alt="" class="img-fluid">
+                            <!-- Icons -->
+                            <div class="product_icons">
+                                <a href="#" class="cart_icon" title="Add to Cart">
+                                    <i class="bi bi-handbag" aria-hidden="true"></i>
+                                </a>
+                                <a href="#" class="like_icon" title="Add to Wishlist">
+                                    <i class="bi bi-heart"></i>
+                                </a>
+                                <a href="#" class="share_icon" title="Share">
+                                    <i class="bi bi-share-fill"></i>
+                                </a>
+                            </div>
+                            <div class="product_info p-3">
+                                <h3 class="product_title">The Clash T-shirt</h3>
+                                <p class="product_price mb-0 text-muted"><del>RS. 4,995 </del> &nbsp; RS. 3,999</p>
+                            </div>
                         </div>
-                        <div class="product_info p-2 pb-0">
-                            <h3 class="product_title">
-                                The Clash T-shirt
-                            </h3>
-                            <p class="product_price text-muted">
-                                RS. 4,995
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="product_card">
-
-                        <div class="product_img">
-                            <img src="https://bluorng.com/cdn/shop/files/hbh_kb.jpg?v=1738849531&width=360" alt=""
-                                class="img-fluid">
-                        </div>
-                        <div class="product_info p-2 pb-0">
-                            <h3 class="product_title">
-                                The Clash T-shirt
-                            </h3>
-                            <p class="product_price text-muted">
-                                RS. 4,995
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="product_card">
-
-                        <div class="product_img">
-                            <img src="https://bluorng.com/cdn/shop/files/DSC099288.jpg?v=1738849896&width=360"
-                                alt="" class="img-fluid">
-                        </div>
-                        <div class="product_info p-2 pb-0">
-                            <h3 class="product_title">
-                                The Clash T-shirt
-                            </h3>
-                            <p class="product_price text-muted">
-                                RS. 4,995
-                            </p>
-                        </div>
-                    </div>
+                    </a>
                 </div>
 
-                <div class="col-3">
-                    <div class="product_card">
-                        <div class="product_img">
-                            <img src="https://bluorng.com/cdn/shop/files/WHITE_WILD_BUNCH_FRONT_FLYING.jpg?v=1738932437&width=360"
-                                alt="" class="img-fluid">
+                <div class="col-6 col-md-3" data-aos="fade-up">
+                    <a href="/product/detail" class="text-decoration-none">
+                        <div class="product_card">
+                            <div class="product_img">
+                                <img src="https://bluorng.com/cdn/shop/files/encwesdnc_bfd44569-186c-48b9-a88d-b75c2ecbdc4d.jpg?v=1742189608&width=533"
+                                    alt="" class="img-fluid default_img">
+                                <img src="https://bluorng.com/cdn/shop/files/wedacwsdz.jpg?v=1742189620&width=533"
+                                    alt="" class="img-fluid hover_img">
+                            </div>
+                            <!-- Icons -->
+                            <div class="product_icons">
+                                <a href="#" class="cart_icon" title="Add to Cart">
+                                    <i class="bi bi-handbag" aria-hidden="true"></i>
+                                </a>
+                                <a href="#" class="like_icon" title="Add to Wishlist">
+                                    <i class="bi bi-heart"></i>
+                                </a>
+                                <a href="#" class="share_icon" title="Share">
+                                    <i class="bi bi-share-fill"></i>
+                                </a>
+                            </div>
+                            <div class="product_info p-3">
+                                <h3 class="product_title">The Clash T-shirt</h3>
+                                <p class="product_price mb-0 text-muted"><del>RS. 4,995 </del> &nbsp; RS. 3,999</p>
+                            </div>
                         </div>
-                        <div class="product_info p-2 pb-0">
-                            <h3 class="product_title">
-                                The Clash T-shirt
-                            </h3>
-                            <p class="product_price text-muted">
-                                RS. 4,995
-                            </p>
-                        </div>
-                    </div>
+                    </a>
                 </div>
-                <div class="col-3">
-                    <div class="product_card">
-
-                        <div class="product_img">
-                            <img src="https://bluorng.com/cdn/shop/files/BLACKWILDBUNCHFRONTFLYING.jpg?v=1738932421&width=360"
-                                alt="" class="img-fluid">
+                <div class="col-6 col-md-3" data-aos="fade-up">
+                    <a href="/product/detail" class="text-decoration-none">
+                        <div class="product_card">
+                            <div class="product_img">
+                                <img src="https://bluorng.com/cdn/shop/files/fv3weca.jpg?v=1741010363&width=533"
+                                    alt="" class="img-fluid default_img">
+                                <img src="https://bluorng.com/cdn/shop/files/erwfsdcwqas.jpg?v=1741417955&width=533"
+                                    alt="" class="img-fluid hover_img">
+                            </div>
+                            <!-- Icons -->
+                            <div class="product_icons">
+                                <a href="#" class="cart_icon" title="Add to Cart">
+                                    <i class="bi bi-handbag" aria-hidden="true"></i>
+                                </a>
+                                <a href="#" class="like_icon" title="Add to Wishlist">
+                                    <i class="bi bi-heart"></i>
+                                </a>
+                                <a href="#" class="share_icon" title="Share">
+                                    <i class="bi bi-share-fill"></i>
+                                </a>
+                            </div>
+                            <div class="product_info p-3">
+                                <h3 class="product_title">The Clash T-shirt</h3>
+                                <p class="product_price mb-0 text-muted"><del>RS. 4,995 </del> &nbsp; RS. 3,999</p>
+                            </div>
                         </div>
-                        <div class="product_info p-2 pb-0">
-                            <h3 class="product_title">
-                                The Clash T-shirt
-                            </h3>
-                            <p class="product_price text-muted">
-                                RS. 4,995
-                            </p>
-                        </div>
-                    </div>
+                    </a>
                 </div>
-                <div class="col-3">
-                    <div class="product_card">
-
-                        <div class="product_img">
-                            <img src="https://bluorng.com/cdn/shop/files/hbh_kb.jpg?v=1738849531&width=360" alt=""
-                                class="img-fluid">
+                <div class="col-6 col-md-3" data-aos="fade-up">
+                    <a href="/product/detail" class="text-decoration-none">
+                        <div class="product_card">
+                            <div class="product_img">
+                                <img src="https://bluorng.com/cdn/shop/files/erwfsdcwqas.jpg?v=1741417955&width=533"
+                                    alt="" class="img-fluid default_img">
+                                <img src="https://bluorng.com/cdn/shop/files/fv3weca.jpg?v=1741010363&width=533"
+                                    alt="" class="img-fluid hover_img">
+                            </div>
+                            <!-- Icons -->
+                            <div class="product_icons">
+                                <a href="#" class="cart_icon" title="Add to Cart">
+                                    <i class="bi bi-handbag" aria-hidden="true"></i>
+                                </a>
+                                <a href="#" class="like_icon" title="Add to Wishlist">
+                                    <i class="bi bi-heart"></i>
+                                </a>
+                                <a href="#" class="share_icon" title="Share">
+                                    <i class="bi bi-share-fill"></i>
+                                </a>
+                            </div>
+                            <div class="product_info p-3">
+                                <h3 class="product_title">The Clash T-shirt</h3>
+                                <p class="product_price mb-0 text-muted"><del>RS. 4,995 </del> &nbsp; RS. 3,999</p>
+                            </div>
                         </div>
-                        <div class="product_info p-2 pb-0">
-                            <h3 class="product_title">
-                                The Clash T-shirt
-                            </h3>
-                            <p class="product_price text-muted">
-                                RS. 4,995
-                            </p>
-                        </div>
-                    </div>
+                    </a>
                 </div>
-                <div class="col-3">
-                    <div class="product_card">
+                <div class="col-6 col-md-3" data-aos="fade-up">
+                    <a href="/product/detail" class="text-decoration-none">
+                        <div class="product_card">
+                            <div class="product_img">
+                                <img src="https://bluorng.com/cdn/shop/files/wedacwsdz.jpg?v=1742189620&width=533"
+                                    alt="" class="img-fluid default_img">
+                                <img src="https://bluorng.com/cdn/shop/files/encwesdnc_bfd44569-186c-48b9-a88d-b75c2ecbdc4d.jpg?v=1742189608&width=533"
+                                    alt="" class="img-fluid hover_img">
+                            </div>
 
-                        <div class="product_img">
-                            <img src="https://bluorng.com/cdn/shop/files/DSC099288.jpg?v=1738849896&width=360"
-                                alt="" class="img-fluid">
+                            <!-- Icons -->
+                            <div class="product_icons">
+                                <a href="#" class="cart_icon" title="Add to Cart">
+                                    <i class="bi bi-handbag" aria-hidden="true"></i>
+                                </a>
+                                <a href="#" class="like_icon" title="Add to Wishlist">
+                                    <i class="bi bi-heart"></i>
+                                </a>
+                                <a href="#" class="share_icon" title="Share">
+                                    <i class="bi bi-share-fill"></i>
+                                </a>
+                            </div>
+                            <div class="product_info p-3">
+                                <h3 class="product_title">The Clash T-shirt</h3>
+                                <p class="product_price mb-0 text-muted"><del>RS. 4,995 </del> &nbsp; RS. 3,999</p>
+                            </div>
                         </div>
-                        <div class="product_info p-2 pb-0">
-                            <h3 class="product_title">
-                                The Clash T-shirt
-                            </h3>
-                            <p class="product_price text-muted">
-                                RS. 4,995
-                            </p>
+                    </a>
+                </div>
+
+                <div class="col-6 col-md-3" data-aos="fade-up">
+                    <a href="/product/detail" class="text-decoration-none">
+                        <div class="product_card">
+                            <div class="product_img">
+                                <img src="https://bluorng.com/cdn/shop/files/encwesdnc_bfd44569-186c-48b9-a88d-b75c2ecbdc4d.jpg?v=1742189608&width=533"
+                                    alt="" class="img-fluid default_img">
+                                <img src="https://bluorng.com/cdn/shop/files/wedacwsdz.jpg?v=1742189620&width=533"
+                                    alt="" class="img-fluid hover_img">
+                            </div>
+                            <!-- Icons -->
+                            <div class="product_icons">
+                                <a href="#" class="cart_icon" title="Add to Cart">
+                                    <i class="bi bi-handbag" aria-hidden="true"></i>
+                                </a>
+                                <a href="#" class="like_icon" title="Add to Wishlist">
+                                    <i class="bi bi-heart"></i>
+                                </a>
+                                <a href="#" class="share_icon" title="Share">
+                                    <i class="bi bi-share-fill"></i>
+                                </a>
+                            </div>
+                            <div class="product_info p-3">
+                                <h3 class="product_title">The Clash T-shirt</h3>
+                                <p class="product_price mb-0 text-muted"><del>RS. 4,995 </del> &nbsp; RS. 3,999</p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
+                </div>
+                <div class="col-6 col-md-3" data-aos="fade-up">
+                    <a href="/product/detail" class="text-decoration-none">
+                        <div class="product_card">
+                            <div class="product_img">
+                                <img src="https://bluorng.com/cdn/shop/files/fv3weca.jpg?v=1741010363&width=533"
+                                    alt="" class="img-fluid default_img">
+                                <img src="https://bluorng.com/cdn/shop/files/erwfsdcwqas.jpg?v=1741417955&width=533"
+                                    alt="" class="img-fluid hover_img">
+                            </div>
+                            <!-- Icons -->
+                            <div class="product_icons">
+                                <a href="#" class="cart_icon" title="Add to Cart">
+                                    <i class="bi bi-handbag" aria-hidden="true"></i>
+                                </a>
+                                <a href="#" class="like_icon" title="Add to Wishlist">
+                                    <i class="bi bi-heart"></i>
+                                </a>
+                                <a href="#" class="share_icon" title="Share">
+                                    <i class="bi bi-share-fill"></i>
+                                </a>
+                            </div>
+                            <div class="product_info p-3">
+                                <h3 class="product_title">The Clash T-shirt</h3>
+                                <p class="product_price mb-0 text-muted"><del>RS. 4,995 </del> &nbsp; RS. 3,999</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-6 col-md-3" data-aos="fade-up">
+                    <a href="/product/detail" class="text-decoration-none">
+                        <div class="product_card">
+                            <div class="product_img">
+                                <img src="https://bluorng.com/cdn/shop/files/erwfsdcwqas.jpg?v=1741417955&width=533"
+                                    alt="" class="img-fluid default_img">
+                                <img src="https://bluorng.com/cdn/shop/files/fv3weca.jpg?v=1741010363&width=533"
+                                    alt="" class="img-fluid hover_img">
+                            </div>
+                            <!-- Icons -->
+                            <div class="product_icons">
+                                <a href="#" class="cart_icon" title="Add to Cart">
+                                    <i class="bi bi-handbag" aria-hidden="true"></i>
+                                </a>
+                                <a href="#" class="like_icon" title="Add to Wishlist">
+                                    <i class="bi bi-heart"></i>
+                                </a>
+                                <a href="#" class="share_icon" title="Share">
+                                    <i class="bi bi-share-fill"></i>
+                                </a>
+                            </div>
+                            <div class="product_info p-3">
+                                <h3 class="product_title">The Clash T-shirt</h3>
+                                <p class="product_price mb-0 text-muted"><del>RS. 4,995 </del> &nbsp; RS. 3,999</p>
+                            </div>
+                        </div>
+                    </a>
                 </div>
             </div>
 
