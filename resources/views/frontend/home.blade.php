@@ -744,21 +744,34 @@
 
     <!-- Login Modal -->
     <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                    <h5 class="modal-title fw-bold" id="loginModalLabel">Login</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="loginForm" action="{{ route('login') }}" method="POST">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Phone Number</label>
-                            <input type="number" class="form-control" min="0" name="phone" required>
+
+                    <div class="row">
+                        <div class="col-md-6 d-none d-md-block">
+                            <img src="" class="img-fluid" alt="">
                         </div>
-                        <button type="submit" class="w-100 login_btn">Login</button>
-                    </form>
+                        <div class="col-md-6 col-12">
+                            <div class="logo text-center mb-4">
+                                <img src="{{ asset('/images/logo/logo.svg') }}" class="img-fluid" width="150"
+                                    alt="logo">
+                            </div>
+                            <form id="loginForm" action="{{ route('login') }}" method="POST">
+                                @csrf
+                                <div class="mb-3">
+                                    {{-- <label for="email" class="form-label">Phone Number</label> --}}
+                                    <input type="text" class="form-control" name="phone" placeholder="Enter Phone Number" required>
+                                </div>
+                                <button type="submit" class="w-100 login_btn">Login</button>
+                            </form>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
