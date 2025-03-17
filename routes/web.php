@@ -5,7 +5,9 @@ use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CatProductsController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\LoginAuth;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -67,7 +69,12 @@ Route::middleware(['user.auth'])->group(function () {
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
 
     //checkout store
-    Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout.store');
+    // Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout.store');
+
+    Route::post('/apply-coupon', [CouponController::class, 'applyCoupon'])->name('coupon.apply');
+    Route::get('/remove-coupon', [CouponController::class, 'removeCoupon'])->name('coupon.remove');
+
+    Route::post('/checkout/store', [OrderController::class, 'store'])->name('checkout.store');
 });
 
 

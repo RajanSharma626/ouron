@@ -48,12 +48,13 @@
                                         <li><a class="dropdown-item" href="#">Skirts</a></li>
                                     </ul>
                                 </li>
-                            </ul>
-                        </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link text-uppercase primary-font-size fw-400"
-                                href="{{ route('all-product') }}">All Product</a>
+                                <!-- Thirt Sub Menu -->
+                                <li class="">
+                                    <a href="{{ route('all-product') }}" class="dropdown-item primary-font-size fw-400"
+                                        href="#">All Product</a>
+                                </li>
+                            </ul>
                         </li>
 
                         <li class="nav-item dropdown">
@@ -123,11 +124,11 @@
                                     }
                                 @endphp
 
-                                <a class="nav-link d-flex align-items-center" href="{{ route('profile') }}"
+                                <a class="nav-link d-flex align-items-center p-0" href="{{ route('profile') }}"
                                     id="profileDropdown">
                                     <span
                                         class="rounded-circle primary-bg text-white d-flex justify-content-center align-items-center"
-                                        style="width: 30px; height: 30px;">
+                                        style="width: 25px; height: 25px;">
                                         {{ $initials }}
                                     </span>
                                 </a>

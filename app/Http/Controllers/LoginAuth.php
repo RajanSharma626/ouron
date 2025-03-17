@@ -67,9 +67,9 @@ class LoginAuth extends Controller
 
     private function sendOtpToPhone($phone, $otp)
     {
-        $sid = env('TWILIO_SID');
-        $token = env('TWILIO_TOKEN');
-        $twilioPhone = env('TWILIO_PHONE');
+        $sid = "AC891904ce2486cf98dda44f10569189d4";
+        $token = "1491eb3f484e2281804d0d351526eb80";
+        $twilioPhone = "+19896933126";
 
         // Debugging: Check if credentials are loaded
         if (!$sid || !$token || !$twilioPhone) {
