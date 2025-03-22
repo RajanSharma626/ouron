@@ -28,7 +28,14 @@
                                 Apparel
                             </a>
                             <ul class="dropdown-menu secondary-bg" aria-labelledby="apparelDropdown">
-                                <!-- First Sub Menu -->
+
+                                <!-- Thirt Sub Menu -->
+                                <li class="">
+                                    <a href="{{ route('all-product') }}" class="dropdown-item primary-font-size fw-400"
+                                        href="#">All Product</a>
+                                </li>
+
+                                
                                 <li class="dropdown-submenu">
                                     <a class="dropdown-item dropdown-toggle primary-font-size fw-400"
                                         href="#">Polo</a>
@@ -38,7 +45,8 @@
                                         <li><a class="dropdown-item" href="#">Jackets</a></li>
                                     </ul>
                                 </li>
-                                <!-- Second Sub Menu -->
+                               
+                                
                                 <li class="dropdown-submenu">
                                     <a class="dropdown-item dropdown-toggle primary-font-size fw-400"
                                         href="#">Oversized</a>
@@ -49,11 +57,7 @@
                                     </ul>
                                 </li>
 
-                                <!-- Thirt Sub Menu -->
-                                <li class="">
-                                    <a href="{{ route('all-product') }}" class="dropdown-item primary-font-size fw-400"
-                                        href="#">All Product</a>
-                                </li>
+
                             </ul>
                         </li>
 

@@ -1,100 +1,175 @@
-// document.addEventListener("DOMContentLoaded", function () {
-//     document
-//         .querySelectorAll(".dropdown-submenu > .dropdown-toggle")
-//         .forEach(function (element) {
-//             element.addEventListener("click", function (e) {
-//                 e.preventDefault();
-//                 e.stopPropagation();
-//                 let submenu = this.nextElementSibling;
-//                 if (submenu.style.display === "block") {
-//                     submenu.style.display = "none";
-//                 } else {
-//                     submenu.style.display = "block";
-//                 }
-//             });
-//         });
-// });
-document.addEventListener("DOMContentLoaded", function () {
-    let cart = [];
+$(document).ready(function () {
+    // Add to Cart
+    $(".add-to-cart").click(function (e) {
+        e.preventDefault();
 
-    // Function to update cart UI
-    function updateCartUI() {
-        const cartContainer = document.querySelector(".cart-items");
-        cartContainer.innerHTML = "";
+        let $button = $(this);
+        let $icon = $button.find("i");
+        let originalIconClass = $icon.attr("class");
 
-        cart.forEach((item, index) => {
-            cartContainer.innerHTML += `
-                <div class="cart-item d-flex justify-content-between align-items-center mb-3">
-                    <div class="cart-item-info d-flex align-items-center">
-                        <img src="${item.image}" alt="Product Image" class="img-fluid rounded" width="80">
-                        <div class="ms-3">
-                            <h6 class="mb-1 fw-bold">${item.name}</h6>
-                            <small class="text-muted d-block">RS. ${item.price}</small>
-                            <small class="text-muted">Qty: ${item.quantity}</small>
-                        </div>
-                    </div>
-                    <div class="cart-item-price d-flex align-items-center">
-                        <button class="btn btn-sm border px-2 decrease-qty" data-index="${index}">-</button>
-                        <span class="fw-bold mx-2">${item.quantity}</span>
-                        <button class="btn btn-sm border px-2 increase-qty" data-index="${index}">+</button>
-                        <button class="btn btn-sm text-danger ms-3 remove-item" data-index="${index}"><i class="bi bi-trash"></i></button>
-                    </div>
-                </div>
-            `;
+        // Show loading spinner inside icon
+        $icon.attr("class", "spinner-border spinner-border-sm");
+
+        let productId = $button.data("id");
+        let price = $button.data("price");
+
+        $.ajax({
+            url: "/cart/add",
+            type: "POST",
+            data: {
+                product_id: productId,
+                price: price,
+                _token: $('meta[name="csrf-token"]').attr("content"),
+            },
+            success: function (response) {
+                // Open the offcanvas after adding to cart
+                let offcanvasElement = document.getElementById("cart");
+                let offcanvas = new bootstrap.Offcanvas(offcanvasElement);
+                offcanvas.show();
+
+                loadCart();
+            },
+            complete: function () {
+                // Restore original icon once the AJAX call is complete
+                $icon.attr("class", originalIconClass);
+            },
         });
+    });
 
-        // Attach event listeners to update quantities
-        document.querySelectorAll(".decrease-qty").forEach((button) => {
-            button.addEventListener("click", function () {
-                const index = this.getAttribute("data-index");
-                if (cart[index].quantity > 1) {
-                    cart[index].quantity--;
-                } else {
-                    cart.splice(index, 1);
-                }
-                updateCartUI();
-            });
-        });
+    // Load Cart Items
+    function loadCart() {
+        // Show loading indicator while fetching data
+        $(".cart-items").html(
+            '<div class="text-center my-3"><span class="spinner-border" role="status" aria-hidden="true"></span></div>'
+        );
+        $.ajax({
+            url: "/cart",
+            type: "GET",
+            success: function (cartItems) {
+                let cartHtml = "";
+                let total = 0;
 
-        document.querySelectorAll(".increase-qty").forEach((button) => {
-            button.addEventListener("click", function () {
-                const index = this.getAttribute("data-index");
-                cart[index].quantity++;
-                updateCartUI();
-            });
-        });
+                cartItems.forEach((item) => {
+                    total += item.price * item.quantity;
+                    cartHtml += `
+                        <div class="cart-item d-flex justify-content-between align-items-center mb-3">
+                            <div class="cart-item-info d-flex align-items-center">
+                                <img src="${
+                                    item.product.firstimage.img
+                                }" alt="Product Image" class="img-fluid rounded" width="80">
+                                <div class="ms-3">
+                                    <h6 class="mb-1 fw-bold">${
+                                        item.product.name
+                                    }</h6>
+                                    <small class="text-muted d-block">RS. ${
+                                        item.price
+                                    }</small>
+                                </div>
+                            </div>
+                            <div class="cart-item-price d-flex align-items-center">
+                                <button class="btn btn-sm border px-2 update-cart" data-id="${
+                                    item.id
+                                }" data-quantity="${
+                        item.quantity - 1
+                    }">-</button>
+                                <span class="fw-bold mx-2">${
+                                    item.quantity
+                                }</span>
+                                <button class="btn btn-sm border px-2 update-cart" data-id="${
+                                    item.id
+                                }" data-quantity="${
+                        item.quantity + 1
+                    }">+</button>
+                                <button class="btn btn-sm text-danger ms-3 delete-cart" data-id="${
+                                    item.id
+                                }"><i class="bi bi-trash"></i></button>
+                            </div>
+                        </div>`;
+                });
 
-        document.querySelectorAll(".remove-item").forEach((button) => {
-            button.addEventListener("click", function () {
-                const index = this.getAttribute("data-index");
-                cart.splice(index, 1);
-                updateCartUI();
-            });
+                $(".cart-items").html(cartHtml);
+                $(".cart-total span:last-child").text("RS. " + total);
+            },
+            error: function () {
+                $(".cart-items").html(
+                    '<div class="alert alert-danger">Failed to load cart. Please try again.</div>'
+                );
+            },
         });
     }
 
-    // Event Listener for Add to Cart
-    document.querySelectorAll(".add-to-cart").forEach((button) => {
+    // Update Cart Quantity
+    $(document).on("click", ".update-cart", function () {
+        let cartId = $(this).data("id");
+        let quantity = $(this).data("quantity");
+
+        $.ajax({
+            url: "/cart/update",
+            type: "POST",
+            data: {
+                cart_id: cartId,
+                quantity: quantity,
+                _token: $('meta[name="csrf-token"]').attr("content"),
+            },
+            success: function () {
+                loadCart();
+            },
+        });
+    });
+
+    // Delete Cart Item
+    $(document).on("click", ".delete-cart", function () {
+        let cartId = $(this).data("id");
+
+        $.ajax({
+            url: "/cart/delete/" + cartId,
+            type: "DELETE",
+            data: { _token: $('meta[name="csrf-token"]').attr("content") },
+            success: function () {
+                loadCart();
+            },
+        });
+    });
+
+    loadCart(); // Load cart on page load
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".wishlist-btn").forEach((button) => {
         button.addEventListener("click", function () {
-            const productId = this.getAttribute("data-id");
-            const productName = this.getAttribute("data-name");
-            const productPrice = this.getAttribute("data-price");
-            const productImage = this.getAttribute("data-image");
+            let productId = this.getAttribute("data-id");
+            let icon = this.querySelector("i");
+            // Save original classes
+            let originalClasses = icon.className;
 
-            let existingItem = cart.find((item) => item.id === productId);
-            if (existingItem) {
-                existingItem.quantity++;
-            } else {
-                cart.push({
-                    id: productId,
-                    name: productName,
-                    price: productPrice,
-                    image: productImage,
-                    quantity: 1,
+            // Show loading state inside icon
+            icon.className = "spinner-border spinner-border-sm";
+
+            fetch("/wishlist/toggle", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": document
+                        .querySelector('meta[name="csrf-token"]')
+                        .getAttribute("content"),
+                },
+                body: JSON.stringify({ product_id: productId }),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.status === "added") {
+                        icon.className = "bi bi-heart-fill text-danger";
+                    } else if (data.status === "removed") {
+                        icon.className = "bi bi-heart";
+                    } else {
+                        // In case of an unexpected response, restore the original icon
+                        icon.className = originalClasses;
+                    }
+                })
+                .catch(() => {
+                    // On error, restore the original icon
+                    icon.className = originalClasses;
                 });
-            }
-
-            updateCartUI();
         });
     });
 });

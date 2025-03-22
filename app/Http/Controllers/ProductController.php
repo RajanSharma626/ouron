@@ -63,7 +63,7 @@ class ProductController extends Controller
             'color' => 'nullable|array',
             'color.*' => 'string',
             'images' => 'required|array',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg,webp',
         ]);
 
         $product = Product::create([
