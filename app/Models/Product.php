@@ -31,4 +31,14 @@ class Product extends Model
     {
         return $this->hasOne(ProductImg::class, 'product_id')->orderBy('id', 'asc');
     }
+
+    public function secondimage()
+    {
+        return $this->hasOne(ProductImg::class, 'product_id')->orderBy('id', 'asc')->skip(1)->take(1);
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Wishlist::class, 'product_id');
+    }
 }

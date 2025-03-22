@@ -477,6 +477,10 @@ select:focus {
     color: #ffffff !important;
 }
 
+.product_icons a:hover i{
+    color: #ffffff !important;
+}
+
 .product_icons i {
     font-size: 18px;
     color: #333;

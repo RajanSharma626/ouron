@@ -2,30 +2,26 @@
 
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CatProductsController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CouponController;
+use App\Http\Controllers\frontend\HomeController;
 use App\Http\Controllers\LoginAuth;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('frontend.home');
-});
+Route::get('/', [HomeController::class, 'index']);
 
-Route::get('/home', function () {
-    return view('frontend.home');
-})->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/about-us', function () {
     return view('frontend.about-us');
 })->name('about.us');
 
-Route::get('/wishlist', function () {
-    return view('frontend.wishlist');
-})->name('wishlist');
 
 Route::get('/faq', function () {
     return view('frontend.faq');
@@ -75,6 +71,9 @@ Route::middleware(['user.auth'])->group(function () {
     Route::get('/remove-coupon', [CouponController::class, 'removeCoupon'])->name('coupon.remove');
 
     Route::post('/checkout/store', [OrderController::class, 'store'])->name('checkout.store');
+
+    Route::post('/wishlist/toggle', [WishlistController::class, 'toggleWishlist'])->name('wishlist.toggle');
+    Route::get('/wishlist', [WishlistController::class, 'getWishlist'])->name('wishlist');
 });
 
 
@@ -102,6 +101,10 @@ Route::get('/privacy-policy', function () {
     return view('frontend.privacy-policy');
 })->name('privacy-policy');
 
+Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+Route::get('/cart', [CartController::class, 'getCart'])->name('cart.get');
+Route::post('/cart/update', [CartController::class, 'updateCart'])->name('cart.update');
+Route::delete('/cart/delete/{id}', [CartController::class, 'deleteCartItem'])->name('cart.delete');
 
 
 // ====================================================== Admin Panel Routes =============================================================

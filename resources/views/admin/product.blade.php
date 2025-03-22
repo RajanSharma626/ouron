@@ -107,7 +107,9 @@
 
                                                 </td>
                                                 <td><s> ₹{{ $product->price }}</s></td>
-                                                <td>₹{{ $product->discount_price }}</td>
+                                                <td>₹{{ $product->price - ($product->price * $product->discount_price) / 100 }}
+                                                    ({{ $product->discount_price }}%)
+                                                </td>
                                                 <td>
                                                     <p class="mb-1 text-muted"><span
                                                             class="text-dark fw-medium">{{ $product->stock }}

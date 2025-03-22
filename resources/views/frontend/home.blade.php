@@ -47,133 +47,114 @@
             </div>
 
             <div class="row g-2">
-                <div class="col-6 col-md-3" data-aos="fade-up">
-                    <a href="/product/detail" class="text-decoration-none">
-                        <div class="product_card">
-                            <div class="product_img position-relative">
-                                <img src="https://bluorng.com/cdn/shop/files/wedacwsdz.jpg?v=1742189620&width=533"
-                                    alt="" class="img-fluid default_img">
-                                <img src="https://bluorng.com/cdn/shop/files/encwesdnc_bfd44569-186c-48b9-a88d-b75c2ecbdc4d.jpg?v=1742189608&width=533"
-                                    alt="" class="img-fluid hover_img">
 
-                                <!-- Icons (Positioned correctly) -->
-                                <div class="product_icons position-absolute top-0 end-0 p-2">
-                                    <a href="javascript:void(0)" class="cart_icon add-to-cart" title="Add to Cart"
-                                        data-id="1" data-name="The Clash T-shirt" data-price="3999"
-                                        data-image="https://bluorng.com/cdn/shop/files/wedacwsdz.jpg?v=1742189620&width=533">
-                                        <i class="bi bi-handbag"></i>
-                                    </a>
-                                    <a href="#" class="like_icon" title="Add to Wishlist">
-                                        <i class="bi bi-heart"></i>
-                                    </a>
-                                    <a href="#" class="share_icon" title="Share">
-                                        <i class="bi bi-share-fill"></i>
-                                    </a>
+                @foreach ($newProducts as $product)
+                    @php
+                        $firstImage = $product->firstimage;
+                        $filename = basename($firstImage->img ?? '');
+                        $imageBasePath = asset('uploads/products/');
+
+                        $secondimage = $product->secondimage;
+                        $secondfilename = basename($secondimage->img ?? '');
+                    @endphp
+
+                    <div class="col-6 col-md-3" data-aos="fade-up">
+                        <a href="{{ route('product.detail', $product->slug) }}" class="text-decoration-none">
+                            <div class="product_card">
+                                <div class="product_img position-relative">
+                                    <picture>
+                                        <!-- High-quality image for fast connections -->
+                                        <source srcset="{{ $imageBasePath . '/' . $filename }}" media="(min-width: 1400px)">
+                                        <source srcset="{{ $imageBasePath . '/' . $filename }}" media="(min-width: 1200px)">
+                                        <source srcset="{{ $imageBasePath . '/940_' . $filename }}"
+                                            media="(min-width: 992px)">
+                                        <source srcset="{{ $imageBasePath . '/720_' . $filename }}"
+                                            media="(min-width: 768px)">
+                                        <source srcset="{{ $imageBasePath . '/533_' . $filename }}"
+                                            media="(min-width: 576px)">
+                                        <source srcset="{{ $imageBasePath . '/360_' . $filename }}"
+                                            media="(max-width: 575px)">
+                                        <source srcset="{{ $imageBasePath . '/165_' . $filename }}"
+                                            media="(max-width: 400px)">
+
+                                        <!-- Original image as fallback -->
+                                        <img src="{{ $imageBasePath . '/' . $filename }}" alt="{{ $product->name }}"
+                                            class="img-fluid">
+                                    </picture>
+
+                                    <picture>
+                                        <!-- High-quality image for fast connections -->
+                                        <source srcset="{{ $imageBasePath . '/' . $secondfilename }}"
+                                            media="(min-width: 1400px)">
+                                        <source srcset="{{ $imageBasePath . '/' . $secondfilename }}"
+                                            media="(min-width: 1200px)">
+                                        <source srcset="{{ $imageBasePath . '/940_' . $secondfilename }}"
+                                            media="(min-width: 992px)">
+                                        <source srcset="{{ $imageBasePath . '/720_' . $secondfilename }}"
+                                            media="(min-width: 768px)">
+                                        <source srcset="{{ $imageBasePath . '/533_' . $secondfilename }}"
+                                            media="(min-width: 576px)">
+                                        <source srcset="{{ $imageBasePath . '/360_' . $secondfilename }}"
+                                            media="(max-width: 575px)">
+                                        <source srcset="{{ $imageBasePath . '/165_' . $secondfilename }}"
+                                            media="(max-width: 400px)">
+
+                                        <!-- Original image as fallback -->
+                                        <img src="{{ $imageBasePath . '/' . $secondfilename }}" alt="{{ $product->name }}"
+                                            class="img-fluid hover_img">
+                                    </picture>
+
+                                    <!-- Icons (Positioned correctly) -->
+                                    <div class="product_icons position-absolute top-0 end-0 p-2">
+                                        @guest
+                                            <a href="{{ route('login') }}" class="cart_icon add-to-cart" title="Add to Cart">
+                                                <i class="bi bi-handbag"></i>
+                                            </a>
+                                        @endguest
+
+                                        @auth
+                                            <a href="javascript:void(0)" class="cart_icon add-to-cart" title="Add to Cart"
+                                                data-id="{{ $product->id }}" data-name="{{ $product->name }}"
+                                                data-price="{{ number_format($product->price - ($product->price * $product->discount_price) / 100, 2) }}"
+                                                data-image="{{ $imageBasePath . '/' . $secondfilename }}"
+                                                alt="{{ $product->name }}">
+                                                <i class="bi bi-handbag"></i>
+                                            </a>
+                                        @endauth
+
+                                        @guest
+                                            <a href="{{ route('login') }}" class="like_icon" title="Add to Wishlist">
+                                                <i class="bi bi-heart"></i>
+                                            </a>
+                                        @endguest
+
+                                        @auth
+                                            <a href="javascript:void(0)" class="like_icon wishlist-btn"
+                                                data-id="{{ $product->id }}" title="Add to Wishlist">
+
+                                                @if ($product->liked)
+                                                    <i class="bi bi-heart-fill text-danger"></i>
+                                                @else
+                                                    <i class="bi bi-heart"></i>
+                                                @endif
+                                            </a>
+                                        @endauth
+                                    </div>
+                                </div>
+
+                                <div class="product_info p-3">
+                                    <h3 class="product_title">{{ $product->name }}</h3>
+                                    <p class="product_price mb-0 text-muted">
+                                        <del>RS. {{ number_format($product->price, 2) }}</del>
+                                        &nbsp; RS.
+                                        {{ number_format($product->price - ($product->price * $product->discount_price) / 100, 2) }}
+                                    </p>
                                 </div>
                             </div>
+                        </a>
+                    </div>
+                @endforeach
 
-                            <div class="product_info p-3">
-                                <h3 class="product_title">The Clash T-shirt</h3>
-                                <p class="product_price mb-0 text-muted">
-                                    <del>RS. 4,995</del> &nbsp; RS. 3,999
-                                </p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col-6 col-md-3" data-aos="fade-up">
-                    <a href="/product/detail" class="text-decoration-none">
-                        <div class="product_card">
-                            <div class="product_img position-relative">
-                                <img src="https://bluorng.com/cdn/shop/files/encwesdnc_bfd44569-186c-48b9-a88d-b75c2ecbdc4d.jpg?v=1742189608&width=533"
-                                    alt="" class="img-fluid default_img">
-                                <img src="https://bluorng.com/cdn/shop/files/wedacwsdz.jpg?v=1742189620&width=533"
-                                    alt="" class="img-fluid hover_img">
-
-                                <!-- Icons (Positioned correctly) -->
-                                <div class="product_icons position-absolute top-0 end-0 p-2">
-                                    <a href="javascript:void(0)" class="cart_icon add-to-cart" title="Add to Cart"
-                                        data-id="2" data-name="The Clash T-shirt 2" data-price="3999"
-                                        data-image="https://bluorng.com/cdn/shop/files/encwesdnc_bfd44569-186c-48b9-a88d-b75c2ecbdc4d.jpg?v=1742189608&width=533">
-                                        <i class="bi bi-handbag"></i>
-                                    </a>
-                                    <a href="#" class="like_icon" title="Add to Wishlist">
-                                        <i class="bi bi-heart"></i>
-                                    </a>
-                                    <a href="#" class="share_icon" title="Share">
-                                        <i class="bi bi-share-fill"></i>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="product_info p-3">
-                                <h3 class="product_title">The Clash T-shirt</h3>
-                                <p class="product_price mb-0 text-muted"><del>RS. 4,995 </del> &nbsp; RS. 3,999</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-6 col-md-3" data-aos="fade-up">
-                    <a href="/product/detail" class="text-decoration-none">
-                        <div class="product_card">
-                            <div class="product_img position-relative">
-                                <img src="https://bluorng.com/cdn/shop/files/fv3weca.jpg?v=1741010363&width=533"
-                                    alt="" class="img-fluid default_img">
-                                <img src="https://bluorng.com/cdn/shop/files/erwfsdcwqas.jpg?v=1741417955&width=533"
-                                    alt="" class="img-fluid hover_img">
-
-                                <!-- Icons (Positioned correctly) -->
-                                <div class="product_icons position-absolute top-0 end-0 p-2">
-                                    <a href="#" class="cart_icon" title="Add to Cart">
-                                        <i class="bi bi-handbag"></i>
-                                    </a>
-                                    <a href="#" class="like_icon" title="Add to Wishlist">
-                                        <i class="bi bi-heart"></i>
-                                    </a>
-                                    <a href="#" class="share_icon" title="Share">
-                                        <i class="bi bi-share-fill"></i>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="product_info p-3">
-                                <h3 class="product_title">The Clash T-shirt</h3>
-                                <p class="product_price mb-0 text-muted"><del>RS. 4,995 </del> &nbsp; RS. 3,999</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-6 col-md-3" data-aos="fade-up">
-                    <a href="/product/detail" class="text-decoration-none">
-                        <div class="product_card">
-                            <div class="product_img position-relative">
-                                <img src="https://bluorng.com/cdn/shop/files/erwfsdcwqas.jpg?v=1741417955&width=533"
-                                    alt="" class="img-fluid default_img">
-                                <img src="https://bluorng.com/cdn/shop/files/fv3weca.jpg?v=1741010363&width=533"
-                                    alt="" class="img-fluid hover_img">
-
-                                <!-- Icons (Positioned correctly) -->
-                                <div class="product_icons position-absolute top-0 end-0 p-2">
-                                    <a href="#" class="cart_icon" title="Add to Cart">
-                                        <i class="bi bi-handbag"></i>
-                                    </a>
-                                    <a href="#" class="like_icon" title="Add to Wishlist">
-                                        <i class="bi bi-heart"></i>
-                                    </a>
-                                    <a href="#" class="share_icon" title="Share">
-                                        <i class="bi bi-share-fill"></i>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="product_info p-3">
-                                <h3 class="product_title">The Clash T-shirt</h3>
-                                <p class="product_price mb-0 text-muted"><del>RS. 4,995 </del> &nbsp; RS. 3,999</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
             </div>
 
             <div class="row py-4">
@@ -188,7 +169,7 @@
     <div class="container-fluid py-5">
         <div class="row">
             <div class="col-12">
-                <a href="" data-aos="fade-in"><img
+                <a href="" data-aos="fade-up"><img
                         src="https://crazymonk.in/cdn/shop/files/Banner_for_Website_front_page_1.jpg?v=1740377697&width=2000"
                         class="img-fluid" alt="Slide 1"></a>
             </div>
@@ -210,248 +191,116 @@
 
 
             <div class="row g-2">
-                <div class="col-3" data-aos="fade-up">
-                    <a href="/product/detail" class="text-decoration-none">
-                        <div class="product_card">
-                            <div class="product_img position-relative">
-                                <img src="https://bluorng.com/cdn/shop/files/wedacwsdz.jpg?v=1742189620&width=533"
-                                    alt="" class="img-fluid default_img">
-                                <img src="https://bluorng.com/cdn/shop/files/encwesdnc_bfd44569-186c-48b9-a88d-b75c2ecbdc4d.jpg?v=1742189608&width=533"
-                                    alt="" class="img-fluid hover_img">
+                {{-- Loop through the products --}}
+                @foreach ($allProducts as $product)
+                    @php
+                        $firstImage = $product->firstimage;
+                        $filename = basename($firstImage->img ?? '');
+                        $imageBasePath = asset('uploads/products/');
 
-                                <!-- Icons (Positioned correctly) -->
-                                <div class="product_icons position-absolute top-0 end-0 p-2">
-                                    <a href="#" class="cart_icon" title="Add to Cart">
-                                        <i class="bi bi-handbag"></i>
-                                    </a>
-                                    <a href="#" class="like_icon" title="Add to Wishlist">
-                                        <i class="bi bi-heart"></i>
-                                    </a>
-                                    <a href="#" class="share_icon" title="Share">
-                                        <i class="bi bi-share-fill"></i>
-                                    </a>
+                        $secondimage = $product->secondimage;
+                        $secondfilename = basename($secondimage->img ?? '');
+                    @endphp
+
+                    <div class="col-6 col-md-3" data-aos="fade-up">
+                        <a href="{{ route('product.detail', $product->slug) }}" class="text-decoration-none">
+                            <div class="product_card">
+                                <div class="product_img position-relative">
+                                    <picture>
+                                        <!-- High-quality image for fast connections -->
+                                        <source srcset="{{ $imageBasePath . '/' . $filename }}"
+                                            media="(min-width: 1400px)">
+                                        <source srcset="{{ $imageBasePath . '/' . $filename }}"
+                                            media="(min-width: 1200px)">
+                                        <source srcset="{{ $imageBasePath . '/940_' . $filename }}"
+                                            media="(min-width: 992px)">
+                                        <source srcset="{{ $imageBasePath . '/720_' . $filename }}"
+                                            media="(min-width: 768px)">
+                                        <source srcset="{{ $imageBasePath . '/533_' . $filename }}"
+                                            media="(min-width: 576px)">
+                                        <source srcset="{{ $imageBasePath . '/360_' . $filename }}"
+                                            media="(max-width: 575px)">
+                                        <source srcset="{{ $imageBasePath . '/165_' . $filename }}"
+                                            media="(max-width: 400px)">
+
+                                        <!-- Original image as fallback -->
+                                        <img src="{{ $imageBasePath . '/' . $filename }}" alt="{{ $product->name }}"
+                                            class="img-fluid">
+                                    </picture>
+
+                                    <picture>
+                                        <!-- High-quality image for fast connections -->
+                                        <source srcset="{{ $imageBasePath . '/' . $secondfilename }}"
+                                            media="(min-width: 1400px)">
+                                        <source srcset="{{ $imageBasePath . '/' . $secondfilename }}"
+                                            media="(min-width: 1200px)">
+                                        <source srcset="{{ $imageBasePath . '/940_' . $secondfilename }}"
+                                            media="(min-width: 992px)">
+                                        <source srcset="{{ $imageBasePath . '/720_' . $secondfilename }}"
+                                            media="(min-width: 768px)">
+                                        <source srcset="{{ $imageBasePath . '/533_' . $secondfilename }}"
+                                            media="(min-width: 576px)">
+                                        <source srcset="{{ $imageBasePath . '/360_' . $secondfilename }}"
+                                            media="(max-width: 575px)">
+                                        <source srcset="{{ $imageBasePath . '/165_' . $secondfilename }}"
+                                            media="(max-width: 400px)">
+
+                                        <!-- Original image as fallback -->
+                                        <img src="{{ $imageBasePath . '/' . $secondfilename }}"
+                                            alt="{{ $product->name }}" class="img-fluid hover_img">
+                                    </picture>
+
+                                    <!-- Icons (Positioned correctly) -->
+                                    <div class="product_icons position-absolute top-0 end-0 p-2">
+                                        @guest
+                                            <a href="{{ route('login') }}" class="cart_icon add-to-cart"
+                                                title="Add to Cart">
+                                                <i class="bi bi-handbag"></i>
+                                            </a>
+                                        @endguest
+
+                                        @auth
+                                            <a href="javascript:void(0)" class="cart_icon add-to-cart" title="Add to Cart"
+                                                data-id="{{ $product->id }}" data-name="{{ $product->name }}"
+                                                data-price="{{ number_format($product->price - ($product->price * $product->discount_price) / 100, 2) }}"
+                                                data-image="{{ $imageBasePath . '/' . $secondfilename }}"
+                                                alt="{{ $product->name }}">
+                                                <i class="bi bi-handbag"></i>
+                                            </a>
+                                        @endauth
+
+                                        @guest
+                                            <a href="{{ route('login') }}" class="like_icon" title="Add to Wishlist">
+                                                <i class="bi bi-heart"></i>
+                                            </a>
+                                        @endguest
+
+                                        @auth
+                                            <a href="javascript:void(0)" class="like_icon wishlist-btn"
+                                                data-id="{{ $product->id }}" title="Add to Wishlist">
+
+                                                @if ($product->liked)
+                                                    <i class="bi bi-heart-fill text-danger"></i>
+                                                @else
+                                                    <i class="bi bi-heart"></i>
+                                                @endif
+                                            </a>
+                                        @endauth
+                                    </div>
+                                </div>
+
+                                <div class="product_info p-3">
+                                    <h3 class="product_title">{{ $product->name }}</h3>
+                                    <p class="product_price mb-0 text-muted">
+                                        <del>RS. {{ number_format($product->price, 2) }}</del>
+                                        &nbsp; RS.
+                                        {{ number_format($product->price - ($product->price * $product->discount_price) / 100, 2) }}
+                                    </p>
                                 </div>
                             </div>
-
-                            <div class="product_info p-3">
-                                <h3 class="product_title">The Clash T-shirt</h3>
-                                <p class="product_price mb-0 text-muted"><del>RS. 4,995 </del> &nbsp; RS. 3,999</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col-3" data-aos="fade-up" data-aos="fade-up">
-                    <a href="/product/detail" class="text-decoration-none">
-                        <div class="product_card">
-                            <div class="product_img position-relative">
-                                <img src="https://bluorng.com/cdn/shop/files/encwesdnc_bfd44569-186c-48b9-a88d-b75c2ecbdc4d.jpg?v=1742189608&width=533"
-                                    alt="" class="img-fluid default_img">
-                                <img src="https://bluorng.com/cdn/shop/files/wedacwsdz.jpg?v=1742189620&width=533"
-                                    alt="" class="img-fluid hover_img">
-
-                                <!-- Icons (Positioned correctly) -->
-                                <div class="product_icons position-absolute top-0 end-0 p-2">
-                                    <a href="#" class="cart_icon" title="Add to Cart">
-                                        <i class="bi bi-handbag"></i>
-                                    </a>
-                                    <a href="#" class="like_icon" title="Add to Wishlist">
-                                        <i class="bi bi-heart"></i>
-                                    </a>
-                                    <a href="#" class="share_icon" title="Share">
-                                        <i class="bi bi-share-fill"></i>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="product_info p-3">
-                                <h3 class="product_title">The Clash T-shirt</h3>
-                                <p class="product_price mb-0 text-muted"><del>RS. 4,995 </del> &nbsp; RS. 3,999</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-3" data-aos="fade-up" data-aos="fade-up">
-                    <a href="/product/detail" class="text-decoration-none">
-                        <div class="product_card">
-                            <div class="product_img position-relative">
-                                <img src="https://bluorng.com/cdn/shop/files/fv3weca.jpg?v=1741010363&width=533"
-                                    alt="" class="img-fluid default_img">
-                                <img src="https://bluorng.com/cdn/shop/files/erwfsdcwqas.jpg?v=1741417955&width=533"
-                                    alt="" class="img-fluid hover_img">
-
-                                <!-- Icons (Positioned correctly) -->
-                                <div class="product_icons position-absolute top-0 end-0 p-2">
-                                    <a href="#" class="cart_icon" title="Add to Cart">
-                                        <i class="bi bi-handbag"></i>
-                                    </a>
-                                    <a href="#" class="like_icon" title="Add to Wishlist">
-                                        <i class="bi bi-heart"></i>
-                                    </a>
-                                    <a href="#" class="share_icon" title="Share">
-                                        <i class="bi bi-share-fill"></i>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="product_info p-3">
-                                <h3 class="product_title">The Clash T-shirt</h3>
-                                <p class="product_price mb-0 text-muted"><del>RS. 4,995 </del> &nbsp; RS. 3,999</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-3" data-aos="fade-up" data-aos="fade-up">
-                    <a href="/product/detail" class="text-decoration-none">
-                        <div class="product_card">
-                            <div class="product_img position-relative">
-                                <img src="https://bluorng.com/cdn/shop/files/erwfsdcwqas.jpg?v=1741417955&width=533"
-                                    alt="" class="img-fluid default_img">
-                                <img src="https://bluorng.com/cdn/shop/files/fv3weca.jpg?v=1741010363&width=533"
-                                    alt="" class="img-fluid hover_img">
-
-                                <!-- Icons (Positioned correctly) -->
-                                <div class="product_icons position-absolute top-0 end-0 p-2">
-                                    <a href="#" class="cart_icon" title="Add to Cart">
-                                        <i class="bi bi-handbag"></i>
-                                    </a>
-                                    <a href="#" class="like_icon" title="Add to Wishlist">
-                                        <i class="bi bi-heart"></i>
-                                    </a>
-                                    <a href="#" class="share_icon" title="Share">
-                                        <i class="bi bi-share-fill"></i>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="product_info p-3">
-                                <h3 class="product_title">The Clash T-shirt</h3>
-                                <p class="product_price mb-0 text-muted"><del>RS. 4,995 </del> &nbsp; RS. 3,999</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-3" data-aos="fade-up" data-aos="fade-up">
-                    <a href="/product/detail" class="text-decoration-none">
-                        <div class="product_card">
-                            <div class="product_img position-relative">
-                                <img src="https://bluorng.com/cdn/shop/files/erwfsdcwqas.jpg?v=1741417955&width=533"
-                                    alt="" class="img-fluid default_img">
-                                <img src="https://bluorng.com/cdn/shop/files/fv3weca.jpg?v=1741010363&width=533"
-                                    alt="" class="img-fluid hover_img">
-
-                                <!-- Icons (Positioned correctly) -->
-                                <div class="product_icons position-absolute top-0 end-0 p-2">
-                                    <a href="#" class="cart_icon" title="Add to Cart">
-                                        <i class="bi bi-handbag"></i>
-                                    </a>
-                                    <a href="#" class="like_icon" title="Add to Wishlist">
-                                        <i class="bi bi-heart"></i>
-                                    </a>
-                                    <a href="#" class="share_icon" title="Share">
-                                        <i class="bi bi-share-fill"></i>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="product_info p-3">
-                                <h3 class="product_title">The Clash T-shirt</h3>
-                                <p class="product_price mb-0 text-muted"><del>RS. 4,995 </del> &nbsp; RS. 3,999</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-3" data-aos="fade-up" data-aos="fade-up">
-                    <a href="/product/detail" class="text-decoration-none">
-                        <div class="product_card">
-                            <div class="product_img position-relative">
-                                <img src="https://bluorng.com/cdn/shop/files/wedacwsdz.jpg?v=1742189620&width=533"
-                                    alt="" class="img-fluid default_img">
-                                <img src="https://bluorng.com/cdn/shop/files/encwesdnc_bfd44569-186c-48b9-a88d-b75c2ecbdc4d.jpg?v=1742189608&width=533"
-                                    alt="" class="img-fluid hover_img">
-
-                                <!-- Icons (Positioned correctly) -->
-                                <div class="product_icons position-absolute top-0 end-0 p-2">
-                                    <a href="#" class="cart_icon" title="Add to Cart">
-                                        <i class="bi bi-handbag"></i>
-                                    </a>
-                                    <a href="#" class="like_icon" title="Add to Wishlist">
-                                        <i class="bi bi-heart"></i>
-                                    </a>
-                                    <a href="#" class="share_icon" title="Share">
-                                        <i class="bi bi-share-fill"></i>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="product_info p-3">
-                                <h3 class="product_title">The Clash T-shirt</h3>
-                                <p class="product_price mb-0 text-muted"><del>RS. 4,995 </del> &nbsp; RS. 3,999</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col-3" data-aos="fade-up" data-aos="fade-up">
-                    <a href="/product/detail" class="text-decoration-none">
-                        <div class="product_card">
-                            <div class="product_img position-relative">
-                                <img src="https://bluorng.com/cdn/shop/files/encwesdnc_bfd44569-186c-48b9-a88d-b75c2ecbdc4d.jpg?v=1742189608&width=533"
-                                    alt="" class="img-fluid default_img">
-                                <img src="https://bluorng.com/cdn/shop/files/wedacwsdz.jpg?v=1742189620&width=533"
-                                    alt="" class="img-fluid hover_img">
-
-                                <!-- Icons (Positioned correctly) -->
-                                <div class="product_icons position-absolute top-0 end-0 p-2">
-                                    <a href="#" class="cart_icon" title="Add to Cart">
-                                        <i class="bi bi-handbag"></i>
-                                    </a>
-                                    <a href="#" class="like_icon" title="Add to Wishlist">
-                                        <i class="bi bi-heart"></i>
-                                    </a>
-                                    <a href="#" class="share_icon" title="Share">
-                                        <i class="bi bi-share-fill"></i>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="product_info p-3">
-                                <h3 class="product_title">The Clash T-shirt</h3>
-                                <p class="product_price mb-0 text-muted"><del>RS. 4,995 </del> &nbsp; RS. 3,999</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-3" data-aos="fade-up" data-aos="fade-up">
-                    <a href="/product/detail" class="text-decoration-none">
-                        <div class="product_card">
-                            <div class="product_img position-relative">
-                                <img src="https://bluorng.com/cdn/shop/files/fv3weca.jpg?v=1741010363&width=533"
-                                    alt="" class="img-fluid default_img">
-                                <img src="https://bluorng.com/cdn/shop/files/erwfsdcwqas.jpg?v=1741417955&width=533"
-                                    alt="" class="img-fluid hover_img">
-
-                                <!-- Icons (Positioned correctly) -->
-                                <div class="product_icons position-absolute top-0 end-0 p-2">
-                                    <a href="#" class="cart_icon" title="Add to Cart">
-                                        <i class="bi bi-handbag"></i>
-                                    </a>
-                                    <a href="#" class="like_icon" title="Add to Wishlist">
-                                        <i class="bi bi-heart"></i>
-                                    </a>
-                                    <a href="#" class="share_icon" title="Share">
-                                        <i class="bi bi-share-fill"></i>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="product_info p-3">
-                                <h3 class="product_title">The Clash T-shirt</h3>
-                                <p class="product_price mb-0 text-muted"><del>RS. 4,995 </del> &nbsp; RS. 3,999</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                        </a>
+                    </div>
+                @endforeach
             </div>
 
             <div class="row py-4">
@@ -725,9 +574,8 @@
                 <div class="col-6">
                     <div class="newsletter_content text-center">
                         <h3 class="newsletter title">Subscribe to our Newsletter</h3>
-                        <p class="newsletter_desc text-normal">Sign up for our weekly
-                            newsletter to get the
-                            latest news, updates and amazing offers delivered directly in your inbox.</p>
+                        <p class="newsletter_desc text-normal">Join the Ouron newsletter for exclusive updates, early
+                            drops, and inspiring stories!</p>
                         <form action="" class="newsletter_form">
                             <div class="input-group">
                                 <input type="email" class="form-control p-2 px-3" placeholder="Enter your email">
@@ -743,8 +591,9 @@
 
 
     <!-- Login Modal -->
-    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal fade" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title fw-bold" id="loginModalLabel">Login</h5>
@@ -752,20 +601,24 @@
                 </div>
                 <div class="modal-body">
 
-                    <div class="row">
-                        <div class="col-md-6 d-none d-md-block">
-                            <img src="" class="img-fluid" alt="">
+                    <div class="row align-items-center">
+                        <div class="col-md-6 d-none d-md-block p-3">
+                            <img src="{{ asset('images/banner/ouron-login.png') }}" class="img-fluid" alt="">
                         </div>
                         <div class="col-md-6 col-12">
                             <div class="logo text-center mb-4">
                                 <img src="{{ asset('/images/logo/logo.svg') }}" class="img-fluid" width="150"
                                     alt="logo">
                             </div>
+                            <p class="text-center">
+                                Every story begins with a name. Let’s start yours—Log in now to unlock exclusive designs,
+                                early drops, and a community that inspires.
+                            </p>
                             <form id="loginForm" action="{{ route('login') }}" method="POST">
                                 @csrf
                                 <div class="mb-3">
-                                    {{-- <label for="email" class="form-label">Phone Number</label> --}}
-                                    <input type="text" class="form-control" name="phone" placeholder="Enter Phone Number" required>
+                                    <input type="text" class="form-control py-3" name="phone"
+                                        placeholder="Enter Phone Number" required>
                                 </div>
                                 <button type="submit" class="w-100 login_btn">Login</button>
                             </form>
