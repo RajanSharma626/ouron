@@ -173,3 +173,43 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".wishlist-btn2").forEach((button) => {
+        button.addEventListener("click", function () {
+            let productId = this.getAttribute("data-id");
+            let icon = this.querySelector("i");
+            // Save original classes
+            let originalClasses = icon.className;
+
+            // Show loading state inside icon
+            icon.className = "spinner-border spinner-border";
+
+            fetch("/wishlist/toggle", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": document
+                        .querySelector('meta[name="csrf-token"]')
+                        .getAttribute("content"),
+                },
+                body: JSON.stringify({ product_id: productId }),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.status === "added") {
+                        icon.className = "bi bi-heart-fill text-danger fs-3";
+                    } else if (data.status === "removed") {
+                        icon.className = "bi bi-heart fs-3";
+                    } else {
+                        // In case of an unexpected response, restore the original icon
+                        icon.className = originalClasses;
+                    }
+                })
+                .catch(() => {
+                    // On error, restore the original icon
+                    icon.className = originalClasses;
+                });
+        });
+    });
+});

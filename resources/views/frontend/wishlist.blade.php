@@ -79,11 +79,6 @@
                                             data-id="{{ $product->id }}" title="Remove from Wishlist">
                                             <i class="bi bi-heart-fill text-danger"></i>
                                         </a>
-
-                                        <!-- Share -->
-                                        <a href="#" class="share_icon" title="Share">
-                                            <i class="bi bi-share-fill"></i>
-                                        </a>
                                     </div>
                                 </div>
 

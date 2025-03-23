@@ -11,6 +11,7 @@ use App\Http\Controllers\frontend\HomeController;
 use App\Http\Controllers\LoginAuth;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\frontend\ProductController as FrontendProductController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,9 +36,7 @@ Route::get('/blogs', function () {
     return view('frontend.blogs');
 })->name('blogs');
 
-Route::get('/product/{slug}', function () {
-    return view('frontend.product-detail');
-})->name('product.detail');
+Route::get('/product/{slug}', [FrontendProductController::class, 'detail'])->name('product.detail');
 
 
 // login
@@ -130,6 +129,7 @@ Route::middleware(['admin.auth'])->prefix('admin')->group(function () {
     Route::post('/products/store', [ProductController::class, 'store'])->name('admin.products.store');
     Route::get('/products/delete/{id}', [ProductController::class, 'destroy'])->name('product.delete');
     Route::post('/products/update', [ProductController::class, 'update'])->name('product.update');
+    Route::delete('/product/image/delete/{id}', [ProductController::class, 'deleteImage'])->name('product.image.delete');
 
 
     Route::get('/category', [CategoryController::class, 'index'])->name('admin.category');
@@ -138,4 +138,8 @@ Route::middleware(['admin.auth'])->prefix('admin')->group(function () {
     })->name('admin.category.add');
     Route::post('/category/store', [CategoryController::class, 'store'])->name('category.store');
     Route::get('/category/delete/{id}', [CategoryController::class, 'destroy'])->name('category.delete');
+
+
+    //orders
+    Route::get('/orders', [OrderController::class, 'index'])->name('admin.orders');
 });

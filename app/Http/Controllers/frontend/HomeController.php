@@ -37,6 +37,19 @@ class HomeController extends Controller
                 return $product;
             });
 
-        return view('frontend.home', compact('newProducts', 'allProducts'));
+
+        $bestSellerProducts = Product::with(['firstimage', 'secondimage'])
+            ->latest()
+            ->take(8)
+            ->whereNull('deleted_at')
+            ->where('best_seller', 1)
+            ->get()
+            ->map(function ($product) use ($userId) {
+                // Check if the product is liked by the user
+                $product->liked = $userId ? $product->likes()->where('user_id', $userId)->exists() : false;
+                return $product;
+            });
+
+        return view('frontend.home', compact('newProducts', 'allProducts', 'bestSellerProducts'));
     }
 }

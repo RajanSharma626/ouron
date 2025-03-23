@@ -11,47 +11,30 @@
                     <!-- Product List -->
                     <div class="card custom-card-bg mb-4 check_product">
                         <div class="card-body">
-                            <div class="d-flex align-items-center mb-3 border-bottom pb-3">
-                                <div class="position-relative">
-                                    <img src="https://cdn.shopify.com/s/files/1/0514/9494/4962/files/View_recent_photos_128x128.jpg?v=1741692749"
-                                        alt="Product" class="img-thumbnail mr-3" style="width: 70px; height: 70px;">
-                                    <span
-                                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill primary-bg">
-                                        2
-                                    </span>
-                                </div>
-                                <div class="d-flex justify-content-between w-100 ms-2">
-
-                                    <div>
-                                        <h6 class="mb-1 fw-bold check_title">Product Title </h6>
-                                        <p class="mb-0 check_desc">Size: M | Color: Blue</p>
+                            @foreach ($cart as $item)
+                                <div class="d-flex align-items-center mb-3 border-bottom pb-3">
+                                    <div class="position-relative">
+                                        <img src="{{ $item->product->firstImage->img }}" alt="Product"
+                                            class="img-thumbnail mr-3" style="width: 70px; height: 70px;">
+                                        <span
+                                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill primary-bg">
+                                            {{ $item->quantity }}
+                                        </span>
                                     </div>
-                                    <div class="ml-auto">
-                                        <h6>₹50.00</h6>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Repeat product items as needed -->
-                            <div class="d-flex align-items-center mb-3 border-bottom pb-3">
-                                <div class="position-relative">
-                                    <img src="https://cdn.shopify.com/s/files/1/0514/9494/4962/files/View_recent_photos_128x128.jpg?v=1741692749"
-                                        alt="Product" class="img-thumbnail mr-3" style="width: 70px; height: 70px;">
-                                    <span
-                                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill primary-bg">
-                                        2
-                                    </span>
-                                </div>
-                                <div class="d-flex justify-content-between w-100 ms-2">
-
-                                    <div>
-                                        <h6 class="mb-1 fw-bold check_title">Product Title</h6>
-                                        <p class="mb-0 check_desc">Size: M | Color: Blue</p>
-                                    </div>
-                                    <div class="ml-auto">
-                                        <h6>₹50.00</h6>
+                                    <div class="d-flex justify-content-between w-100 ms-2">
+                                        <div>
+                                            <h6 class="mb-1 fw-bold check_title">{{ $item->product->name }}</h6>
+                                            <p class="mb-0 check_desc">
+                                                Size: {{ $item->size ?? 'XS' }} | Color: {{ $item->color ?? 'N/A' }}
+                                            </p>
+                                        </div>
+                                        <div class="ml-auto">
+                                            <h6>₹{{ number_format($item->product->price - ($item->product->price * $item->product->discount_price) / 100, 2) }}
+                                            </h6>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endforeach
                             <!-- Repeat product items as needed -->
                         </div>
                     </div>
@@ -79,18 +62,30 @@
                     <!-- Order Summary -->
                     <div class="card custom-card-bg">
                         <div class="card-body">
-                            <ul class="list-group mb-3 ">
+                            @php
+                                $subtotal = 0;
+                                foreach ($cart as $item) {
+                                    $price =
+                                        $item->product->price -
+                                        ($item->product->price * $item->product->discount_price) / 100;
+                                    $subtotal += $price * $item->quantity;
+                                }
+                                $tax = $subtotal * 0.18; // GST 18%
+                                $total = $subtotal + $tax;
+                            @endphp
+
+                            <ul class="list-group mb-3">
                                 <li class="list-group-item d-flex justify-content-between custom-card-bg">
                                     <span>Subtotal</span>
-                                    <strong>₹100.00</strong>
+                                    <strong>₹{{ number_format($subtotal, 2) }}</strong>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between custom-card-bg">
-                                    <span>Tax</span>
-                                    <strong>₹10.00</strong>
+                                    <span>GST (18%)</span>
+                                    <strong>₹{{ number_format($tax, 2) }}</strong>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between custom-card-bg">
                                     <span>Total</span>
-                                    <strong>₹110.00</strong>
+                                    <strong>₹{{ number_format($total, 2) }}</strong>
                                 </li>
                             </ul>
                         </div>
@@ -103,13 +98,14 @@
                         <div class="card-body">
                             <h4 class="mb-4">Address Detail</h4>
 
-                            <form method="post" action="{{route('checkout.store')}}">
+                            <form method="post" action="{{ route('checkout.store') }}">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
                                             <input type="text" class="form-control py-2 custom-card-bg" name="first_name"
-                                                placeholder="First name" value="{{ old('first_name') }}" required>
+                                                placeholder="First name"
+                                                value="{{ old('first_name', Auth::user()->name ?? '') }}" required>
                                             @error('first_name')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
@@ -118,8 +114,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
                                             <input type="text" class="form-control py-2 custom-card-bg"
-                                                placeholder="Last name" name="last_name" value="{{ old('last_name') }}"
-                                                required>
+                                                placeholder="Last name" name="last_name" value="{{ old('last_name') }}">
                                             @error('last_name')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
@@ -129,7 +124,8 @@
 
                                 <div class="form-group mb-3">
                                     <input type="email" class="form-control py-2 custom-card-bg" name="email"
-                                        id="emailAddress" placeholder="Enter email" value="{{ old('email') }}">
+                                        id="emailAddress" placeholder="Enter email"
+                                        value="{{ old('email', Auth::user()->email ?? '') }}">
                                     @error('email')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -159,8 +155,8 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
-                                            <select id="state" class="form-control py-2 custom-card-bg"
-                                                name="state" required>
+                                            <select id="state" class="form-control py-2 custom-card-bg" name="state"
+                                                required>
                                                 <option value="">Select State</option>
                                                 <option value="Andhra Pradesh"
                                                     {{ old('state') == 'Andhra Pradesh' ? 'selected' : '' }}>Andhra Pradesh
@@ -252,7 +248,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
                                             <input type="text" class="form-control py-2 custom-card-bg"
-                                                placeholder="Phone" name="phone" value="{{ old('phone') }}" required>
+                                                placeholder="Phone" name="phone"
+                                                value="{{ old('phone', Auth::user()->phone ?? '') }}" required>
                                             @error('phone')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
