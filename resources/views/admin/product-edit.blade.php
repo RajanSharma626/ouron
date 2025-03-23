@@ -14,6 +14,8 @@
 
                 <div class="col-xl-12 col-lg-12 ">
                     <form action="{{ route('product.update') }}" method="POST" enctype="multipart/form-data">
+
+                        <input type="text" name="product_id" value="{{ $product->id }}" hidden>
                         @csrf
                         <div class="card">
                             <div class="card-header">
@@ -22,17 +24,49 @@
                             <div class="card-body dropzone" id="product-dropzone">
                                 <!-- File Upload -->
                                 <div class="fallback">
-                                    <input name="images" type="file" multiple hidden id="product-images" />
+                                    <input name="images[]" type="file" multiple hidden id="product-images" />
                                 </div>
                                 <div class="dz-message needsclick" id="dropzone-message">
                                     <i class="bx bx-cloud-upload fs-48 text-primary"></i>
-                                    <h3 class="mt-4">Drop your images here, or <span class="text-primary"
-                                            id="browse-files">click to browse</span></h3>
+                                    <h3 class="mt-4">
+                                        Drop your images here, or <span class="text-primary" id="browse-files">click to
+                                            browse</span>
+                                    </h3>
                                     <span class="text-muted fs-13">
-                                        1600 x 1200 (4:3) recommended. PNG, JPG and GIF files are allowed
+                                        PNG, JPG and WEBP files are allowed
                                     </span>
                                 </div>
-                                <div id="preview-container" class="row mt-3"></div>
+                                <div id="preview-container" class="row mt-3">
+                                    {{-- Show existing product images from the database --}}
+                                    @if ($product->productImg && $product->productImg->count())
+                                        @foreach ($product->productImg as $image)
+                                            <div class="col-md-3 mb-2 position-relative">
+                                                <img src="{{ asset($image->img) }}" class="img-thumbnail img-fluid"
+                                                    alt="Product Image">
+                                                <a href="{{ route('product.image.delete', $image->id) }}"
+                                                    class="position-absolute top-0 end-0 mt-2 me-2 btn btn-danger btn-sm"
+                                                    onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this image?')) { 
+                                                       var form = document.createElement('form'); 
+                                                       form.method = 'POST'; 
+                                                       form.action = this.href;
+                                                       var token = document.createElement('input'); 
+                                                       token.type = 'hidden'; 
+                                                       token.name = '_token'; 
+                                                       token.value = '{{ csrf_token() }}';
+                                                       form.appendChild(token);
+                                                       var method = document.createElement('input'); 
+                                                       method.type = 'hidden'; 
+                                                       method.name = '_method'; 
+                                                       method.value = 'DELETE';
+                                                       form.appendChild(method);
+                                                       document.body.appendChild(form); 
+                                                       form.submit(); }">
+                                                    Delete
+                                                </a>
+                                            </div>
+                                        @endforeach
+                                    @endif
+                                </div>
                             </div>
 
 
@@ -66,14 +100,8 @@
 
                                     </div>
                                 </div>
+
                                 <div class="row">
-                                    {{-- <div class="col-lg-4">
-                                        <div class="mb-3">
-                                            <label for="product-brand" class="form-label">Brand</label>
-                                            <input type="text" id="product-brand" name="product" class="form-control"
-                                                placeholder="Brand Name">
-                                        </div>
-                                    </div> --}}
                                     <div class="col-lg-4">
                                         <div class="mb-3">
                                             <label for="product-weight" class="form-label">Weight</label>
@@ -86,9 +114,16 @@
                                         <select class="form-control" id="gender" name="gender" data-choices
                                             data-choices-groups data-placeholder="Select Gender">
                                             <option value="">Select Gender</option>
-                                            <option value="Men">Men</option>
-                                            <option value="Women">Women</option>
-                                            <option value="Other">Other</option>
+                                            <option value="Men" {{ $product->gender == 'Men' ? 'selected' : '' }}>Men
+                                            </option>
+                                            <option value="Women" {{ $product->gender == 'Women' ? 'selected' : '' }}>
+                                                Women
+                                            </option>
+                                            <option value="Unisex" {{ $product->gender == 'Unisex' ? 'selected' : '' }}>
+                                                Unisex</option>
+                                            <option value="Other" {{ $product->gender == 'Other' ? 'selected' : '' }}>
+                                                Other
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
@@ -98,31 +133,44 @@
                                             <h5 class="text-dark fw-medium">Size :</h5>
                                             <div class="d-flex flex-wrap gap-2" role="group"
                                                 aria-label="Basic checkbox toggle button group">
-                                                <input type="checkbox" class="btn-check" id="size-xs1">
+                                                <input type="checkbox" class="btn-check" id="size-xs1" name="sizes[]"
+                                                    value="XS"
+                                                    {{ in_array('XS', json_decode($product->sizes, true) ?? []) ? 'checked' : '' }}>
                                                 <label
                                                     class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
                                                     for="size-xs1">XS</label>
 
-                                                <input type="checkbox" class="btn-check" id="size-s1">
+                                                <input type="checkbox" class="btn-check" id="size-s1" name="sizes[]"
+                                                    value="S"
+                                                    {{ in_array('S', json_decode($product->sizes, true) ?? []) ? 'checked' : '' }}>
                                                 <label
                                                     class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
                                                     for="size-s1">S</label>
 
-                                                <input type="checkbox" class="btn-check" id="size-m1">
+                                                <input type="checkbox" class="btn-check" id="size-m1" name="sizes[]"
+                                                    value="M"
+                                                    {{ in_array('M', json_decode($product->sizes, true) ?? []) ? 'checked' : '' }}>
                                                 <label
                                                     class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
                                                     for="size-m1">M</label>
 
-                                                <input type="checkbox" class="btn-check" id="size-xl1">
+                                                <input type="checkbox" class="btn-check" id="size-xl1" name="sizes[]"
+                                                    value="XL"
+                                                    {{ in_array('XL', json_decode($product->sizes, true) ?? []) ? 'checked' : '' }}>
                                                 <label
                                                     class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                    for="size-xl1">Xl</label>
+                                                    for="size-xl1">XL</label>
 
-                                                <input type="checkbox" class="btn-check" id="size-xxl1">
+                                                <input type="checkbox" class="btn-check" id="size-xxl1" name="sizes[]"
+                                                    value="XXL"
+                                                    {{ in_array('XXL', json_decode($product->sizes, true) ?? []) ? 'checked' : '' }}>
                                                 <label
                                                     class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
                                                     for="size-xxl1">XXL</label>
-                                                <input type="checkbox" class="btn-check" id="size-3xl1">
+
+                                                <input type="checkbox" class="btn-check" id="size-3xl1" name="sizes[]"
+                                                    value="3XL"
+                                                    {{ in_array('3XL', json_decode($product->sizes, true) ?? []) ? 'checked' : '' }}>
                                                 <label
                                                     class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
                                                     for="size-3xl1">3XL</label>
@@ -133,55 +181,25 @@
                                     <div class="col-lg-5">
                                         <div class="mt-3">
                                             <h5 class="text-dark fw-medium">Colors :</h5>
-                                            <div class="d-flex flex-wrap gap-2" role="group"
+                                            <div class="d-flex flex-wrap gap-2 color-container" role="group"
                                                 aria-label="Basic checkbox toggle button group">
-                                                <input type="checkbox" class="btn-check" id="color-dark1">
-                                                <label
-                                                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                    for="color-dark1"> <i
-                                                        class="bx bxs-circle fs-18 text-dark"></i></label>
-
-                                                <input type="checkbox" class="btn-check" id="color-yellow1">
-                                                <label
-                                                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                    for="color-yellow1"> <i
-                                                        class="bx bxs-circle fs-18 text-warning"></i></label>
-
-                                                <input type="checkbox" class="btn-check" id="color-white1">
-                                                <label
-                                                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                    for="color-white1"> <i
-                                                        class="bx bxs-circle fs-18 text-white"></i></label>
-
-                                                <input type="checkbox" class="btn-check" id="color-red1">
-                                                <label
-                                                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                    for="color-red1"> <i
-                                                        class="bx bxs-circle fs-18 text-primary"></i></label>
-
-                                                <input type="checkbox" class="btn-check" id="color-green1">
-                                                <label
-                                                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                    for="color-green1"> <i
-                                                        class="bx bxs-circle fs-18 text-success"></i></label>
-
-                                                <input type="checkbox" class="btn-check" id="color-blue1">
-                                                <label
-                                                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                    for="color-blue1"> <i
-                                                        class="bx bxs-circle fs-18 text-danger"></i></label>
-
-                                                <input type="checkbox" class="btn-check" id="color-sky1">
-                                                <label
-                                                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                    for="color-sky1"> <i
-                                                        class="bx bxs-circle fs-18 text-info"></i></label>
-
-                                                <input type="checkbox" class="btn-check" id="color-gray1">
-                                                <label
-                                                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                    for="color-gray1"> <i
-                                                        class="bx bxs-circle fs-18 text-secondary"></i></label>
+                                                <div class="input-group mt-2">
+                                                    <input type="text" id="new-color" class="form-control"
+                                                        placeholder="Enter hex color code">
+                                                    <button type="button" id="add-color" class="btn btn-primary">Add
+                                                        Color</button>
+                                                </div>
+                                                @foreach (json_decode($product->colors, true) as $color)
+                                                    <input type="checkbox" class="btn-check" name="color[]"
+                                                        id="color-{{ Str::slug($color) }}" value="{{ $color }}"
+                                                        checked>
+                                                    <label
+                                                        class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
+                                                        for="color-{{ Str::slug($color) }}">
+                                                        <i class="bx bxs-circle fs-18"
+                                                            style="color: {{ $color }}"></i>
+                                                    </label>
+                                                @endforeach
 
                                             </div>
                                         </div>
@@ -191,7 +209,7 @@
                                     <div class="col-lg-12">
                                         <div class="mb-3">
                                             <label for="description" class="form-label">Description</label>
-                                            <textarea class="form-control bg-light-subtle" id="description" name="description" rows="7"
+                                            <textarea class="form-control bg-light-subtle" id="editor" name="description" rows="7"
                                                 placeholder="Short description about the product"> {{ $product->description ?? '' }}</textarea>
                                         </div>
                                     </div>
@@ -200,7 +218,7 @@
                                     <div class="col-lg-4">
                                         <div class="mb-3">
                                             <label for="product-id" class="form-label">Tag Number</label>
-                                            <input type="number" id="product-id" name="product_id" class="form-control"
+                                            <input type="number" id="tag_no" name="" class="form-control"
                                                 placeholder="#******">
                                         </div>
                                     </div>
@@ -212,14 +230,17 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
-                                        <label for="product-stock" class="form-label">Tag</label>
-                                        <select class="form-control" id="choices-multiple-remove-button" data-choices
-                                            data-choices-removeItem name="choices-multiple-remove-button" multiple>
-                                            <option value="Fashion" selected>Fashion</option>
-                                            <option value="Electronics">Electronics</option>
-                                            <option value="Watches">Watches</option>
-                                            <option value="Headphones">Headphones</option>
-                                        </select>
+                                        <div class="mb-3">
+                                            <label for="product-stock" class="form-label">Best Seller</label>
+                                            <select class="form-control" id="bestSeller" name="bestSeller" data-choices
+                                                data-choices-groups data-placeholder="Best Seller" required>
+                                                <option value="">- Select -</option>
+                                                <option value="1" {{ $product->best_seller == 1 ? 'selected' : '' }}>
+                                                    Yes</option>
+                                                <option value="0" {{ $product->best_seller == 0 ? 'selected' : '' }}>
+                                                    No</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -253,7 +274,7 @@
                         <div class="p-3 bg-light mb-3 rounded">
                             <div class="row justify-content-end g-2">
                                 <div class="col-lg-2">
-                                    <button type="submit" class="btn btn-outline-secondary w-100">Create Product</button>
+                                    <button type="submit" class="btn btn-outline-secondary w-100">Update Product</button>
                                 </div>
                                 <div class="col-lg-2">
                                     <a href="{{ route('admin.products') }}" class="btn btn-primary w-100">Cancel</a>
@@ -285,38 +306,4 @@
 
     </div>
 
-    <script>
-        document.getElementById('browse-files').addEventListener('click', function() {
-            document.getElementById('product-images').click();
-        });
-
-        document.getElementById('product-images').addEventListener('change', function(event) {
-            handleFiles(event.target.files);
-        });
-
-        document.getElementById('product-dropzone').addEventListener('drop', function(event) {
-            event.preventDefault();
-            handleFiles(event.dataTransfer.files);
-        });
-
-        document.getElementById('product-dropzone').addEventListener('dragover', function(event) {
-            event.preventDefault();
-        });
-
-        function handleFiles(files) {
-            const previewContainer = document.getElementById('preview-container');
-            previewContainer.innerHTML = '';
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.className = 'img-thumbnail col-md-3 img-fluid';
-                    previewContainer.appendChild(img);
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-    </script>
 @endsection

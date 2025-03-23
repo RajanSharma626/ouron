@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CartItem;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,7 +11,8 @@ class CheckoutController extends Controller
 {
     public function index()
     {
-        return view('frontend.checkout');
+        $cart = CartItem::with(['product', 'product.firstImage'])->where('user_id', Auth::id())->get();
+        return view('frontend.checkout', compact('cart'));
     }
 
     public function checkout(Request $request)
@@ -39,5 +41,5 @@ class CheckoutController extends Controller
         $order->save();
 
         return redirect()->route('profile')->with('success', 'Order placed successfully');
-    }   
+    }
 }

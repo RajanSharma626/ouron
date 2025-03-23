@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('cart_items', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable(); // If guest checkout is allowed
-            $table->string('session_id'); // For guest users
+            $table->string('session_id')->nullable(); // For guest users
             $table->unsignedBigInteger('product_id');
             $table->integer('quantity')->default(1);
             $table->decimal('price', 10, 2);

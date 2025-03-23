@@ -15,6 +15,7 @@ class Product extends Model
         'colors',
         'discount_price',
         'stock',
+        'best_seller',
         'sku',
         'category_id',
         'images',
@@ -35,6 +36,11 @@ class Product extends Model
     public function secondimage()
     {
         return $this->hasOne(ProductImg::class, 'product_id')->orderBy('id', 'asc')->skip(1)->take(1);
+    }
+
+    public function productImg()
+    {
+        return $this->hasMany(ProductImg::class, 'product_id')->orderBy('id', 'asc');
     }
 
     public function likes()

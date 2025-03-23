@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\Session;
 
 class OrderController extends Controller
 {
+
+    public function index()
+    {
+        return view('admin.orders');
+    }
+
     public function store(Request $request)
     {
         $request->validate([

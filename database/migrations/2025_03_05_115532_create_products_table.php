@@ -19,9 +19,11 @@ return new class extends Migration
             $table->decimal('price', 10, 2);
             $table->json('sizes')->nullable(); // Store sizes as JSON
             $table->json('colors')->nullable(); // Store colors as JSON
+            $table->string('gender')->nullable();
             $table->integer('discount_price')->nullable();
             $table->integer('stock')->default(0);
             $table->string('sku')->unique()->nullable();
+            $table->integer('best_seller')->default(0);
             $table->unsignedBigInteger('category_id')->nullable(); // Corrected category column
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->json('images')->nullable(); // Store multiple images

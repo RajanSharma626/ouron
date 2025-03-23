@@ -40,7 +40,7 @@ class ProductController extends Controller
     public function edit($id)
     {
         $categories = Category::whereNull('deleted_at')->get();
-        $product = Product::find($id);
+        $product = Product::with('productImg')->find($id);
         if (!$product) {
             return redirect()->route('admin.products')->with('error', 'Product not found');
         };
@@ -58,6 +58,7 @@ class ProductController extends Controller
             'discount_price' => 'required|numeric',
             'product_stock' => 'required|integer',
             'product_category' => 'nullable|string',
+            'bestSeller' => 'nullable|string',
             'size' => 'nullable|array',
             'size.*' => 'string',
             'color' => 'nullable|array',
@@ -68,12 +69,14 @@ class ProductController extends Controller
 
         $product = Product::create([
             'name' => $request->product_name,
-            'slug' => \Illuminate\Support\Str::slug($request->product_name),
+            'slug' => \Illuminate\Support\Str::slug($request->product_name) . '-' . uniqid(),
             'description' => $request->description,
             'price' => $request->product_price,
             'discount_price' => $request->discount_price,
             'stock' => $request->product_stock,
+            'gender' => $request->gender,
             'sku' => $request->sku,
+            'best_seller' => $request->bestSeller,
             'category_id' => $request->product_category,
             'sizes' => json_encode($request->size),
             'colors' => json_encode($request->color),
@@ -146,34 +149,54 @@ class ProductController extends Controller
 
 
     // Update a product
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $product = Product::find($id);
+        $product = Product::find($request->product_id);
         if (!$product) {
             return response()->json(['message' => 'Product not found'], 404);
         }
 
         $request->validate([
-            'name' => 'string|max:255',
-            'price' => 'numeric',
-            'stock' => 'integer',
-            'sku' => 'nullable|string|unique:products,sku,' . $id,
-            'category' => 'nullable|string',
+            'product_name' => 'required|string|max:255',
+            'product_price' => 'required|numeric',
+            'discount_price' => 'required|numeric',
+            'product_stock' => 'required|integer',
+            'product_category' => 'nullable|string',
+            'bestSeller' => 'nullable|integer',
+            'sizes' => 'nullable|array',
+            'sizes.*' => 'string',
+            'color' => 'nullable|array',
+            'color.*' => 'string',
             'images' => 'nullable|array',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg,webp',
         ]);
 
         $product->update([
-            'name' => $request->name ?? $product->name,
-            'slug' => \Illuminate\Support\Str::slug($request->name) ?? $product->slug,
-            'description' => $request->description ?? $product->description,
-            'price' => $request->price ?? $product->price,
-            'discount_price' => $request->discount_price ?? $product->discount_price,
-            'stock' => $request->stock ?? $product->stock,
-            'sku' => $request->sku ?? $product->sku,
-            'category' => $request->category ?? $product->category,
-            'images' => json_encode($request->images) ?? $product->images,
+            'name' => $request->product_name,
+            'slug' => \Illuminate\Support\Str::slug($request->product_name) . '-' . uniqid(),
+            'description' => $request->description,
+            'price' => $request->product_price,
+            'discount_price' => $request->discount_price,
+            'stock' => $request->product_stock,
+            'gender' => $request->gender,
+            'sku' => $request->sku,
+            'best_seller' => $request->bestSeller,
+            'category_id' => $request->product_category,
+            'sizes' => json_encode($request->sizes),
+            'colors' => json_encode($request->color),
             'status' => $request->status ?? $product->status,
         ]);
+
+        if ($request->hasFile('images')) {
+            $imagePaths = [];
+            foreach ($request->file('images') as $index => $image) {
+                if (!$image->isValid()) {
+                    return back()->withErrors(['images' => 'Invalid file uploaded.']);
+                }
+                $imagePaths[] = $this->storeProductImages($image, $product->id, $index == 0);
+            }
+            $product->update(['images' => json_encode($imagePaths)]);
+        }
 
         return redirect()->route('admin.products')->with('success', 'Product updated successfully!');
     }
@@ -189,5 +212,22 @@ class ProductController extends Controller
         $product->deleted_at = now();
         $product->save();
         return redirect()->route('admin.products')->with('success', 'Product deleted successfully!');
+    }
+
+    // Delete product image
+    public function deleteImage($id)
+    {
+        $productImg = ProductImg::find($id);
+        if (!$productImg) {
+            return redirect()->back()->with('error', 'Image not found');
+        }
+
+        // Delete the image file
+        Storage::delete($productImg->img);
+
+        // Delete the record from the database
+        $productImg->delete();
+
+        return redirect()->back()->with('success', 'Image deleted successfully');
     }
 }

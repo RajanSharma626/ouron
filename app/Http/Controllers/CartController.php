@@ -20,21 +20,42 @@ class CartController extends Controller
         $userId = Auth::check() ? Auth::id() : null;
         $sessionId = session()->getId();
 
-        // Check if item exists in cart
-        $cartItem = CartItem::where('session_id', $sessionId)
-            ->where('product_id', $request->product_id)
-            ->first();
+        if (Auth::check()) {
+            $userId = Auth::id();
 
-        if ($cartItem) {
-            $cartItem->increment('quantity');
+            // Check if item exists in cart
+            $cartItem = CartItem::where('user_id', $userId)
+                ->where('product_id', $request->product_id)
+                ->first();
+
+            if ($cartItem) {
+                $cartItem->increment('quantity');
+            } else {
+                CartItem::create([
+                    'user_id' => $userId,
+                    'session_id' => $sessionId,
+                    'product_id' => $request->product_id,
+                    'quantity' => 1,
+                    'price' => $request->price
+                ]);
+            }
         } else {
-            CartItem::create([
-                'user_id' => $userId,
-                'session_id' => $sessionId,
-                'product_id' => $request->product_id,
-                'quantity' => 1,
-                'price' => $request->price
-            ]);
+            // Check if item exists in cart
+            $cartItem = CartItem::where('session_id', $sessionId)
+                ->where('product_id', $request->product_id)
+                ->first();
+
+            if ($cartItem) {
+                $cartItem->increment('quantity');
+            } else {
+                CartItem::create([
+                    'user_id' => $userId,
+                    'session_id' => $sessionId,
+                    'product_id' => $request->product_id,
+                    'quantity' => 1,
+                    'price' => $request->price
+                ]);
+            }
         }
 
         return response()->json(['message' => 'Item added to cart']);
@@ -43,8 +64,18 @@ class CartController extends Controller
     // Get cart items
     public function getCart()
     {
-        $sessionId = session()->getId();
-        $cartItems = CartItem::where('session_id', $sessionId)->with(['product', 'product.firstimage'])->get();
+        if (Auth::check()) {
+            $userId = Auth::id();
+            $cartItems = CartItem::where('user_id', $userId)
+                ->with(['product', 'product.firstimage'])
+                ->get();
+        } else {
+            $sessionId = session()->getId();
+            $cartItems = CartItem::where('session_id', $sessionId)
+                ->with(['product', 'product.firstimage'])
+                ->get();
+        }
+
         return response()->json($cartItems);
     }
 

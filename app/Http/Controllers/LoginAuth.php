@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CartItem;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -9,6 +10,35 @@ use Illuminate\Support\Facades\Log;
 
 class LoginAuth extends Controller
 {
+
+    public function mergeCartOnLogin($oldSessionId, $userId)
+    {
+        // Get all session-based cart items
+        $sessionCartItems = CartItem::where('session_id', $oldSessionId)
+            ->where('user_id', null)
+            ->get();
+
+        foreach ($sessionCartItems as $item) {
+            // Check if item already exists in user's cart
+            $existingItem = CartItem::where('user_id', $userId)
+                ->where('product_id', $item->product_id)
+                ->first();
+
+            if ($existingItem) {
+                // Increase quantity if product exists in user's cart
+                $existingItem->increment('quantity', $item->quantity);
+
+                // Delete the session cart item after merging
+                $item->delete();
+            } else {
+                // Assign user ID to session-based cart item
+                $item->update(['user_id' => $userId, 'session_id' => null]);
+            }
+        }
+    }
+
+
+
     public function index()
     {
         return view('frontend.login');
@@ -102,12 +132,17 @@ class LoginAuth extends Controller
             'otp' => 'required|numeric'
         ]);
 
-        $user = User::find($request->user_id);
+        $user = User::where('id', $request->user_id)->first();
 
         if ($user->otp == $request->otp) {
             if ($user->otp_expires_at && $user->otp_expires_at->isFuture()) {
+                $oldSessionId = session()->getId(); // Store session ID before login
+
                 // OTP is correct and not expired, log the user in
                 Auth::login($user);
+
+                $request->session()->regenerate();
+                $this->mergeCartOnLogin($oldSessionId, $user->id);; // Merge the cart here
 
                 // Redirect the user to the intended URL or home if not set
                 return redirect()->intended('home')->with('success', 'Logged in successfully');
