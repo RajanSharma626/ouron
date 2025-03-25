@@ -9,17 +9,15 @@ class Coupon extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'code',
-        'discount',
-        'discount_type',
-        'usage_limit',
-        'used',
-        'expires_at'
-    ];
+    protected $table = 'coupons';
 
-    public function isValid()
-    {
-        return ($this->usage_limit > $this->used) && (!$this->expires_at || now()->lt($this->expires_at));
-    }
+    protected $fillable = [
+        'coupon_code',
+        'coupon_limits',
+        'discount_value',
+        'coupon_type',
+        'status',
+        'start_date',
+        'end_date'
+    ];
 }

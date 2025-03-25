@@ -259,6 +259,18 @@
     --secondary-font: "ArgentumSans", sans-serif;
 }
 
+/* For Chrome, Safari, Edge, and Opera */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* For Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
 body,
 * {
     font-family: var(--primary-font);
@@ -333,7 +345,7 @@ body {
 }
 
 /* Show dropdown on hover */
-.nav-item.dropdown:hover>.dropdown-menu {
+.nav-item.dropdown:hover > .dropdown-menu {
     display: block;
 }
 
@@ -477,7 +489,7 @@ select:focus {
     color: #ffffff !important;
 }
 
-.product_icons a:hover i{
+.product_icons a:hover i {
     color: #ffffff !important;
 }
 
@@ -654,7 +666,7 @@ footer p {
     cursor: pointer;
 }
 
-input[type="radio"]:checked+label .color-circle {
+input[type="radio"]:checked + label .color-circle {
     border: 3px solid #000;
 }
 

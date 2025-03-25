@@ -16,8 +16,8 @@
                             <form method="POST" action="{{ route('login.auth') }}">
                                 @csrf
                                 <div class="form-group">
-                                    {{-- <label for="" class="text-normal form-label">Enter mobile number</label> --}}
-                                    <input type="number" class="form-control p-2 text-normal bg-none" placeholder="Enter Mobile no." min="0" name="phone" required>
+                                    <input type="number" class="form-control p-2 text-normal bg-none"
+                                        placeholder="Enter Mobile no." min="0" name="phone" required>
                                 </div>
                                 @if (session('error'))
                                     <div class="text-danger text-normal">
@@ -26,8 +26,6 @@
                                 @endif
                                 <div class="form-group text-center mt-4">
                                     <button type="submit" class="login_btn w-100 mb-3">Login</button>
-                                    <a class="link-normal border-bottom" href="{{ route('register') }}"
-                                        class="btn btn-link">Create an account</a>
                                 </div>
                             </form>
                         </div>

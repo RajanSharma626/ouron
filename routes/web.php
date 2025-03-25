@@ -37,6 +37,9 @@ Route::get('/blogs', function () {
 })->name('blogs');
 
 Route::get('/product/{slug}', [FrontendProductController::class, 'detail'])->name('product.detail');
+Route::get('/new-in', [CatProductsController::class, 'newIn'])->name('new.in');
+Route::get('/all-product', [CatProductsController::class, 'allProduct'])->name('all-product');
+Route::get('/category/{cat}', [CatProductsController::class, 'catProduct'])->name('cat-product');
 
 
 // login
@@ -44,8 +47,8 @@ Route::get('/login', [LoginAuth::class, 'index'])->name('login');
 Route::post('/login', [LoginAuth::class, 'login'])->name('login.auth');
 
 // register
-Route::get('/register', [LoginAuth::class, 'register'])->name('register');
-Route::post('/register', [LoginAuth::class, 'registerUser'])->name('registerUser');
+// Route::get('/register', [LoginAuth::class, 'register'])->name('register');
+// Route::post('/register', [LoginAuth::class, 'registerUser'])->name('registerUser');
 
 
 // verify otp
@@ -69,7 +72,11 @@ Route::middleware(['user.auth'])->group(function () {
     Route::post('/apply-coupon', [CouponController::class, 'applyCoupon'])->name('coupon.apply');
     Route::get('/remove-coupon', [CouponController::class, 'removeCoupon'])->name('coupon.remove');
 
-    Route::post('/checkout/store', [OrderController::class, 'store'])->name('checkout.store');
+    Route::post('/checkout/store', [CheckoutController::class, 'store'])->name('checkout.store');
+
+    Route::get('/order-success', function () {
+        return view('frontend.order-success');
+    })->name('order.success');
 
     Route::post('/wishlist/toggle', [WishlistController::class, 'toggleWishlist'])->name('wishlist.toggle');
     Route::get('/wishlist', [WishlistController::class, 'getWishlist'])->name('wishlist');
@@ -78,9 +85,6 @@ Route::middleware(['user.auth'])->group(function () {
 
 
 
-
-Route::get('/new-in', [CatProductsController::class, 'newIn'])->name('new.in');
-Route::get('/all-product', [CatProductsController::class, 'allProduct'])->name('all-product');
 
 
 // Policy Routes
@@ -117,9 +121,8 @@ Route::prefix('admin')->group(function () {
 
 
 Route::middleware(['admin.auth'])->prefix('admin')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('admin.dashboard');
+
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
     Route::get('/products', [ProductController::class, 'index'])->name('admin.products');
 
@@ -142,4 +145,16 @@ Route::middleware(['admin.auth'])->prefix('admin')->group(function () {
 
     //orders
     Route::get('/orders', [OrderController::class, 'index'])->name('admin.orders');
+    Route::get('/order/view/{id}', [OrderController::class, 'view'])->name('admin.order.view');
+
+    //coupons
+    Route::get('/coupons', [CouponController::class, 'index'])->name('admin.coupons');
+    Route::get('/coupons/add', function () {
+        return view('admin.coupon-add');
+    })->name('admin.coupons.add');
+
+    Route::post('/coupons/store', [CouponController::class, 'store'])->name('admin.coupons.store');
+    Route::get('/coupons/delete/{id}', [CouponController::class, 'destroy'])->name('admin.coupons.delete');
+    Route::get('/coupons/edit/{id}', [CouponController::class, 'edit'])->name('admin.coupons.edit');
+    Route::post('/coupons/update', [CouponController::class, 'update'])->name('admin.coupons.update');
 });

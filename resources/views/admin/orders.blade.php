@@ -10,14 +10,14 @@
         <!-- Start Container Fluid -->
         <div class="container-xxl">
 
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col-md-6 col-xl-3">
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-between">
                                 <div>
                                     <h4 class="card-title mb-2">Pending Review</h4>
-                                    <p class="text-muted fw-medium fs-22 mb-0">210</p>
+                                    <p class="text-muted fw-medium fs-22 mb-0">0</p>
                                 </div>
                                 <div>
                                     <div class="avatar-md bg-primary bg-opacity-10 rounded">
@@ -35,7 +35,7 @@
                             <div class="d-flex align-items-center justify-content-between">
                                 <div>
                                     <h4 class="card-title mb-2">Pending Payment</h4>
-                                    <p class="text-muted fw-medium fs-22 mb-0">608</p>
+                                    <p class="text-muted fw-medium fs-22 mb-0">0</p>
                                 </div>
                                 <div>
                                     <div class="avatar-md bg-primary bg-opacity-10 rounded">
@@ -54,7 +54,7 @@
                             <div class="d-flex align-items-center justify-content-between">
                                 <div>
                                     <h4 class="card-title mb-2">Delivered</h4>
-                                    <p class="text-muted fw-medium fs-22 mb-0">200</p>
+                                    <p class="text-muted fw-medium fs-22 mb-0">0</p>
                                 </div>
                                 <div>
                                     <div class="avatar-md bg-primary bg-opacity-10 rounded">
@@ -73,7 +73,7 @@
                             <div class="d-flex align-items-center justify-content-between">
                                 <div>
                                     <h4 class="card-title mb-2">In Progress</h4>
-                                    <p class="text-muted fw-medium fs-22 mb-0">656</p>
+                                    <p class="text-muted fw-medium fs-22 mb-0">0</p>
                                 </div>
                                 <div>
                                     <div class="avatar-md bg-primary bg-opacity-10 rounded">
@@ -86,14 +86,14 @@
                     </div>
                 </div>
 
-            </div>
+            </div> --}}
 
             <div class="row">
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="d-flex card-header justify-content-between align-items-center">
                             <div>
-                                <h4 class="card-title">All Received Order</h4>
+                                <h4 class="card-title">All Order List</h4>
                             </div>
                             <div class="dropdown">
                                 <a href="#" class="dropdown-toggle btn btn-sm btn-outline-light rounded"
@@ -117,237 +117,64 @@
                                     <thead class="bg-light-subtle">
                                         <tr>
                                             <th>Order ID</th>
+                                            <th>Created at</th>
                                             <th>Customer</th>
-                                            <th>Items</th>
-                                            <th>Amount</th>
+                                            <th>Total</th>
                                             <th>Payment Status</th>
-                                            <th>Received Status</th>
+                                            <th>Items</th>
+                                            <th>Delivery Number</th>
+                                            <th>Order Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>#583488/80</td>
-                                            <td>Michael A. Miner</td>
-                                            <td>03</td>
-                                            <td>$289.00</td>
-                                            <td><span class="badge bg-secondary text-white py-1 px-2">Paid</span></td>
-                                            <td><span
-                                                    class="badge bg-success-subtle text-success py-1 px-2">Delivered</span>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex gap-2">
-                                                    <a href="#!" class="btn btn-light btn-sm"><iconify-icon
-                                                            icon="solar:eye-broken"
-                                                            class="align-middle fs-18"></iconify-icon></a>
-                                                    <a href="#!" class="btn btn-soft-primary btn-sm"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#staticBackdrop"><iconify-icon
-                                                            icon="solar:pen-2-broken"
-                                                            class="align-middle fs-18"></iconify-icon></a>
-                                                    <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon
-                                                            icon="solar:trash-bin-minimalistic-2-broken"
-                                                            class="align-middle fs-18"></iconify-icon></a>
-                                                </div>
-                                            </td>
-                                        </tr>
 
-                                        <tr>
-                                            <td>#456754/80 </td>
-                                            <td>Theresa T. Brose</td>
-                                            <td>05</td>
-                                            <td>$213.00</td>
-                                            <td><span class="badge bg-warning text-white py-1 px-2">COD</span></td>
-                                            <td><span class="badge bg-danger-subtle text-danger py-1 px-2">Failed</span>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex gap-2">
-                                                    <a href="#!" class="btn btn-light btn-sm"><iconify-icon
-                                                            icon="solar:eye-broken"
-                                                            class="align-middle fs-18"></iconify-icon></a>
-                                                    <a href="#!" class="btn btn-soft-primary btn-sm"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#staticBackdrop"><iconify-icon
-                                                            icon="solar:pen-2-broken"
-                                                            class="align-middle fs-18"></iconify-icon></a>
-                                                    <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon
-                                                            icon="solar:trash-bin-minimalistic-2-broken"
-                                                            class="align-middle fs-18"></iconify-icon></a>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        @foreach ($orders as $order)
+                                            <tr>
+                                                <td>
+                                                    #{{ $order->id }}
+                                                </td>
+                                                <td>{{ $order->created_at->format('d M, Y') }}</td>
+                                                <td>
+                                                    <a href="#!"
+                                                        class="link-primary fw-medium">{{ $order->user->name }}</a>
+                                                </td>
+                                                <td> ₹{{ number_format($order->total, 2) }}</td>
+                                                <td> <span
+                                                        class="badge bg-light text-dark  px-2 py-1 fs-13">{{ $order->payment_method }}</span>
+                                                </td>
+                                                <td> {{ $order->items->sum('quantity') }} </td>
+                                                <td> -</td>
+                                                <td>
+                                                    @php
+                                                        $statusClass = match ($order->status) {
+                                                            'Pending' => 'bg-warning-subtle text-warning',
+                                                            'Processing' => 'bg-info-subtle text-info',
+                                                            'Completed' => 'bg-success-subtle text-success',
+                                                            'Cancelled' => 'bg-danger-subtle text-danger',
+                                                            default => 'bg-warning-subtle text-warning',
+                                                        };
+                                                    @endphp
+                                                    <span
+                                                        class="badge {{ $statusClass }}  px-2 py-1">{{ $order->status }}</span>
 
-                                        <tr>
-                                            <td>#578246/80</td>
-                                            <td> Cecile D. Gordon</td>
-                                            <td>03 </td>
-                                            <td>$735.00</td>
-                                            <td><span class="badge bg-secondary text-white py-1 px-2">Paid</span></td>
-                                            <td><span
-                                                    class="badge bg-success-subtle text-success py-1 px-2">Delivered</span>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex gap-2">
-                                                    <a href="#!" class="btn btn-light btn-sm"><iconify-icon
-                                                            icon="solar:eye-broken"
-                                                            class="align-middle fs-18"></iconify-icon></a>
-                                                    <a href="#!" class="btn btn-soft-primary btn-sm"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#staticBackdrop"><iconify-icon
-                                                            icon="solar:pen-2-broken"
-                                                            class="align-middle fs-18"></iconify-icon></a>
-                                                    <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon
-                                                            icon="solar:trash-bin-minimalistic-2-broken"
-                                                            class="align-middle fs-18"></iconify-icon></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>#348930/80</td>
-                                            <td>William Moreno</td>
-                                            <td>02</td>
-                                            <td>$324.00</td>
-                                            <td><span class="badge bg-warning text-white py-1 px-2">COD</span></td>
-                                            <td><span class="badge bg-warning-subtle text-warning py-1 px-2">Pending</span>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex gap-2">
-                                                    <a href="#!" class="btn btn-light btn-sm"><iconify-icon
-                                                            icon="solar:eye-broken"
-                                                            class="align-middle fs-18"></iconify-icon></a>
-                                                    <a href="#!" class="btn btn-soft-primary btn-sm"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#staticBackdrop"><iconify-icon
-                                                            icon="solar:pen-2-broken"
-                                                            class="align-middle fs-18"></iconify-icon></a>
-                                                    <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon
-                                                            icon="solar:trash-bin-minimalistic-2-broken"
-                                                            class="align-middle fs-18"></iconify-icon></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>#391367/80</td>
-                                            <td>Sarah M. Brooks</td>
-                                            <td>07 </td>
-                                            <td>$153.00</td>
-                                            <td><span class="badge bg-warning text-white py-1 px-2">COD</span></td>
-                                            <td><span
-                                                    class="badge bg-success-subtle text-success py-1 px-2">Delivered</span>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex gap-2">
-                                                    <a href="#!" class="btn btn-light btn-sm"><iconify-icon
-                                                            icon="solar:eye-broken"
-                                                            class="align-middle fs-18"></iconify-icon></a>
-                                                    <a href="#!" class="btn btn-soft-primary btn-sm"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#staticBackdrop"><iconify-icon
-                                                            icon="solar:pen-2-broken"
-                                                            class="align-middle fs-18"></iconify-icon></a>
-                                                    <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon
-                                                            icon="solar:trash-bin-minimalistic-2-broken"
-                                                            class="align-middle fs-18"></iconify-icon></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>#930447/80</td>
-                                            <td>Joe K. Hall</td>
-                                            <td>02</td>
-                                            <td>$424.00</td>
-                                            <td><span class="badge bg-secondary text-white py-1 px-2">Paid</span></td>
-                                            <td><span class="badge bg-danger-subtle text-danger py-1 px-2">Failed</span>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex gap-2">
-                                                    <a href="#!" class="btn btn-light btn-sm"><iconify-icon
-                                                            icon="solar:eye-broken"
-                                                            class="align-middle fs-18"></iconify-icon></a>
-                                                    <a href="#!" class="btn btn-soft-primary btn-sm"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#staticBackdrop"><iconify-icon
-                                                            icon="solar:pen-2-broken"
-                                                            class="align-middle fs-18"></iconify-icon></a>
-                                                    <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon
-                                                            icon="solar:trash-bin-minimalistic-2-broken"
-                                                            class="align-middle fs-18"></iconify-icon></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> #462397/80</td>
-                                            <td>Ralph Hueber</td>
-                                            <td>01</td>
-                                            <td>$521.00</td>
-                                            <td><span class="badge bg-secondary text-white py-1 px-2">Paid</span></td>
-                                            <td><span class="badge bg-warning-subtle text-warning py-1 px-2">Pending</span>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex gap-2">
-                                                    <a href="#!" class="btn btn-light btn-sm"><iconify-icon
-                                                            icon="solar:eye-broken"
-                                                            class="align-middle fs-18"></iconify-icon></a>
-                                                    <a href="#!" class="btn btn-soft-primary btn-sm"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#staticBackdrop"><iconify-icon
-                                                            icon="solar:pen-2-broken"
-                                                            class="align-middle fs-18"></iconify-icon></a>
-                                                    <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon
-                                                            icon="solar:trash-bin-minimalistic-2-broken"
-                                                            class="align-middle fs-18"></iconify-icon></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>#472356/80</td>
-                                            <td>Sarah Drescher</td>
-                                            <td>04</td>
-                                            <td>$313.00</td>
-                                            <td><span class="badge bg-warning text-white py-1 px-2">COD</span></td>
-                                            <td><span
-                                                    class="badge bg-success-subtle text-success py-1 px-2">Delivered</span>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex gap-2">
-                                                    <a href="#!" class="btn btn-light btn-sm"><iconify-icon
-                                                            icon="solar:eye-broken"
-                                                            class="align-middle fs-18"></iconify-icon></a>
-                                                    <a href="#!" class="btn btn-soft-primary btn-sm"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#staticBackdrop"><iconify-icon
-                                                            icon="solar:pen-2-broken"
-                                                            class="align-middle fs-18"></iconify-icon></a>
-                                                    <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon
-                                                            icon="solar:trash-bin-minimalistic-2-broken"
-                                                            class="align-middle fs-18"></iconify-icon></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>#448226/80</td>
-                                            <td>Leonie Meister</td>
-                                            <td>06 </td>
-                                            <td>$219.00</td>
-                                            <td><span class="badge bg-warning text-white py-1 px-2">COD</span></td>
-                                            <td><span class="badge bg-danger-subtle text-danger py-1 px-2">Failed</span>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex gap-2">
-                                                    <a href="#!" class="btn btn-light btn-sm"><iconify-icon
-                                                            icon="solar:eye-broken"
-                                                            class="align-middle fs-18"></iconify-icon></a>
-                                                    <a href="#!" class="btn btn-soft-primary btn-sm"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#staticBackdrop"><iconify-icon
-                                                            icon="solar:pen-2-broken"
-                                                            class="align-middle fs-18"></iconify-icon></a>
-                                                    <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon
-                                                            icon="solar:trash-bin-minimalistic-2-broken"
-                                                            class="align-middle fs-18"></iconify-icon></a>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex gap-2">
+                                                        <a href="{{ route('admin.order.view', $order->id) }}"
+                                                            class="btn btn-light btn-sm"><iconify-icon
+                                                                icon="solar:eye-broken"
+                                                                class="align-middle fs-18"></iconify-icon></a>
+                                                        <a href="#!" class="btn btn-soft-primary btn-sm"><iconify-icon
+                                                                icon="solar:pen-2-broken"
+                                                                class="align-middle fs-18"></iconify-icon></a>
+                                                        <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon
+                                                                icon="solar:trash-bin-minimalistic-2-broken"
+                                                                class="align-middle fs-18"></iconify-icon></a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -376,20 +203,7 @@
         <!-- End Container Fluid -->
 
         <!-- ========== Footer Start ========== -->
-        <footer class="footer">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12 text-center">
-                        <script>
-                            document.write(new Date().getFullYear())
-                        </script> &copy; Larkon. Crafted by <iconify-icon icon="iconamoon:heart-duotone"
-                            class="fs-18 align-middle text-danger"></iconify-icon> <a
-                            href="https://1.envato.market/techzaa" class="fw-bold footer-text"
-                            target="_blank">Techzaa</a>
-                    </div>
-                </div>
-            </div>
-        </footer>
+        @include('admin.layouts.footer')
         <!-- ========== Footer End ========== -->
 
     </div>

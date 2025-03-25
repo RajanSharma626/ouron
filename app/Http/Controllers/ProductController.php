@@ -23,7 +23,6 @@ class ProductController extends Controller
         return view('admin.product', compact('products'));
     }
 
-
     public function create()
     {
         return view('admin.products.create');
@@ -173,7 +172,6 @@ class ProductController extends Controller
 
         $product->update([
             'name' => $request->product_name,
-            'slug' => \Illuminate\Support\Str::slug($request->product_name) . '-' . uniqid(),
             'description' => $request->description,
             'price' => $request->product_price,
             'discount_price' => $request->discount_price,
