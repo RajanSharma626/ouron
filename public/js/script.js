@@ -49,6 +49,14 @@ $(document).ready(function () {
                 let cartHtml = "";
                 let total = 0;
 
+                if (cartItems.length === 0) {
+                    $(".cart-items").html(
+                        '<p class="text-muted text-center">No items found in the cart.</p>'
+                    );
+                    $(".cart-total span:last-child").text("RS. 0");
+                    return;
+                }
+
                 cartItems.forEach((item) => {
                     total += item.price * item.quantity;
                     cartHtml += `
@@ -135,6 +143,35 @@ $(document).ready(function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
+    // Function to display a Bootstrap alert on the top right
+    function showAlert(message, type) {
+        let alertContainer = document.getElementById("alert-container");
+        if (!alertContainer) {
+            alertContainer = document.createElement("div");
+            alertContainer.id = "alert-container";
+            alertContainer.style.position = "fixed";
+            alertContainer.style.top = "20px";
+            alertContainer.style.right = "20px";
+            alertContainer.style.zIndex = "1050";
+            document.body.appendChild(alertContainer);
+        }
+        let alertDiv = document.createElement("div");
+        alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+        alertDiv.role = "alert";
+        alertDiv.innerHTML =
+            message +
+            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
+
+        alertContainer.appendChild(alertDiv);
+
+        // Auto dismiss after 3 seconds
+        setTimeout(function () {
+            alertDiv.classList.remove("show");
+            alertDiv.classList.add("hide");
+            setTimeout(() => alertDiv.remove(), 300);
+        }, 3000);
+    }
+
     document.querySelectorAll(".wishlist-btn").forEach((button) => {
         button.addEventListener("click", function () {
             let productId = this.getAttribute("data-id");
@@ -159,16 +196,20 @@ document.addEventListener("DOMContentLoaded", function () {
                 .then((data) => {
                     if (data.status === "added") {
                         icon.className = "bi bi-heart-fill text-danger";
+                        showAlert("Added to wishlist", "success");
                     } else if (data.status === "removed") {
                         icon.className = "bi bi-heart";
+                        showAlert("Removed from wishlist", "info");
                     } else {
                         // In case of an unexpected response, restore the original icon
                         icon.className = originalClasses;
+                        showAlert("Unexpected response", "warning");
                     }
                 })
                 .catch(() => {
                     // On error, restore the original icon
                     icon.className = originalClasses;
+                    showAlert("An error occurred, please try again", "danger");
                 });
         });
     });

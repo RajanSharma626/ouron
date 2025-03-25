@@ -13,8 +13,8 @@
                 </div>
             </div>
 
-            <div class="row mb-4">
-                <div class="col-md-4">
+            <div class="row mb-4 align-items-center">
+                <div class="col-6 col-md-4">
                     <div class="d-flex align-items-center">
                         <label for="sizeFilter" class="form-label me-2 mb-0 fs-07rem">Filter :</label>
                         <select id="sizeFilter" class="w-auto custom_filter px-3 py-1 fs-07rem">
@@ -25,10 +25,10 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-4 text-center">
+                <div class="col-md-4 text-center d-none d-md-block">
                     <span class="me-3 text-muted fs-07rem">Showing {{ $products->count() }} Products</span>
                 </div>
-                <div class="col-md-4">
+                <div class="col-6 col-md-4">
                     <div class="d-flex align-items-center justify-content-end">
 
                         <label for="sortBy" class="form-label me-2 mb-0 fs-07rem">Sort by:</label>
@@ -38,6 +38,10 @@
                             <option value="priceDesc">Price: High to Low</option>
                         </select>
                     </div>
+                </div>
+
+                <div class="col-12 text-center d-md-none mt-3">
+                    <span class="me-3 text-muted fs-07rem">Showing {{ $products->count() }} Products</span>
                 </div>
             </div>
 

@@ -345,7 +345,7 @@ body {
 }
 
 /* Show dropdown on hover */
-.nav-item.dropdown:hover > .dropdown-menu {
+.nav-item.dropdown:hover>.dropdown-menu {
     display: block;
 }
 
@@ -359,6 +359,11 @@ body {
     left: 100%;
     margin-top: -1px;
     display: none;
+}
+
+.dropdown-item:hover {
+    background-color: var(--primary-color) !important;
+    color: #ffffff !important;
 }
 
 /* Show sub-menu on click */
@@ -666,7 +671,7 @@ footer p {
     cursor: pointer;
 }
 
-input[type="radio"]:checked + label .color-circle {
+input[type="radio"]:checked+label .color-circle {
     border: 3px solid #000;
 }
 
@@ -842,4 +847,11 @@ input[type="radio"]:checked + label .color-circle {
 
 .newsletter_desc {
     font-size: 12px;
+}
+
+@media (max-width: 768px) {
+    .footer_logo {
+        width: 150px;
+        height: auto;
+    }
 }

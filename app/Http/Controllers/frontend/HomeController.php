@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Blog;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -50,6 +51,8 @@ class HomeController extends Controller
                 return $product;
             });
 
-        return view('frontend.home', compact('newProducts', 'allProducts', 'bestSellerProducts'));
+        $blogs = Blog::latest()->take(4)->get();
+
+        return view('frontend.home', compact('newProducts', 'allProducts', 'bestSellerProducts', 'blogs'));
     }
 }

@@ -7,8 +7,8 @@
     <section class="product_detail py-5">
         <div class="container-fluid px-md-5">
             <div class="row">
-                <div class="col-md-6 col-lg-7 col-12">
-                    <div class="row product_images">
+                <div class="col-md-6 col-lg-7 col-12 px-0 px-md-3">
+                    <div class="row product_images d-none d-md-flex">
                         @foreach ($product->productImg as $image)
                             @php
                                 $filename = basename($image->img ?? '');
@@ -39,6 +39,43 @@
                             </div>
                         @endforeach
                     </div>
+
+                    <div class="swiper product-swiper d-md-none">
+                        <div class="swiper-wrapper">
+                            @foreach ($product->productImg as $image)
+                                @php
+                                    $filename = basename($image->img ?? '');
+                                    $imageBasePath = asset('uploads/products/');
+                                @endphp
+
+                                <div class="swiper-slide">
+                                    <picture>
+                                        <!-- High-quality image for fast connections -->
+                                        <source srcset="{{ asset($imageBasePath . '/' . $filename) }}"
+                                            media="(min-width: 1400px)">
+                                        <source srcset="{{ asset($imageBasePath . '/' . $filename) }}"
+                                            media="(min-width: 1200px)">
+                                        <source srcset="{{ asset($imageBasePath . '/940_' . $filename) }}"
+                                            media="(min-width: 992px)">
+                                        <source srcset="{{ asset($imageBasePath . '/720_' . $filename) }}"
+                                            media="(min-width: 768px)">
+                                        <source srcset="{{ asset($imageBasePath . '/533_' . $filename) }}"
+                                            media="(min-width: 576px)">
+                                        <source srcset="{{ asset($imageBasePath . '/360_' . $filename) }}"
+                                            media="(max-width: 575px)">
+                                        <source srcset="{{ asset($imageBasePath . '/165_' . $filename) }}"
+                                            media="(max-width: 400px)">
+                                        <!-- Original image as fallback -->
+                                        <img src="{{ asset($imageBasePath . '/' . $filename) }}"
+                                            alt="{{ $product->name }}" class="img-fluid w-100">
+                                    </picture>
+                                </div>
+                            @endforeach
+                        </div>
+                        <!-- Add Pagination -->
+                        <div class="swiper-pagination"></div>
+                    </div>
+
                 </div>
                 <div class="col-md-6 col-lg-5 col-12 p-md-5 py-4 py-md-0">
                     <div class="row justify-content-between align-items-center">
@@ -118,14 +155,14 @@
 
 
                     <div class="row py-3 g-2">
-                        <div class="col-md-6 col-12 mb-md-0">
+                        <div class="col-6 mb-md-0">
                             <button class="checkout_btn w-100 add-to-cart" title="Add to Cart"
                                 data-id="{{ $product->id }}" data-name="{{ $product->name }}"
                                 data-price="{{ number_format($product->price - ($product->price * $product->discount_price) / 100, 2) }}"
                                 data-image="{{ $product->firstimage->img ?? '' }}" alt="{{ $product->name }}">Add to
                                 Cart</button>
                         </div>
-                        <div class="col-md-6 col-12 mb-md-0">
+                        <div class="col-6 mb-md-0">
                             <button class="checkout_btn w-100">Story</button>
                         </div>
                         <div class="col-12 mb-md-0">
@@ -318,5 +355,20 @@
             </div>
         </div>
     </section>
+
+@endsection
+
+@section('swiper-script')
+    <!-- Initialize Swiper -->
+    <script>
+        var swiper = new Swiper('.product-swiper', {
+            loop: false,
+            slidesPerView: 1,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+    </script>
 
 @endsection
