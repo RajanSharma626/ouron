@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <!-- Categories -->
-            <div class="col-md-3">
+            <div class="col-md-3 col-6 mb-3 mb-md-0">
                 <h6 class="fw-bold">Categories</h6>
                 <ul class="list-unstyled">
                     @foreach ($categories as $category)
@@ -13,7 +13,7 @@
             </div>
 
             <!-- Need Help -->
-            <div class="col-md-3">
+            <div class="col-md-3 col-6 mb-3 mb-md-0">
                 <h6 class="fw-bold">Need Help</h6>
                 <ul class="list-unstyled">
                     <li><a href="#" class="primary-color text-decoration-none">Track Your Order</a></li>
@@ -28,7 +28,7 @@
             </div>
 
             <!-- Company -->
-            <div class="col-md-3">
+            <div class="col-md-3 col-6 mb-3 mb-md-0">
                 <h6 class="fw-bold">Company</h6>
                 <ul class="list-unstyled">
                     <li><a href="{{ route('about.us') }}" class="primary-color text-decoration-none">Story</a></li>
@@ -39,7 +39,7 @@
             </div>
 
             <!-- Get in touch (Social Media) -->
-            <div class="col-md-3">
+            <div class="col-md-3 col-6 mb-3 mb-md-0">
                 <h6 class="fw-bold">Get in touch</h6>
                 <div class="d-flex gap-3">
                     <a href="#" class="primary-color fs-4"><i class="bi bi-instagram"></i></a>
@@ -48,7 +48,8 @@
                 </div>
 
                 <div class="footer_logo mt-4">
-                    <img src="{{ asset('/images/logo/logo.svg') }}" class="img-fluid" alt="" width="200">
+                    <img src="{{ asset('/images/logo/logo.svg') }}" class="img-fluid footer_logo" alt=""
+                        width="200">
                 </div>
             </div>
         </div>
@@ -66,7 +67,7 @@
     </div>
     <div class="offcanvas-body">
         <div class="cart-items" id="cart-items-container">
-            <!-- Cart items will be loaded here dynamically -->
+
         </div>
 
         <!-- Cart Summary -->

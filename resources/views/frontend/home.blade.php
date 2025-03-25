@@ -10,16 +10,27 @@
             <div class="swiper swiper-container">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
-                        <a href=""><img src="{{ asset('images/banner/banner.webp') }}" class="img-fluid"
-                                alt="Slide 1"></a>
-                    </div>
-                    <div class="swiper-slide">
-                        <a href=""><img src="{{ asset('images/banner/banner-2.webp') }}" class="img-fluid"
-                                alt="Slide 2"></a>
+                        <a href="">
+                            <img src="{{ asset('images/banner/banner.webp') }}" class="img-fluid d-none d-md-block"
+                                alt="Slide 1">
+                            <img src="https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/banner-images/App_Banner_VkEP24P.jpg?format=webp&w=768&dpr=2.0"
+                                class="img-fluid d-md-none" alt="Slide 1">
+                        </a>
                     </div>
                     <div class="swiper-slide">
                         <a href="">
-                            <img src="{{ asset('images/banner/banner-3.webp') }}" class="img-fluid" alt="Slide 3">
+                            <img src="{{ asset('images/banner/banner-2.webp') }}" class="img-fluid d-none d-md-block"
+                                alt="Slide 2">
+                            <img src="https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/banner-images/APP-BANNER_1_ZjJAKiL.jpg?format=webp&w=768&dpr=2.0"
+                                class="img-fluid d-md-none" alt="Slide 2">
+                        </a>
+                    </div>
+                    <div class="swiper-slide">
+                        <a href="">
+                            <img src="{{ asset('images/banner/banner-3.webp') }}" class="img-fluid d-none d-md-block"
+                                alt="Slide 3">
+                            <img src="https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/banner-images/summer-app-banner_zIaYRHS.jpg?format=webp&w=768&dpr=2.0"
+                                class="img-fluid d-md-none" alt="Slide 3">
                         </a>
                     </div>
                 </div>
@@ -161,10 +172,14 @@
 
     <div class="container-fluid py-5">
         <div class="row">
-            <div class="col-12" data-aos="fade-up">
-                <a href=""><img
-                        src="https://crazymonk.in/cdn/shop/files/Banner_for_Website_front_page_1.jpg?v=1740377697&width=2000"
-                        class="img-fluid" alt="Slide 1"></a>
+            <div class="col-12 px-0" data-aos="fade-up">
+                <a href="">
+                    <img src="https://crazymonk.in/cdn/shop/files/Banner_for_Website_front_page_1.jpg?v=1740377697&width=2000"
+                        class="img-fluid d-none d-md-block" alt="Slide 1">
+
+                    <img src="https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/banner-images/App-banner_exABeVx.jpg?format=webp&w=768&dpr=2.0"
+                        class="img-fluid d-md-none" alt="Slide 1">
+                </a>
             </div>
         </div>
     </div>
@@ -457,72 +472,26 @@
             </div>
 
             <div class="row g-2">
-                <div class="col-3" data-aos="fade-up">
-                    <div class="blog_card">
-                        <div class="product_img">
-                            <img src="https://bluorng.com/cdn/shop/files/WHITE_WILD_BUNCH_FRONT_FLYING.jpg?v=1738932437&width=360"
-                                alt="" class="img-fluid">
-                        </div>
-                        <div class="blog_info p-3">
-                            <h3 class="blog_title">
-                                The Clash T-shirt
-                            </h3>
-                            <p class="blog_short_desc mb-0 text-muted">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, at?
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3" data-aos="fade-up">
-                    <div class="blog_card">
 
-                        <div class="product_img">
-                            <img src="https://bluorng.com/cdn/shop/files/BLACKWILDBUNCHFRONTFLYING.jpg?v=1738932421&width=360"
-                                alt="" class="img-fluid">
-                        </div>
-                        <div class="blog_info p-3">
-                            <h3 class="blog_title">
-                                The Clash T-shirt
-                            </h3>
-                            <p class="blog_short_desc mb-0 text-muted">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non, aspernatur!
-                            </p>
-                        </div>
+                @foreach ($blogs as $blog)
+                    <div class="col-6 col-md-3" data-aos="fade-up">
+                        <a href="{{ route('blog.detail', $blog->slug) }}" class="text-decoration-none">
+                            <div class="blog_card">
+                                <div class="blog_img">
+                                    <img src="{{ asset($blog->cover_image) }}" alt="{{ $blog->title }}"
+                                        class="img-fluid">
+                                </div>
+                                <div class="blog_info p-3">
+                                    <h3 class="blog_title">{{ $blog->title }}</h3>
+                                    <p class="blog_short_desc mb-0 text-muted">
+                                        {{ Str::limit(strip_tags($blog->	short_desc), 100) }}
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
                     </div>
-                </div>
-                <div class="col-3" data-aos="fade-up">
-                    <div class="blog_card">
+                @endforeach
 
-                        <div class="product_img">
-                            <img src="https://bluorng.com/cdn/shop/files/hbh_kb.jpg?v=1738849531&width=360" alt=""
-                                class="img-fluid">
-                        </div>
-                        <div class="blog_info p-3">
-                            <h3 class="blog_title">
-                                The Clash T-shirt
-                            </h3>
-                            <p class="blog_short_desc mb-0 text-muted">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non, aspernatur!
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3" data-aos="fade-up">
-                    <div class="blog_card">
-                        <div class="product_img">
-                            <img src="https://bluorng.com/cdn/shop/files/DSC099288.jpg?v=1738849896&width=360"
-                                alt="" class="img-fluid">
-                        </div>
-                        <div class="blog_info p-3">
-                            <h3 class="blog_title">
-                                The Clash T-shirt
-                            </h3>
-                            <p class="blog_short_desc mb-0 text-muted">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non, aspernatur!
-                            </p>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <div class="row py-4">
@@ -538,7 +507,7 @@
     <section class="newsletter_section py-5 primary-bg">
         <div class="container-fluid py-5">
             <div class="row justify-content-center">
-                <div class="col-6">
+                <div class="col-12 col-md-6">
                     <div class="newsletter_content text-center">
                         <h3 class="newsletter title">Subscribe to our Newsletter</h3>
                         <p class="newsletter_desc text-normal">Join the Ouron newsletter for exclusive updates, early

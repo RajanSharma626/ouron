@@ -77,26 +77,22 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link menu-arrow" href="#sidebarCustomers" data-bs-toggle="collapse" role="button"
-                    aria-expanded="false" aria-controls="sidebarCustomers">
+                <a class="nav-link" href="{{ route('admin.customers') }}">
                     <span class="nav-icon">
                         <iconify-icon icon="solar:users-group-two-rounded-bold-duotone"></iconify-icon>
                     </span>
                     <span class="nav-text"> Customers </span>
                 </a>
-                <div class="collapse" id="sidebarCustomers">
-                    <ul class="nav sub-navbar-nav">
-
-                        <li class="sub-nav-item">
-                            <a class="sub-nav-link" href="customer-list.html">List</a>
-                        </li>
-                        <li class="sub-nav-item">
-                            <a class="sub-nav-link" href="customer-detail.html">Details</a>
-                        </li>
-                    </ul>
-                </div>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.blogs') }}">
+                    <span class="nav-icon">
+                        <iconify-icon icon="solar:chat-square-like-bold-duotone"></iconify-icon>
+                    </span>
+                    <span class="nav-text"> Blogs </span>
+                </a>
+            </li>
 
         </ul>
     </div>

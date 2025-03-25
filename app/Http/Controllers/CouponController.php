@@ -41,7 +41,7 @@ class CouponController extends Controller
             'end_date'      => $request->input('end-date'),
         ]);
 
-        return redirect()->route('admin.couponS')->with('success', 'Coupon created successfully!');
+        return redirect()->route('admin.coupons')->with('success', 'Coupon created successfully!');
     }
 
     public function edit($id)

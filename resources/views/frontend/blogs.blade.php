@@ -10,7 +10,7 @@
                 <div class="row">
                     <div class="col-12 py-4">
                         <div class="row align-items-center">
-                            <div class="col-3">
+                            <div class="col-6 col-md-3">
                                 <div class="blog">
                                     <div class="product_img">
                                         <img src="https://bluorng.com/cdn/shop/articles/encwesdnc_8c9feeae-442d-412d-aef9-a8a72fa7e6bd.jpg?v=1741871844"
@@ -26,7 +26,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-3">
+                            <div class="col-6 col-md-3">
                                 <div class="blog">
                                     <div class="product_img">
                                         <img src="https://bluorng.com/cdn/shop/articles/encwesdnc_8c9feeae-442d-412d-aef9-a8a72fa7e6bd.jpg?v=1741871844"
@@ -42,7 +42,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-3">
+                            <div class="col-6 col-md-3">
                                 <div class="blog">
                                     <div class="product_img">
                                         <img src="https://bluorng.com/cdn/shop/articles/encwesdnc_8c9feeae-442d-412d-aef9-a8a72fa7e6bd.jpg?v=1741871844"
@@ -58,7 +58,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-3">
+                            <div class="col-6 col-md-3">
                                 <div class="blog">
                                     <div class="product_img">
                                         <img src="https://bluorng.com/cdn/shop/articles/encwesdnc_8c9feeae-442d-412d-aef9-a8a72fa7e6bd.jpg?v=1741871844"

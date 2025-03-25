@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CatProductsController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CouponController;
+use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\frontend\HomeController;
 use App\Http\Controllers\LoginAuth;
 use App\Http\Controllers\OrderController;
@@ -109,6 +111,9 @@ Route::get('/cart', [CartController::class, 'getCart'])->name('cart.get');
 Route::post('/cart/update', [CartController::class, 'updateCart'])->name('cart.update');
 Route::delete('/cart/delete/{id}', [CartController::class, 'deleteCartItem'])->name('cart.delete');
 
+//blogs 
+Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.detail');
+
 
 // ====================================================== Admin Panel Routes =============================================================
 
@@ -149,6 +154,7 @@ Route::middleware(['admin.auth'])->prefix('admin')->group(function () {
 
     //coupons
     Route::get('/coupons', [CouponController::class, 'index'])->name('admin.coupons');
+
     Route::get('/coupons/add', function () {
         return view('admin.coupon-add');
     })->name('admin.coupons.add');
@@ -157,4 +163,12 @@ Route::middleware(['admin.auth'])->prefix('admin')->group(function () {
     Route::get('/coupons/delete/{id}', [CouponController::class, 'destroy'])->name('admin.coupons.delete');
     Route::get('/coupons/edit/{id}', [CouponController::class, 'edit'])->name('admin.coupons.edit');
     Route::post('/coupons/update', [CouponController::class, 'update'])->name('admin.coupons.update');
+
+    //Customers
+    Route::get('/customers', [CustomersController::class, 'index'])->name('admin.customers');
+
+    //Blogs
+    Route::get('/blogs', [BlogController::class, 'index'])->name('admin.blogs');
+    Route::get('/blogs/add', [BlogController::class, 'create'])->name('admin.blogs.add');
+    Route::post('/blogs/store', [BlogController::class, 'store'])->name('admin.blog.store');
 });

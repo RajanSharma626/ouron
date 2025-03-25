@@ -1,8 +1,8 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Coupons')
+@section('title', 'Coupons Create')
 
-@section('page_title', 'Coupons')
+@section('page_title', 'Coupons  Create')
 
 @section('content')
     <div class="page-content">
@@ -32,18 +32,17 @@
                                         <div class="d-flex gap-2 align-items-center">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="status"
-                                                                                                    id="flexRadioDefault9" value="active" checked="">
+                                                    id="flexRadioDefault9" value="active" checked="">
                                                 <label class="form-check-label" for="flexRadioDefault9">
                                                     Active
                                                 </label>
                                             </div>
-
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="status"
-                                                                                            id="flexRadioDefault10" value="inactive">
+                                                id="flexRadioDefault10" value="inactive">
                                             <label class="form-check-label" for="flexRadioDefault10">
                                                 In Active
                                             </label>
@@ -52,13 +51,16 @@
                                     <div class="col-lg-4">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="status"
-                                                                                            id="flexRadioDefault11" value="future">
+                                                id="flexRadioDefault11" value="future">
                                             <label class="form-check-label" for="flexRadioDefault11">
                                                 Future Plan
                                             </label>
                                         </div>
                                     </div>
                                 </div>
+                                @error('status')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="card">
@@ -68,13 +70,19 @@
                             <div class="card-body">
                                 <div class="mb-3">
                                     <label for="start-date" class="form-label text-dark">Start Date</label>
-                                    <input type="date" id="start-date" class="form-control flatpickr-input active"
-                                        placeholder="dd-mm-yyyy" name="start-date">
+                                    <input type="date" id="start-date" class="form-control" placeholder="dd-mm-yyyy"
+                                        name="start-date">
+                                    @error('start-date')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="mb-3">
                                     <label for="end-date" class="form-label text-dark">End Date</label>
-                                    <input type="date" id="end-date" class="form-control flatpickr-input active"
-                                        placeholder="dd-mm-yyyy" name="end-date">
+                                    <input type="date" id="end-date" class="form-control" placeholder="dd-mm-yyyy"
+                                        name="end-date">
+                                    @error('end-date')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -92,6 +100,9 @@
                                             <label for="coupons-code" class="form-label">Coupons Code</label>
                                             <input type="text" id="coupons-code" name="coupons-code" class="form-control"
                                                 placeholder="Code enter">
+                                            @error('coupons-code')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -100,6 +111,9 @@
                                             <label for="coupons-limits" class="form-label">Coupons Limits</label>
                                             <input type="number" id="coupons-limits" name="coupons-limits"
                                                 class="form-control" placeholder="limits no.">
+                                            @error('coupons-limits')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -109,18 +123,17 @@
                                         <div class="d-flex gap-2 align-items-center">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="coupons-type"
-                                                                                                    id="flexRadioDefault12" value="free_shipping" checked="">
+                                                    id="flexRadioDefault12" value="free_shipping" checked="">
                                                 <label class="form-check-label" for="flexRadioDefault12">
                                                     Free Shipping
                                                 </label>
                                             </div>
-
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="coupons-type"
-                                                                                            id="flexRadioDefault13" value="percentage">
+                                                id="flexRadioDefault13" value="percentage">
                                             <label class="form-check-label" for="flexRadioDefault13">
                                                 Percentage
                                             </label>
@@ -129,19 +142,25 @@
                                     <div class="col-lg-4">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="coupons-type"
-                                                                                            id="flexRadioDefault14" value="fixed">
+                                                id="flexRadioDefault14" value="fixed">
                                             <label class="form-check-label" for="flexRadioDefault14">
                                                 Fixed Amount
                                             </label>
                                         </div>
                                     </div>
                                 </div>
+                                @error('coupons-type')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="">
                                             <label for="discount-value" class="form-label">Discount Value</label>
-                                            <input type="text" id="discount-value" name="discount-value"
+                                            <input type="number" id="discount-value" name="discount-value"
                                                 class="form-control" placeholder="value enter">
+                                            @error('discount-value')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
