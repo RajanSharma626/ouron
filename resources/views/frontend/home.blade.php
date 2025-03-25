@@ -161,8 +161,8 @@
 
     <div class="container-fluid py-5">
         <div class="row">
-            <div class="col-12">
-                <a href="" data-aos="fade-up"><img
+            <div class="col-12" data-aos="fade-up">
+                <a href=""><img
                         src="https://crazymonk.in/cdn/shop/files/Banner_for_Website_front_page_1.jpg?v=1740377697&width=2000"
                         class="img-fluid" alt="Slide 1"></a>
             </div>

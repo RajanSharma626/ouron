@@ -5,12 +5,10 @@
             <div class="col-md-3">
                 <h6 class="fw-bold">Categories</h6>
                 <ul class="list-unstyled">
-                    <li><a href="#" class="primary-color text-decoration-none">Men</a></li>
-                    <li><a href="#" class="primary-color text-decoration-none">Women</a></li>
-                    <li><a href="#" class="primary-color text-decoration-none">Summer Tees</a></li>
-                    <li><a href="#" class="primary-color text-decoration-none">Oversized Tees</a></li>
-                    <li><a href="#" class="primary-color text-decoration-none">Travel Jogger</a></li>
-                    <li><a href="#" class="primary-color text-decoration-none">Fashion Joggers</a></li>
+                    @foreach ($categories as $category)
+                        <li><a href="{{ route('cat-product', $category->slug) }}"
+                                class="primary-color text-decoration-none">{{ $category->name }}</a></li>
+                    @endforeach
                 </ul>
             </div>
 
@@ -54,7 +52,7 @@
                 </div>
             </div>
         </div>
-        <div class="text-center mt-4 text-muted">
+        <div class="text-center mt-4 text-muted fs-12">
             &copy; 2025 Ouron Lifestyle & Co., All Rights Reserved.
         </div>
     </div>

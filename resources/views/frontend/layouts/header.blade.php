@@ -35,29 +35,17 @@
                                         href="#">All Product</a>
                                 </li>
 
-                                
-                                <li class="dropdown-submenu">
-                                    <a class="dropdown-item dropdown-toggle primary-font-size fw-400"
-                                        href="#">Polo</a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">T-Shirts</a></li>
-                                        <li><a class="dropdown-item" href="#">Jeans</a></li>
-                                        <li><a class="dropdown-item" href="#">Jackets</a></li>
-                                    </ul>
-                                </li>
-                               
-                                
-                                <li class="dropdown-submenu">
-                                    <a class="dropdown-item dropdown-toggle primary-font-size fw-400"
-                                        href="#">Oversized</a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Dresses</a></li>
-                                        <li><a class="dropdown-item" href="#">Tops</a></li>
-                                        <li><a class="dropdown-item" href="#">Skirts</a></li>
-                                    </ul>
-                                </li>
-
-
+                                @foreach ($categories as $category)
+                                    <li class="dropdown-submenu">
+                                        <a class="dropdown-item dropdown-toggle primary-font-size fw-400"
+                                            href="{{ route('cat-product', $category->slug) }}">{{ $category->name }}</a>
+                                        {{-- <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">T-Shirts</a></li>
+                                            <li><a class="dropdown-item" href="#">Jeans</a></li>
+                                            <li><a class="dropdown-item" href="#">Jackets</a></li>
+                                        </ul> --}}
+                                    </li>
+                                @endforeach
                             </ul>
                         </li>
 

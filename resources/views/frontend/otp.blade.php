@@ -14,15 +14,15 @@
                         </div>
                         <div class="card-body">
 
-                            <p class="text-center mb-3 text-normal">OTP has been sent to your phone number.</p>
+                            {{-- <p class="text-center mb-3 text-normal">OTP has been sent to your phone number.</p> --}}
 
                             <form method="POST" action="{{ route('verify-otp') }}">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="" class="text-normal form-label">Enter One Time Password
-                                        (OTP)</label>
-                                    <input type="number" class="form-control p-2 text-normal" min=0 name="otp"
-                                        required>
+                                    {{-- <label for="" class="text-normal form-label">Enter One Time Password
+                                        (OTP)</label> --}}
+                                    <input type="number" class="form-control p-2 text-normal" name="otp"
+                                        placeholder="Enter OTP" required>
                                     @if ($errors->has('otp'))
                                         <span class="text-danger">{{ $errors->first('otp') }}</span>
                                     @endif

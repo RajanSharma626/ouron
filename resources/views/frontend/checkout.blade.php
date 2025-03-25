@@ -11,30 +11,35 @@
                     <!-- Product List -->
                     <div class="card custom-card-bg mb-4 check_product">
                         <div class="card-body">
-                            @foreach ($cart as $item)
-                                <div class="d-flex align-items-center mb-3 border-bottom pb-3">
-                                    <div class="position-relative">
-                                        <img src="{{ $item->product->firstImage->img }}" alt="Product"
-                                            class="img-thumbnail mr-3" style="width: 70px; height: 70px;">
-                                        <span
-                                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill primary-bg">
-                                            {{ $item->quantity }}
-                                        </span>
-                                    </div>
-                                    <div class="d-flex justify-content-between w-100 ms-2">
-                                        <div>
-                                            <h6 class="mb-1 fw-bold check_title">{{ $item->product->name }}</h6>
-                                            <p class="mb-0 check_desc">
-                                                Size: {{ $item->size ?? 'XS' }} | Color: {{ $item->color ?? 'N/A' }}
-                                            </p>
+
+                            @if ($cart->isEmpty())
+                                <p class="text-center text-muted">No items found in your cart.</p>
+                            @else
+                                @foreach ($cart as $item)
+                                    <div class="d-flex align-items-center mb-3 border-bottom pb-3">
+                                        <div class="position-relative">
+                                            <img src="{{ $item->product->firstImage->img }}" alt="Product"
+                                                class="img-thumbnail mr-3" style="width: 70px; height: 70px;">
+                                            <span
+                                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill primary-bg">
+                                                {{ $item->quantity }}
+                                            </span>
                                         </div>
-                                        <div class="ml-auto">
-                                            <h6>₹{{ number_format($item->product->price - ($item->product->price * $item->product->discount_price) / 100, 2) }}
-                                            </h6>
+                                        <div class="d-flex justify-content-between w-100 ms-2">
+                                            <div>
+                                                <h6 class="mb-1 fw-bold check_title">{{ $item->product->name }}</h6>
+                                                <p class="mb-0 check_desc">
+                                                    Size: {{ $item->size ?? 'XS' }} | Color: {{ $item->color ?? 'N/A' }}
+                                                </p>
+                                            </div>
+                                            <div class="ml-auto">
+                                                <h6>₹{{ number_format($item->product->price - ($item->product->price * $item->product->discount_price) / 100, 2) }}
+                                                </h6>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            @endforeach
+                                @endforeach
+                            @endif
                             <!-- Repeat product items as needed -->
                         </div>
                     </div>
@@ -274,10 +279,17 @@
                                             @enderror
                                         </div>
                                     </div>
+
+                                    <div class="col-12 text-end py-3">
+                                        @if ($cart->isEmpty())
+                                            <a href="{{ route('home') }}" class="checkout_btn w-100 link-normal">Continue
+                                                Shopping</a>
+                                        @else
+                                            <button type="submit" class="checkout_btn w-100">Buy Now</button>
+                                        @endif
+                                    </div>
                                 </div>
 
-
-                                <button type="submit" class="checkout_btn w-100">Buy Now</button>
                             </form>
                         </div>
                     </div>

@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +21,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        View::composer('frontend.layouts.header', function ($view) {
+            $categories = Category::all(); // Fetch all categories
+            $view->with('categories', $categories);
+        });
+
+        View::composer('frontend.layouts.footer', function ($view) {
+            $categories = Category::all(); // Fetch all categories
+            $view->with('categories', $categories);
+        });
     }
 }

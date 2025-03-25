@@ -51,15 +51,22 @@
                                 {{-- <i class="bi bi-heart fs-3 outline-heart"></i>
                                 <i class="bi bi-heart-fill fs-3 text-danger filled-heart"></i> --}}
 
-                                <a href="javascript:void(0)" class="like_icon wishlist-btn2" data-id="{{ $product->id }}"
-                                    title="Add to Wishlist">
+                                @auth
+                                    <a href="javascript:void(0)" class="like_icon wishlist-btn2" data-id="{{ $product->id }}"
+                                        title="Add to Wishlist">
+                                        @if ($product->liked)
+                                            <i class="bi bi-heart-fill fs-3 text-danger"></i>
+                                        @else
+                                            <i class="bi bi-heart fs-3 text-black"></i>
+                                        @endif
+                                    </a>
+                                @endauth
 
-                                    @if ($product->liked)
-                                        <i class="bi bi-heart-fill fs-3 text-danger"></i>
-                                    @else
+                                @guest
+                                    <a href="{{ route('login') }}" class="like_icon" title="Add to Wishlist">
                                         <i class="bi bi-heart fs-3 text-black"></i>
-                                    @endif
-                                </a>
+                                    </a>
+                                @endguest
                             </div>
                         </div>
                     </div>
@@ -112,8 +119,8 @@
 
                     <div class="row py-3 g-2">
                         <div class="col-md-6 col-12 mb-md-0">
-                            <button class="checkout_btn w-100 add-to-cart" title="Add to Cart" data-id="{{ $product->id }}"
-                                data-name="{{ $product->name }}"
+                            <button class="checkout_btn w-100 add-to-cart" title="Add to Cart"
+                                data-id="{{ $product->id }}" data-name="{{ $product->name }}"
                                 data-price="{{ number_format($product->price - ($product->price * $product->discount_price) / 100, 2) }}"
                                 data-image="{{ $product->firstimage->img ?? '' }}" alt="{{ $product->name }}">Add to
                                 Cart</button>
@@ -146,10 +153,9 @@
                                 </h2>
                                 <div id="flush-collapseOne" class="accordion-collapse collapse"
                                     data-bs-parent="#accordionFlushExample">
-                                    <div class="accordion-body">Placeholder content for this accordion, which is intended
-                                        to
-                                        demonstrate the <code>.accordion-flush</code> class. This is the first item's
-                                        accordion body.</div>
+                                    <div class="accordion-body fs-12">
+                                        {!! $product->description !!}
+                                    </div>
                                 </div>
                             </div>
                             <div class="accordion-item">
