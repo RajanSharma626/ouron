@@ -133,6 +133,10 @@
                                                                         class="text-dark fw-medium fs-15">{{ $item->product->name }}</a>
                                                                     <p class="text-muted mb-0 mt-1 fs-13">
                                                                         <span>Size : </span>{{ $item->size ?? 'N/A' }}
+                                                                        &nbsp;
+                                                                        <span>Color : </span><span
+                                                                            class="color-circle"
+                                                                            style="background-color: {{ $item->color ?? '#ffffff' }};"></span>
                                                                     </p>
                                                                 </div>
                                                             </div>
@@ -192,7 +196,7 @@
                                                             The Invoice has been sent to the
                                                             customer</h5>
                                                         <p class="mb-2">Invoice email was sent to <a href="#!"
-                                                                class="link-primary">{{$order->user->email ?? 'N/A'}}</a>
+                                                                class="link-primary">{{ $order->email ?? 'N/A' }}</a>
                                                         </p>
                                                         <a href="#!" class="btn btn-light">Resend
                                                             Invoice</a>
@@ -373,8 +377,8 @@
                                 {{-- <img src="assets/images/users/avatar-1.jpg" alt=""
                                     class="avatar rounded-3 border border-light border-3"> --}}
                                 <div>
-                                    <p class="mb-1">{{ $order->user->name }}</p>
-                                    <a href="#!" class="link-primary fw-medium">{{ $order->user->email }}</a>
+                                    <p class="mb-1">{{ $order->first_name . ' ' . $order->last_name }}</p>
+                                    <a href="#!" class="link-primary fw-medium">{{ $order->email }}</a>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-between mt-3">
@@ -383,7 +387,7 @@
                                     <a href="#!"><i class='bx bx-edit-alt fs-18'></i></a>
                                 </div> --}}
                             </div>
-                            <p class="mb-1">+91 {{ $order->user->phone }}</p>
+                            <p class="mb-1">+91 {{ $order->phone }}</p>
 
                             <div class="d-flex justify-content-between mt-3">
                                 <h5 class="">Shipping Address</h5>
@@ -393,11 +397,11 @@
                             </div>
 
                             <div>
-                                <p class="mb-1">{{$order->address}}</p>
-                                <p class="mb-1">{{$order->address2}}</p>
-                                <p class="mb-1">{{$order->city}} ,</p>
-                                <p class="mb-1">{{$order->state}} - {{$order->pin_code}} ,</p>
-                                <p class="">+91 {{$order->phone}}</p>
+                                <p class="mb-1">{{ $order->address }}</p>
+                                <p class="mb-1">{{ $order->address2 }}</p>
+                                <p class="mb-1">{{ $order->city }} ,</p>
+                                <p class="mb-1">{{ $order->state }} - {{ $order->pin_code }} ,</p>
+                                <p class="">+91 {{ $order->phone }}</p>
                             </div>
                         </div>
                     </div>

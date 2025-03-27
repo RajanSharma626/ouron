@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CartItem;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -14,7 +15,8 @@ class CartController extends Controller
     {
         $request->validate([
             'product_id' => 'required|exists:products,id',
-            'price' => 'required|numeric'
+            'size' => 'required',
+            'color' => 'required',
         ]);
 
         $userId = Auth::check() ? Auth::id() : null;
@@ -26,6 +28,8 @@ class CartController extends Controller
             // Check if item exists in cart
             $cartItem = CartItem::where('user_id', $userId)
                 ->where('product_id', $request->product_id)
+                ->where('size', $request->size)
+                ->where('color', $request->color)
                 ->first();
 
             if ($cartItem) {
@@ -36,13 +40,16 @@ class CartController extends Controller
                     'session_id' => $sessionId,
                     'product_id' => $request->product_id,
                     'quantity' => 1,
-                    'price' => $request->price
+                    'size' => $request->size,
+                    'color' => $request->color
                 ]);
             }
         } else {
             // Check if item exists in cart
             $cartItem = CartItem::where('session_id', $sessionId)
                 ->where('product_id', $request->product_id)
+                ->where('size', $request->size)
+                ->where('color', $request->color)
                 ->first();
 
             if ($cartItem) {
@@ -53,7 +60,8 @@ class CartController extends Controller
                     'session_id' => $sessionId,
                     'product_id' => $request->product_id,
                     'quantity' => 1,
-                    'price' => $request->price
+                    'size' => $request->size,
+                    'color' => $request->color
                 ]);
             }
         }
@@ -97,5 +105,20 @@ class CartController extends Controller
     {
         CartItem::where('id', $id)->delete();
         return response()->json(['message' => 'Item removed']);
+    }
+
+
+    public function getProductDetails($id)
+    {
+        $product = Product::findOrFail($id);
+
+        return response()->json([
+            'id' => $product->id,
+            'name' => $product->name,
+            'price' => $product->price,
+            'image' => asset($product->firstimage->img),
+            'sizes' => json_decode($product->sizes),
+            'colors' => json_decode($product->colors),
+        ]);
     }
 }

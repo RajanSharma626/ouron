@@ -34,14 +34,12 @@ Route::get('/contact-us', function () {
     return view('frontend.contact-us');
 })->name('contact.us');
 
-Route::get('/blogs', function () {
-    return view('frontend.blogs');
-})->name('blogs');
 
 Route::get('/product/{slug}', [FrontendProductController::class, 'detail'])->name('product.detail');
 Route::get('/new-in', [CatProductsController::class, 'newIn'])->name('new.in');
 Route::get('/all-product', [CatProductsController::class, 'allProduct'])->name('all-product');
 Route::get('/category/{cat}', [CatProductsController::class, 'catProduct'])->name('cat-product');
+Route::get('/best-seller', [CatProductsController::class, 'bestSellerProduct'])->name('best-seller');
 
 
 // login
@@ -69,7 +67,6 @@ Route::middleware(['user.auth'])->group(function () {
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
 
     //checkout store
-    // Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout.store');
 
     Route::post('/apply-coupon', [CouponController::class, 'applyCoupon'])->name('coupon.apply');
     Route::get('/remove-coupon', [CouponController::class, 'removeCoupon'])->name('coupon.remove');
@@ -111,7 +108,10 @@ Route::get('/cart', [CartController::class, 'getCart'])->name('cart.get');
 Route::post('/cart/update', [CartController::class, 'updateCart'])->name('cart.update');
 Route::delete('/cart/delete/{id}', [CartController::class, 'deleteCartItem'])->name('cart.delete');
 
-//blogs 
+Route::get('/product/details/{id}', [CartController::class, 'getProductDetails']);
+
+//blogs
+Route::get('/all-blogs', [BlogController::class, 'homeIndex'])->name('allblogs');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.detail');
 
 

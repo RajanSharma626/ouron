@@ -17,7 +17,9 @@ return new class extends Migration
             $table->string('session_id')->nullable(); // For guest users
             $table->unsignedBigInteger('product_id');
             $table->integer('quantity')->default(1);
-            $table->decimal('price', 10, 2);
+            $table->decimal('price', 10, 2)->nullable();
+            $table->string('size')->nullable();
+            $table->string('color')->nullable();
             $table->timestamps();
 
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');

@@ -1,37 +1,133 @@
 $(document).ready(function () {
     // Add to Cart
+    // $(".add-to-cart").click(function (e) {
+    //     e.preventDefault();
+
+    //     let $button = $(this);
+    //     let $icon = $button.find("i");
+    //     let originalIconClass = $icon.attr("class");
+
+    //     // Show loading spinner inside icon
+    //     $icon.attr("class", "spinner-border spinner-border-sm");
+
+    //     let productId = $button.data("id");
+    //     let price = $button.data("price");
+
+    //     $.ajax({
+    //         url: "/cart/add",
+    //         type: "POST",
+    //         data: {
+    //             product_id: productId,
+    //             price: price,
+    //             _token: $('meta[name="csrf-token"]').attr("content"),
+    //         },
+    //         success: function (response) {
+    //             // Open the offcanvas after adding to cart
+    //             let offcanvasElement = document.getElementById("cart");
+    //             let offcanvas = new bootstrap.Offcanvas(offcanvasElement);
+    //             offcanvas.show();
+
+    //             loadCart();
+    //         },
+    //         complete: function () {
+    //             // Restore original icon once the AJAX call is complete
+    //             $icon.attr("class", originalIconClass);
+    //         },
+    //     });
+    // });
+
+    let navbars = document.querySelectorAll(".navbar");
+
+    window.addEventListener("scroll", function () {
+        navbars.forEach(function (navbar) {
+            if (window.scrollY > 50) {
+                navbar.classList.add("fixed-top");
+            } else {
+                navbar.classList.remove("fixed-top");
+            }
+        });
+    });
+
     $(".add-to-cart").click(function (e) {
         e.preventDefault();
 
-        let $button = $(this);
-        let $icon = $button.find("i");
-        let originalIconClass = $icon.attr("class");
+        let productId = this.getAttribute("data-id");
 
-        // Show loading spinner inside icon
-        $icon.attr("class", "spinner-border spinner-border-sm");
+        // Fetch product details via AJAX
+        $.ajax({
+            url: "/product/details/" + productId,
+            type: "GET",
+            success: function (product) {
+                // Update modal with product details
+                $("#modalProductId").val(product.id);
+                $("#modalProductTitle").text(product.name);
+                $("#modalProductPrice").text(product.price);
+                $("#modalProductImage").attr("src", product.image);
 
-        let productId = $button.data("id");
-        let price = $button.data("price");
+                // Populate sizes
+                let sizeHtml = "";
+                product.sizes.forEach((size) => {
+                    sizeHtml += `
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="size" id="size-${size}" value="${size}">
+                                <label class="form-check-label" for="size-${size}">${size}</label>
+                            </div>`;
+                });
+                $("#modalProductSizes").html(sizeHtml);
+
+                // Populate colors
+                let colorHtml = "";
+                product.colors.forEach((color) => {
+                    colorHtml += `
+                            <div class="color">
+                                <input class="form-check-input d-none" type="radio" name="color" id="color-${color}" value="${color}">
+                                <label class="form-check-label" for="color-${color}">
+                                    <span class="color-circle" style="background-color: ${color};"></span>
+                                </label>
+                            </div>`;
+                });
+                $("#modalProductColors").html(colorHtml);
+
+                // Show modal
+                $("#addToCartModal").modal("show");
+            },
+        });
+    });
+
+    // Handle Add to Cart button click
+    $("#confirmAddToCart").click(function () {
+        let productId = $("#modalProductId").val();
+        let size = $("input[name='size']:checked").val();
+        let color = $("input[name='color']:checked").val();
+
+        if (!size || !color) {
+            alert("Please select a size and color.");
+            return;
+        }
 
         $.ajax({
             url: "/cart/add",
             type: "POST",
             data: {
                 product_id: productId,
-                price: price,
+                size: size,
+                color: color,
                 _token: $('meta[name="csrf-token"]').attr("content"),
             },
-            success: function (response) {
-                // Open the offcanvas after adding to cart
+            success: function () {
+                $("#addToCartModal").modal("hide");
+                // Show success message
+                Swal.fire({
+                    icon: "success",
+                    title: "Added to Cart",
+                    text: "Your item has been added successfully. We hope it brightens your day!",
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
                 let offcanvasElement = document.getElementById("cart");
                 let offcanvas = new bootstrap.Offcanvas(offcanvasElement);
                 offcanvas.show();
-
                 loadCart();
-            },
-            complete: function () {
-                // Restore original icon once the AJAX call is complete
-                $icon.attr("class", originalIconClass);
             },
         });
     });
@@ -58,41 +154,64 @@ $(document).ready(function () {
                 }
 
                 cartItems.forEach((item) => {
-                    total += item.price * item.quantity;
+                    total +=
+                        ((item.product.price *
+                            (100 - item.product.discount_price)) /
+                            100) *
+                        item.quantity;
                     cartHtml += `
-                        <div class="cart-item d-flex justify-content-between align-items-center mb-3">
-                            <div class="cart-item-info d-flex align-items-center">
-                                <img src="${
-                                    item.product.firstimage.img
-                                }" alt="Product Image" class="img-fluid rounded" width="80">
-                                <div class="ms-3">
-                                    <h6 class="mb-1 fw-bold">${
-                                        item.product.name
-                                    }</h6>
-                                    <small class="text-muted d-block">RS. ${
-                                        item.price
-                                    }</small>
-                                </div>
-                            </div>
-                            <div class="cart-item-price d-flex align-items-center">
-                                <button class="btn btn-sm border px-2 update-cart" data-id="${
-                                    item.id
-                                }" data-quantity="${
+                    <div class="cart-item d-flex justify-content-between align-items-center p-3 border-bottom">
+                        <div class="d-flex align-items-center">
+                            <img src="${
+                                item.product.firstimage.img
+                            }" alt="Product Image" class="img-fluid rounded" width="80">
+                            <div class="ms-3">
+                                <h6 class="mb-1 fw-bold">${
+                                    item.product.name
+                                }</h6>
+                                <small class="text-muted d-block">RS. ${
+                                    (item.product.price *
+                                        (100 - item.product.discount_price)) /
+                                    100
+                                }</small>
+
+                                <small class="d-block">SIZE: ${
+                                    item.size || "N/A"
+                                }</small>
+                                <div class="d-flex">
+                                 <div class="d-flex align-items-center border px-2 rounded-pill">
+                                    <button class="btn btn-sm border-0 px-2 update-cart" data-id="${
+                                        item.id
+                                    }" data-quantity="${
                         item.quantity - 1
                     }">-</button>
-                                <span class="fw-bold mx-2">${
-                                    item.quantity
-                                }</span>
-                                <button class="btn btn-sm border px-2 update-cart" data-id="${
-                                    item.id
-                                }" data-quantity="${
+                                    <span class="fw-bold mx-2">${
+                                        item.quantity
+                                    }</span>
+                                    <button class="btn btn-sm border-0 px-2 update-cart" data-id="${
+                                        item.id
+                                    }" data-quantity="${
                         item.quantity + 1
                     }">+</button>
+                                </div>
                                 <button class="btn btn-sm text-danger ms-3 delete-cart" data-id="${
                                     item.id
-                                }"><i class="bi bi-trash"></i></button>
+                                }">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                                </div>
                             </div>
-                        </div>`;
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <span class="fw-bold text-end me-3">RS. ${
+                                ((item.product.price *
+                                    (100 - item.product.discount_price)) /
+                                    100) *
+                                item.quantity
+                            }</span>
+
+                        </div>
+                    </div>`;
                 });
 
                 $(".cart-items").html(cartHtml);

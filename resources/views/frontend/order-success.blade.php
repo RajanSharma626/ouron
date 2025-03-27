@@ -12,7 +12,7 @@
                         <div class="container text-center py-5">
                             <h2>Thank You for Your Order!</h2>
                             <p>Your order has been placed successfully. You will receive an email confirmation soon.</p>
-                            <a href="{{ route('home') }}" class="custom-btn">Continue Shopping</a>
+                            <a href="{{ route('home') }}" class="btn primary-bg">Continue Shopping</a>
                         </div>
                     </div>
                 </div>

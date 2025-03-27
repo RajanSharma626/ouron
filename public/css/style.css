@@ -345,7 +345,7 @@ body {
 }
 
 /* Show dropdown on hover */
-.nav-item.dropdown:hover>.dropdown-menu {
+.nav-item.dropdown:hover > .dropdown-menu {
     display: block;
 }
 
@@ -671,7 +671,7 @@ footer p {
     cursor: pointer;
 }
 
-input[type="radio"]:checked+label .color-circle {
+input[type="radio"]:checked + label .color-circle {
     border: 3px solid #000;
 }
 
@@ -849,9 +849,18 @@ input[type="radio"]:checked+label .color-circle {
     font-size: 12px;
 }
 
+.checkout-color {
+    width: 15px !important;
+    height: 15px !important;
+}
+
 @media (max-width: 768px) {
     .footer_logo {
         width: 150px;
         height: auto;
+    }
+
+    .login_text {
+        font-size: 12px;
     }
 }

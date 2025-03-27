@@ -19,19 +19,21 @@ class LoginAuth extends Controller
             ->get();
 
         foreach ($sessionCartItems as $item) {
-            // Check if item already exists in user's cart
+            // Check if item already exists in user's cart with the same product, size, and color
             $existingItem = CartItem::where('user_id', $userId)
                 ->where('product_id', $item->product_id)
+                ->where('size', $item->size)
+                ->where('color', $item->color)
                 ->first();
 
             if ($existingItem) {
-                // Increase quantity if product exists in user's cart
+                // Increase quantity if product with the same attributes exists in user's cart
                 $existingItem->increment('quantity', $item->quantity);
 
                 // Delete the session cart item after merging
                 $item->delete();
             } else {
-                // Assign user ID to session-based cart item
+                // Assign user ID to session-based cart item and clear session ID
                 $item->update(['user_id' => $userId, 'session_id' => null]);
             }
         }

@@ -3,7 +3,7 @@
     <div class="fs-07rem text-center primary-bg text-white py-2">
         <strong>Coupon Offer:</strong> Use code <span class="fw-bold">SAVE20</span> at checkout for a 20% discount!
     </div>
-    <nav class="navbar sticky-top navbar-expand-lg py-2 secondary-bg d-none d-lg-block">
+    <nav class="navbar navbar-expand-lg py-2 secondary-bg d-none d-lg-block">
         <div class="container-fluid px-4">
             <div class="d-flex w-100 justify-content-between align-items-center">
                 <!-- Left: Logo -->
@@ -37,8 +37,7 @@
 
                                 @foreach ($categories as $category)
                                     <li class="">
-                                        <a href="{{ route('all-product') }}"
-                                            class="dropdown-item primary-font-size fw-400"
+                                        <a class="dropdown-item primary-font-size fw-400"
                                             href="{{ route('cat-product', $category->slug) }}">{{ $category->name }}</a>
                                     </li>
                                 @endforeach
@@ -66,7 +65,7 @@
 
                         <li class="nav-item">
                             <a class="nav-link text-uppercase primary-font-size fw-400"
-                                href="{{ route('blogs') }}">Blogs</a>
+                                href="{{ route('allblogs') }}">Blogs</a>
                         </li>
                     </ul>
                 </div>
@@ -130,7 +129,7 @@
         </div>
     </nav>
 
-    <nav class="navbar sticky-top navbar-expand-lg py-2 secondary-bg d-lg-none">
+    <nav class="navbar navbar-expand-lg py-2 secondary-bg d-lg-none">
         <div class="container">
             <div class="row align-items-center w-100">
                 <!-- Left: Logo -->
@@ -150,8 +149,8 @@
 
                 <!-- Right: Icons/Menu -->
                 <div class="col-4 align-items-center d-flex justify-content-end px-0">
-                    <a class="nav-link text-uppercase primary-font-size fw-400 px-2" href="javascript:void(0)" data-bs-toggle="offcanvas" data-bs-target="#searchCanvas"
-                    aria-controls="search">
+                    <a class="nav-link text-uppercase primary-font-size fw-400 px-2" href="javascript:void(0)"
+                        data-bs-toggle="offcanvas" data-bs-target="#searchCanvas" aria-controls="search">
                         <i class="bi bi-search fs-6 primary-color"></i>
                     </a>
 
@@ -222,7 +221,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link text-uppercase fw-400" href="{{ route('blogs') }}">Blogs</a>
+                    <a class="nav-link text-uppercase fw-400" href="{{ route('allblogs') }}">Blogs</a>
                 </li>
 
                 <li class="nav-item">

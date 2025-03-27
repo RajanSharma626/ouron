@@ -79,8 +79,8 @@
                 </div>
                 <div class="col-md-6 col-lg-5 col-12 p-md-5 py-4 py-md-0">
                     <div class="row justify-content-between align-items-center">
-                        <div class="col">
-                            <h1 class="fs-5 mb-0 fw-bold">{{ $product->name }}</h1>
+                        <div class="col-10">
+                            <h1 class="fs-6 mb-0 fw-bold">{{ $product->name }}</h1>
                         </div>
 
                         <div class="col text-end">
@@ -145,7 +145,7 @@
                             @foreach (['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL'] as $size)
                                 @if (in_array($size, $availableSizes))
                                     <div class="size">
-                                        <img src="{{ asset('/images/sizes/' . $size . '.svg') }}"
+                                        <img src="{{ asset('/images/sizes/' . $size . '.png') }}"
                                             class="img-fluid size_img" alt="">
                                     </div>
                                 @endif
@@ -163,7 +163,9 @@
                                 Cart</button>
                         </div>
                         <div class="col-6 mb-md-0">
-                            <button class="checkout_btn w-100">Story</button>
+                            <a href="{{ $product->blog ? route('blog.detail', $product->blog->slug) : '#' }}">
+                                <button class="checkout_btn w-100">WTS</button>
+                            </a>
                         </div>
                         <div class="col-12 mb-md-0">
                             <button class="checkout_btn w-100">Buy Now</button>

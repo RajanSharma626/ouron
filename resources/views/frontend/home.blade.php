@@ -321,7 +321,7 @@
                     <p class="text-uppercase heading-font mb-0 ">Best Seller</p>
                 </div>
                 <div class="col text-end">
-                    <a href="" class="link-normal p-2  discover_more_btn">Discover More</a>
+                    <a href="{{ route(name: 'best-seller') }}" class="link-normal p-2  discover_more_btn">Discover More</a>
                 </div>
             </div>
 
@@ -389,10 +389,7 @@
                                     <div class="product_icons position-absolute top-0 end-0 p-2">
 
                                         <a href="javascript:void(0)" class="cart_icon add-to-cart" title="Add to Cart"
-                                            data-id="{{ $product->id }}" data-name="{{ $product->name }}"
-                                            data-price="{{ number_format($product->price - ($product->price * $product->discount_price) / 100, 2) }}"
-                                            data-image="{{ $imageBasePath . '/' . $secondfilename }}"
-                                            alt="{{ $product->name }}">
+                                            data-id="{{ $product->id }}" alt="{{ $product->name }}">
                                             <i class="bi bi-handbag"></i>
                                         </a>
 
@@ -433,7 +430,7 @@
 
             <div class="row py-4">
                 <div class="col-12 text-center">
-                    <a href="" class="discover_more_btn">Discover More</a>
+                    <a href="{{ route(name: 'best-seller') }}" class="discover_more_btn">Discover More</a>
                 </div>
             </div>
         </div>
@@ -467,7 +464,7 @@
                     <p class="text-uppercase heading-font mb-0">Latest Blogs</p>
                 </div>
                 <div class="col text-end">
-                    <a href="" class="link-normal p-2  discover_more_btn">Discover More</a>
+                    <a href="{{ route('allblogs') }}" class="link-normal p-2  discover_more_btn">Discover More</a>
                 </div>
             </div>
 
@@ -484,7 +481,7 @@
                                 <div class="blog_info p-3">
                                     <h3 class="blog_title">{{ $blog->title }}</h3>
                                     <p class="blog_short_desc mb-0 text-muted">
-                                        {{ Str::limit(strip_tags($blog->	short_desc), 100) }}
+                                        {{ Str::limit(strip_tags($blog->short_desc), 100) }}
                                     </p>
                                 </div>
                             </div>
@@ -496,7 +493,7 @@
 
             <div class="row py-4">
                 <div class="col-12 text-center">
-                    <a href="" class="discover_more_btn">Discover More</a>
+                    <a href="{{ route('allblogs') }}" class="discover_more_btn">Discover More</a>
                 </div>
             </div>
         </div>
@@ -525,46 +522,47 @@
     </section>
     {{-- ============================================= Newsletter Section End ==================================== --}}
 
-
-    <!-- Login Modal -->
-    <div class="modal fade" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="loginModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title fw-bold" id="loginModalLabel">Login</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-
-                    <div class="row align-items-center">
-                        <div class="col-md-6 d-none d-md-block p-3">
-                            <img src="{{ asset('images/banner/ouron-login.png') }}" class="img-fluid" alt="">
-                        </div>
-                        <div class="col-md-6 col-12">
-                            <div class="logo text-center mb-4">
-                                <img src="{{ asset('/images/logo/logo.svg') }}" class="img-fluid" width="150"
-                                    alt="logo">
-                            </div>
-                            <p class="text-center">
-                                Every story begins with a name. Let’s start yours—Log in now to unlock exclusive designs,
-                                early drops, and a community that inspires.
-                            </p>
-                            <form id="loginForm" action="{{ route('login') }}" method="POST">
-                                @csrf
-                                <div class="mb-3">
-                                    <input type="text" class="form-control py-3" name="phone"
-                                        placeholder="Enter Phone Number" required>
-                                </div>
-                                <button type="submit" class="w-100 login_btn">Login</button>
-                            </form>
-                        </div>
+    @guest
+        <!-- Login Modal -->
+        <div class="modal fade" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="loginModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title fw-bold" id="loginModalLabel">Login</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+                    <div class="modal-body">
 
+                        <div class="row align-items-center">
+                            <div class="col-md-6 p-md-3 mb-3 mb-md-0">
+                                <img src="{{ asset('images/banner/ouron-login.png') }}" class="img-fluid" alt="">
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="logo text-center mb-4">
+                                    <img src="{{ asset('/images/logo/logo.svg') }}" class="img-fluid" width="150"
+                                        alt="logo">
+                                </div>
+                                <p class="text-center login_text">
+                                    Every story begins with a name. Let’s start yours—Log in now to unlock exclusive designs,
+                                    early drops, and a community that inspires.
+                                </p>
+                                <form id="loginForm" action="{{ route('login') }}" method="POST">
+                                    @csrf
+                                    <div class="mb-3">
+                                        <input type="text" class="form-control py-2" name="phone"
+                                            placeholder="Enter Phone Number" required>
+                                    </div>
+                                    <button type="submit" class="w-100 login_btn">Send OTP</button>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endguest
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
