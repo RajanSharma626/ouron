@@ -120,7 +120,43 @@ $(document).ready(function () {
                 Swal.fire({
                     icon: "success",
                     title: "Added to Cart",
-                    text: "Your item has been added successfully. We hope it brightens your day!",
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+                let offcanvasElement = document.getElementById("cart");
+                let offcanvas = new bootstrap.Offcanvas(offcanvasElement);
+                offcanvas.show();
+                loadCart();
+            },
+        });
+    });
+
+    $("#confirmAddToCart2").submit(function (e) {
+        e.preventDefault(); // Prevent form from submitting normally
+
+        let productId = $(this).find("button").data("id"); // Get product ID from button
+        let size = $("input[name='size']:checked").val();
+        let color = $("input[name='color']:checked").val();
+
+        if (!size || !color) {
+            alert("Please select a size and color.");
+            return;
+        }
+
+        $.ajax({
+            url: "/cart/add",
+            type: "POST",
+            data: {
+                product_id: productId,
+                size: size,
+                color: color,
+                _token: $('meta[name="csrf-token"]').attr("content"),
+            },
+            success: function () {
+                $("#addToCartModal").modal("hide");
+                Swal.fire({
+                    icon: "success",
+                    title: "Added to Cart",
                     showConfirmButton: false,
                     timer: 1500,
                 });
@@ -138,6 +174,7 @@ $(document).ready(function () {
         $(".cart-items").html(
             '<div class="text-center my-3"><span class="spinner-border" role="status" aria-hidden="true"></span></div>'
         );
+
         $.ajax({
             url: "/cart",
             type: "GET",
@@ -146,76 +183,79 @@ $(document).ready(function () {
                 let total = 0;
 
                 if (cartItems.length === 0) {
-                    $(".cart-items").html(
-                        '<p class="text-muted text-center">No items found in the cart.</p>'
-                    );
-                    $(".cart-total span:last-child").text("RS. 0");
+                    $(".cart-items").html(`
+                        <div class="text-center my-5">
+                            <p class="text-muted">Your cart is empty.</p>
+                            <a href="/" class="btn primary-bg continue-shopping">Continue Shopping</a>
+                        </div>
+                    `);
+
+                    $(".cart-total-hide, .checkout_btn_hide").hide(); // Hide total & checkout button
                     return;
                 }
 
-                cartItems.forEach((item) => {
-                    total +=
-                        ((item.product.price *
-                            (100 - item.product.discount_price)) /
-                            100) *
-                        item.quantity;
-                    cartHtml += `
-                    <div class="cart-item d-flex justify-content-between align-items-center p-3 border-bottom">
-                        <div class="d-flex align-items-center">
-                            <img src="${
-                                item.product.firstimage.img
-                            }" alt="Product Image" class="img-fluid rounded" width="80">
-                            <div class="ms-3">
-                                <h6 class="mb-1 fw-bold">${
-                                    item.product.name
-                                }</h6>
-                                <small class="text-muted d-block">RS. ${
-                                    (item.product.price *
-                                        (100 - item.product.discount_price)) /
-                                    100
-                                }</small>
+                $(".cart-total-hide, .checkout_btn_hide").show(); // Show total & checkout button
 
-                                <small class="d-block">SIZE: ${
-                                    item.size || "N/A"
-                                }</small>
-                                <div class="d-flex">
-                                 <div class="d-flex align-items-center border px-2 rounded-pill">
-                                    <button class="btn btn-sm border-0 px-2 update-cart" data-id="${
-                                        item.id
-                                    }" data-quantity="${
+                cartItems.forEach((item) => {
+                    let discountedPrice =
+                        (item.product.price *
+                            (100 - item.product.discount_price)) /
+                        100;
+                    let itemTotal = discountedPrice * item.quantity;
+                    total += itemTotal;
+
+                    cartHtml += `
+                        <div class="cart-item d-flex justify-content-between align-items-center p-3 border-bottom">
+                            <div class="d-flex align-items-center">
+                                <img src="${
+                                    item.product.firstimage.img
+                                }" alt="Product Image" class="img-fluid rounded" width="80">
+                                <div class="ms-3">
+                                    <h6 class="mb-1 fw-bold">${
+                                        item.product.name
+                                    }</h6>
+                                    <small class="text-muted d-block">RS. ${discountedPrice.toFixed(
+                                        2
+                                    )}</small>
+                                    <small class="d-block">SIZE: ${
+                                        item.size || "N/A"
+                                    }</small>
+                                    <div class="d-flex">
+                                        <div class="d-flex align-items-center border px-2 rounded-pill">
+                                            <button class="btn btn-sm border-0 px-2 update-cart" data-id="${
+                                                item.id
+                                            }" data-quantity="${
                         item.quantity - 1
                     }">-</button>
-                                    <span class="fw-bold mx-2">${
-                                        item.quantity
-                                    }</span>
-                                    <button class="btn btn-sm border-0 px-2 update-cart" data-id="${
-                                        item.id
-                                    }" data-quantity="${
+                                            <span class="fw-bold mx-2">${
+                                                item.quantity
+                                            }</span>
+                                            <button class="btn btn-sm border-0 px-2 update-cart" data-id="${
+                                                item.id
+                                            }" data-quantity="${
                         item.quantity + 1
                     }">+</button>
-                                </div>
-                                <button class="btn btn-sm text-danger ms-3 delete-cart" data-id="${
-                                    item.id
-                                }">
-                                    <i class="bi bi-trash"></i>
-                                </button>
+                                        </div>
+                                        <button class="btn btn-sm text-danger ms-3 delete-cart" data-id="${
+                                            item.id
+                                        }">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <span class="fw-bold text-end me-3">RS. ${
-                                ((item.product.price *
-                                    (100 - item.product.discount_price)) /
-                                    100) *
-                                item.quantity
-                            }</span>
-
-                        </div>
-                    </div>`;
+                            <div class="d-flex align-items-center">
+                                <span class="fw-bold text-end me-3">RS. ${itemTotal.toFixed(
+                                    2
+                                )}</span>
+                            </div>
+                        </div>`;
                 });
 
                 $(".cart-items").html(cartHtml);
-                $(".cart-total span:last-child").text("RS. " + total);
+                $(".cart-total span:last-child").text(
+                    "RS. " + total.toFixed(2)
+                );
             },
             error: function () {
                 $(".cart-items").html(
@@ -370,6 +410,58 @@ document.addEventListener("DOMContentLoaded", function () {
                     // On error, restore the original icon
                     icon.className = originalClasses;
                 });
+        });
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const sizeLabels = document.querySelectorAll(".size-label");
+
+    sizeLabels.forEach((label) => {
+        label.addEventListener("click", function (event) {
+            event.preventDefault();
+
+            // Remove active class from all size images
+            document
+                .querySelectorAll(".size_img")
+                .forEach((image) => image.classList.remove("active_size"));
+
+            // Add active class to the clicked size image
+            const sizeImage = this.querySelector(".size_img");
+            if (sizeImage) {
+                sizeImage.classList.add("active_size");
+            }
+
+            // Check the corresponding radio button
+            const radioInput = this.previousElementSibling;
+            if (radioInput && radioInput.type === "radio") {
+                radioInput.checked = true;
+            }
+        });
+    });
+
+    const colorLabels = document.querySelectorAll(".color-label");
+
+    colorLabels.forEach((label) => {
+        label.addEventListener("click", function (event) {
+            event.preventDefault();
+
+            // Remove active class from all color circles
+            document
+                .querySelectorAll(".color-circle")
+                .forEach((circle) => circle.classList.remove("active_color"));
+
+            // Add active class to the clicked color circle
+            const colorCircle = this.querySelector(".color-circle");
+            if (colorCircle) {
+                colorCircle.classList.add("active_color");
+            }
+
+            // Check the corresponding radio button
+            const radioInput = this.previousElementSibling;
+            if (radioInput && radioInput.type === "radio") {
+                radioInput.checked = true;
+            }
         });
     });
 });

@@ -8,20 +8,20 @@
         <div class="container py-5">
             <div class="row">
                 <div class="col-12">
-                    <div class="row justify-content-evenly">
-                        <div class="col-2">
+                    <div class="row justify-content-md-evenly ">
+                        <div class="col-6 col-md-2">
                             <button class="custom-btn py-2 px-3 custom-active" data-target="faq-product">Product</button>
                         </div>
-                        <div class="col-2">
+                        <div class="col-6 col-md-2 mb-3">
                             <button class="custom-btn py-2 px-3" data-target="faq-delivery">Delivery</button>
                         </div>
-                        <div class="col-2">
+                        <div class="col-6 col-md-2 mb-3">
                             <button class="custom-btn py-2 px-3" data-target="faq-order">Order</button>
                         </div>
-                        <div class="col-2">
+                        <div class="col-6 col-md-2 mb-3">
                             <button class="custom-btn py-2 px-3" data-target="faq-order-received">Order Received</button>
                         </div>
-                        <div class="col-2">
+                        <div class="col-6 col-md-2 mb-3">
                             <button class="custom-btn py-2 px-3" data-target="faq-general">General FAQ</button>
                         </div>
                     </div>

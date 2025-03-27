@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <section class="product_detail py-5">
+    <section class="product_detail  py-md-5">
         <div class="container-fluid px-md-5">
             <div class="row">
                 <div class="col-md-6 col-lg-7 col-12 px-0 px-md-3">
@@ -119,14 +119,24 @@
                             <div class="col"><b>Color:</b></div>
                         </div>
                         <div class="col-12 d-flex gap-1">
+                            @php
+                                $first_color = 1;
+                            @endphp
+
                             @foreach (json_decode($product->colors, true) as $color)
-                                <div class="color">
+                                <div class="color text-center">
                                     <input class="form-check-input d-none" type="radio" name="color"
-                                        id="color-{{ $color }}" value="{{ $color }}">
-                                    <label class="form-check-label" for="color-{{ $color }}">
-                                        <span class="color-circle" style="background-color: {{ $color }};"></span>
+                                        id="color-{{ $color }}" value="{{ $color }}"
+                                        {{ $first_color === 1 ? 'checked' : '' }} required>
+                                    <label class="form-check-label color-label" for="color-{{ $color }}">
+                                        <span class="color-circle {{ $first_color === 1 ? 'active_color' : '' }}"
+                                            style="background-color: {{ $color }};"></span>
                                     </label>
                                 </div>
+
+                                @php
+                                    $first_color++;
+                                @endphp
                             @endforeach
                         </div>
 
@@ -137,34 +147,42 @@
                             <div class="col"><b>Size:</b></div>
                             <div class="col text-end fs-12"><a href="#!" class="primary-color">Size Guide</a></div>
                         </div>
-                        <div class="col-12 d-flex gap-3 py-2">
+                        <div class="col-12 d-flex gap-md-3 py-2">
                             @php
                                 $availableSizes = json_decode($product->sizes, true);
+                                $firstSize = reset($availableSizes); // Get the first available size
                             @endphp
 
                             @foreach (['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL'] as $size)
                                 @if (in_array($size, $availableSizes))
-                                    <div class="size">
-                                        <img src="{{ asset('/images/sizes/' . $size . '.png') }}"
-                                            class="img-fluid size_img" alt="">
+                                    <div class="size text-center">
+                                        <input class="form-check-input d-none" type="radio" name="size"
+                                            id="size-{{ $size }}" value="{{ $size }}"
+                                            {{ $size === $firstSize ? 'checked' : '' }} required>
+                                        <label class="form-check-label size-label" for="size-{{ $size }}">
+                                            <img src="{{ asset('/images/sizes/' . $size . '.png') }}"
+                                                class="img-fluid size_img {{ $size === $firstSize ? 'active_size' : '' }} "
+                                                alt="">
+                                        </label>
                                     </div>
                                 @endif
                             @endforeach
                         </div>
+
                     </div>
 
 
                     <div class="row py-3 g-2">
                         <div class="col-6 mb-md-0">
-                            <button class="checkout_btn w-100 add-to-cart" title="Add to Cart"
-                                data-id="{{ $product->id }}" data-name="{{ $product->name }}"
-                                data-price="{{ number_format($product->price - ($product->price * $product->discount_price) / 100, 2) }}"
-                                data-image="{{ $product->firstimage->img ?? '' }}" alt="{{ $product->name }}">Add to
-                                Cart</button>
+                            <form action="" id="confirmAddToCart2">
+                                <button type="submit" class="checkout_btn w-100" title="Add to Cart"
+                                    data-id="{{ $product->id }}">Add to
+                                    Cart</button>
+                            </form>
                         </div>
                         <div class="col-6 mb-md-0">
                             <a href="{{ $product->blog ? route('blog.detail', $product->blog->slug) : '#' }}">
-                                <button class="checkout_btn w-100">WTS</button>
+                                <button class="checkout_btn w-100">WTS?</button>
                             </a>
                         </div>
                         <div class="col-12 mb-md-0">
@@ -187,7 +205,7 @@
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#flush-collapseOne" aria-expanded="false"
                                         aria-controls="flush-collapseOne">
-                                        Details
+                                        Description
                                     </button>
                                 </h2>
                                 <div id="flush-collapseOne" class="accordion-collapse collapse"
@@ -202,7 +220,7 @@
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#flush-collapseTwo" aria-expanded="false"
                                         aria-controls="flush-collapseTwo">
-                                        Size & Fit
+                                        Detail
                                     </button>
                                 </h2>
                                 <div id="flush-collapseTwo" class="accordion-collapse collapse"

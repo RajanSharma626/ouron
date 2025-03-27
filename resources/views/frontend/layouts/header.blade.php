@@ -65,7 +65,7 @@
 
                         <li class="nav-item">
                             <a class="nav-link text-uppercase primary-font-size fw-400"
-                                href="{{ route('allblogs') }}">Blogs</a>
+                                href="{{ route('allblogs') }}">WTS?</a>
                         </li>
                     </ul>
                 </div>
@@ -149,15 +149,21 @@
 
                 <!-- Right: Icons/Menu -->
                 <div class="col-4 align-items-center d-flex justify-content-end px-0">
-                    <a class="nav-link text-uppercase primary-font-size fw-400 px-2" href="javascript:void(0)"
+                    <a class="nav-link text-uppercase primary-font-size fw-400 pe-2" href="javascript:void(0)"
                         data-bs-toggle="offcanvas" data-bs-target="#searchCanvas" aria-controls="search">
                         <i class="bi bi-search fs-6 primary-color"></i>
                     </a>
 
-                    <a class="nav-link ps-2" href="javascript:void(0)" data-bs-toggle="offcanvas"
+                    <a class="nav-link px-2" href="javascript:void(0)" data-bs-toggle="offcanvas"
                         data-bs-target="#cart" aria-controls="cart">
                         <div class="position-relative">
                             <i class="bi bi-handbag" aria-hidden="true"></i>
+                        </div>
+                    </a>
+
+                    <a class="nav-link ps-2 " href="{{ route('wishlist') }}">
+                        <div class="position-relative">
+                            <i class="bi bi-heart"></i>
                         </div>
                     </a>
 
@@ -170,7 +176,9 @@
         aria-labelledby="mobileMenuLabel">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="mobileMenuLabel">
-                <img src="{{ asset('images/logo/logo.svg') }}" alt="" class="img-fluid" width="100px">
+                <a href="{{ route('home') }}">
+                    <img src="{{ asset('images/logo/logo.svg') }}" alt="" class="img-fluid" width="100px">
+                </a>
             </h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
@@ -221,7 +229,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link text-uppercase fw-400" href="{{ route('allblogs') }}">Blogs</a>
+                    <a class="nav-link text-uppercase fw-400" href="{{ route('allblogs') }}">WTS?</a>
                 </li>
 
                 <li class="nav-item">

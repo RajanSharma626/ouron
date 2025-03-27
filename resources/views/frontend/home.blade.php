@@ -46,7 +46,7 @@
 
 
     {{-- ============================================= New Arrival Section Start ==================================== --}}
-    <section class="new_arrival_section mt-3">
+    <section class="new_arrival_section mt-md-5 mt-3">
         <div class="container-fluid">
             <div class="row justify-content-between mb-3 align-items-center">
                 <div class="col">
@@ -170,7 +170,7 @@
     </section>
     {{-- ============================================= New Arrival Section End ==================================== --}}
 
-    <div class="container-fluid py-5">
+    <div class="container-fluid py-md-5">
         <div class="row">
             <div class="col-12 px-0" data-aos="fade-up">
                 <a href="">
@@ -186,7 +186,7 @@
 
 
     {{-- ============================================= All Product Section Start ==================================== --}}
-    <section class="design_collection_section py-5">
+    <section class="design_collection_section py-5 pb-0 pb-md-5">
         <div class="container-fluid">
             <div class="row justify-content-between mb-3 align-items-center">
                 <div class="col">
@@ -321,7 +321,8 @@
                     <p class="text-uppercase heading-font mb-0 ">Best Seller</p>
                 </div>
                 <div class="col text-end">
-                    <a href="{{ route(name: 'best-seller') }}" class="link-normal p-2  discover_more_btn">Discover More</a>
+                    <a href="{{ route(name: 'best-seller') }}" class="link-normal p-2  discover_more_btn">Discover
+                        More</a>
                 </div>
             </div>
 
