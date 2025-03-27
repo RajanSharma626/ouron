@@ -13,7 +13,10 @@
                 </div>
             </div>
 
-            <div class="row mb-4 align-items-center ">
+            <div class="row mb-4 align-items-center flex-row-reverse">
+                <div class="col-md-6 d-none d-md-block text-end">
+                    <span class="me-3 text-muted fs-07rem text-end">Showing {{ $products->count() }} Products</span>
+                </div>
                 <div class="col-12 col-md-6 col-md-4">
                     <div class="d-flex align-items-center">
                         <label for="sizeFilter" class="form-label me-2 mb-0 fs-07rem">Filter :</label>
@@ -23,11 +26,12 @@
                             <option value="new-in" {{ request('filter') == 'new-in' ? 'selected' : '' }}>New In</option>
                             <option value="best-seller" {{ request('filter') == 'best-seller' ? 'selected' : '' }}>Best
                                 Seller</option>
+                            <option value="high-to-low" {{ request('filter') == 'high-to-low' ? 'selected' : '' }}>Price -
+                                High to Low</option>
+                            <option value="low-to-high" {{ request('filter') == 'low-to-high' ? 'selected' : '' }}>Price -
+                                Low to High</option>
                         </select>
                     </div>
-                </div>
-                <div class="col-md-6 d-none d-md-block text-end">
-                    <span class="me-3 text-muted fs-07rem text-end">Showing {{ $products->count() }} Products</span>
                 </div>
                 {{-- <div class="col-6 col-md-4">
                     <div class="d-flex align-items-center justify-content-end">
@@ -64,8 +68,10 @@
                                 <div class="product_img position-relative">
                                     <picture>
                                         <!-- High-quality image for fast connections -->
-                                        <source srcset="{{ $imageBasePath . '/' . $filename }}" media="(min-width: 1400px)">
-                                        <source srcset="{{ $imageBasePath . '/' . $filename }}" media="(min-width: 1200px)">
+                                        <source srcset="{{ $imageBasePath . '/' . $filename }}"
+                                            media="(min-width: 1400px)">
+                                        <source srcset="{{ $imageBasePath . '/' . $filename }}"
+                                            media="(min-width: 1200px)">
                                         <source srcset="{{ $imageBasePath . '/940_' . $filename }}"
                                             media="(min-width: 992px)">
                                         <source srcset="{{ $imageBasePath . '/720_' . $filename }}"

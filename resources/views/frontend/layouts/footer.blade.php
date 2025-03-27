@@ -11,7 +11,7 @@
 
 
             <!-- Categories -->
-            <div class="col-md-3 col-6 mb-3 mb-md-0">
+            <div class="col-md-3 col-6">
                 <h6 class="fw-bold">Categories</h6>
                 <ul class="list-unstyled">
                     @foreach ($categories as $category)
@@ -22,7 +22,7 @@
             </div>
 
             <!-- Need Help -->
-            <div class="col-md-3 col-6 mb-3 mb-md-0">
+            <div class="col-md-3 col-6">
                 <h6 class="fw-bold">Need Help</h6>
                 <ul class="list-unstyled">
                     <li><a href="#" class="primary-color text-decoration-none">Track Your Order</a></li>
@@ -37,18 +37,18 @@
             </div>
 
             <!-- Company -->
-            <div class="col-md-3 col-6 mb-3 mb-md-0">
+            <div class="col-md-3 col-6">
                 <h6 class="fw-bold">Company</h6>
                 <ul class="list-unstyled">
-                    <li><a href="{{ route('about.us') }}" class="primary-color text-decoration-none">Story</a></li>
+                    <li><a href="{{ route('about.us') }}" class="primary-color text-decoration-none">About us</a></li>
                     <li><a href="{{ route('contact.us') }}" class="primary-color text-decoration-none">Contact Us</a>
                     </li>
-                    <li><a href="{{ route('allblogs') }}" class="primary-color text-decoration-none">Blogs</a></li>
+                    <li><a href="{{ route('allblogs') }}" class="primary-color text-decoration-none">WTS?</a></li>
                 </ul>
             </div>
 
             <!-- Get in touch (Social Media) -->
-            <div class="col-md-3 col-6 mb-3 mb-md-0">
+            <div class="col-md-3 col-6">
                 <h6 class="fw-bold">Get in touch</h6>
                 <div class="d-flex gap-3">
                     <a href="https://www.instagram.com/ouron.in?utm_source=qr&igsh=bTBvN21ocm9pZGFl" target="_blank"
@@ -67,7 +67,7 @@
                 </div>
             </div>
         </div>
-        <div class="text-center mt-4 text-muted fs-12">
+        <div class="text-center text-muted fs-12">
             &copy; 2025 Ouron Lifestyle & Co., All Rights Reserved.
         </div>
     </div>
@@ -86,7 +86,7 @@
 
         <!-- Cart Summary -->
         <hr>
-        <div class="cart-total mt-3">
+        <div class="cart-total mt-3 cart-total-hide">
             <h6 class="d-flex justify-content-between fw-bold">
                 <span>ESTIMATED TOTAL</span>
                 <span id="cart-total">RS. 0</span>
@@ -96,7 +96,7 @@
 
         <!-- Checkout Button -->
         <div class="d-grid mt-4">
-            <a href="{{ route('checkout') }}" class="link-normal text-center checkout_btn">CHECK OUT</a>
+            <a href="{{ route('checkout') }}" class="link-normal text-center checkout_btn checkout_btn_hide">CHECK OUT</a>
         </div>
     </div>
 

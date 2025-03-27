@@ -25,6 +25,16 @@ class CatProductsController extends Controller
                 ->whereNull('deleted_at')
                 ->where('best_seller', true)
                 ->orderBy('created_at', 'desc');
+        } elseif ($filter === 'high-to-low') {
+            $pageTitle = 'Price: High to Low';
+            $productsQuery = Product::with(['firstimage', 'secondimage'])
+                ->whereNull('deleted_at')
+                ->orderByRaw('(price - (price * discount_price / 100)) desc');
+        } elseif ($filter === 'low-to-high') {
+            $pageTitle = 'Price: Low to High';
+            $productsQuery = Product::with(['firstimage', 'secondimage'])
+                ->whereNull('deleted_at')
+                ->orderByRaw('(price - (price * discount_price / 100)) asc');
         } else {
             $pageTitle = 'All Products';
             $productsQuery = Product::with(['firstimage', 'secondimage'])
