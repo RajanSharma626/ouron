@@ -25,7 +25,7 @@
                                     </div>
                                 @endif
                                 <div class="form-group text-center mt-4">
-                                    <button type="submit" class="login_btn w-100 mb-3">Login</button>
+                                    <button type="submit" class="login_btn w-100 mb-3">Send OTP</button>
                                 </div>
                             </form>
                         </div>

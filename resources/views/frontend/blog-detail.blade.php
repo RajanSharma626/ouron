@@ -22,8 +22,8 @@
 
                 <div class="col-12">
                     <div class="share-buttons text-center my-3">
-                        <a href="javascript:void(0)" class="link-normal" id="shareBtn">
-                            <i class="bi bi-upload"></i> &nbsp; Share
+                        <a href="javascript:void(0)" class="link-normal fw-bold" id="shareBtn">
+                            Explore the Collection Now → [ <a class="primary-color" href="{{ route('product.detail', $blog->product->slug) }}">SHOP NOW</a> ]
                         </a>
                     </div>
                     {{-- <script>

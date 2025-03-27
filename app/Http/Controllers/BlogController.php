@@ -17,6 +17,12 @@ class BlogController extends Controller
         return view('admin.blogs', compact('blogs'));
     }
 
+    public function homeIndex()
+    {
+        $blogs = Blog::all();
+        return view('frontend.blogs', compact('blogs'));
+    }
+
     public function create()
     {
         $products = Product::all();
@@ -79,7 +85,8 @@ class BlogController extends Controller
 
     public function show($slug)
     {
-        $blog = Blog::where('slug', $slug)->firstOrFail();
+        $blog = Blog::with('product')
+            ->where('slug', operator: $slug)->firstOrFail();
         return view('frontend.blog-detail', compact('blog'));
     }
 }

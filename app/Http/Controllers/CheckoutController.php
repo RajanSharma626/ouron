@@ -40,6 +40,7 @@ class CheckoutController extends Controller
             $price = $item->product->price - ($item->product->price * $item->product->discount_price) / 100;
             $subtotal += $price * $item->quantity;
         }
+
         $tax = $subtotal * 0.18; // 18% GST
         $total = $subtotal + $tax;
 
@@ -69,6 +70,8 @@ class CheckoutController extends Controller
                 'product_id' => $item->product_id,
                 'quantity' => $item->quantity,
                 'price' => $item->product->price - ($item->product->price * $item->product->discount_price) / 100,
+                'size' => $item->size,
+                'color' => $item->color
             ]);
         }
 

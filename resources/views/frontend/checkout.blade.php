@@ -29,7 +29,11 @@
                                             <div>
                                                 <h6 class="mb-1 fw-bold check_title">{{ $item->product->name }}</h6>
                                                 <p class="mb-0 check_desc">
-                                                    Size: {{ $item->size ?? 'XS' }} | Color: {{ $item->color ?? 'N/A' }}
+                                                    Size: {{ $item->size ?? 'XS' }} | Color: &nbsp;
+
+                                                    <span class="color-circle checkout-color"
+                                                        style="background-color: {{ $item->color ?? '#ffffff' }};"></span>
+
                                                 </p>
                                             </div>
                                             <div class="ml-auto">

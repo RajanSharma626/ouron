@@ -1,6 +1,15 @@
 <footer class="pt-5 pb-3 secondary-bg primary-color">
     <div class="container">
         <div class="row">
+
+            <div class="col-12 text-center d-md-none mb-5">
+                <a href="{{ route('home') }}">
+                    <img src="{{ asset('/images/logo/logo.svg') }}" class="img-fluid footer_logo" alt=""
+                        width="200">
+                </a>
+            </div>
+
+
             <!-- Categories -->
             <div class="col-md-3 col-6 mb-3 mb-md-0">
                 <h6 class="fw-bold">Categories</h6>
@@ -34,7 +43,7 @@
                     <li><a href="{{ route('about.us') }}" class="primary-color text-decoration-none">Story</a></li>
                     <li><a href="{{ route('contact.us') }}" class="primary-color text-decoration-none">Contact Us</a>
                     </li>
-                    <li><a href="{{ route('blogs') }}" class="primary-color text-decoration-none">Blogs</a></li>
+                    <li><a href="{{ route('allblogs') }}" class="primary-color text-decoration-none">Blogs</a></li>
                 </ul>
             </div>
 
@@ -42,14 +51,19 @@
             <div class="col-md-3 col-6 mb-3 mb-md-0">
                 <h6 class="fw-bold">Get in touch</h6>
                 <div class="d-flex gap-3">
-                    <a href="#" class="primary-color fs-4"><i class="bi bi-instagram"></i></a>
-                    <a href="#" class="primary-color fs-4"><i class="bi bi-facebook"></i></a>
-                    <a href="#" class="primary-color fs-4"><i class="bi bi-whatsapp"></i></a>
+                    <a href="https://www.instagram.com/ouron.in?utm_source=qr&igsh=bTBvN21ocm9pZGFl" target="_blank"
+                        class="primary-color fs-4"><i class="bi bi-instagram"></i></a>
+                    <a href="https://www.facebook.com/share/1EDMyA4cfL/" target="_blank" class="primary-color fs-4"><i
+                            class="bi bi-facebook"></i></a>
+                    <a href="https://wa.link/3ifr4q" target="_blank" class="primary-color fs-4"><i
+                            class="bi bi-whatsapp"></i></a>
                 </div>
 
-                <div class="footer_logo mt-4">
-                    <img src="{{ asset('/images/logo/logo.svg') }}" class="img-fluid footer_logo" alt=""
-                        width="200">
+                <div class="footer_logo mt-4 d-none d-md-block">
+                    <a href="{{ route('home') }}">
+                        <img src="{{ asset('/images/logo/logo.svg') }}" class="img-fluid footer_logo" alt=""
+                            width="200">
+                    </a>
                 </div>
             </div>
         </div>
@@ -86,4 +100,42 @@
         </div>
     </div>
 
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="addToCartModal" tabindex="-1" aria-labelledby="addToCartModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addToCartModalLabel">Select Size & Color</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex align-items-center">
+                    <img id="modalProductImage" src="" class="img-fluid rounded me-3" width="80"
+                        alt="Product Image">
+                    <div>
+                        <h6 id="modalProductTitle" class="fw-bold"></h6>
+                        <p class="text-muted">Price: RS. <span id="modalProductPrice"></span></p>
+                    </div>
+                </div>
+                <hr>
+
+                <!-- Size Selection -->
+                <h6>Select Size</h6>
+                <div id="modalProductSizes" class="d-flex flex-wrap gap-2"></div>
+
+                <!-- Color Selection -->
+                <h6 class="mt-3">Select Color</h6>
+                <div id="modalProductColors" class="d-flex flex-wrap gap-2"></div>
+
+                <input type="hidden" id="modalProductId">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn primary-bg" id="confirmAddToCart">Add to Cart</button>
+            </div>
+        </div>
+    </div>
 </div>

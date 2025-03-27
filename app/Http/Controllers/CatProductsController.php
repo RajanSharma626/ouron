@@ -9,25 +9,39 @@ use Illuminate\Support\Facades\Auth;
 
 class CatProductsController extends Controller
 {
-    public function allProduct()
+    public function allProduct(Request $request)
     {
         $userId = Auth::id();
-        $pageTitle = 'All Products';
+        $filter = $request->query('filter', '');
 
-        $products = Product::with(['firstimage', 'secondimage'])
-            ->whereNull('deleted_at')
-            ->get()
-            ->map(function ($product) use ($userId) {
-                // Check if the product is liked by the user
-                $product->liked = $userId ? $product->likes()->where('user_id', $userId)->exists() : false;
-                return $product;
-            });
+        if ($filter === 'new-in') {
+            $pageTitle = 'New In';
+            $productsQuery = Product::with(['firstimage', 'secondimage'])
+                ->whereNull('deleted_at')
+                ->orderBy('created_at', 'desc');
+        } elseif ($filter === 'best-seller') {
+            $pageTitle = 'Best Seller';
+            $productsQuery = Product::with(['firstimage', 'secondimage'])
+                ->whereNull('deleted_at')
+                ->where('best_seller', true)
+                ->orderBy('created_at', 'desc');
+        } else {
+            $pageTitle = 'All Products';
+            $productsQuery = Product::with(['firstimage', 'secondimage'])
+                ->whereNull('deleted_at');
+        }
+
+        $products = $productsQuery->get()->map(function ($product) use ($userId) {
+            $product->liked = $userId ? $product->likes()->where('user_id', $userId)->exists() : false;
+            return $product;
+        });
 
         return view('frontend.products', compact('products', 'pageTitle'));
     }
 
     public function newIn()
     {
+        // Optionally, you can remove or repurpose this method now that filtering is handled in allProduct.
         $userId = Auth::id();
         $pageTitle = 'New In';
 
@@ -36,7 +50,24 @@ class CatProductsController extends Controller
             ->orderBy('created_at', 'desc')
             ->get()
             ->map(function ($product) use ($userId) {
-                // Check if the product is liked by the user
+                $product->liked = $userId ? $product->likes()->where('user_id', $userId)->exists() : false;
+                return $product;
+            });
+
+        return view('frontend.products', compact('products', 'pageTitle'));
+    }
+
+    public function bestSellerProduct()
+    {
+        $userId = Auth::id();
+        $pageTitle = 'Best Seller';
+
+        $products = Product::with(['firstimage', 'secondimage'])
+            ->whereNull('deleted_at')
+            ->where('best_seller', true)
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->map(function ($product) use ($userId) {
                 $product->liked = $userId ? $product->likes()->where('user_id', $userId)->exists() : false;
                 return $product;
             });
@@ -60,7 +91,6 @@ class CatProductsController extends Controller
             ->whereNull('deleted_at')
             ->get()
             ->map(function ($product) use ($userId) {
-                // Check if the product is liked by the user
                 $product->liked = $userId ? $product->likes()->where('user_id', $userId)->exists() : false;
                 return $product;
             });

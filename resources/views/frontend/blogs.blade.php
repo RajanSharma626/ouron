@@ -10,70 +10,25 @@
                 <div class="row">
                     <div class="col-12 py-4">
                         <div class="row align-items-center">
-                            <div class="col-6 col-md-3">
-                                <div class="blog">
-                                    <div class="product_img">
-                                        <img src="https://bluorng.com/cdn/shop/articles/encwesdnc_8c9feeae-442d-412d-aef9-a8a72fa7e6bd.jpg?v=1741871844"
-                                            alt="" class="img-fluid">
-                                    </div>
-                                    <div class="product_info p-2 pb-0">
-                                        <h3 class="blog_title">
-                                            The Clash T-shirt
-                                        </h3>
-                                        <p class="blog_desc text-muted">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, at?
-                                        </p>
-                                    </div>
+                            @foreach ($blogs as $blog)
+                                <div class="col-6 col-md-3">
+                                    <a href="{{ route('blog.detail', $blog->slug) }}" class="link-normal">
+                                        <div class="blog">
+                                            <div class="product_img">
+                                                <img src="{{ asset($blog->cover_image) }}" alt="" class="img-fluid">
+                                            </div>
+                                            <div class="product_info p-2 pb-0">
+                                                <h3 class="blog_title">
+                                                    {{ $blog->title }}
+                                                </h3>
+                                                <p class="blog_desc text-muted">
+                                                    {{ $blog->short_desc }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </a>
                                 </div>
-                            </div>
-                            <div class="col-6 col-md-3">
-                                <div class="blog">
-                                    <div class="product_img">
-                                        <img src="https://bluorng.com/cdn/shop/articles/encwesdnc_8c9feeae-442d-412d-aef9-a8a72fa7e6bd.jpg?v=1741871844"
-                                            alt="" class="img-fluid">
-                                    </div>
-                                    <div class="product_info p-2 pb-0">
-                                        <h3 class="blog_title">
-                                            The Clash T-shirt
-                                        </h3>
-                                        <p class="blog_desc text-muted">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, at?
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-3">
-                                <div class="blog">
-                                    <div class="product_img">
-                                        <img src="https://bluorng.com/cdn/shop/articles/encwesdnc_8c9feeae-442d-412d-aef9-a8a72fa7e6bd.jpg?v=1741871844"
-                                            alt="" class="img-fluid">
-                                    </div>
-                                    <div class="product_info p-2 pb-0">
-                                        <h3 class="blog_title">
-                                            The Clash T-shirt
-                                        </h3>
-                                        <p class="blog_desc text-muted">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, at?
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-3">
-                                <div class="blog">
-                                    <div class="product_img">
-                                        <img src="https://bluorng.com/cdn/shop/articles/encwesdnc_8c9feeae-442d-412d-aef9-a8a72fa7e6bd.jpg?v=1741871844"
-                                            alt="" class="img-fluid">
-                                    </div>
-                                    <div class="product_info p-2 pb-0">
-                                        <h3 class="blog_title">
-                                            The Clash T-shirt
-                                        </h3>
-                                        <p class="blog_desc text-muted">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, at?
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
 

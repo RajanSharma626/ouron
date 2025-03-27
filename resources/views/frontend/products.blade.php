@@ -13,22 +13,23 @@
                 </div>
             </div>
 
-            <div class="row mb-4 align-items-center">
-                <div class="col-6 col-md-4">
+            <div class="row mb-4 align-items-center ">
+                <div class="col-12 col-md-6 col-md-4">
                     <div class="d-flex align-items-center">
                         <label for="sizeFilter" class="form-label me-2 mb-0 fs-07rem">Filter :</label>
-                        <select id="sizeFilter" class="w-auto custom_filter px-3 py-1 fs-07rem">
-                            <option value="">Size</option>
-                            <option value="s">Small</option>
-                            <option value="m">Medium</option>
-                            <option value="l">Large</option>
+                        <select id="sizeFilter" class="w-auto custom_filter px-3 py-1 fs-07rem"
+                            onchange="window.location.href='{{ url()->current() }}?filter=' + this.value">
+                            <option value="" {{ request('filter') == '' ? 'selected' : '' }}>All</option>
+                            <option value="new-in" {{ request('filter') == 'new-in' ? 'selected' : '' }}>New In</option>
+                            <option value="best-seller" {{ request('filter') == 'best-seller' ? 'selected' : '' }}>Best
+                                Seller</option>
                         </select>
                     </div>
                 </div>
-                <div class="col-md-4 text-center d-none d-md-block">
-                    <span class="me-3 text-muted fs-07rem">Showing {{ $products->count() }} Products</span>
+                <div class="col-md-6 d-none d-md-block text-end">
+                    <span class="me-3 text-muted fs-07rem text-end">Showing {{ $products->count() }} Products</span>
                 </div>
-                <div class="col-6 col-md-4">
+                {{-- <div class="col-6 col-md-4">
                     <div class="d-flex align-items-center justify-content-end">
 
                         <label for="sortBy" class="form-label me-2 mb-0 fs-07rem">Sort by:</label>
@@ -38,7 +39,7 @@
                             <option value="priceDesc">Price: High to Low</option>
                         </select>
                     </div>
-                </div>
+                </div> --}}
 
                 <div class="col-12 text-center d-md-none mt-3">
                     <span class="me-3 text-muted fs-07rem">Showing {{ $products->count() }} Products</span>
