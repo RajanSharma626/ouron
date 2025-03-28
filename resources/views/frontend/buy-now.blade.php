@@ -12,37 +12,38 @@
                     <div class="card custom-card-bg mb-4 check_product">
                         <div class="card-body">
 
-                            @if ($cart->isEmpty())
-                                <p class="text-center text-muted">No items found in your cart.</p>
-                            @else
-                                @foreach ($cart as $item)
-                                    <div class="d-flex align-items-center mb-3 border-bottom pb-3">
-                                        <div class="position-relative">
-                                            <img src="{{ $item->product->firstImage->img }}" alt="Product"
-                                                class="img-thumbnail mr-3" style="width: 70px; height: 70px;">
-                                            <span
-                                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill primary-bg">
-                                                {{ $item->quantity }}
-                                            </span>
+                            @if (session()->has('buy_now'))
+                                @php
+                                    $buyNow = session()->get('buy_now');
+                                @endphp
+                                <div class="d-flex align-items-center mb-3 border-bottom pb-3">
+                                    <div class="position-relative">
+                                        <img src="{{ $buyNow['img'] }}" alt="Product" class="img-thumbnail mr-3"
+                                            style="width: 70px; height: 70px;">
+                                        <span
+                                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill primary-bg">
+                                            1
+                                        </span>
+                                    </div>
+                                    <div class="d-flex justify-content-between w-100 ms-2">
+                                        <div>
+                                            <h6 class="mb-1 fw-bold check_title">{{ $buyNow['name'] }}</h6>
+                                            <p class="mb-0 check_desc">
+                                                Size: {{ $buyNow['size'] }} | Color: &nbsp;
+
+                                                <span class="color-circle checkout-color"
+                                                    style="background-color: {{ $buyNow['color'] ?? '#ffffff' }};"></span>
+
+                                            </p>
                                         </div>
-                                        <div class="d-flex justify-content-between w-100 ms-2">
-                                            <div>
-                                                <h6 class="mb-1 fw-bold check_title">{{ $item->product->name }}</h6>
-                                                <p class="mb-0 check_desc">
-                                                    Size: {{ $item->size ?? 'XS' }} | Color: &nbsp;
-
-                                                    <span class="color-circle checkout-color"
-                                                        style="background-color: {{ $item->color ?? '#ffffff' }};"></span>
-
-                                                </p>
-                                            </div>
-                                            <div class="ml-auto">
-                                                <h6>₹{{ number_format($item->product->price - ($item->product->price * $item->product->discount_price) / 100, 2) }}
-                                                </h6>
-                                            </div>
+                                        <div class="ml-auto">
+                                            <h6>₹{{ number_format($buyNow['price'], 2) }}
+                                            </h6>
                                         </div>
                                     </div>
-                                @endforeach
+                                </div>
+                            @else
+                                <p class="text-center text-muted">No items found in your cart.</p>
                             @endif
                             <!-- Repeat product items as needed -->
                         </div>
@@ -63,6 +64,7 @@
                                     </div>
                                 </div>
 
+
                             </form>
                         </div>
                     </div>
@@ -71,13 +73,7 @@
                     <div class="card custom-card-bg">
                         <div class="card-body">
                             @php
-                                $subtotal = 0;
-                                foreach ($cart as $item) {
-                                    $price =
-                                        $item->product->price -
-                                        ($item->product->price * $item->product->discount_price) / 100;
-                                    $subtotal += $price * $item->quantity;
-                                }
+                                $subtotal = $buyNow['price'];
                                 $tax = $subtotal * 0.18; // GST 18%
                                 $total = $subtotal + $tax;
                             @endphp
@@ -106,8 +102,13 @@
                         <div class="card-body">
                             <h4 class="mb-4">Address Detail</h4>
 
-                            <form method="post" action="{{ route('checkout.store') }}">
+                            <form method="post" action="{{ route('buy.now.store') }}">
                                 @csrf
+                                <input type="number" name="product_id" hidden value="{{ $buyNow['product_id'] }}">
+                                <input type="number" name="product_quantity" hidden value="{{ $buyNow['quantity'] }}">
+                                <input type="number" name="product_size" hidden value="{{ $buyNow['size'] }}">
+                                <input type="text" name="product_color" hidden value="{{ $buyNow['color'] }}">
+
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
@@ -163,8 +164,8 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
-                                            <select id="state" class="form-control py-2 custom-card-bg" name="state"
-                                                required>
+                                            <select id="state" class="form-control py-2 custom-card-bg"
+                                                name="state" required>
                                                 <option value="">Select State</option>
                                                 <option value="Andhra Pradesh"
                                                     {{ old('state') == 'Andhra Pradesh' ? 'selected' : '' }}>Andhra Pradesh
@@ -284,11 +285,12 @@
                                     </div>
 
                                     <div class="col-12 text-end py-3">
-                                        @if ($cart->isEmpty())
+
+                                        @if (session()->has('buy_now'))
+                                            <button type="submit" class="checkout_btn w-100">Buy Now</button>
+                                        @else
                                             <a href="{{ route('home') }}" class="checkout_btn w-100 link-normal">Continue
                                                 Shopping</a>
-                                        @else
-                                            <button type="submit" class="checkout_btn w-100">Buy Now</button>
                                         @endif
                                     </div>
                                 </div>

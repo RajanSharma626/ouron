@@ -1,3 +1,28 @@
+@section('openGraph')
+    <meta name="description" content="{{ $product->meta_description }}">
+    <meta name="keywords" content="{{ $product->meta_keywords }}">
+    <meta property="og:title" content="{{ $product->name }}" />
+    <meta property="og:description" content="{{ $product->meta_description }}" />
+    <meta property="og:image" content="{{ asset($product->firstimage->img) }}" />
+    <meta property="og:url" content="{{ route('product.detail', $product->slug) }}" />
+    <meta property="og:type" content="product" />
+    <meta property="og:site_name" content="Ouron" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="en_IN" />
+    <meta property="og:image:alt" content="{{ $product->name }}" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:type" content="image/jpg" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:type" content="image/webp" />
+    <meta property="og:image:secure_url" content="{{ asset($product->firstimage->img) }}" />
+    <meta property="og:updated_time" content="{{ $product->updated_at }}" />
+    <meta property="og:price:amount"
+        content="{{ number_format($product->price - ($product->price * $product->discount_price) / 100, 2) }}" />
+    <meta property="og:price:currency" content="INR" />
+    <meta property="og:availability" content="in stock" />
+@endsection
+
+
 @extends('frontend.layouts.app')
 
 @section('title', 'Product Detail page')
@@ -74,7 +99,17 @@
                         </div>
                         <!-- Add Pagination -->
                         <div class="swiper-pagination"></div>
+
+                        <div class="d-md-none" style="position: absolute; bottom: 50px; right: 10px; z-index: 1050;">
+                            <div class="product_icons">
+                                <a href="javascript:void(0)" class="share_icon " title="Share" id="shareBtn">
+                                    <i class="bi bi-upload"></i>
+                                </a>
+                            </div>
+                        </div>
                     </div>
+
+                    <!-- Bottom Right Share Icon -->
 
                 </div>
                 <div class="col-md-6 col-lg-5 col-12 p-md-5 py-4 py-md-0">
@@ -114,82 +149,96 @@
                     </h6>
                     <p class="text-muted fs-12">MRP inclusive of all taxes </p>
 
-                    <div class="row justify-content-between align-items-center mb-2">
+                    <form action="{{ route('buy.now') }}" method="post">
+                        @csrf
+                        <input type="hidden" name="id" value="{{ $product->id }}">
                         <div class="row justify-content-between align-items-center mb-2">
-                            <div class="col"><b>Color:</b></div>
-                        </div>
-                        <div class="col-12 d-flex gap-1">
-                            @php
-                                $first_color = 1;
-                            @endphp
-
-                            @foreach (json_decode($product->colors, true) as $color)
-                                <div class="color text-center">
-                                    <input class="form-check-input d-none" type="radio" name="color"
-                                        id="color-{{ $color }}" value="{{ $color }}"
-                                        {{ $first_color === 1 ? 'checked' : '' }} required>
-                                    <label class="form-check-label color-label" for="color-{{ $color }}">
-                                        <span class="color-circle {{ $first_color === 1 ? 'active_color' : '' }}"
-                                            style="background-color: {{ $color }};"></span>
-                                    </label>
-                                </div>
-
+                            <div class="row justify-content-between align-items-center mb-2">
+                                <div class="col"><b>Color:</b></div>
+                            </div>
+                            <div class="col-12 d-flex gap-1">
                                 @php
-                                    $first_color++;
+                                    $first_color = 1;
                                 @endphp
-                            @endforeach
-                        </div>
 
-                    </div>
-
-                    <div class="row justify-content-between align-items-center mb-2">
-                        <div class="row justify-content-between align-items-center mb-2">
-                            <div class="col"><b>Size:</b></div>
-                            <div class="col text-end fs-12"><a href="#!" class="primary-color">Size Guide</a></div>
-                        </div>
-                        <div class="col-12 d-flex gap-md-3 py-2">
-                            @php
-                                $availableSizes = json_decode($product->sizes, true);
-                                $firstSize = reset($availableSizes); // Get the first available size
-                            @endphp
-
-                            @foreach (['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL'] as $size)
-                                @if (in_array($size, $availableSizes))
-                                    <div class="size text-center">
-                                        <input class="form-check-input d-none" type="radio" name="size"
-                                            id="size-{{ $size }}" value="{{ $size }}"
-                                            {{ $size === $firstSize ? 'checked' : '' }} required>
-                                        <label class="form-check-label size-label" for="size-{{ $size }}">
-                                            <img src="{{ asset('/images/sizes/' . $size . '.png') }}"
-                                                class="img-fluid size_img {{ $size === $firstSize ? 'active_size' : '' }} "
-                                                alt="">
+                                @foreach (json_decode($product->colors, true) as $color)
+                                    <div class="color text-center">
+                                        <input class="form-check-input d-none" type="radio" name="color"
+                                            id="color-{{ $color }}" value="{{ $color }}"
+                                            {{ $first_color === 1 ? 'checked' : '' }} required>
+                                        <label class="form-check-label color-label" for="color-{{ $color }}">
+                                            <span class="color-circle {{ $first_color === 1 ? 'active_color' : '' }}"
+                                                style="background-color: {{ $color }};"></span>
                                         </label>
                                     </div>
+
+                                    @php
+                                        $first_color++;
+                                    @endphp
+                                @endforeach
+                            </div>
+
+                        </div>
+
+                        <div class="row justify-content-between align-items-center mb-2">
+                            <div class="row justify-content-between align-items-center mb-2">
+                                <div class="col"><b>Size:</b></div>
+                                <div class="col text-end fs-12"><a href="#!" class="primary-color">Size Guide</a>
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex gap-md-3 py-2">
+                                @php
+                                    $availableSizes = json_decode($product->sizes, true);
+                                    $firstSize = reset($availableSizes); // Get the first available size
+                                @endphp
+
+                                @foreach (['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL'] as $size)
+                                    @if (in_array($size, $availableSizes))
+                                        <div class="size text-center">
+                                            <input class="form-check-input d-none" type="radio" name="size"
+                                                id="size-{{ $size }}" value="{{ $size }}"
+                                                {{ $size === $firstSize ? 'checked' : '' }} required>
+                                            <label class="form-check-label size-label" for="size-{{ $size }}">
+                                                <img src="{{ asset('/images/sizes/' . $size . '.png') }}"
+                                                    class="img-fluid size_img {{ $size === $firstSize ? 'active_size' : '' }} "
+                                                    alt="">
+                                            </label>
+                                        </div>
+                                    @endif
+                                @endforeach
+                            </div>
+
+                        </div>
+
+
+                        <div class="row py-3 g-2">
+                            <div class="col-6 mb-md-0">
+                                <form action="" id="confirmAddToCart2">
+                                    <button type="submit" class="checkout_btn w-100" title="Add to Cart"
+                                        data-id="{{ $product->id }}">Add to
+                                        Cart</button>
+                                </form>
+                            </div>
+                            <div class="col-6 mb-md-0">
+                                <a href="{{ $product->blog ? route('blog.detail', $product->blog->slug) : '#' }}">
+                                    <button class="checkout_btn w-100">WTS?</button>
+                                </a>
+                            </div>
+                            <div class="col-12 mb-md-0">
+                                <button type="submit" class="checkout_btn w-100">Buy Now</button>
+
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul class="mb-0">
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
                                 @endif
-                            @endforeach
+                            </div>
                         </div>
-
-                    </div>
-
-
-                    <div class="row py-3 g-2">
-                        <div class="col-6 mb-md-0">
-                            <form action="" id="confirmAddToCart2">
-                                <button type="submit" class="checkout_btn w-100" title="Add to Cart"
-                                    data-id="{{ $product->id }}">Add to
-                                    Cart</button>
-                            </form>
-                        </div>
-                        <div class="col-6 mb-md-0">
-                            <a href="{{ $product->blog ? route('blog.detail', $product->blog->slug) : '#' }}">
-                                <button class="checkout_btn w-100">WTS?</button>
-                            </a>
-                        </div>
-                        <div class="col-12 mb-md-0">
-                            <button class="checkout_btn w-100">Buy Now</button>
-                        </div>
-                    </div>
-
+                    </form>
                     <div class="row">
                         <div class="col-12">
                             <p class="text-normal">
@@ -388,6 +437,24 @@
                 el: '.swiper-pagination',
                 clickable: true,
             },
+        });
+    </script>
+
+    <script>
+        document.getElementById('shareBtn').addEventListener('click', function() {
+            const shareData = {
+                title: '{{ $product->name }}',
+                text: 'Check out this product: {{ $product->name }}',
+                url: '{{ route('product.detail', $product->slug) }}'
+            };
+            if (navigator.share) {
+                navigator.share(shareData)
+                    .then(() => console.log('Shared successfully'))
+                    .catch((error) => console.log('Error sharing', error));
+            } else {
+                // Fallback: prompt the URL for manual copy
+                prompt('Copy this URL to share:', shareData.url);
+            }
         });
     </script>
 

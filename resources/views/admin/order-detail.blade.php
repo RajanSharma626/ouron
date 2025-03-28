@@ -19,8 +19,10 @@
                                     <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
                                         <div>
                                             <h4 class="fw-medium text-dark d-flex align-items-center gap-2">
-                                                #{{ $order->id }} <span
-                                                    class="badge bg-success-subtle text-success  px-2 py-1 fs-13">Paid</span><span
+                                                #{{ $order->id }} 
+                                                {{-- <span
+                                                    class="badge bg-success-subtle text-success  px-2 py-1 fs-13">{{ $order->id }}</span> --}}
+                                                    <span
                                                     class="border border-warning text-warning fs-13 px-2 py-1 rounded">In
                                                     Progress</span></h4>
                                             <p class="mb-0">Order / Order Details / #{{ $order->id }} -
@@ -28,9 +30,9 @@
                                                 {{ $order->created_at->format('g:i a') }}</p>
                                         </div>
                                         <div>
-                                            <a href="#!" class="btn btn-outline-secondary">Refund</a>
-                                            <a href="#!" class="btn btn-outline-secondary">Return</a>
-                                            <a href="#!" class="btn btn-primary">Edit Order</a>
+                                            {{-- <a href="#!" class="btn btn-outline-secondary">Refund</a>
+                                            <a href="#!" class="btn btn-outline-secondary">Return</a> --}}
+                                            <a href="#!" class="btn btn-danger">Cancel Order</a>
                                         </div>
 
                                     </div>
@@ -378,7 +380,7 @@
                                     class="avatar rounded-3 border border-light border-3"> --}}
                                 <div>
                                     <p class="mb-1">{{ $order->first_name . ' ' . $order->last_name }}</p>
-                                    <a href="#!" class="link-primary fw-medium">{{ $order->email }}</a>
+                                    <a href="mailto:{{ $order->email }}" class="link-primary fw-medium">{{ $order->email }}</a>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-between mt-3">
@@ -387,7 +389,7 @@
                                     <a href="#!"><i class='bx bx-edit-alt fs-18'></i></a>
                                 </div> --}}
                             </div>
-                            <p class="mb-1">+91 {{ $order->phone }}</p>
+                            <p class="mb-1"><a href="tel:+91{{ $order->phone }}" class="link-primary fw-medium">+91 {{ $order->phone }}</a></p>
 
                             <div class="d-flex justify-content-between mt-3">
                                 <h5 class="">Shipping Address</h5>

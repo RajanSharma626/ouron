@@ -79,9 +79,11 @@ Route::middleware(['user.auth'])->group(function () {
 
     Route::post('/wishlist/toggle', [WishlistController::class, 'toggleWishlist'])->name('wishlist.toggle');
     Route::get('/wishlist', [WishlistController::class, 'getWishlist'])->name('wishlist');
+
+    Route::get('/buy', [CheckoutController::class, 'buy'])->name('buy');
+    Route::post('/buy-now', [CheckoutController::class, 'buyNow'])->name('buy.now');
+    Route::post('/buy-now/store', [CheckoutController::class, 'buyNowStore'])->name('buy.now.store');
 });
-
-
 
 
 

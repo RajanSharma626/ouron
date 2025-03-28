@@ -345,7 +345,7 @@ body {
 }
 
 /* Show dropdown on hover */
-.nav-item.dropdown:hover > .dropdown-menu {
+.nav-item.dropdown:hover>.dropdown-menu {
     display: block;
 }
 
@@ -481,6 +481,15 @@ select:focus {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.share_icon {
     width: 36px;
     height: 36px;
     background: rgba(255, 255, 255, 0.8);
@@ -658,7 +667,7 @@ footer p {
     outline-offset: 3px;
 }
 
-input[type="radio"]:checked + label .size_img {
+input[type="radio"]:checked+label .size_img {
     outline: 3px solid var(--primary-color);
     outline-offset: 3px;
 }
@@ -688,7 +697,7 @@ input[type="radio"]:checked + label .size_img {
     outline-offset: 3px;
 }
 
-input[type="radio"]:checked + label .color-circle {
+input[type="radio"]:checked+label .color-circle {
     outline: 3px solid #315b46;
     outline-offset: 3px;
 }
