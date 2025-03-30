@@ -10,7 +10,13 @@
                 <div class="col-md-5 mx-auto">
                     <div class="card">
                         <div class="container text-center py-5">
-                            <h2>Thank You for Your Order!</h2>
+                            <div class="success-video" >
+                                <video autoplay loop muted playsinline width="50%">
+                                    <source src="{{ asset('images/video/confirmed.mp4') }}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <h2 class="fs-4 fw-bold">Thank You for Your Order!</h2>
                             <p>Your order has been placed successfully. You will receive an email confirmation soon.</p>
                             <a href="{{ route('home') }}" class="btn primary-bg">Continue Shopping</a>
                         </div>

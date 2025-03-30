@@ -29,9 +29,43 @@
                         <!-- Profile Tab -->
                         <div class="tab-pane fade show active" id="profileTab">
                             <h5 class="mb-4 fw-bold">Contact Detail</h5>
-                            <p><strong>Name:</strong> {{ auth()->user()->name }}</p>
-                            <p><strong>Email:</strong> {{ auth()->user()->email }}</p>
-                            <p><strong>Phone No:</strong> {{ auth()->user()->phone }}</p>
+                            @if (session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+                            <form action="{{ route('profile.update') }}" method="POST">
+                                @csrf
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Name</label>
+                                    <input type="text" name="name" class="form-control"
+                                        value="{{ old('name', auth()->user()->name) }}" disabled>
+                                    @error('name')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" name="email" class="form-control"
+                                        value="{{ old('email', auth()->user()->email) }}" disabled>
+                                    @error('email')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="phone" class="form-label">Phone No</label>
+                                    <input type="text" name="phone" class="form-control"
+                                        value="{{ old('phone', auth()->user()->phone) }}" disabled>
+                                    @error('phone')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="mb-3 text-end">
+                                    <button id="editBtn" type="button" class="btn primary-bg">Edit Detail</button>
+                                    <button id="saveBtn" type="submit" class="btn primary-bg d-none">Save Detail</button>
+                                </div>
+                            </form>
                         </div>
 
                         <!-- Orders Tab -->
@@ -124,7 +158,8 @@
                                             <textarea name="address" id="address" class="form-control" rows="3"></textarea>
                                         </div>
                                         <div class="form-check mb-3">
-                                            <input type="checkbox" class="form-check-input" id="primary" name="primary">
+                                            <input type="checkbox" class="form-check-input" id="primary"
+                                                name="primary">
                                             <label class="form-check-label" for="primary">Set as primary address</label>
                                         </div>
                                         <button type="submit" class="btn btn-success">Save Address</button>

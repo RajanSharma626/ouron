@@ -464,4 +464,15 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
+
+
+    document.getElementById('editBtn').addEventListener('click', function() {
+        // Remove disabled attribute from text, email, and phone inputs
+        this.closest('form').querySelectorAll('input').forEach(function(input) {
+            input.removeAttribute('disabled');
+        });
+        // Hide edit button and show save button
+        document.getElementById('editBtn').classList.add('d-none');
+        document.getElementById('saveBtn').classList.remove('d-none');
+    });
 });

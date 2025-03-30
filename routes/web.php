@@ -61,7 +61,7 @@ Route::post('/logout', [LoginAuth::class, 'logout'])->name('logout');
 //profile
 Route::middleware(['user.auth'])->group(function () {
     Route::get('/profile', [LoginAuth::class, 'profile'])->name('profile');
-    Route::post('/profile', [LoginAuth::class, 'updateProfile'])->name('update-profile');
+    Route::post('/profile-update', [LoginAuth::class, 'updateProfile'])->name('profile.update');
 
     //checkout
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');

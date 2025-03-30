@@ -83,32 +83,7 @@ class LoginAuth extends Controller
 
             return redirect()->route('otp-verify')->with('user_id', $user->id);
         }
-
-        return redirect()->route('login')->with('error', 'Phone number not registered');
     }
-
-    // public function registerUser(Request $request)
-    // {
-    //     $request->validate([
-    //         'name' => 'required',
-    //         'email' => 'required|email|unique:users,email',
-    //         'phone' => 'required|unique:users,phone'
-    //     ]);
-
-    //     $user = User::create([
-    //         'name' => $request->name,
-    //         'email' => $request->email,
-    //         'phone' => $request->phone,
-    //         // 'otp' => bcrypt(rand(100000, 999999)), // Encrypt the OTP
-    //         'otp' => rand(100000, 999999), // Encrypt the OTP
-    //         'otp_expires_at' => now()->addMinutes(5) // Set OTP expiration time
-    //     ]);
-
-    //     // Send OTP to user's phone using a service like Twilio
-    //     $this->sendOtpToPhone("+91" . $user->phone, $user->otp);
-
-    //     return redirect()->route('otp-verify')->with('user_id', $user->id);
-    // }
 
     private function sendOtpToPhone($phone, $otp)
     {
@@ -170,6 +145,21 @@ class LoginAuth extends Controller
         }
 
         return redirect()->route('otp-verify')->with('error', 'Invalid OTP');
+    }
+
+
+    public function updateProfile(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|digits:10',
+        ]);
+
+        $user = Auth::user();
+        $user->update($request->all());
+
+        return redirect()->route('profile')->with('success', 'Profile updated successfully');
     }
 
     public function logout()

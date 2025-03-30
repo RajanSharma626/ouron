@@ -15,7 +15,7 @@
         <div class="d-flex align-items-center mb-3 border-bottom pb-3">
             <div class="position-relative">
                 <img src="{{ asset($item->product->firstImage->img) }}" alt="Product" class="img-thumbnail mr-3"
-                    style="width: 70px; height: 70px;">
+                    style="width: 70px;">
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill primary-bg">
                     {{ $item->quantity }}
                 </span>
