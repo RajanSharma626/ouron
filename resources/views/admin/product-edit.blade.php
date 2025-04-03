@@ -45,21 +45,21 @@
                                                     alt="Product Image">
                                                 <a href="{{ route('product.image.delete', $image->id) }}"
                                                     class="position-absolute top-0 end-0 mt-2 me-2 btn btn-danger btn-sm"
-                                                    onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this image?')) { 
-                                                       var form = document.createElement('form'); 
-                                                       form.method = 'POST'; 
+                                                    onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this image?')) {
+                                                       var form = document.createElement('form');
+                                                       form.method = 'POST';
                                                        form.action = this.href;
-                                                       var token = document.createElement('input'); 
-                                                       token.type = 'hidden'; 
-                                                       token.name = '_token'; 
+                                                       var token = document.createElement('input');
+                                                       token.type = 'hidden';
+                                                       token.name = '_token';
                                                        token.value = '{{ csrf_token() }}';
                                                        form.appendChild(token);
-                                                       var method = document.createElement('input'); 
-                                                       method.type = 'hidden'; 
-                                                       method.name = '_method'; 
+                                                       var method = document.createElement('input');
+                                                       method.type = 'hidden';
+                                                       method.name = '_method';
                                                        method.value = 'DELETE';
                                                        form.appendChild(method);
-                                                       document.body.appendChild(form); 
+                                                       document.body.appendChild(form);
                                                        form.submit(); }">
                                                     Delete
                                                 </a>
@@ -288,20 +288,7 @@
         <!-- End Container Fluid -->
 
         <!-- ========== Footer Start ========== -->
-        <footer class="footer">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12 text-center">
-                        <script>
-                            document.write(new Date().getFullYear())
-                        </script> &copy; Ouron. Design & Develop by
-                        <iconify-icon icon="iconamoon:heart-duotone"
-                            class="fs-18 align-middle text-danger"></iconify-icon>
-                        <a href="https://1.envato.market/techzaa" class="fw-bold footer-text" target="_blank">Rajan</a>
-                    </div>
-                </div>
-            </div>
-        </footer>
+        @include('admin.layouts.footer')
         <!-- ========== Footer End ========== -->
 
     </div>

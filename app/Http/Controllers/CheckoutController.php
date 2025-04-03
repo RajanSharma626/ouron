@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Jobs\SendOrderConfirmationJob;
 use App\Models\CartItem;
+use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
@@ -181,5 +182,28 @@ class CheckoutController extends Controller
         SendOrderConfirmationJob::dispatch($order);
 
         return redirect()->route('order.success')->with('success', 'Order placed successfully!');
+    }
+
+
+    public function applyCoupon(Request $request)
+    {
+        $couponCode = strtoupper($request->input('coupon_code'));
+        $coupon = Coupon::where('coupon_code', $couponCode)
+            ->where('status', 'active')
+            ->where('start_date', '<=', now())
+            ->where('end_date', '>=', now())
+            ->first();
+
+        if (!$coupon) {
+            return redirect()->route('checkout')->with('coupon_error', 'Invalid or expired coupon code.');
+        }
+
+        // Store the coupon discount in session
+        session(['discount' => [
+            'value' => $coupon->discount_value,
+            'type' => $coupon->coupon_type
+        ]]);
+
+        return redirect()->route('checkout')->with('coupon_success', 'Coupon applied successfully!');
     }
 }

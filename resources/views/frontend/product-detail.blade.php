@@ -32,7 +32,7 @@
     <section class="product_detail  py-md-5">
         <div class="container-fluid px-md-5">
             <div class="row">
-                <div class="col-md-6 col-lg-7 col-12 px-0 px-md-3">
+                <div class="col-md-6 col-lg-7 col-12 px-0 px-md-3" style="position: relative">
                     <div class="row product_images d-none d-md-flex">
                         @foreach ($product->productImg as $image)
                             @php
@@ -63,6 +63,14 @@
                                 </picture>
                             </div>
                         @endforeach
+
+                        <div style="position: absolute; top: 10px; right: 10px; z-index: 1050;">
+                            <div class="product_icons">
+                                <a href="javascript:void(0)" class="share_icon primary-bg" title="Share" id="shareBtn">
+                                    <i class="bi bi-upload text-white"></i>
+                                </a>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="swiper product-swiper d-md-none">
@@ -109,7 +117,6 @@
                         </div>
                     </div>
 
-                    <!-- Bottom Right Share Icon -->
 
                 </div>
                 <div class="col-md-6 col-lg-5 col-12 p-md-5 py-4 py-md-0">
@@ -124,8 +131,8 @@
                                 <i class="bi bi-heart-fill fs-3 text-danger filled-heart"></i> --}}
 
                                 @auth
-                                    <a href="javascript:void(0)" class="like_icon wishlist-btn2" data-id="{{ $product->id }}"
-                                        title="Add to Wishlist">
+                                    <a href="javascript:void(0)" class="like_icon wishlist-btn2"
+                                        data-id="{{ $product->id }}" title="Add to Wishlist">
                                         @if ($product->liked)
                                             <i class="bi bi-heart-fill fs-3 text-danger"></i>
                                         @else

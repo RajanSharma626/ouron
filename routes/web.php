@@ -14,6 +14,7 @@ use App\Http\Controllers\LoginAuth;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\frontend\ProductController as FrontendProductController;
+use App\Http\Controllers\UserAddressController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
@@ -62,16 +63,20 @@ Route::post('/logout', [LoginAuth::class, 'logout'])->name('logout');
 Route::middleware(['user.auth'])->group(function () {
     Route::get('/profile', [LoginAuth::class, 'profile'])->name('profile');
     Route::post('/profile-update', [LoginAuth::class, 'updateProfile'])->name('profile.update');
+    Route::post('/addresses', [UserAddressController::class, 'store'])->name('addresses.store');
+    Route::delete('/addresses/{id}', [UserAddressController::class, 'destroy'])->name('addresses.destroy');
+    Route::patch('/addresses/{id}/set-default', [UserAddressController::class, 'setDefault'])->name('addresses.setDefault');
+    Route::get('/profile/order-detail/{id}', [OrderController::class, 'show'])->name('orders.show');
 
     //checkout
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
 
     //checkout store
-
-    Route::post('/apply-coupon', [CouponController::class, 'applyCoupon'])->name('coupon.apply');
+    Route::post('/checkout/apply-coupon', [CheckoutController::class, 'applyCoupon'])->name('checkout.applyCoupon');
     Route::get('/remove-coupon', [CouponController::class, 'removeCoupon'])->name('coupon.remove');
 
     Route::post('/checkout/store', [CheckoutController::class, 'store'])->name('checkout.store');
+    Route::post('/checkout/{id}/edit', [CheckoutController::class, 'editView'])->name('checkout.edit');
 
     Route::get('/order-success', function () {
         return view('frontend.order-success');

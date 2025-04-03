@@ -12,6 +12,21 @@
 
             <div class="row">
                 <div class="col-xl-12">
+                    @if (session('success'))
+                        <div class="col-12">
+                            <div class="alert alert-success text-truncate mb-3" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        </div>
+                    @endif
+
+                    @if (session('error'))
+                        <div class="col-12">
+                            <div class="alert alert-danger text-truncate mb-3" role="alert">
+                                {{ session('error') }}
+                            </div>
+                        </div>
+                    @endif
                     <div class="card">
                         <div class="d-flex card-header justify-content-between align-items-center">
                             <div>
@@ -44,9 +59,17 @@
                                         @foreach ($coupons as $coupon)
                                             <tr>
                                                 <td>{{ $coupon->coupon_code }}</td>
-                                                <td>{{ $coupon->coupon_limits }}</td>
+                                                <td>{{ $coupon->coupon_limits ?? '-' }}
                                                 <td>{{ $coupon->discount_value }}</td>
-                                                <td>{{ $coupon->coupon_type }}</td>
+                                                <td>
+                                                    @if ($coupon->coupon_type == 'free_shipping')
+                                                        Free Shipping
+                                                    @elseif($coupon->coupon_type == 'fixed_amount')
+                                                        Fixed Amount
+                                                    @elseif($coupon->coupon_type == 'percentage')
+                                                        Percentage
+                                                    @endif
+                                                </td>
                                                 <td>{{ $coupon->start_date }}</td>
                                                 <td>{{ $coupon->end_date }}</td>
                                                 <td>
@@ -56,7 +79,7 @@
                                                         $endDate = \Carbon\Carbon::parse($coupon->end_date);
                                                     @endphp
 
-                                                    @if($startDate->gt($now))
+                                                    @if ($startDate->gt($now))
                                                         <span class="badge text-warning bg-warning-subtle fs-12">
                                                             <i class="bx bx-time-five"></i>Future
                                                         </span>
@@ -72,10 +95,8 @@
                                                 </td>
                                                 <td>
                                                     <div class="d-flex gap-2">
-                                                        <a href="#!" class="btn btn-light btn-sm"><iconify-icon
-                                                                icon="solar:eye-broken"
-                                                                class="align-middle fs-18"></iconify-icon></a>
-                                                        <a href="#!" class="btn btn-soft-primary btn-sm"><iconify-icon
+                                                        <a href="{{ route('admin.coupons.edit', $coupon->id) }}"
+                                                            class="btn btn-soft-primary btn-sm"><iconify-icon
                                                                 icon="solar:pen-2-broken"
                                                                 class="align-middle fs-18"></iconify-icon></a>
                                                         <a href="{{ route('admin.coupons.delete', $coupon->id) }}"
@@ -94,13 +115,37 @@
                         <div class="card-footer border-top">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-end mb-0">
-                                    <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a>
-                                    </li>
-                                    <li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>
+                                    @if ($coupons->onFirstPage())
+                                        <li class="page-item disabled">
+                                            <a class="page-link" href="javascript:void(0);">Previous</a>
+                                        </li>
+                                    @else
+                                        <li class="page-item">
+                                            <a class="page-link" href="{{ $coupons->previousPageUrl() }}">Previous</a>
+                                        </li>
+                                    @endif
+
+                                    @foreach ($coupons->links()->elements[0] as $page => $url)
+                                        @if ($page == $coupons->currentPage())
+                                            <li class="page-item active">
+                                                <a class="page-link" href="javascript:void(0);">{{ $page }}</a>
+                                            </li>
+                                        @else
+                                            <li class="page-item">
+                                                <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                                            </li>
+                                        @endif
+                                    @endforeach
+
+                                    @if ($coupons->hasMorePages())
+                                        <li class="page-item">
+                                            <a class="page-link" href="{{ $coupons->nextPageUrl() }}">Next</a>
+                                        </li>
+                                    @else
+                                        <li class="page-item disabled">
+                                            <a class="page-link" href="javascript:void(0);">Next</a>
+                                        </li>
+                                    @endif
                                 </ul>
                             </nav>
                         </div>

@@ -27,6 +27,21 @@ class User extends Authenticatable
         'phone_verified_at',
     ];
 
+    public function addresses()
+    {
+        return $this->hasMany(UserAddress::class);
+    }
+
+    public function defaultAddress()
+    {
+        return $this->hasOne(UserAddress::class)->where('default_address', true);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

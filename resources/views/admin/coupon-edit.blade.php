@@ -1,8 +1,8 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Coupons Create')
+@section('title', 'Coupons Edit')
 
-@section('page_title', 'Coupons Create')
+@section('page_title', 'Coupons Edit')
 
 @section('content')
     <div class="page-content">
@@ -18,7 +18,7 @@
                 @endif
             </div>
 
-            <form action="{{ route('admin.coupons.store') }}" method="POST">
+            <form action="{{ route('admin.coupons.update') }}" method="POST">
                 @csrf
                 <div class="row">
                     <div class="col-lg-5">
@@ -32,7 +32,8 @@
                                         <div class="d-flex gap-2 align-items-center">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="status"
-                                                    id="flexRadioDefault9" value="active" checked>
+                                                    id="flexRadioDefault9" value="active"
+                                                    {{ $coupon->status == 'active' ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="flexRadioDefault9">
                                                     Active
                                                 </label>
@@ -42,7 +43,8 @@
                                     <div class="col-lg-4">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="status"
-                                                id="flexRadioDefault10" value="inactive">
+                                                id="flexRadioDefault10" value="inactive"
+                                                {{ $coupon->status == 'inactive' ? 'checked' : '' }}>
                                             <label class="form-check-label" for="flexRadioDefault10">
                                                 In Active
                                             </label>
@@ -51,7 +53,8 @@
                                     <div class="col-lg-4">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="status"
-                                                id="flexRadioDefault11" value="future">
+                                                id="flexRadioDefault11" value="future"
+                                                {{ $coupon->status == 'future' ? 'checked' : '' }}>
                                             <label class="form-check-label" for="flexRadioDefault11">
                                                 Future Plan
                                             </label>
@@ -71,7 +74,7 @@
                                 <div class="mb-3">
                                     <label for="start-date" class="form-label text-dark">Start Date</label>
                                     <input type="date" id="start-date" class="form-control" placeholder="dd-mm-yyyy"
-                                        name="start-date">
+                                        name="start-date" value="{{ $coupon->start_date }}">
                                     @error('start-date')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -79,7 +82,7 @@
                                 <div class="mb-3">
                                     <label for="end-date" class="form-label text-dark">End Date</label>
                                     <input type="date" id="end-date" class="form-control" placeholder="dd-mm-yyyy"
-                                        name="end-date">
+                                        name="end-date" value="{{ $coupon->end_date }}">
                                     @error('end-date')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -99,7 +102,8 @@
                                         <div class="mb-3">
                                             <label for="coupons-code" class="form-label">Coupons Code</label>
                                             <input type="text" id="coupons-code" name="coupons-code" class="form-control"
-                                                placeholder="Code enter">
+                                                placeholder="Code enter" value="{{ $coupon->coupon_code }}">
+                                            <input type="hidden" name="coupons-id" value="{{ $coupon->id }}">
                                             @error('coupons-code')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
@@ -110,7 +114,8 @@
                                         <div class="mb-3">
                                             <label for="coupons-limits" class="form-label">Coupons Limits</label>
                                             <input type="number" id="coupons-limits" name="coupons-limits"
-                                                class="form-control" placeholder="limits no.">
+                                                class="form-control" placeholder="limits no."
+                                                value="{{ $coupon->coupon_limits }}}">
                                             @error('coupons-limits')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
@@ -123,7 +128,8 @@
                                         <div class="d-flex gap-2 align-items-center">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="coupons-type"
-                                                    id="flexRadioDefault12" value="free_shipping" checked>
+                                                    id="flexRadioDefault12" value="free_shipping"
+                                                    {{ $coupon->coupon_type == 'free_shipping' ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="flexRadioDefault12">
                                                     Free Shipping
                                                 </label>
@@ -133,7 +139,8 @@
                                     <div class="col-lg-4">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="coupons-type"
-                                                id="flexRadioDefault13" value="percentage">
+                                                id="flexRadioDefault13" value="percentage"
+                                                {{ $coupon->coupon_type == 'percentage' ? 'checked' : '' }}>
                                             <label class="form-check-label" for="flexRadioDefault13">
                                                 Percentage
                                             </label>
@@ -142,7 +149,8 @@
                                     <div class="col-lg-4">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="coupons-type"
-                                                id="flexRadioDefault14" value="fixed_amount">
+                                                id="flexRadioDefault14" value="fixed_amount"
+                                                {{ $coupon->coupon_type == 'fixed_amount' ? 'checked' : '' }}>
                                             <label class="form-check-label" for="flexRadioDefault14">
                                                 Fixed Amount
                                             </label>
@@ -157,7 +165,8 @@
                                         <div class="">
                                             <label for="discount-value" class="form-label">Discount Value</label>
                                             <input type="number" id="discount-value" name="discount-value"
-                                                class="form-control" placeholder="value enter">
+                                                class="form-control" placeholder="value enter"
+                                                value="{{ $coupon->discount_value }}">
                                             @error('discount-value')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
@@ -166,7 +175,7 @@
                                 </div>
                             </div>
                             <div class="card-footer border-top">
-                                <button type="submit" class="btn btn-primary">Create Coupon</button>
+                                <button type="submit" class="btn btn-primary">Update Coupon</button>
                             </div>
                         </div>
                     </div>

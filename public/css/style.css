@@ -345,7 +345,7 @@ body {
 }
 
 /* Show dropdown on hover */
-.nav-item.dropdown:hover>.dropdown-menu {
+.nav-item.dropdown:hover > .dropdown-menu {
     display: block;
 }
 
@@ -667,7 +667,7 @@ footer p {
     outline-offset: 3px;
 }
 
-input[type="radio"]:checked+label .size_img {
+input[type="radio"]:checked + label .size_img {
     outline: 3px solid var(--primary-color);
     outline-offset: 3px;
 }
@@ -697,7 +697,7 @@ input[type="radio"]:checked+label .size_img {
     outline-offset: 3px;
 }
 
-input[type="radio"]:checked+label .color-circle {
+input[type="radio"]:checked + label .color-circle {
     outline: 3px solid #315b46;
     outline-offset: 3px;
 }
@@ -840,6 +840,7 @@ input[type="radio"]:checked+label .color-circle {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    min-height: 100vh;
 }
 
 .list-group-item {
@@ -903,4 +904,13 @@ input[type="radio"]:checked+label .color-circle {
     .heading-font {
         font-size: 0.8rem;
     }
+
+    #cart {
+        width: 85% !important;
+    }
+}
+
+#ordersTab {
+    max-height: 80vh;
+    overflow-y: scroll;
 }

@@ -10,84 +10,6 @@
         <!-- Start Container Fluid -->
         <div class="container-xxl">
 
-            {{-- <div class="row">
-                <div class="col-md-6 col-xl-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <div>
-                                    <h4 class="card-title mb-2">Pending Review</h4>
-                                    <p class="text-muted fw-medium fs-22 mb-0">0</p>
-                                </div>
-                                <div>
-                                    <div class="avatar-md bg-primary bg-opacity-10 rounded">
-                                        <iconify-icon icon="solar:clipboard-remove-broken"
-                                            class="fs-32 text-primary avatar-title"></iconify-icon>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-xl-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <div>
-                                    <h4 class="card-title mb-2">Pending Payment</h4>
-                                    <p class="text-muted fw-medium fs-22 mb-0">0</p>
-                                </div>
-                                <div>
-                                    <div class="avatar-md bg-primary bg-opacity-10 rounded">
-                                        <iconify-icon icon="solar:clock-circle-broken"
-                                            class="fs-32 text-primary avatar-title"></iconify-icon>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-xl-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <div>
-                                    <h4 class="card-title mb-2">Delivered</h4>
-                                    <p class="text-muted fw-medium fs-22 mb-0">0</p>
-                                </div>
-                                <div>
-                                    <div class="avatar-md bg-primary bg-opacity-10 rounded">
-                                        <iconify-icon icon="solar:clipboard-check-broken"
-                                            class="fs-32 text-primary avatar-title"></iconify-icon>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-xl-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <div>
-                                    <h4 class="card-title mb-2">In Progress</h4>
-                                    <p class="text-muted fw-medium fs-22 mb-0">0</p>
-                                </div>
-                                <div>
-                                    <div class="avatar-md bg-primary bg-opacity-10 rounded">
-                                        <iconify-icon icon="solar:inbox-line-broken"
-                                            class="fs-32 text-primary avatar-title"></iconify-icon>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div> --}}
-
             <div class="row">
                 <div class="col-xl-12">
                     <div class="card">
@@ -183,13 +105,31 @@
                         <div class="card-footer border-top">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-end mb-0">
-                                    <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a>
-                                    </li>
-                                    <li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>
+                                    @if ($orders->onFirstPage())
+                                        <li class="page-item disabled"><a class="page-link"
+                                                href="javascript:void(0);">Previous</a></li>
+                                    @else
+                                        <li class="page-item"><a class="page-link"
+                                                href="{{ $orders->previousPageUrl() }}">Previous</a></li>
+                                    @endif
+
+                                    @foreach ($orders->links()->elements[0] as $page => $url)
+                                        @if ($page == $orders->currentPage())
+                                            <li class="page-item active"><a class="page-link"
+                                                    href="javascript:void(0);">{{ $page }}</a></li>
+                                        @else
+                                            <li class="page-item"><a class="page-link"
+                                                    href="{{ $url }}">{{ $page }}</a></li>
+                                        @endif
+                                    @endforeach
+
+                                    @if ($orders->hasMorePages())
+                                        <li class="page-item"><a class="page-link"
+                                                href="{{ $orders->nextPageUrl() }}">Next</a></li>
+                                    @else
+                                        <li class="page-item disabled"><a class="page-link"
+                                                href="javascript:void(0);">Next</a></li>
+                                    @endif
                                 </ul>
                             </nav>
                         </div>

@@ -46,10 +46,6 @@ class LoginAuth extends Controller
         return view('frontend.login');
     }
 
-    public function register()
-    {
-        return view('frontend.register');
-    }
 
     public function login(Request $request)
     {
@@ -159,7 +155,7 @@ class LoginAuth extends Controller
         $user = Auth::user();
         $user->update($request->all());
 
-        return redirect()->route('profile')->with('success', 'Profile updated successfully');
+        return redirect()->route('profile')->with(['success', 'Profile updated successfully', 'activeTab' => 'profileTab']);
     }
 
     public function logout()
@@ -171,6 +167,13 @@ class LoginAuth extends Controller
 
     public function profile()
     {
-        return view('frontend.profile');
+        $user = Auth::user();
+        $defaultAddress = $user->addresses()->where('default_address', true)->first();
+        $addresses = $user->addresses()->where('default_address', false)->get();
+
+        $orders = Auth::user()->orders()->orderBy('created_at', 'desc')->get();
+
+        return view('frontend.profile', compact('defaultAddress', 'addresses', 'orders'));
     }
+
 }
