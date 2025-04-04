@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('coupon_code')->unique();
             $table->integer('coupon_limits')->nullable();
             $table->decimal('discount_value', 10, 2);
-            $table->enum('coupon_type', ['free_shipping', 'percentage', 'fixed_amount']);
+            $table->enum('coupon_type', ['percentage', 'fixed_amount']);
             $table->enum('status', ['active', 'inactive', 'future']);
             $table->date('start_date');
             $table->date('end_date');

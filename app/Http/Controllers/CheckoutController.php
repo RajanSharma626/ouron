@@ -8,6 +8,7 @@ use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use App\Models\UserAddress;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +17,8 @@ class CheckoutController extends Controller
     public function index()
     {
         $cart = CartItem::with(['product', 'product.firstImage'])->where('user_id', Auth::id())->get();
-        return view('frontend.checkout', compact('cart'));
+        $defaultAddress = UserAddress::where('user_id', Auth::id())->where('default_address', 1)->first();
+        return view('frontend.checkout', compact('cart', 'defaultAddress'));
     }
 
     public function store(Request $request)
@@ -201,7 +203,8 @@ class CheckoutController extends Controller
         // Store the coupon discount in session
         session(['discount' => [
             'value' => $coupon->discount_value,
-            'type' => $coupon->coupon_type
+            'type' => $coupon->coupon_type,
+            'coupon_code' => $coupon->coupon_code,
         ]]);
 
         return redirect()->route('checkout')->with('coupon_success', 'Coupon applied successfully!');

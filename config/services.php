@@ -34,5 +34,10 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+    'ithinklogistics' => [
+        'api_key' => env('ITHINK_API_KEY'),
+        'base_url' => env('ITHINK_BASE_URL'),
+        'pickup_pincode' => env('ITHINK_PICKUP_PINCODE'),
+    ],
 
 ];

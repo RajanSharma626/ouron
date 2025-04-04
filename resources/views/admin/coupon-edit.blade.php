@@ -125,18 +125,6 @@
                                 <h4 class="card-title mb-3 mt-2">Coupons Types</h4>
                                 <div class="row mb-3">
                                     <div class="col-lg-4">
-                                        <div class="d-flex gap-2 align-items-center">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="coupons-type"
-                                                    id="flexRadioDefault12" value="free_shipping"
-                                                    {{ $coupon->coupon_type == 'free_shipping' ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="flexRadioDefault12">
-                                                    Free Shipping
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="coupons-type"
                                                 id="flexRadioDefault13" value="percentage"
