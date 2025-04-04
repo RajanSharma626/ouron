@@ -17,7 +17,7 @@
                             <div>
                                 <h4 class="card-title">All Order List</h4>
                             </div>
-                            <div class="dropdown">
+                            {{-- <div class="dropdown">
                                 <a href="#" class="dropdown-toggle btn btn-sm btn-outline-light rounded"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     This Month
@@ -30,7 +30,7 @@
                                     <!-- item-->
                                     <a href="#!" class="dropdown-item">Import</a>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
 
                         <div>
@@ -59,7 +59,7 @@
                                                 <td>{{ $order->created_at->format('d M, Y') }}</td>
                                                 <td>
                                                     <a href="#!"
-                                                        class="link-primary fw-medium">{{ $order->user->name }}</a>
+                                                        class="link-primary fw-medium">{{ $order->first_name . ' ' . $order->last_name }}</a>
                                                 </td>
                                                 <td> ₹{{ number_format($order->total, 2) }}</td>
                                                 <td> <span
@@ -87,12 +87,12 @@
                                                             class="btn btn-light btn-sm"><iconify-icon
                                                                 icon="solar:eye-broken"
                                                                 class="align-middle fs-18"></iconify-icon></a>
-                                                        <a href="#!" class="btn btn-soft-primary btn-sm"><iconify-icon
+                                                        {{-- <a href="#!" class="btn btn-soft-primary btn-sm"><iconify-icon
                                                                 icon="solar:pen-2-broken"
                                                                 class="align-middle fs-18"></iconify-icon></a>
                                                         <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon
                                                                 icon="solar:trash-bin-minimalistic-2-broken"
-                                                                class="align-middle fs-18"></iconify-icon></a>
+                                                                class="align-middle fs-18"></iconify-icon></a> --}}
                                                     </div>
                                                 </td>
                                             </tr>

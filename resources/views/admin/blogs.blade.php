@@ -30,10 +30,10 @@
                                 <div class="d-flex align-items-center gap-2 mt-2 mb-1">
                                     <div class="mt-3 d-flex gap-2">
 
-                                        <a href="" class="btn btn-soft-secondary btn-sm"><iconify-icon icon="solar:eye-broken"
-                                                class="align-middle fs-18"></iconify-icon></a>
+                                        <a href="{{ route('blog.detail', $blog->slug) }}" class="btn btn-soft-secondary btn-sm"><iconify-icon
+                                                icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
 
-                                        <a href="http://192.168.1.5:8000/admin/products/edit/1"
+                                        <a href=""
                                             class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken"
                                                 class="align-middle fs-18"></iconify-icon></a>
 
@@ -42,7 +42,7 @@
                                                 class="align-middle fs-18"></iconify-icon></a>
 
                                         <a href="#" class="btn btn-soft-secondary btn-sm" data-bs-toggle="modal"
-                                            data-bs-target="#qrModal{{ $blog->id }}"> 
+                                            data-bs-target="#qrModal{{ $blog->id }}">
                                             <iconify-icon icon="bx:qr" class="align-middle fs-18"></iconify-icon>
                                         </a>
 

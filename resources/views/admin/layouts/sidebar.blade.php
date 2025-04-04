@@ -63,6 +63,12 @@
                         <li class="sub-nav-item">
                             <a class="sub-nav-link" href="{{ route('admin.orders') }}">Orders</a>
                         </li>
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="{{ route('admin.cart') }}">Cart</a>
+                        </li>
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="{{ route('admin.wishlist') }}">Wishlist</a>
+                        </li>
                     </ul>
                 </div>
             </li>

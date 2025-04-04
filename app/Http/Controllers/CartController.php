@@ -121,4 +121,11 @@ class CartController extends Controller
             'colors' => json_decode($product->colors),
         ]);
     }
+
+    public function adminCart()
+    {
+        $cartItems = CartItem::with(['product', 'product.firstimage', 'product.category','user'])
+            ->paginate(20);
+        return view('admin.cart', compact('cartItems'));
+    }
 }

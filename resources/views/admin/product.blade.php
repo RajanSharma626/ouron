@@ -37,7 +37,7 @@
                                 Add Product
                             </a>
 
-                            <div class="dropdown">
+                            {{-- <div class="dropdown">
                                 <a href="#" class="dropdown-toggle btn btn-sm btn-outline-light"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     This Month
@@ -50,7 +50,7 @@
                                     <!-- item-->
                                     <a href="#!" class="dropdown-item">Import</a>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                         <div>
                             <div class="table-responsive">
