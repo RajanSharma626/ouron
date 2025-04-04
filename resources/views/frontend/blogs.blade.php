@@ -8,6 +8,14 @@
         <div class="container">
             <div class="row py-5">
                 <div class="row">
+                    <div class="col-12">
+                        <h1 class="text-center fs-2">WTS? (What's the Story?)</h1>
+                        <p class="text-center mb-5">
+                            Every design at Ouron carries more than just style - it carries a story. "WTS?" is where we
+                            revieal the inspiration behind each piece. Dicover the story. Feel the legacy. Wear the
+                            inspiration.
+                        </p>
+                    </div>
                     <div class="col-12 py-4">
                         <div class="row align-items-center">
                             @foreach ($blogs as $blog)

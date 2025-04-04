@@ -5,7 +5,7 @@
 @section('content')
 
     <section class="product_detail py-5">
-        <div class="container py-5">
+        <div class="container py-md-5">
             <div class="row">
                 <div class="col-12">
                     <div class="row justify-content-md-evenly ">

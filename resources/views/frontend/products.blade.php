@@ -142,14 +142,16 @@
                                     </div>
                                 </div>
 
-                                <div class="product_info p-3">
-                                    <h3 class="product_title">{{ $product->name }}</h3>
-                                    <p class="product_price mb-0 text-muted">
-                                        <del>RS. {{ number_format($product->price, 2) }}</del>
-                                        &nbsp; RS.
-                                        {{ number_format($product->price - ($product->price * $product->discount_price) / 100, 2) }}
-                                    </p>
-                                </div>
+                                <a href="{{ route('product.detail', $product->slug) }}" class="text-decoration-none">
+                                    <div class="product_info p-3">
+                                        <h3 class="product_title primary-color">{{ $product->name }}</h3>
+                                        <p class="product_price mb-0 text-muted">
+                                            <del>RS. {{ number_format($product->price, 2) }}</del>
+                                            &nbsp; RS.
+                                            {{ number_format($product->price - ($product->price * $product->discount_price) / 100, 2) }}
+                                        </p>
+                                    </div>
+                                </a>
                             </div>
                         </a>
                     </div>

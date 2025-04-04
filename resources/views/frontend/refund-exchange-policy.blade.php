@@ -142,10 +142,10 @@
                     <p>For any queries related to returns, refunds, or exchanges, contact us at:</p>
                     <ul class="mb-5 list">
                         <li class=""><i class="bi bi-envelope"></i> Email: <a
-                                href="mailto:ordersupport@ouron.com">ordersupport@ouron.com</a>
+                                href="mailto:support@ouron.in">support@ouron.in</a>
                         </li>
                         <li class=""><i class="bi bi-telephone-inbound"></i> Phone: <a
-                                href="tel:+91 xxxxx-xxxxx">+91 xxxxx-xxxxx</a>
+                                href="tel:+91 8799232708">+91 8799232708</a>
                         </li>
                         <li class=""><i class="bi bi-clock-history"></i> Support Hours: <b>Monday – Saturday</b>
                             | <b>11:30 AM – 7:00 PM IST</b>

@@ -52,12 +52,14 @@
                             <ul class="dropdown-menu secondary-bg" aria-labelledby="footwearDropdown">
                                 <!-- First Sub Menu -->
                                 <li class="dropdown-item">
-                                    <a class="primary-font-size fw-400 text-decoration-none" href="#">Collection
+                                    <a class="primary-font-size fw-400 text-decoration-none dropdown-item"
+                                        href="#">Collection
                                         1</a>
 
                                 </li>
                                 <li class="dropdown-item">
-                                    <a class="primary-font-size fw-400 text-decoration-none" href="#">Collection
+                                    <a class="primary-font-size fw-400 text-decoration-none dropdown-item"
+                                        href="#">Collection
                                         2</a>
                                 </li>
                             </ul>

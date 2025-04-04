@@ -110,7 +110,7 @@
 
                         <div class="d-md-none" style="position: absolute; bottom: 50px; right: 10px; z-index: 1050;">
                             <div class="product_icons">
-                                <a href="javascript:void(0)" class="share_icon " title="Share" id="shareBtn">
+                                <a href="javascript:void(0)" class="share_icon " title="Share" id="shareBtn2">
                                     <i class="bi bi-upload"></i>
                                 </a>
                             </div>
@@ -220,15 +220,12 @@
 
                         <div class="row py-3 g-2">
                             <div class="col-6 mb-md-0">
-                                <form action="" id="confirmAddToCart2">
-                                    <button type="submit" class="checkout_btn w-100" title="Add to Cart"
-                                        data-id="{{ $product->id }}">Add to
-                                        Cart</button>
-                                </form>
+                                <button type="button" class="checkout_btn w-100 addToCartBtn" title="Add to Cart"
+                                    data-id="{{ $product->id }}">Add to Cart</button>
                             </div>
                             <div class="col-6 mb-md-0">
                                 <a href="{{ $product->blog ? route('blog.detail', $product->blog->slug) : '#' }}">
-                                    <button class="checkout_btn w-100">WTS?</button>
+                                    <button type="button" class="checkout_btn w-100">WTS?</button>
                                 </a>
                             </div>
                             <div class="col-12 mb-md-0">
@@ -449,6 +446,21 @@
 
     <script>
         document.getElementById('shareBtn').addEventListener('click', function() {
+            const shareData = {
+                title: '{{ $product->name }}',
+                text: 'Check out this product: {{ $product->name }}',
+                url: '{{ route('product.detail', $product->slug) }}'
+            };
+            if (navigator.share) {
+                navigator.share(shareData)
+                    .then(() => console.log('Shared successfully'))
+                    .catch((error) => console.log('Error sharing', error));
+            } else {
+                // Fallback: prompt the URL for manual copy
+                prompt('Copy this URL to share:', shareData.url);
+            }
+        });
+        document.getElementById('shareBtn2').addEventListener('click', function() {
             const shareData = {
                 title: '{{ $product->name }}',
                 text: 'Check out this product: {{ $product->name }}',

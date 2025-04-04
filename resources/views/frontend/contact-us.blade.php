@@ -12,7 +12,7 @@
                     <h1 class="fs-4 text-center">CONNECT WITH THE BRAND</h1>
                     <p class="text-center text-normal">We would love to hear about your feedback, interests and future
                         collaborations. Reach out to us on
-                        email at contact@ouron.com. Our dedicated customer support number can be reached on 8468xxxxxx,
+                        email at contact@ouron.in. Our dedicated customer support number can be reached on +91 8799232708,
                         Monday to Saturday, 11.30 AM to 8:00 PM.</p>
                 </div>
 

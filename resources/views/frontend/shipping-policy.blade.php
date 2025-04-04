@@ -76,7 +76,7 @@
                         <li class="text-normal">Returns are accepted within 7 days of delivery if the product is unused and
                             in original condition.
                         </li>
-                        <li class="text-normal">To initiate a return, contact our support team at ordersupport@ouron.com.
+                        <li class="text-normal">To initiate a return, contact our support team at support@ouron.in.
                         </li>
                         <li class="text-normal">Exchange requests are subject to product availability.
                         </li>
@@ -109,10 +109,10 @@
                     <p>For any shopping-related inquiries, reach out to:</p>
                     <ul class="mb-5">
                         <li class="text-normal"><i class="bi bi-envelope"></i> Email: <a
-                                href="mailto:ordersupport@ouron.com">ordersupport@ouron.com</a>
+                                href="mailto:support@ouron.com">support@ouron.com</a>
                         </li>
                         <li class="text-normal"><i class="bi bi-telephone-inbound"></i> Phone: <a
-                                href="tel:+91 xxxxx-xxxxx">+91 xxxxx-xxxxx</a>
+                                href="tel:+91 8799232708">+91 8799232708</a>
                         </li>
                         <li class="text-normal"><i class="bi bi-clock-history"></i> Support Hours: <b>Monday – Saturday</b>
                             | <b>11:30 AM – 7:00 PM IST</b>

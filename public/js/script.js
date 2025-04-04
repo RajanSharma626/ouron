@@ -131,15 +131,17 @@ $(document).ready(function () {
         });
     });
 
-    $("#confirmAddToCart2").submit(function (e) {
-        e.preventDefault(); // Prevent form from submitting normally
-
-        let productId = $(this).find("button").data("id"); // Get product ID from button
+    $(document).on("click", ".addToCartBtn", function (e) {
+        let productId = $(this).data("id");
         let size = $("input[name='size']:checked").val();
         let color = $("input[name='color']:checked").val();
 
         if (!size || !color) {
-            alert("Please select a size and color.");
+            Swal.fire({
+                icon: "warning",
+                title: "Please select size and color",
+                showConfirmButton: true,
+            });
             return;
         }
 
@@ -152,21 +154,30 @@ $(document).ready(function () {
                 color: color,
                 _token: $('meta[name="csrf-token"]').attr("content"),
             },
-            success: function () {
-                $("#addToCartModal").modal("hide");
+            success: function (response) {
                 Swal.fire({
                     icon: "success",
                     title: "Added to Cart",
                     showConfirmButton: false,
                     timer: 1500,
                 });
+
                 let offcanvasElement = document.getElementById("cart");
                 let offcanvas = new bootstrap.Offcanvas(offcanvasElement);
                 offcanvas.show();
-                loadCart();
+
+                loadCart(); // Refresh cart contents
             },
+            error: function (xhr) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Something went wrong!",
+                    text: xhr.responseJSON?.message || "Please try again.",
+                });
+            }
         });
     });
+
 
     // Load Cart Items
     function loadCart() {
