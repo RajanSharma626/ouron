@@ -252,26 +252,23 @@
         </div>
     </div>
 
-    {{-- <script>
-        document.querySelectorAll('.nav-link[href="#"]').forEach(link => {
-            link.addEventListener('click', function() {
-                var searchCanvas = new bootstrap.Offcanvas(document.getElementById('searchCanvas'));
-                searchCanvas.show();
-            });
-        });
-    </script> --}}
-    <div class="offcanvas offcanvas-top secondary-bg w-100" tabindex="-1" id="searchCanvas"
+
+    <div class="offcanvas offcanvas-top secondary-bg w-100 h-100" tabindex="-1" id="searchCanvas"
         aria-labelledby="searchCanvasLabel">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="searchCanvasLabel">Search</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <form action="" method="GET">
-                <div class="input-group">
-                    <input type="text" class="form-control" name="query" placeholder="Search for products..."
-                        required>
-                    <button class="btn primary-bg" type="submit">Search</button>
+            <form action="{{ route('search.view') }}" method="GET" id="searchForm">
+                <div class="position-relative w-100">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="query" id="liveSearchInput"
+                            placeholder="Search for products..." autocomplete="off" required>
+                        <button class="btn primary-bg" type="submit">Search</button>
+                    </div>
+                    <div id="suggestionBox" class="list-group position-absolute w-100 mt-1 shadow"
+                        style="z-index: 1055;"></div>
                 </div>
             </form>
         </div>

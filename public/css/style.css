@@ -914,3 +914,13 @@ input[type="radio"]:checked + label .color-circle {
     max-height: 80vh;
     overflow-y: scroll;
 }
+
+
+#suggestionBox a {
+    cursor: pointer;
+}
+#suggestionBox {
+    max-height: 200px;
+    overflow-y: auto;
+}
+

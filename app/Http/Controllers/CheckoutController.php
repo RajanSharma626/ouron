@@ -109,6 +109,7 @@ class CheckoutController extends Controller
 
         // Fetch the product details
         $product = Product::with('firstImage')->findOrFail($request->id);
+        $defaultAddress = UserAddress::where('user_id', Auth::id())->where('default_address', 1)->first();
 
         // Store in session (temporary order)
         session(['buy_now' => [
@@ -119,10 +120,15 @@ class CheckoutController extends Controller
             'size' => $request->size,
             'price' => $product->price - ($product->price * $product->discount_price) / 100,
             'quantity' => 1,
+            'address' => $defaultAddress ? $defaultAddress->address : null,
+            'address2' => $defaultAddress ? $defaultAddress->address_2 : null,
+            'city' => $defaultAddress ? $defaultAddress->city : null,
+            'state' => $defaultAddress ? $defaultAddress->state : null,
+            'pin_code' => $defaultAddress ? $defaultAddress->pin_code : null,
         ]]);
 
         // Redirect to checkout page
-        return redirect()->route('buy');
+        return redirect()->route('buy')->with('defaultAddress', $defaultAddress);
     }
 
     public function buyNowStore(Request $request)

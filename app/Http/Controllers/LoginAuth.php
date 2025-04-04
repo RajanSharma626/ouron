@@ -132,7 +132,11 @@ class LoginAuth extends Controller
 
                 $user->phone_verified_at = now();
                 $user->save();
-
+                // Clear the OTP and expiration time
+                $user->otp = null;
+                $user->otp_expires_at = null;
+                $user->save();
+                
                 // Redirect the user to the intended URL or home if not set
                 return redirect()->intended('home')->with('success', 'Logged in successfully');
             } else {

@@ -14,6 +14,7 @@ use App\Http\Controllers\LoginAuth;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\frontend\ProductController as FrontendProductController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserAddressController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
@@ -36,11 +37,16 @@ Route::get('/contact-us', function () {
 })->name('contact.us');
 
 
+
 Route::get('/product/{slug}', [FrontendProductController::class, 'detail'])->name('product.detail');
 Route::get('/new-in', [CatProductsController::class, 'newIn'])->name('new.in');
 Route::get('/all-product', [CatProductsController::class, 'allProduct'])->name('all-product');
 Route::get('/category/{cat}', [CatProductsController::class, 'catProduct'])->name('cat-product');
 Route::get('/best-seller', [CatProductsController::class, 'bestSellerProduct'])->name('best-seller');
+
+Route::get('/live-search-suggestions', [SearchController::class, 'suggestions'])->name('live.search.suggestions');
+Route::get('/search', action: [SearchController::class, 'search'])->name('search.view');
+
 
 
 // login

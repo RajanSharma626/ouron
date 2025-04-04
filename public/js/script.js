@@ -174,10 +174,9 @@ $(document).ready(function () {
                     title: "Something went wrong!",
                     text: xhr.responseJSON?.message || "Please try again.",
                 });
-            }
+            },
         });
     });
-
 
     // Load Cart Items
     function loadCart() {
@@ -475,15 +474,60 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
+    
 
+    
+    let typingTimer;
+    const delay = 300;
 
-    document.getElementById('editBtn').addEventListener('click', function() {
-        // Remove disabled attribute from text, email, and phone inputs
-        this.closest('form').querySelectorAll('input').forEach(function(input) {
-            input.removeAttribute('disabled');
-        });
-        // Hide edit button and show save button
-        document.getElementById('editBtn').classList.add('d-none');
-        document.getElementById('saveBtn').classList.remove('d-none');
+    $("#liveSearchInput").on("keyup", function (e) {
+        clearTimeout(typingTimer);
+        const query = $(this).val().trim();
+
+        if (e.key === "Enter") {
+            $("#searchForm").submit(); // Submit form normally
+            return;
+        }
+
+        if (query.length >= 2) {
+            typingTimer = setTimeout(function () {
+                $.ajax({
+                    url: "/live-search-suggestions",
+                    method: "GET",
+                    data: { query: query },
+                    success: function (data) {
+                        let suggestions = "";
+                        if (data.length) {
+                            data.forEach((item) => {
+                                suggestions += `<a href="/product/${item.slug}" class="list-group-item list-group-item-action">${item.name}</a>`;
+                            });
+                        } else {
+                            suggestions = `<div class="list-group-item">No results found</div>`;
+                        }
+                        $("#suggestionBox").html(suggestions).show();
+                    },
+                });
+            }, delay);
+        } else {
+            $("#suggestionBox").hide();
+        }
     });
+
+    // Optional: Hide suggestion list on blur
+    $("#liveSearchInput").on("blur", function () {
+        setTimeout(() => $("#suggestionBox").hide(), 200);
+    });
+
+    document.getElementById("editBtn").addEventListener("click", function () {
+        // Remove disabled attribute from text, email, and phone inputs
+        this.closest("form")
+            .querySelectorAll("input")
+            .forEach(function (input) {
+                input.removeAttribute("disabled");
+            });
+        // Hide edit button and show save button
+        document.getElementById("editBtn").classList.add("d-none");
+        document.getElementById("saveBtn").classList.remove("d-none");
+    });
+
 });
