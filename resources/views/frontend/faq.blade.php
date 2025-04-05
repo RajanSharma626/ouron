@@ -4,9 +4,12 @@
 
 @section('content')
 
-    <section class="product_detail py-5">
-        <div class="container py-md-5">
+    <section class="product_detail">
+        <div class="container">
             <div class="row">
+                <div class="col-12 py-5 ">
+                    <h2 class="text-center">FAQ's</h2>
+                </div>
                 <div class="col-12">
                     <div class="row justify-content-md-evenly ">
                         <div class="col-6 col-md-2">

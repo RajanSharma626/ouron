@@ -57,12 +57,7 @@
                                 <table class="table align-middle mb-0 table-hover table-centered">
                                     <thead class="bg-light-subtle">
                                         <tr>
-                                            <th style="width: 20px;">
-                                                <div class="form-check ms-1">
-                                                    <input type="checkbox" class="form-check-input" id="customCheck1">
-                                                    <label class="form-check-label" for="customCheck1"></label>
-                                                </div>
-                                            </th>
+
                                             <th>Product Name & Size</th>
                                             <th>Price</th>
                                             <th>Discount</th>
@@ -81,12 +76,7 @@
 
                                         @foreach ($products as $product)
                                             <tr>
-                                                <td>
-                                                    <div class="form-check ms-1">
-                                                        <input type="checkbox" class="form-check-input" id="customCheck2">
-                                                        <label class="form-check-label" for="customCheck2">&nbsp;</label>
-                                                    </div>
-                                                </td>
+                                               
                                                 <td>
                                                     <div class="d-flex align-items-center gap-2">
                                                         <div

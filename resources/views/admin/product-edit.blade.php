@@ -77,7 +77,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-4">
                                         <div class="mb-3">
                                             <label for="product-name" class="form-label">Product Name</label>
                                             <input type="text" id="product-name" name="product_name"
@@ -85,7 +85,7 @@
                                                 placeholder="Items Name">
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-4">
                                         <label for="product-categories" class="form-label">Product Categories</label>
                                         <select class="form-control" id="product-categories" name="product_category"
                                             data-choices data-choices-groups data-placeholder="Select Categories"
@@ -99,14 +99,30 @@
                                         </select>
 
                                     </div>
+                                    <div class="col-lg-4">
+                                        <label for="product-Collection" class="form-label">Product Collection</label>
+                                        <select class="form-control" id="product-Collection" name="product_collection"
+                                            data-choices data-choices-groups data-placeholder="Select Collection"
+                                            name="choices-single-groups">
+                                            <option value="">Choose a Collection</option>
+                                            <option value="collection1"
+                                                {{ $product->collection == 'collection1' ? 'selected' : '' }}>
+                                                Collection 1</option>
+                                            <option value="collection2"
+                                                {{ $product->collection == 'collection2' ? 'selected' : '' }}>
+                                                Collection 2</option>
+
+                                        </select>
+
+                                    </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="mb-3">
                                             <label for="product-weight" class="form-label">Weight</label>
-                                            <input type="text" id="product-weight" value="" name="product_weight"
-                                                class="form-control" placeholder="In gm & kg">
+                                            <input type="text" id="product-weight" value="{{ $product->weight }}"
+                                                name="product_weight" class="form-control" placeholder="In gm & kg">
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
@@ -126,8 +142,7 @@
                                             </option>
                                         </select>
                                     </div>
-                                </div>
-                                <div class="row mb-4">
+
                                     <div class="col-lg-4">
                                         <div class="mt-3">
                                             <h5 class="text-dark fw-medium">Size :</h5>
@@ -178,6 +193,9 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="row mb-4">
+
                                     <div class="col-lg-5">
                                         <div class="mt-3">
                                             <h5 class="text-dark fw-medium">Colors :</h5>
@@ -211,6 +229,20 @@
                                             <label for="description" class="form-label">Description</label>
                                             <textarea class="form-control bg-light-subtle" id="editor" name="description" rows="7"
                                                 placeholder="Short description about the product"> {{ $product->description ?? '' }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label for="description" class="form-label">Detail</label>
+                                            <textarea class="form-control bg-light-subtle" id="DetailEditor" name="detail" rows="7"
+                                                placeholder="Short description about the product"> {{ $product->detail ?? '' }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label for="description" class="form-label">Shipping & Return</label>
+                                            <textarea class="form-control bg-light-subtle" id="ShipingReturnEditor" name="shipping_Return" rows="7"
+                                                placeholder="Short description about the product"> {{ $product->shipping_Return ?? '' }}</textarea>
                                         </div>
                                     </div>
                                 </div>

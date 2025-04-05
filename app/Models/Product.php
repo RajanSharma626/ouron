@@ -10,6 +10,8 @@ class Product extends Model
         'name',
         'slug',
         'description',
+        'detail',
+        'shipping_Return',
         'price',
         'sizes',
         'gender',
@@ -18,6 +20,8 @@ class Product extends Model
         'stock',
         'best_seller',
         'sku',
+        'weight',
+        'collection',
         'category_id',
         'images',
         'status'

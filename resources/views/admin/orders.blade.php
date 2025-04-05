@@ -71,8 +71,10 @@
                                                     @php
                                                         $statusClass = match ($order->status) {
                                                             'Pending' => 'bg-warning-subtle text-warning',
-                                                            'Processing' => 'bg-info-subtle text-info',
-                                                            'Completed' => 'bg-success-subtle text-success',
+                                                            'Confirmed' => 'bg-success-subtle text-success',
+                                                            'Packed' => 'bg-success-subtle text-success',
+                                                            'Shipped' => 'bg-success-subtle text-success',
+                                                            'Delivered' => 'bg-success-subtle text-success',
                                                             'Cancelled' => 'bg-danger-subtle text-danger',
                                                             default => 'bg-warning-subtle text-warning',
                                                         };

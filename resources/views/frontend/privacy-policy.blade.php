@@ -9,22 +9,22 @@
             <div class="row">
 
                 <div class="col-12 policy-content">
-                    <h1 class="text-center mb-5 fs-3">Privacy Policy</h1>
+                    <h1 class="text-center mb-5 fs-4">Privacy Policy</h1>
 
 
                     <ol class="mb-5">
                         <li class="text-normal">
-                            <h1 class="fs-3">Introduction</h1>
+                            <h1 class="fs-4">Introduction</h1>
                         </li>
 
                         <p>
-                            Ouron ("we," "us," "our") values your privacy and is committed to protecting your personal
-                            information. This Privacy Policy explains how we collect, use, and safeguard your data when you
-                            visit <a href="">www.ouron.in</a> ("Website").
+                            OURON LIFESTYLE & CO. ("we," "us," "our") values your privacy and is committed to protecting
+                            your personal information. This Privacy Policy explains how we collect, use, and safeguard your
+                            data when you visit <a href="mailto:www.ouron.in">www.ouron.in</a> ("Website").
                         </p>
 
                         <li class="text-normal">
-                            <h1 class="fs-3">Information We Collect</h1>
+                            <h1 class="fs-4">Information We Collect</h1>
                         </li>
 
                         <p>
@@ -64,7 +64,7 @@
                         </ul>
 
                         <li>
-                            <h1 class="fs-3">
+                            <h1 class="fs-4">
                                 How We Use Your Information
                             </h1>
                         </li>
@@ -86,7 +86,7 @@
                         </ul>
 
                         <li>
-                            <h1 class="fs-3">
+                            <h1 class="fs-4">
                                 Cookies
                             </h1>
                         </li>
@@ -98,7 +98,7 @@
                         </p>
 
                         <li>
-                            <h1 class="fs-3">
+                            <h1 class="fs-4">
                                 Sharing Your Information
                             </h1>
                         </li>
@@ -118,7 +118,7 @@
                         </ul>
 
                         <li>
-                            <h1 class="fs-3">
+                            <h1 class="fs-4">
                                 Data Security
                             </h1>
                         </li>
@@ -129,7 +129,7 @@
                         </p>
 
                         <li>
-                            <h1 class="fs-3">
+                            <h1 class="fs-4">
                                 Your Rights
                             </h1>
                         </li>
@@ -139,6 +139,27 @@
                             <a href="mailto:contact@ouron.in.">contact@ouron.in</a>.
                         </p>
 
+                        <li>
+                            <h1 class="fs-4">
+                                Changes to This Policy
+                            </h1>
+                        </li>
+
+                        <p>
+                            We may update this Privacy Policy from time to time. Any changes will be posted on this page,
+                            and significant updates may be communicated via email.
+                        </p>
+
+                        <li>
+                            <h1 class="fs-4">
+                                Contact Us
+                            </h1>
+                        </li>
+
+                        <p>
+                            You can request access, correction, or deletion of your personal information by contacting us at
+                            <a href="mailto:contact@ouron.in.">contact@ouron.in</a>.
+                        </p>
                     </ol>
                 </div>
 

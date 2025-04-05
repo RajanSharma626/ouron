@@ -38,7 +38,12 @@ class Order extends Model
     }
 
     public function address()
-{
-    return $this->belongsTo(UserAddress::class);
-}
+    {
+        return $this->belongsTo(UserAddress::class);
+    }
+
+    public function statusHistories()
+    {
+        return $this->hasMany(OrderStatusHistory::class);
+    }
 }

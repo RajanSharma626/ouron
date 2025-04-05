@@ -1,6 +1,6 @@
 @extends('frontend.layouts.app')
 
-@section('title', 'Shipping Policy')
+@section('title', 'OURON Return & Refund Policy')
 
 @section('content')
 
@@ -9,7 +9,7 @@
             <div class="row">
 
                 <div class="col-12 policy-content">
-                    <h1 class="text-center mb-5 fs-3">OURON Refund & Exchange Policy</h1>
+                    <h1 class="text-center mb-5 fs-3">OURON Return & Refund Policy</h1>
 
                     <h5>
                         APPLICABILITY OF POLICY
@@ -17,8 +17,8 @@
 
                     <p>
                         By using the Ouron.in website and/or placing an order for our products, you agree to the terms
-                        outlined in this Refund & Exchange Policy. If you do not agree with these terms, we advise you not
-                        to proceed with a purchase.
+                        outlined in this Refund Policy. If you do not agree with these terms, we advise you not to proceed
+                        with a purchase.
                     </p>
 
                     <p>
@@ -27,28 +27,26 @@
                     </p>
 
                     <h5>
-                        EXCHANGE & RETURN POLICY
+                        RETURN & REFUND POLICY
                     </h5>
-                    <p class="">We offer exchanges and returns within 7 days from the date of delivery. Once your
-                        exchange/return request has been accepted, a confirmation email will be sent to your registered
-                        email, and our logistics partner will attempt pickup within 24-48 hours.</p>
+                    <p class="">We offer returns within 7 days from the date of delivery. Once your return request has
+                        been accepted, a confirmation email will be sent to your registered email, and our logistics partner
+                        will attempt pickup within 24-48 hours. <b>We do not accept exchanges due to company policy.</b>
+                    </p>
                     <ul class="mb-5">
-                        <li class=""><b class="fw-bold">Pickup Attempts:</b> Two pickup attempts will be made. If
-                            unsuccessful, you
-                            will need to ship the product back to our warehouse at your expense. Reverse pickup is subject
-                            to service availability in your area.
+                        <li class=""><b>Pickup Attempts:</b> Two pickup attempts will be made. If unsuccessful, you
+                            will need
+                            to ship the product back to our warehouse at your expense. Reverse pickup is subject to service
+                            availability in your area.
+
                         </li>
-                        <li class=""><b class="fw-bold">Quality Check:</b> Upon receiving the returned product at
-                            our warehouse, it
-                            will go through a quality check. Once approved, the exchange/return process will proceed.</li>
-                        <li class="">Wallet Payments
+                        <li class=""><b>Quality Check:</b> Upon receiving the returned product at our warehouse, it
+                            will go
+                            through a quality check. Once approved, the return process will proceed.
+
                         </li>
-                        <li class=""><b class="fw-bold">Processing Time:</b> Exchange requests are processed
-                            within 7-10 working days.
-                        </li>
-                        <li class=""> <b class="fw-bold">Stock Availability:</b> If your requested exchange is
-                            unavailable, we will
-                            provide an alternative product or issue a store credit.
+                        <li class=""><b>Processing Time:</b> Return requests are processed within 7-10 working days.
+
                         </li>
                     </ul>
 
@@ -66,15 +64,14 @@
                         Important Notes:
                     </p>
                     <ul class="mb-5">
-                        <li class="">Products must be <b class="fw-bold">returned in their original
-                                condition</b>, unworn, unwashed, and undamaged, with all tags and packaging intact.
+                        <li class="">Products must be returned in their original condition, unworn, unwashed, and
+                            undamaged, with all tags and packaging intact.
                         </li>
-                        <li class=""><b class="fw-bold">Products showing signs of wear or use will not be
-                                eligible</b> for return/exchange.</li>
-                        <li class=""><b class="fw-bold">Store credits are valid for 3 months</b> and are
-                            non-refundable.
+                        <li class="">Products showing signs of wear or use will not be eligible for return.
                         </li>
-                        <li class=""><b class="fw-bold">Shipping charges</b> are non-refundable.
+                        <li class="">Store credits are valid for 3 months and are non-refundable.
+                        </li>
+                        <li class="">Shipping charges are non-refundable.
                         </li>
                     </ul>
 
@@ -82,20 +79,19 @@
                         ORDER CANCELLATION
                     </h5>
                     <ul class="mb-5">
-                        <li class=""><b class="fw-bold">Cash on Delivery (COD) Orders:</b> Cancellations are only
-                            allowed before the order is dispatched from our warehouse.
+                        <li class=""><b>Cash on Delivery (COD) Orders:</b> Cancellations are only allowed before the order is dispatched from our warehouse.
+
                         </li>
-                        <li class=""><b class="fw-bold">Prepaid Orders:</b> All prepaid orders are final and
-                            non-refundable. Any refunds will be issued in the form of store credit.</li>
+                        <li class=""><b>Prepaid Orders:</b> All prepaid orders are final and non-refundable. Any refunds will be issued in the form of store credit.
 
                     </ul>
 
 
                     <h5>
-                        ELIGIBILITY FOR EXCHANGE/RETURN
+                        ELIGIBILITY FOR RETURN
                     </h5>
                     <p>
-                        You may request an exchange/return if:
+                        <b>You may request a return if:</b>
                     </p>
                     <ul class="mb-5">
                         <li class=""> The product does not fit.
@@ -109,19 +105,10 @@
                     </ul>
 
                     <p>
-                        To be eligible for return, the product must:
+                       <b> To be eligible for return, the product must:</b>
                     </p>
 
                     <ul class="mb-5">
-                        <li class="">Products purchased during a sale, clearance, or promotional period are
-                            non-refundable and cannot be exchanged.
-                        </li>
-                    </ul>
-
-                    <h5>
-                        DAMAGED OR MISSING ITEMS
-                    </h5>
-                    <ul class="mb-5 ">
                         <li class=""> Be unused, undamaged, and in original condition.
                         </li>
                         <li class=""> Have all brand tags, packaging, and accessories intact.
@@ -133,7 +120,7 @@
                     </ul>
 
                     <p>
-                        We reserve the right to reject return/exchange requests if the above conditions are not met.
+                       <b> We reserve the right to reject return/exchange requests if the above conditions are not met.</b>
                     </p>
 
                     <h5>
@@ -141,11 +128,11 @@
                     </h5>
                     <p>For any queries related to returns, refunds, or exchanges, contact us at:</p>
                     <ul class="mb-5 list">
-                        <li class=""><i class="bi bi-envelope"></i> Email: <a
+                        <li class=""><i class="bi bi-envelope"></i> Email: <a class="primary-color"
                                 href="mailto:support@ouron.in">support@ouron.in</a>
                         </li>
-                        <li class=""><i class="bi bi-telephone-inbound"></i> Phone: <a
-                                href="tel:+91 8799232708">+91 8799232708</a>
+                        <li class=""><i class="bi bi-telephone-inbound"></i> Phone: <a class="primary-color" href="tel:+91 8799232708">+91
+                                8799232708</a>
                         </li>
                         <li class=""><i class="bi bi-clock-history"></i> Support Hours: <b>Monday – Saturday</b>
                             | <b>11:30 AM – 7:00 PM IST</b>

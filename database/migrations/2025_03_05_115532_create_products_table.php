@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->text('description')->nullable();
+            $table->text('detail')->nullable();
+            $table->text('shipping_Return')->nullable();
             $table->decimal('price', 10, 2);
             $table->json('sizes')->nullable(); // Store sizes as JSON
             $table->json('colors')->nullable(); // Store colors as JSON
@@ -23,6 +25,8 @@ return new class extends Migration
             $table->integer('discount_price')->nullable();
             $table->integer('stock')->default(0);
             $table->string('sku')->unique()->nullable();
+            $table->string('weight')->nullable();
+            $table->string('collection')->nullable();
             $table->integer('best_seller')->default(0);
             $table->unsignedBigInteger('category_id')->nullable(); // Corrected category column
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');

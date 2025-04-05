@@ -9,29 +9,54 @@
 
         <!-- Start Container -->
         <div class="container-xxl">
+            @if (session('success'))
+                <div class="col-12">
+                    <div class="alert alert-success text-truncate mb-3" role="alert">
+                        {{ session('success') }}
+                    </div>
+                </div>
+            @endif
 
+            @if (session('error'))
+                <div class="col-12">
+                    <div class="alert alert-danger text-truncate mb-3" role="alert">
+                        {{ session('error') }}
+                    </div>
+                </div>
+            @endif
             <div class="row">
                 <div class="col-xl-9 col-lg-8">
                     <div class="row">
                         <div class="col-lg-12">
+
                             <div class="card">
                                 <div class="card-body">
                                     <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
                                         <div>
                                             <h4 class="fw-medium text-dark d-flex align-items-center gap-2">
-                                                #{{ $order->id }} 
-                                                {{-- <span
-                                                    class="badge bg-success-subtle text-success  px-2 py-1 fs-13">{{ $order->id }}</span> --}}
+                                                #{{ $order->id }}
+
+                                                @if ($order->status == 'Pending')
                                                     <span
-                                                    class="border border-warning text-warning fs-13 px-2 py-1 rounded">In
-                                                    Progress</span></h4>
-                                            <p class="mb-0">Order / Order Details / #{{ $order->id }} -
+                                                        class="border border-warning text-warning fs-13 px-2 py-1 rounded">Pending</span>
+                                                @elseif ($order->status == 'Confirmed')
+                                                    <span
+                                                        class="border border-success text-success fs-13 px-2 py-1 rounded">Confirmed</span>
+                                                @elseif ($order->status == 'Shipped')
+                                                    <span
+                                                        class="border border-success text-success fs-13 px-2 py-1 rounded">Shipped</span>
+                                                @elseif ($order->status == 'Delivered')
+                                                    <span
+                                                        class="border border-success text-success fs-13 px-2 py-1 rounded">Delivered</span>
+                                                @endif
+
+                                            </h4>
+                                            <p class="mb-0">
                                                 {{ $order->created_at->format('M d, Y') }} at
                                                 {{ $order->created_at->format('g:i a') }}</p>
                                         </div>
                                         <div>
-                                            {{-- <a href="#!" class="btn btn-outline-secondary">Refund</a>
-                                            <a href="#!" class="btn btn-outline-secondary">Return</a> --}}
+                                            <a href="{{ route('admin.orders') }}" class="btn btn-outline-secondary">Back</a>
                                             <a href="#!" class="btn btn-danger">Cancel Order</a>
                                         </div>
 
@@ -40,53 +65,52 @@
                                     <div class="mt-4">
                                         <h4 class="fw-medium text-dark">Progress</h4>
                                     </div>
-                                    <div class="row row-cols-xxl-5 row-cols-md-2 row-cols-1">
+                                    <div class="row row-cols-xxl-4 row-cols-md-2 row-cols-1">
                                         <div class="col">
                                             <div class="progress mt-3" style="height: 10px;">
-                                                <div class="progress-bar progress-bar  progress-bar-striped progress-bar-animated bg-success"
-                                                    role="progressbar" style="width: 100%" aria-valuenow="70"
-                                                    aria-valuemin="0" aria-valuemax="70">
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+                                                    role="progressbar" style="width: 100%" aria-valuenow="100"
+                                                    aria-valuemin="0" aria-valuemax="100">
                                                 </div>
                                             </div>
-                                            <p class="mb-0 mt-2">Order Confirming</p>
+                                            <p class="mb-0 mt-2">Order Placed</p>
                                         </div>
                                         <div class="col">
                                             <div class="progress mt-3" style="height: 10px;">
-                                                <div class="progress-bar progress-bar  progress-bar-striped progress-bar-animated bg-success"
-                                                    role="progressbar" style="width: 100%" aria-valuenow="70"
-                                                    aria-valuemin="0" aria-valuemax="70">
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated {{ $order->status == 'Pending' ? 'bg-warning' : ($order->status == 'Confirmed' || $order->status == 'Packed' || $order->status == 'Shipped' || $order->status == 'Delivered' ? 'bg-success' : 'bg-primary') }}"
+                                                    role="progressbar"
+                                                    style="width: {{ $order->status == 'Pending' ? '60%' : ($order->status == 'Confirmed' || $order->status == 'Packed' || $order->status == 'Shipped' || $order->status == 'Delivered' ? '100%' : '0%') }}"
+                                                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
                                                 </div>
                                             </div>
-                                            <p class="mb-0 mt-2">Payment Pending</p>
+                                            <p class="mb-0 mt-2">Confirmed</p>
                                         </div>
                                         <div class="col">
                                             <div class="progress mt-3" style="height: 10px;">
-                                                <div class="progress-bar progress-bar  progress-bar-striped progress-bar-animated bg-warning"
-                                                    role="progressbar" style="width: 60%" aria-valuenow="70"
-                                                    aria-valuemin="0" aria-valuemax="70">
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated {{ $order->status == 'Confirmed' ? 'bg-warning' : ($order->status == 'Packed' || $order->status == 'Shipped' || $order->status == 'Delivered' ? 'bg-success' : 'bg-primary') }}"
+                                                    role="progressbar"
+                                                    style="width: {{ $order->status == 'Confirmed' ? '60%' : ($order->status == 'Packed' || $order->status == 'Shipped' || $order->status == 'Delivered' ? '100%' : '0%') }}"
+                                                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
                                                 </div>
                                             </div>
-                                            <div class="d-flex align-items-center gap-2 mt-2">
-                                                <p class="mb-0">Processing</p>
-                                                <div class="spinner-border spinner-border-sm text-warning" role="status">
-                                                    <span class="visually-hidden">Loading...</span>
-                                                </div>
-                                            </div>
+                                            <p class="mb-0 mt-2">Packed</p>
                                         </div>
                                         <div class="col">
                                             <div class="progress mt-3" style="height: 10px;">
-                                                <div class="progress-bar progress-bar  progress-bar-striped progress-bar-animated bg-primary"
-                                                    role="progressbar" style="width: 0%" aria-valuenow="70"
-                                                    aria-valuemin="0" aria-valuemax="70">
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated {{ $order->status == 'Packed' ? 'bg-warning' : ($order->status == 'Shipped' || $order->status == 'Delivered' ? 'bg-success' : 'bg-primary') }}"
+                                                    role="progressbar"
+                                                    style="width: {{ $order->status == 'Packed' ? '60%' : ($order->status == 'Shipped' || $order->status == 'Delivered' ? '100%' : '0%') }}"
+                                                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
                                                 </div>
                                             </div>
-                                            <p class="mb-0 mt-2">Shipping</p>
+                                            <p class="mb-0 mt-2">Shipped</p>
                                         </div>
                                         <div class="col">
                                             <div class="progress mt-3" style="height: 10px;">
-                                                <div class="progress-bar progress-bar  progress-bar-striped progress-bar-animated bg-primary"
-                                                    role="progressbar" style="width: 0%" aria-valuenow="70"
-                                                    aria-valuemin="0" aria-valuemax="70">
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated {{ $order->status == 'Shipped' ? 'bg-warning' : ($order->status == 'Delivered' ? 'bg-success' : 'bg-primary') }}"
+                                                    role="progressbar"
+                                                    style="width: {{ $order->status == 'Shipped' ? '60%' : ($order->status == 'Delivered' ? '100%' : '0%') }}"
+                                                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
                                                 </div>
                                             </div>
                                             <p class="mb-0 mt-2">Delivered</p>
@@ -100,7 +124,27 @@
                                         Estimated shipping date : <span class="text-dark fw-medium">Apr
                                             25 , 2024</span></p>
                                     <div>
-                                        <a href="#!" class="btn btn-primary">Make As Ready To Ship</a>
+                                        @if ($order->status == 'Pending')
+                                            <a href="#"
+                                                onclick="confirmOrder('{{ route('admin.order.confirm', $order->id) }}')"
+                                                class="btn btn-primary">Make as Confirm Order</a>
+                                        @elseif ($order->status == 'Confirmed')
+                                            <a href="#"
+                                                onclick="confirmAction('{{ route('admin.order.packed', $order->id) }}', 'Packed')"
+                                                class="btn btn-primary">Make as Packed</a>
+                                        @elseif ($order->status == 'Packed')
+                                            <a href="#"
+                                                onclick="confirmAction('{{ route('admin.order.shipped', $order->id) }}', 'Ready to Shipped')"
+                                                class="btn btn-primary">Make as Ready To Shipped</a>
+                                        @elseif ($order->status == 'Shipped')
+                                            <a href="#"
+                                                onclick="confirmAction('{{ route('admin.order.delivered', $order->id) }}', 'Delivered')"
+                                                class="btn btn-primary">Make as Delivered</a>
+                                        @elseif ($order->status == 'Delivered')
+                                            <a class="btn border-success text-success">Delivered <i
+                                                    class="bx bx-check-double"></i></a>
+                                        @endif
+
                                     </div>
                                 </div>
                             </div>
@@ -136,8 +180,7 @@
                                                                     <p class="text-muted mb-0 mt-1 fs-13">
                                                                         <span>Size : </span>{{ $item->size ?? 'N/A' }}
                                                                         &nbsp;
-                                                                        <span>Color : </span><span
-                                                                            class="color-circle"
+                                                                        <span>Color : </span><span class="color-circle"
                                                                             style="background-color: {{ $item->color ?? '#ffffff' }};"></span>
                                                                     </p>
                                                                 </div>
@@ -380,7 +423,8 @@
                                     class="avatar rounded-3 border border-light border-3"> --}}
                                 <div>
                                     <p class="mb-1">{{ $order->first_name . ' ' . $order->last_name }}</p>
-                                    <a href="mailto:{{ $order->email }}" class="link-primary fw-medium">{{ $order->email }}</a>
+                                    <a href="mailto:{{ $order->email }}"
+                                        class="link-primary fw-medium">{{ $order->email }}</a>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-between mt-3">
@@ -389,7 +433,8 @@
                                     <a href="#!"><i class='bx bx-edit-alt fs-18'></i></a>
                                 </div> --}}
                             </div>
-                            <p class="mb-1"><a href="tel:+91{{ $order->phone }}" class="link-primary fw-medium">+91 {{ $order->phone }}</a></p>
+                            <p class="mb-1"><a href="tel:+91{{ $order->phone }}" class="link-primary fw-medium">+91
+                                    {{ $order->phone }}</a></p>
 
                             <div class="d-flex justify-content-between mt-3">
                                 <h5 class="">Shipping Address</h5>

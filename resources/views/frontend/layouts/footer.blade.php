@@ -27,8 +27,9 @@
                 <ul class="list-unstyled">
                     <li><a href="#" class="primary-color text-decoration-none">Track Your Order</a></li>
                     <li><a href="{{ route('refund-exchange-policy') }}"
-                            class="primary-color text-decoration-none">Refund & Exchanges</a></li>
+                            class="primary-color text-decoration-none">RETURN  & REFUND </a></li>
                     <li><a href="{{ route('faq') }}" class="primary-color text-decoration-none">FAQs</a></li>
+                    <li><a href="{{ route('privacy-policy') }}" class="primary-color text-decoration-none">Privacy Policy</a></li>
                     <li><a href="{{ route('terms-and-conditions') }}" class="primary-color text-decoration-none">Terms &
                             Condition</a></li>
                     <li><a href="{{ route('shipping-policy') }}" class="primary-color text-decoration-none">Shipping

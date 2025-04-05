@@ -190,4 +190,16 @@ Route::middleware(['admin.auth'])->prefix('admin')->group(function () {
 
     //wishlist
     Route::get('/wishlist', [WishlistController::class, 'adminWishlist'])->name('admin.wishlist');
+
+    //confirm Order
+    Route::get('/order/confirm/{id}', [OrderController::class, 'confirm'])->name('admin.order.confirm');
+
+    //packed order
+    Route::get('/order/packed/{id}', [OrderController::class, 'packed'])->name('admin.order.packed');
+
+    //shipped order
+    Route::get('/order/shipped/{id}', [OrderController::class, 'shipped'])->name('admin.order.shipped');
+
+    //delivered order
+    Route::get('/order/delivered/{id}', [OrderController::class, 'delivered'])->name('admin.order.delivered');
 });

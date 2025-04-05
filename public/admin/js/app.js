@@ -4,6 +4,39 @@
 * Module/App: Main Js
 */
 
+function confirmOrder(url) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "Do you want to confirm this order?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, confirm it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = url;
+        }
+    })
+}
+
+function confirmAction(url, action) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: `Do you want to mark this order as ${action}?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, do it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = url;
+        }
+    })
+}
+
+
 // Components
 class Components {
     initBootstrapComponents() {

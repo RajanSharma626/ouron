@@ -161,6 +161,43 @@
             });
     </script>
 
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#ShipingReturnEditor'), {
+                licenseKey: 'eyJhbGciOiJFUzI1NiJ9.eyJleHAiOjE3NzQzMTAzOTksImp0aSI6ImUzNzk3NjVkLWU1OWItNDIzYi1iZTU3LWQwMGI1YTVjNTQ0NCIsInVzYWdlRW5kcG9pbnQiOiJodHRwczovL3Byb3h5LWV2ZW50LmNrZWRpdG9yLmNvbSIsImRpc3RyaWJ1dGlvbkNoYW5uZWwiOlsiY2xvdWQiLCJkcnVwYWwiXSwiZmVhdHVyZXMiOlsiRFJVUCJdLCJ2YyI6ImQ5MWUyNzM2In0.Ikt0oR6QJPtQrbsK_CTlhKBedTJ1Y52knHtElskNLd5Gq4f0bOnrFnnlqMxOWDhXKtwoIImRZl45wWsOdTcutQ',
+                plugins: [Essentials, Paragraph, Bold, Italic, Font, ],
+                toolbar: [
+                    'bold', 'italic', '|',
+                    'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', '|',
+                    'numberedList', 'bulletedList'
+                ]
+            })
+            .then(editor => {
+                window.editor = editor;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#DetailEditor'), {
+                licenseKey: 'eyJhbGciOiJFUzI1NiJ9.eyJleHAiOjE3NzQzMTAzOTksImp0aSI6ImUzNzk3NjVkLWU1OWItNDIzYi1iZTU3LWQwMGI1YTVjNTQ0NCIsInVzYWdlRW5kcG9pbnQiOiJodHRwczovL3Byb3h5LWV2ZW50LmNrZWRpdG9yLmNvbSIsImRpc3RyaWJ1dGlvbkNoYW5uZWwiOlsiY2xvdWQiLCJkcnVwYWwiXSwiZmVhdHVyZXMiOlsiRFJVUCJdLCJ2YyI6ImQ5MWUyNzM2In0.Ikt0oR6QJPtQrbsK_CTlhKBedTJ1Y52knHtElskNLd5Gq4f0bOnrFnnlqMxOWDhXKtwoIImRZl45wWsOdTcutQ',
+                plugins: [Essentials, Paragraph, Bold, Italic, Font, ],
+                toolbar: [
+                    'bold', 'italic', '|',
+                    'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', '|',
+                    'numberedList', 'bulletedList'
+                ]
+            })
+            .then(editor => {
+                window.editor = editor;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+
 
 
 

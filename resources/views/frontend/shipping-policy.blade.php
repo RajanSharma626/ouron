@@ -9,7 +9,7 @@
             <div class="row">
 
                 <div class="col-12 policy-content">
-                    <h1 class="text-center mb-5 fs-3">SHOPPING POLICY</h1>
+                    <h1 class="text-center mb-5 fs-3">Shipping POLICY</h1>
 
                     <h5>
                         ORDER PLACEMENT
@@ -108,10 +108,10 @@
                     </h5>
                     <p>For any shopping-related inquiries, reach out to:</p>
                     <ul class="mb-5">
-                        <li class="text-normal"><i class="bi bi-envelope"></i> Email: <a
+                        <li class="text-normal"><i class="bi bi-envelope"></i> Email: <a class="primary-color"
                                 href="mailto:support@ouron.com">support@ouron.com</a>
                         </li>
-                        <li class="text-normal"><i class="bi bi-telephone-inbound"></i> Phone: <a
+                        <li class="text-normal"><i class="bi bi-telephone-inbound"></i> Phone: <a class="primary-color"
                                 href="tel:+91 8799232708">+91 8799232708</a>
                         </li>
                         <li class="text-normal"><i class="bi bi-clock-history"></i> Support Hours: <b>Monday – Saturday</b>
