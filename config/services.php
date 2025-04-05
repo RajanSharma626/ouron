@@ -40,4 +40,11 @@ return [
         'pickup_pincode' => env('ITHINK_PICKUP_PINCODE'),
     ],
 
+    'twilio' => [
+        'sid' => env('TWILIO_SID'),
+        'token' => env('TWILIO_AUTH_TOKEN'),
+        'from' => env('TWILIO_FROM'),
+    ],
+
+
 ];

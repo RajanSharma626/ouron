@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\SendOrderConfirmationJob;
+use App\Jobs\SendOrderSmsJob;
 use App\Models\CartItem;
 use App\Models\Coupon;
 use App\Models\Order;
@@ -85,6 +86,10 @@ class CheckoutController extends Controller
 
         // Dispatch Email Job
         SendOrderConfirmationJob::dispatch($order);
+
+        // Dispatch SMS
+        $smsMessage = "Dear {$order->first_name}, thank you for shopping with us! Your order #{$order->id} has been successfully placed and is now being processed. We will notify you once it is shipped.";
+        SendOrderSmsJob::dispatch($order->phone, $smsMessage);
 
         return redirect()->route('order.success')->with('success', 'Order placed successfully!');
     }

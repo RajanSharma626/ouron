@@ -57,7 +57,9 @@
                                         </div>
                                         <div>
                                             <a href="{{ route('admin.orders') }}" class="btn btn-outline-secondary">Back</a>
-                                            <a href="#!" class="btn btn-danger">Cancel Order</a>
+                                            @if ($order->status == 'Pending')
+                                                <a href="#!" class="btn btn-danger">Cancel Order</a>
+                                            @endif
                                         </div>
 
                                     </div>
@@ -205,97 +207,39 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="position-relative ms-2">
-                                        <span class="position-absolute start-0  top-0 border border-dashed h-100"></span>
-                                        <div class="position-relative ps-4">
-                                            <div class="mb-4">
-                                                <span
-                                                    class="position-absolute start-0 avatar-sm translate-middle-x bg-light d-inline-flex align-items-center justify-content-center rounded-circle">
-                                                    <div class="spinner-border spinner-border-sm text-warning"
-                                                        role="status">
-                                                        <span class="visually-hidden">Loading...</span>
-                                                    </div>
-                                                </span>
-                                                <div
-                                                    class="ms-2 d-flex flex-wrap gap-2 align-items-center justify-content-between">
-                                                    <div>
-                                                        <h5 class="mb-1 text-dark fw-medium fs-15">
-                                                            The packing has been started</h5>
-                                                        <p class="mb-0">Confirmed by Gaston Lapierre
-                                                        </p>
-                                                    </div>
-                                                    <p class="mb-0">April 23, 2024, 09:40 am</p>
+                                        <span class="position-absolute start-0 top-0 border border-dashed h-100"></span>
 
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="position-relative ps-4">
-                                            <div class="mb-4">
-                                                <span
-                                                    class="position-absolute start-0 avatar-sm translate-middle-x bg-light d-inline-flex align-items-center justify-content-center rounded-circle text-success fs-20">
-                                                    <i class='bx bx-check-circle'></i>
-                                                </span>
-                                                <div
-                                                    class="ms-2 d-flex flex-wrap gap-2  align-items-center justify-content-between">
-                                                    <div>
-                                                        <h5 class="mb-1 text-dark fw-medium fs-15">
-                                                            The Invoice has been sent to the
-                                                            customer</h5>
-                                                        <p class="mb-2">Invoice email was sent to <a href="#!"
-                                                                class="link-primary">{{ $order->email ?? 'N/A' }}</a>
-                                                        </p>
-                                                        <a href="#!" class="btn btn-light">Resend
-                                                            Invoice</a>
-                                                    </div>
-                                                    <p class="mb-0">April 23, 2024, 09:40 am</p>
+                                        @if (isset($statusHistory) && $statusHistory->isNotEmpty())
+                                            @foreach ($statusHistory as $index => $history)
+                                                <div class="position-relative ps-4 mb-4">
+                                                    <span
+                                                        class="position-absolute start-0 avatar-sm translate-middle-x bg-light d-inline-flex align-items-center justify-content-center rounded-circle text-success fs-20">
+                                                        <i class='bx bx-check-circle'></i>
+                                                    </span>
 
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="position-relative ps-4">
-                                            <div class="mb-4">
-                                                <span
-                                                    class="position-absolute start-0 avatar-sm translate-middle-x bg-light d-inline-flex align-items-center justify-content-center rounded-circle text-success fs-20">
-                                                    <i class='bx bx-check-circle'></i>
-                                                </span>
-                                                <div
-                                                    class="ms-2 d-flex flex-wrap gap-2 align-items-center justify-content-between">
-                                                    <div>
-                                                        <h5 class="mb-1 text-dark fw-medium fs-15">
-                                                            The Invoice has been created</h5>
-                                                        <p class="mb-2">Invoice created by Gaston
-                                                            Lapierre</p>
-                                                        <a href="#!" class="btn btn-primary">Download
-                                                            Invoice</a>
-                                                    </div>
-                                                    <p class="mb-0">April 23, 2024, 09:40 am</p>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="position-relative ps-4">
-                                            <div class="mb-4">
-                                                <span
-                                                    class="position-absolute start-0 avatar-sm translate-middle-x bg-light d-inline-flex align-items-center justify-content-center rounded-circle text-success fs-20">
-                                                    <i class='bx bx-check-circle'></i>
-                                                </span>
-                                                <div
-                                                    class="ms-2 d-flex flex-wrap gap-2 align-items-center justify-content-between">
-                                                    <div>
-                                                        <h5 class="mb-1 text-dark fw-medium fs-15">
-                                                            Order Payment</h5>
-                                                        <p class="mb-2">Using Master Card</p>
-                                                        <div class="d-flex align-items-center gap-2">
-                                                            <p class="mb-1 text-dark fw-medium">
-                                                                Status :</p>
-                                                            <span
-                                                                class="badge bg-success-subtle text-success  px-2 py-1 fs-13">Paid</span>
+                                                    <div
+                                                        class="ms-2 d-flex flex-wrap gap-2 align-items-center justify-content-between">
+                                                        <div>
+                                                            <h5 class="mb-1 text-dark fw-medium fs-15">
+                                                                {{ ucfirst($history->status) }}
+                                                            </h5>
+                                                            @if ($history->comment)
+                                                                <p class="mb-2">{{ $history->comment }}</p>
+                                                            @endif
+                                                            @if ($history->changedBy)
+                                                                <p class="mb-0">Marked by
+                                                                    {{ $history->changedBy->name }}
+                                                                </p>
+                                                            @endif
                                                         </div>
+                                                        <p class="mb-0">
+                                                            {{ \Carbon\Carbon::parse($history->changed_at)->format('F d, Y, h:i A') }}
+                                                        </p>
                                                     </div>
-                                                    <p class="mb-0">April 23, 2024, 09:40 am</p>
-
                                                 </div>
-                                            </div>
-                                        </div>
+                                            @endforeach
+                                        @endif
+
                                         <div class="position-relative ps-4">
                                             <div class="mb-2">
                                                 <span
@@ -303,31 +247,36 @@
                                                     <i class='bx bx-check-circle'></i>
                                                 </span>
                                                 <div
-                                                    class="ms-2 d-flex flex-wrap gap-2  align-items-center justify-content-between">
+                                                    class="ms-2 d-flex flex-wrap gap-2 align-items-center justify-content-between">
                                                     <div>
                                                         <h5 class="mb-2 text-dark fw-medium fs-15">4
-                                                            Order conform by Gaston Lapierre</h5>
-                                                        <a href="#!"
-                                                            class="badge bg-light text-dark fw-normal  px-2 py-1 fs-13">Order
-                                                            1</a>
-                                                        <a href="#!"
-                                                            class="badge bg-light text-dark fw-normal  px-2 py-1 fs-13">Order
-                                                            2</a>
-                                                        <a href="#!"
-                                                            class="badge bg-light text-dark fw-normal  px-2 py-1 fs-13">Order
-                                                            3</a>
-                                                        <a href="#!"
-                                                            class="badge bg-light text-dark fw-normal  px-2 py-1 fs-13">Order
-                                                            4</a>
+                                                            Order Placed by
+                                                            <span
+                                                                class="link-primary">{{ $order->first_name . ' ' . $order->last_name }}</span>
+                                                        </h5>
+
+                                                        @foreach ($order->items as $index => $item)
+                                                            <a href="#!"
+                                                                class="badge bg-light text-dark fw-normal px-2 py-1 fs-13">Item
+                                                                {{ $index + 1 }}</a>
+                                                        @endforeach
                                                     </div>
                                                     <p class="mb-0">April 23, 2024, 09:40 am</p>
-
                                                 </div>
                                             </div>
                                         </div>
+
+                                        @if ($statusHistory->first() && $statusHistory->first()->status === 'delivered')
+                                            <div class="text-center mt-4">
+                                                <span class="badge bg-success fs-15">This order has been successfully
+                                                    Delivered</span>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
+
+
                         </div>
                     </div>
                 </div>

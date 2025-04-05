@@ -83,9 +83,10 @@ class LoginAuth extends Controller
 
     private function sendOtpToPhone($phone, $otp)
     {
-        $sid = "AC891904ce2486cf98dda44f10569189d4";
-        $token = "1491eb3f484e2281804d0d351526eb80";
-        $twilioPhone = "+19896933126";
+
+        $sid = config('services.twilio.sid');
+        $token = config('services.twilio.token');
+        $twilioPhone = config('services.twilio.from');
 
         // Debugging: Check if credentials are loaded
         if (!$sid || !$token || !$twilioPhone) {
@@ -136,7 +137,7 @@ class LoginAuth extends Controller
                 $user->otp = null;
                 $user->otp_expires_at = null;
                 $user->save();
-                
+
                 // Redirect the user to the intended URL or home if not set
                 return redirect()->intended('home')->with('success', 'Logged in successfully');
             } else {
@@ -179,5 +180,4 @@ class LoginAuth extends Controller
 
         return view('frontend.profile', compact('defaultAddress', 'addresses', 'orders'));
     }
-
 }
