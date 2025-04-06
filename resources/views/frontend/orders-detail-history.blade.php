@@ -14,10 +14,19 @@
                     <p><strong>Order Date:</strong> {{ $order->created_at->format('d M Y, h:i A') }}</p>
                     <p><strong>Total Amount:</strong> ₹{{ number_format($order->total, 2) }}</p>
                     <p><strong>Status:</strong>
-                        <span class="badge bg-{{ $order->status == 'Completed' ? 'success' : 'warning' }}">
+                        <span class="badge bg-{{ $order->status == 'Delivered' ? 'success' : 'warning' }}">
                             {{ ucfirst($order->status) }}
                         </span>
                     </p>
+
+                    <p><strong>Payment Method:</strong> 
+                        {{ $order->payment_method == 'UPI' ? 'Prepaid' : 'Cash on Delivery (COD)' }}
+                    </p>
+                    
+                    @if ($order->payment_method == 'UPI')
+                        <p><strong>Transaction ID:</strong> </p>
+                        <p><strong>Payment Status:</strong> </p>
+                    @endif
 
                     <h6 class="fw-bold mt-4">Order Items</h6>
                     <table class="table">

@@ -105,12 +105,12 @@
                                             data-choices data-choices-groups data-placeholder="Select Collection"
                                             name="choices-single-groups">
                                             <option value="">Choose a Collection</option>
-                                            <option value="collection1"
-                                                {{ $product->collection == 'collection1' ? 'selected' : '' }}>
-                                                Collection 1</option>
-                                            <option value="collection2"
-                                                {{ $product->collection == 'collection2' ? 'selected' : '' }}>
-                                                Collection 2</option>
+                                            <option value="edge-by-ouron"
+                                                {{ $product->collection == 'edge-by-ouron' ? 'selected' : '' }}>
+                                                Edge by Ouron</option>
+                                            <option value="legacy-origins"
+                                                {{ $product->collection == 'legacy-origins' ? 'selected' : '' }}>
+                                                Legacy:Origins</option>
 
                                         </select>
 

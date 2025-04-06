@@ -53,14 +53,12 @@
                                 <!-- First Sub Menu -->
                                 <li class="dropdown-item">
                                     <a class="primary-font-size fw-400 text-decoration-none dropdown-item"
-                                        href="#">Collection
-                                        1</a>
+                                        href="{{ route('collection-product', "edge-by-ouron") }}">Edge by Ouron</a>
 
                                 </li>
                                 <li class="dropdown-item">
                                     <a class="primary-font-size fw-400 text-decoration-none dropdown-item"
-                                        href="#">Collection
-                                        2</a>
+                                        href="{{ route('collection-product', "legacy-origins") }}">Legacy:Origins</a>
                                 </li>
                             </ul>
                         </li>

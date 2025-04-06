@@ -51,14 +51,14 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-4">
                                         <div class="mb-3">
                                             <label for="product-name" class="form-label">Product Name</label>
                                             <input type="text" id="product-name" name="product_name" class="form-control"
                                                 placeholder="Items Name" required>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-4">
                                         <label for="product-categories" class="form-label">Product Categories</label>
                                         <select class="form-control" id="product-categories" name="product_category"
                                             data-choices data-choices-groups data-placeholder="Select Categories"
@@ -67,6 +67,19 @@
                                             @foreach ($categories as $category)
                                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                                             @endforeach
+                                        </select>
+
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <label for="product-Collection" class="form-label">Product Collection</label>
+                                        <select class="form-control" id="product-Collection" name="product_collection"
+                                            data-choices data-choices-groups data-placeholder="Select Collection"
+                                            name="choices-single-groups">
+                                            <option value="">Choose a Collection</option>
+                                            <option value="edge-by-ouron">Edge by Ouron</option>
+                                            <option value="legacy-origins">Legacy:Origins</option>
+
                                         </select>
 
                                     </div>

@@ -532,7 +532,7 @@
         <!-- Login Modal -->
         <div class="modal fade" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
             aria-labelledby="loginModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title fw-bold" id="loginModalLabel">Login</h5>
@@ -549,10 +549,10 @@
                                     <img src="{{ asset('/images/logo/logo.svg') }}" class="img-fluid" width="150"
                                         alt="logo">
                                 </div>
-                                <p class="text-center login_text">
-                                    Every story begins with a name. Let’s start yours—Log in now to unlock exclusive designs,
+                                <small class="text-muted mb-3 d-block text-center">
+                                    Every story begins with a name. Let’s start yours Log in now to unlock exclusive designs,
                                     early drops, and a community that inspires.
-                                </p>
+                                </small>
                                 <form id="loginForm" action="{{ route('login') }}" method="POST">
                                     @csrf
                                     <div class="mb-3">

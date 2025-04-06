@@ -91,19 +91,25 @@
                                                         </div>
                                                         <div class="col-md-9">
                                                             <div class="card-body">
-                                                                <h5 class="card-title">Order #{{ $order->id }}
-                                                                </h5>
-                                                                <p class="card-text mb-0"><strong>Date:</strong>
-                                                                    {{ $order->created_at->format('d M Y, h:i A') }}</p>
-                                                                <p class="card-text mb-0"><strong>Total Amount:</strong>
-                                                                    ₹{{ number_format($order->total, 2) }}</p>
-                                                                <p class="card-text"><strong>Status:</strong>
+                                                                <h6 class="card-title">Order #{{ $order->id }}
+                                                                </h6>
+                                                                <small class="card-text mb-0">Date:
+                                                                    {{ $order->created_at->format('d M Y, h:i A') }}</small>
+                                                                <br>
+                                                                <small class="card-text mb-0">Total Amount:
+                                                                    ₹{{ number_format($order->total, 2) }}</small>
+                                                                <br>
+                                                                <small class="card-text mb-0">Payment Method:
+                                                                    {{ $order->payment_method == 'UPI' ? 'Prepaid' : 'Cash on Delivery (COD)' }}</small>
+
+                                                                <br>
+                                                                <small class="card-text">Status:
                                                                     <span
-                                                                        class="text-{{ $order->status == 'Completed' ? 'success' : 'warning' }}">
+                                                                        class="text-{{ $order->status == 'Pending' ? 'warning' : 'success' }}">
                                                                         {{ ucfirst($order->status) }}
                                                                     </span>
-                                                                </p>
-                                                                <p class="card-text">
+                                                                </small>
+                                                                <p class="card-text mt-2">
                                                                     <a href="{{ route('orders.show', $order->id) }}"
                                                                         class="btn primary-bg btn-sm">
                                                                         View Details

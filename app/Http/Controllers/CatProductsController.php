@@ -107,4 +107,26 @@ class CatProductsController extends Controller
 
         return view('frontend.products', compact('products', 'pageTitle'));
     }
+    public function collectionProduct($cat)
+    {
+        $userId = Auth::id();
+
+        if ($cat == "edge-by-ouron") {
+            $pageTitle = 'Edge by ouron Collection';
+        } elseif ($cat == "legacy-origins") {
+            $pageTitle = 'Legacy:Origins Collection';
+        };
+
+
+        $products = Product::with(['firstimage', 'secondimage'])
+            ->where('collection', $cat)
+            ->whereNull('deleted_at')
+            ->get()
+            ->map(function ($product) use ($userId) {
+                $product->liked = $userId ? $product->likes()->where('user_id', $userId)->exists() : false;
+                return $product;
+            });
+
+        return view('frontend.products', compact('products', 'pageTitle'));
+    }
 }

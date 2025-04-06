@@ -42,6 +42,7 @@ Route::get('/product/{slug}', [FrontendProductController::class, 'detail'])->nam
 Route::get('/new-in', [CatProductsController::class, 'newIn'])->name('new.in');
 Route::get('/all-product', [CatProductsController::class, 'allProduct'])->name('all-product');
 Route::get('/category/{cat}', [CatProductsController::class, 'catProduct'])->name('cat-product');
+Route::get('/collection/{cat}', [CatProductsController::class, 'collectionProduct'])->name('collection-product');
 Route::get('/best-seller', [CatProductsController::class, 'bestSellerProduct'])->name('best-seller');
 
 Route::get('/live-search-suggestions', [SearchController::class, 'suggestions'])->name('live.search.suggestions');
