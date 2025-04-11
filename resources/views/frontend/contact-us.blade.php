@@ -16,6 +16,44 @@
                         Monday to Saturday, 11.30 AM to 8:00 PM.</p>
                 </div>
 
+                <div class="col-12">
+                    <div class="row py-4">
+                        <div class="col-md-3 mb-3">
+                            <div class="card text-center h-100 p-4">
+
+                                <h5 class="fw-bold mb-0">Trade name:</h5>
+                                Ouron Lifestyle & co
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="card text-center h-100 p-4">
+                                <h5 class="fw-bold mb-0">
+                                    Phone number:
+                                </h5>
+                                +91 8799232708
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="card text-center h-100 p-4">
+
+                                <h5 class="fw-bold mb-0">
+                                    Email:
+                                </h5>
+                                contact@ouron.in
+
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="card text-center h-100 p-4">
+                                <h5  class="fw-bold mb-0">
+                                    Physical address:
+                                </h5>
+                                 D/2 Khodiyar Nagar Colony, Surat, 395006 Gujarat, India
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="col-12 col-md-6">
                     <form action="">
                         <div class="row">
