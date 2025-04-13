@@ -43,7 +43,6 @@
                                 @endforeach
                             </ul>
                         </li>
-
                         <li class="nav-item dropdown">
                             <a class="nav-link text-uppercase primary-font-size fw-400 dropdown-toggle" href="#"
                                 id="footwearDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -51,15 +50,13 @@
                             </a>
                             <ul class="dropdown-menu secondary-bg" aria-labelledby="footwearDropdown">
                                 <!-- First Sub Menu -->
-                                <li class="dropdown-item">
-                                    <a class="primary-font-size fw-400 text-decoration-none dropdown-item"
-                                        href="{{ route('collection-product', 'edge-by-ouron') }}">Edge by Ouron</a>
 
-                                </li>
-                                <li class="dropdown-item">
-                                    <a class="primary-font-size fw-400 text-decoration-none dropdown-item"
-                                        href="{{ route('collection-product', 'legacy-origins') }}">Legacy:Origins</a>
-                                </li>
+                                @foreach ($collections as $collection)
+                                    <li class="dropdown-item">
+                                        <a class="primary-font-size fw-400 text-decoration-none dropdown-item"
+                                            href="{{ route('collection-product', $collection->slug) }}">{{ $collection->name }}</a>
+                                    </li>
+                                @endforeach
                             </ul>
                         </li>
 

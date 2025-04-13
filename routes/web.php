@@ -7,10 +7,12 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CatProductsController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\frontend\HomeController;
 use App\Http\Controllers\LoginAuth;
+use App\Http\Controllers\NewsLetterController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\frontend\ProductController as FrontendProductController;
@@ -48,6 +50,9 @@ Route::get('/best-seller', [CatProductsController::class, 'bestSellerProduct'])-
 Route::get('/live-search-suggestions', [SearchController::class, 'suggestions'])->name('live.search.suggestions');
 Route::get('/search', action: [SearchController::class, 'search'])->name('search.view');
 
+Route::post('/subscribe',[NewsLetterController::class, 'store'])->name('subscribe');
+
+Route::post('/contact', [ContactController::class, 'submit']);
 
 
 // login

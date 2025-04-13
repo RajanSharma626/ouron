@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Collections;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -107,19 +108,23 @@ class CatProductsController extends Controller
 
         return view('frontend.products', compact('products', 'pageTitle'));
     }
-    public function collectionProduct($cat)
+    public function collectionProduct($collection)
     {
         $userId = Auth::id();
 
-        if ($cat == "edge-by-ouron") {
-            $pageTitle = 'Edge by ouron Collection';
-        } elseif ($cat == "legacy-origins") {
-            $pageTitle = 'Legacy:Origins Collection';
-        };
+        $pageTitle = ucfirst($collection) . ' Collection';
+        $pageHeading = ucfirst($collection);
+        
+        $collection = Collections::where('slug', $collection)->first();
+        $pageDesc = ucfirst($collection->description);
+
+        if (!$collection) {
+            return redirect()->route('home')->with('error', 'Collection not found');
+        }
 
 
         $products = Product::with(['firstimage', 'secondimage'])
-            ->where('collection', $cat)
+            ->where('collection_id', $collection->id)
             ->whereNull('deleted_at')
             ->get()
             ->map(function ($product) use ($userId) {
@@ -127,6 +132,6 @@ class CatProductsController extends Controller
                 return $product;
             });
 
-        return view('frontend.products', compact('products', 'pageTitle'));
+        return view('frontend.products', compact('products', 'pageTitle', 'pageHeading','pageDesc'));
     }
 }

@@ -9,7 +9,7 @@
 
             <div class="row">
                 <div class="col-12">
-                    <h1 class="text-center mb-5 fs-3">ABOUT US</h1>
+                    <h1 class="text-center mb-md-5 fs-3">ABOUT US</h1>
                 </div>
             </div>
             <div class="row">
@@ -18,7 +18,7 @@
                         class="img-fluid" alt="about-us">
                 </div>
                 <div class="col-12 col-md-6">
-                    <h1 class="fs-3 text-center d-none d-md-block">ABOUT US</h1>
+                    {{-- <h1 class="fs-3 text-center d-none d-md-block">ABOUT US</h1> --}}
                     <p class="text-normal mb-4 mt-3 mt-md-0">
                         At Ouron, we believe fashion is more than just fabric—it's a voice, a statement, a story. Born from
                         the idea of “Our Own” (with the silent ‘w’), Ouron is a lifestyle brand that turns inspiration into

@@ -1,12 +1,22 @@
 @extends('frontend.layouts.app')
 
-@section('title', 'All Product - Ouron')
+@section('title', $pageTitle . ' - Ouron')
 
 @section('content')
 
     <section class="product_detail">
         <div class="container-fluid py-5">
-
+            @if (isset($pageHeading) && isset($pageDesc))
+                <div class="row justify-content-center mb-3 align-items-center">
+                    <div class="col-md-6 text-center">
+                        <div class="heading-logo">
+                            <img src="{{asset('/uploads/collection/edge.png')}}" class="img-fluid" alt="" width="100px">
+                        </div>
+                        <h4 class="text-uppercase mb-0  text-center">{{ $pageHeading }}</h4>
+                        <small class="text-uppercase text-muted">{{ $pageDesc }}</small>
+                    </div>
+                </div>
+            @endif
             <div class="row justify-content-between mb-3 align-items-center">
                 <div class="col">
                     <p class="text-uppercase heading-font mb-0">{{ $pageTitle }}</p>

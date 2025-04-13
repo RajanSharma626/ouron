@@ -86,7 +86,6 @@
         </div>
 
         <!-- Cart Summary -->
-        <hr>
         <div class="cart-total mt-3 cart-total-hide">
             <h6 class="d-flex justify-content-between fw-bold">
                 <span>ESTIMATED TOTAL</span>

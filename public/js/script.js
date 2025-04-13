@@ -181,9 +181,9 @@ $(document).ready(function () {
     // Load Cart Items
     function loadCart() {
         // Show loading indicator while fetching data
-        $(".cart-items").html(
-            '<div class="text-center my-3"><span class="spinner-border" role="status" aria-hidden="true"></span></div>'
-        );
+        // $(".cart-items").html(
+        //     '<div class="text-center my-3"><span class="spinner-border" role="status" aria-hidden="true"></span></div>'
+        // );
 
         $.ajax({
             url: "/cart",
@@ -193,9 +193,15 @@ $(document).ready(function () {
                 let total = 0;
 
                 if (cartItems.length === 0) {
+                    $(".cart-items").addClass(
+                        "vh-85 d-flex justify-content-center align-items-center"
+                    );
+
                     $(".cart-items").html(`
-                        <div class="text-center my-5">
-                            <p class="text-muted">Your cart is empty.</p>
+                        <div class="text-center ">
+                        <small>
+                            <p class="text-muted">Your cart is currently empty <br> start adding your favorite items!</p>
+                            </small>
                             <a href="/" class="btn primary-bg continue-shopping">Continue Shopping</a>
                         </div>
                     `);
@@ -261,6 +267,11 @@ $(document).ready(function () {
                             </div>
                         </div>`;
                 });
+
+                $(".cart-items").addClass("max-height60");
+                $(".cart-items").removeClass(
+                    "vh-85 d-flex justify-content-center align-items-center"
+                );
 
                 $(".cart-items").html(cartHtml);
                 $(".cart-total span:last-child").text(
@@ -474,9 +485,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
-    
 
-    
     let typingTimer;
     const delay = 300;
 
@@ -529,5 +538,96 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("editBtn").classList.add("d-none");
         document.getElementById("saveBtn").classList.remove("d-none");
     });
+});
 
+$(document).ready(function () {
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
+    // Handle newsletter subscription
+    $("#newsletterForm").on("submit", function (e) {
+        e.preventDefault();
+
+        let email = $(this).find('input[name="email"]').val();
+
+        $.ajax({
+            url: "/subscribe", // Replace with your endpoint
+            method: "POST",
+            data: {
+                email: email,
+            },
+            success: function (response) {
+                if (response.status === "success") {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Subscribed!",
+                        text: response.message,
+                    });
+                    $("#newsletterForm")[0].reset();
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text:
+                            response.message ||
+                            "Something went wrong! Please try again.",
+                    });
+                }
+            },
+            error: function (xhr) {
+                const errorMsg = xhr.responseJSON
+                    ? xhr.responseJSON.message
+                    : "Something went wrong! Please try again.";
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: errorMsg,
+                });
+            },
+        });
+    });
+});
+
+$(document).ready(function () {
+    // CSRF Token Setup
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
+
+    $("#contactForm").on("submit", function (e) {
+        e.preventDefault();
+
+        let $btn = $("#submitBtn");
+        $btn.prop("disabled", true);
+        $btn.find(".btn-text").text("Submitting...");
+
+        $.ajax({
+            url: "/contact",
+            method: "POST",
+            data: $(this).serialize(),
+            success: function (response) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Message Sent!",
+                    text: "Thank you for contacting us. We’ll get back to you shortly.",
+                });
+                $("#contactForm")[0].reset();
+            },
+            error: function (xhr) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error!",
+                    text: "Something went wrong. Please try again.",
+                });
+            },
+            complete: function () {
+                $btn.prop("disabled", false);
+                $btn.find(".btn-text").text("Submit");
+            },
+        });
+    });
 });

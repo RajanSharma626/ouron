@@ -55,23 +55,26 @@
                 </div>
 
                 <div class="col-12 col-md-6">
-                    <form action="">
+                    <form id="contactForm">
+                        @csrf
                         <div class="row">
                             <div class="col-12 col-md-6 mb-3">
-                                <input type="text" class="form-control fs-07rem p-3" placeholder="Name">
+                                <input type="text" name="name" class="form-control fs-07rem p-3" placeholder="Name" required>
                             </div>
                             <div class="col-12 col-md-6 mb-3">
-                                <input type="email" class="form-control fs-07rem p-3" placeholder="Email*">
+                                <input type="email" name="email" class="form-control fs-07rem p-3" placeholder="Email*" required>
                             </div>
                             <div class="col-12 mb-3">
-                                <input type="number" class="form-control fs-07rem p-3" placeholder="Phone Number*">
+                                <input type="number" name="phone" class="form-control fs-07rem p-3" placeholder="Phone Number*" required>
                             </div>
                             <div class="col-12 mb-3">
-                                <textarea name="" class="form-control fs-07rem p-3" id="" placeholder="Comment"></textarea>
+                                <textarea name="comment" class="form-control fs-07rem p-3" id="" placeholder="Comment" required></textarea>
                             </div>
 
                             <div class="col-12 text-center">
-                                <button class="btn primary-bg px-5">Submit</button>
+                                <button type="submit" class="btn primary-bg px-5" id="submitBtn">
+                                    <span class="btn-text">Submit</span>
+                                </button>
                             </div>
 
                         </div>

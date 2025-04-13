@@ -26,7 +26,8 @@ return new class extends Migration
             $table->integer('stock')->default(0);
             $table->string('sku')->unique()->nullable();
             $table->string('weight')->nullable();
-            $table->string('collection')->nullable();
+            $table->unsignedBigInteger('collection_id')->nullable(); // Corrected collection column
+            $table->foreign('collection_id')->references('id')->on('collection')->onDelete('cascade');
             $table->integer('best_seller')->default(0);
             $table->unsignedBigInteger('category_id')->nullable(); // Corrected category column
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');

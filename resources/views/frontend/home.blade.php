@@ -515,10 +515,10 @@
                         <h3 class="newsletter title">Subscribe to our Newsletter</h3>
                         <p class="newsletter_desc text-normal">Join the Ouron newsletter for exclusive updates, early
                             drops, and inspiring stories!</p>
-                        <form action="" class="newsletter_form">
+                        <form id="newsletterForm" class="newsletter_form">
                             <div class="input-group">
-                                <input type="email" class="form-control p-2 px-3" placeholder="Enter your email">
-                                <button class="btn subscribe_btn border-start">Subscribe</button>
+                                <input type="email" class="form-control p-2 px-3" name="email" placeholder="Enter your email">
+                                <button type="submit" class="btn subscribe_btn border-start">Subscribe</button>
                             </div>
                         </form>
                     </div>
