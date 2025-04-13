@@ -33,6 +33,13 @@ class Product extends Model
         return $this->belongsTo(Category::class, 'category_id');
     }
 
+    public function collection()
+    {
+        return $this->belongsTo(Collections::class, 'collection_id');
+    }
+
+
+
     public function firstimage()
     {
         return $this->hasOne(ProductImg::class, 'product_id')->orderBy('id', 'asc');

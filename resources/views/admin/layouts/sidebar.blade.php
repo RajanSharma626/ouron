@@ -99,7 +99,23 @@
                     <span class="nav-text"> Blogs </span>
                 </a>
             </li>
-
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.contact') }}">
+                    <span class="nav-icon">
+                        <iconify-icon icon="solar:user-speak-rounded-bold-duotone"></iconify-icon>
+                    </span>
+                    <span class="nav-text"> Contact Form </span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.newsletter') }}">
+                    <span class="nav-icon">
+                        <iconify-icon icon="solar:calendar-bold-duotone"></iconify-icon>
+                    </span>
+                    <span class="nav-text"> Newsletter </span>
+                </a>
+            </li>
+            
         </ul>
     </div>
 </div>

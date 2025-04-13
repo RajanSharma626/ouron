@@ -191,6 +191,12 @@ Route::middleware(['admin.auth'])->prefix('admin')->group(function () {
     Route::get('/blogs/add', [BlogController::class, 'create'])->name('admin.blogs.add');
     Route::post('/blogs/store', [BlogController::class, 'store'])->name('admin.blog.store');
 
+    //Contact Form
+    Route::get('/contact-form', [ContactController::class, 'index'])->name('admin.contact');
+
+    //newsletter
+    Route::get('/newsletter', [NewsLetterController::class,'index'])->name('admin.newsletter');
+
     //cart
     Route::get('/cart', [CartController::class, 'adminCart'])->name('admin.cart');
 

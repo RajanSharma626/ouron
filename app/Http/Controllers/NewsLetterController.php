@@ -11,7 +11,8 @@ class NewsLetterController extends Controller
 {
     public function index()
     {
-        return view('frontend.newsletter');
+        $newsletters = Newsletter::orderBy("created_at","desc")->paginate(10);
+        return view('admin.newsletter', compact('newsletters'));
     }
     public function store(Request $request)
     {

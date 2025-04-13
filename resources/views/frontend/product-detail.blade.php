@@ -64,7 +64,7 @@
                             </div>
                         @endforeach
 
-                        <div style="position: absolute; top: 10px; right: 10px; z-index: 1050;">
+                        <div style="position: absolute; top: 10px; right: 10px;">
                             <div class="product_icons">
                                 <a href="javascript:void(0)" class="share_icon primary-bg" title="Share" id="shareBtn">
                                     <i class="bi bi-upload text-white"></i>
@@ -121,6 +121,10 @@
                 </div>
                 <div class="col-md-6 col-lg-5 col-12 p-md-5 py-4 py-md-0">
                     <div class="row justify-content-between align-items-center">
+
+                        <div class="col-12">
+                            <h2 class="fs-6 mb-0 fw-bold">{{ $product->category->name }} > {{ $product->collection->name }}</h2>
+                        </div>
                         <div class="col-10">
                             <h1 class="fs-6 mb-0 fw-bold">{{ $product->name }}</h1>
                         </div>
@@ -163,7 +167,7 @@
                             <div class="row justify-content-between align-items-center mb-2">
                                 <div class="col"><b>Color:</b></div>
                             </div>
-                            <div class="col-12 d-flex gap-1">
+                            <div class="col-12 d-flex gap-1 py-2">
                                 @php
                                     $first_color = 1;
                                 @endphp
@@ -278,10 +282,7 @@
                                 </h2>
                                 <div id="flush-collapseTwo" class="accordion-collapse collapse"
                                     data-bs-parent="#accordionFlushExample">
-                                    <div class="accordion-body">Placeholder content for this accordion, which is intended
-                                        to
-                                        demonstrate the <code>.accordion-flush</code> class. This is the second item's
-                                        accordion body. Let's imagine this being filled with some actual content.</div>
+                                    <div class="accordion-body">{!! $product->detail !!}</div>
                                 </div>
                             </div>
                             <div class="accordion-item">
@@ -294,12 +295,7 @@
                                 </h2>
                                 <div id="flush-collapseThree" class="accordion-collapse collapse"
                                     data-bs-parent="#accordionFlushExample">
-                                    <div class="accordion-body">Placeholder content for this accordion, which is intended
-                                        to
-                                        demonstrate the <code>.accordion-flush</code> class. This is the third item's
-                                        accordion body. Nothing more exciting happening here in terms of content, but just
-                                        filling up the space to make it look, at least at first glance, a bit more
-                                        representative of how this would look in a real-world application.</div>
+                                    <div class="accordion-body">{!! $product->shipping_Return !!}</div>
                                 </div>
                             </div>
                         </div>

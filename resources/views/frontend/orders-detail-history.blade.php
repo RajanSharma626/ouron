@@ -11,24 +11,24 @@
             <div class="card">
                 <div class="card-body">
                     <h6 class="fw-bold">Order #{{ $order->id }}</h6>
-                    <p><strong>Order Date:</strong> {{ $order->created_at->format('d M Y, h:i A') }}</p>
-                    <p><strong>Total Amount:</strong> ₹{{ number_format($order->total, 2) }}</p>
-                    <p><strong>Status:</strong>
-                        <span class="badge bg-{{ $order->status == 'Delivered' ? 'success' : 'warning' }}">
-                            {{ ucfirst($order->status) }}
+                    <p class="mb-2"><strong>Order Date:</strong> {{ $order->created_at->format('d M Y, h:i A') }}</p>
+                    <p class="mb-2"><strong>Total Amount:</strong> ₹{{ number_format($order->total, 2) }}</p>
+                    <p class="mb-2"><strong>Status:</strong>
+                        <span class="badge bg-success">
+                            {{ ucfirst($order->status == "Pending" ? "Confimed" : $order->status) }}
                         </span>
                     </p>
 
-                    <p><strong>Payment Method:</strong> 
+                    <p class="mb-2"><strong>Payment Method:</strong>
                         {{ $order->payment_method == 'UPI' ? 'Prepaid' : 'Cash on Delivery (COD)' }}
-                    </p>
-                    
+                    </p class="mb-2">
+
                     @if ($order->payment_method == 'UPI')
                         <p><strong>Transaction ID:</strong> </p>
                         <p><strong>Payment Status:</strong> </p>
                     @endif
 
-                    <h6 class="fw-bold mt-4">Order Items</h6>
+                    <h6 class="fw-bold mt-4 border-bottom pb-2">Order Items</h6>
                     <table class="table">
                         <thead>
                             <tr>
@@ -38,19 +38,23 @@
                                 <th>Subtotal</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody> 
                             @foreach ($order->items as $item)
                                 <tr>
                                     <td>
-                                        <div class="d-flex align-items-center">
-                                            <img src="{{ $item->product->firstimage->img }}" alt="{{ $item->product->name }}"
-                                                style="width: 60px; object-fit: cover; margin-right: 10px;">
-                                            <div>
-                                                <span class="fw-bold">{{ $item->product->name }}</span><br>
-                                                <small>Size: {{ $item->size }}</small><br>
-                                                <small>Color: <span style="display: inline-block; width: 15px; height: 15px; background-color: {{ $item->color }}; border: 1px solid #000; border-radius: 50%;"></span></small>
+                                        <a href="{{route('product.detail', $item->product->slug)}}" class="link-normal">
+                                            <div class="d-flex align-items-center">
+                                                <img src="{{ $item->product->firstimage->img }}"
+                                                    alt="{{ $item->product->name }}"
+                                                    style="width: 60px; object-fit: cover; margin-right: 10px;">
+                                                <div>
+                                                    <span class="fw-bold">{{ $item->product->name }}</span><br>
+                                                    <small>Size: {{ $item->size }}</small><br>
+                                                    <small>Color: <span
+                                                            style="display: inline-block; width: 15px; height: 15px; background-color: {{ $item->color }}; border: 1px solid #000; border-radius: 50%;"></span></small>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </a>
                                     </td>
                                     <td>{{ $item->quantity }}</td>
                                     <td>₹{{ number_format($item->price, 2) }}</td>
