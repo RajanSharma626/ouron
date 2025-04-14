@@ -8,7 +8,7 @@
         <div class="container">
             <div class="profile-container row py-5">
                 <!-- Sidebar -->
-                <div class="col-md-4 col-12">
+                <div class="col-md-4 col-12 mb-3">
                     <div class="list-group">
                         <a class="list-group-item list-group-item-action {{ session('activeTab', 'profileTab') == 'profileTab' ? 'active' : '' }}"
                             data-bs-toggle="tab" href="#profileTab">Profile</a>
@@ -19,7 +19,7 @@
                             data-bs-toggle="tab" href="#addressesTab">Addresses</a>
                         <form action="{{ route('logout') }}" method="POST" class="mt-3 d-none d-md-block">
                             @csrf
-                            <button type="submit" class="btn btn-danger">Logout</button>
+                            <button type="submit" class="btn btn-danger" id="logoutBtn2">Logout</button>
                         </form>
                     </div>
                 </div>
@@ -40,36 +40,40 @@
                                 @csrf
                                 <input type="hidden" name="activeTab" value="profileTab">
                                 <div class="mb-3">
-                                    <label for="name" class="form-label">Name</label>
+                                    <label for="name" class="form-label fw-bold">Name</label>
                                     <input type="text" name="name" class="form-control"
                                         value="{{ old('name', auth()->user()->name) }}"
-                                        @if (!$errors->has('name')) disabled @endif>
+                                        @if (!$errors->any()) disabled @endif>
                                     @error('name')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label for="email" class="form-label">Email</label>
+                                    <label for="email" class="form-label fw-bold">Email</label>
                                     <input type="email" name="email" class="form-control"
                                         value="{{ old('email', auth()->user()->email) }}"
-                                        @if (!$errors->has('email')) disabled @endif>
+                                        @if (!$errors->any()) disabled @endif>
                                     @error('email')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label for="phone" class="form-label">Phone No</label>
-                                    <input type="text" name="phone" class="form-control"
+                                    <label for="phone" class="form-label fw-bold">Phone No</label>
+                                    <input type="number" name="phone" class="form-control"
                                         value="{{ old('phone', auth()->user()->phone) }}"
-                                        @if (!$errors->has('phone')) disabled @endif>
+                                        @if (!$errors->any()) disabled @endif>
                                     @error('phone')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
 
                                 <div class="mb-3 text-end">
-                                    <button id="editBtn" type="button" class="btn primary-bg">Edit Detail</button>
-                                    <button id="saveBtn" type="submit" class="btn primary-bg d-none">Save Detail</button>
+                                    <button id="editBtn" type="button" class="btn primary-bg {{ $errors->any() ? 'd-none' : '' }}">
+                                        Edit Detail
+                                    </button>
+                                    <button id="saveBtn" type="submit" class="btn primary-bg {{ $errors->any() ? '' : 'd-none' }}">
+                                        Save Detail
+                                    </button>
                                 </div>
                             </form>
                         </div>
@@ -85,37 +89,33 @@
                                 @else
                                     <div class="row">
                                         @foreach ($orders as $order)
-                                            <div class="col-12">
+                                            <div class="col-12 ">
                                                 <div class="card mb-3">
-                                                    <div class="row g-0">
-                                                        <div class="col-md-3">
+                                                    <div class="d-flex justify-content-start">
+                                                        <div>
                                                             <img src="{{ $order->items->first()->product->firstimage->img }}"
-                                                                class="img-fluid rounded-start" alt="Product Image">
+                                                                class="img-fluid rounded-start history_product_img" alt="Product Image" width="115px">
                                                         </div>
-                                                        <div class="col-md-9">
+                                                        <div class="w-100">
                                                             <div class="card-body">
-                                                                <h6 class="card-title">Order #{{ $order->id }}
+                                                                <h6 class="card-title d-flex justify-content-between">
+                                                                    <span>Order #{{ $order->id }}</span>
+                                                                    <span>₹{{ number_format($order->total, 2) }}</small></span>
                                                                 </h6>
-                                                                <small class="card-text mb-0">Date:
-                                                                    {{ $order->created_at->format('d M Y, h:i A') }}</small>
-                                                                <br>
-                                                                <small class="card-text mb-0">Total Amount:
-                                                                    ₹{{ number_format($order->total, 2) }}</small>
-                                                                <br>
-                                                                <small class="card-text mb-0">Payment Method:
-                                                                    {{ $order->payment_method == 'UPI' ? 'Prepaid' : 'Cash on Delivery (COD)' }}</small>
 
-                                                                <br>
+                                                        
                                                                 <small class="card-text">Status:
                                                                     <span class="text-success">
                                                                         {{ ucfirst($order->status == 'Pending' ? 'Confirmed' : $order->status) }}
                                                                     </span>
                                                                 </small>
-                                                                <p class="card-text mt-2">
+                                                                <p class="card-text mt-2 d-flex justify-content-between align-items-center">
                                                                     <a href="{{ route('orders.show', $order->id) }}"
                                                                         class="btn primary-bg btn-sm">
                                                                         View Details
                                                                     </a>
+
+                                                                    <small class="d-none d-md-block">{{ $order->created_at->format('d M Y, h:i A') }}</small>
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -152,7 +152,7 @@
                                         @csrf
                                         <div class="mb-3">
                                             <label for="address" class="form-label">Address</label>
-                                            <textarea name="address" id="address" class="form-control" rows="3" required></textarea>
+                                            <input type="text" name="address" id="address" class="form-control" placeholder="Flat / House No. / Floor / Building"  required>
                                             @error('address')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
@@ -160,12 +160,12 @@
 
                                         <div class="mb-3">
                                             <label for="address_2" class="form-label">Address 2 (Optional)</label>
-                                            <input type="text" name="address_2" id="address_2" class="form-control">
+                                            <input type="text" name="address_2" id="address_2" class="form-control" placeholder="Address 2 (Optional)">
                                         </div>
 
                                         <div class="mb-3">
                                             <label for="city" class="form-label">City</label>
-                                            <input type="text" name="city" id="city" class="form-control"
+                                            <input type="text" name="city" id="city" class="form-control" placeholder="City"
                                                 required>
                                             @error('city')
                                                 <small class="text-danger">{{ $message }}</small>
@@ -176,34 +176,17 @@
                                             <label for="state" class="form-label">State</label>
                                             <select id="state" class="form-control py-2" name="state" required>
                                                 <option value="">Select State</option>
-                                                <option value="Andhra Pradesh">Andhra Pradesh</option>
-                                                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-                                                <option value="Assam">Assam</option>
-                                                <option value="Bihar">Bihar</option>
-                                                <option value="Chhattisgarh">Chhattisgarh</option>
-                                                <option value="Goa">Goa</option>
-                                                <option value="Gujarat">Gujarat</option>
-                                                <option value="Haryana">Haryana</option>
-                                                <option value="Himachal Pradesh">Himachal Pradesh</option>
-                                                <option value="Jharkhand">Jharkhand</option>
-                                                <option value="Karnataka">Karnataka</option>
-                                                <option value="Kerala">Kerala</option>
-                                                <option value="Madhya Pradesh">Madhya Pradesh</option>
-                                                <option value="Maharashtra">Maharashtra</option>
-                                                <option value="Manipur">Manipur</option>
-                                                <option value="Meghalaya">Meghalaya</option>
-                                                <option value="Mizoram">Mizoram</option>
-                                                <option value="Nagaland">Nagaland</option>
-                                                <option value="Odisha">Odisha</option>
-                                                <option value="Punjab">Punjab</option>
-                                                <option value="Rajasthan">Rajasthan</option>
-                                                <option value="Sikkim">Sikkim</option>
-                                                <option value="Tamil Nadu">Tamil Nadu</option>
-                                                <option value="Telangana">Telangana</option>
-                                                <option value="Tripura">Tripura</option>
-                                                <option value="Uttar Pradesh">Uttar Pradesh</option>
-                                                <option value="Uttarakhand">Uttarakhand</option>
-                                                <option value="West Bengal">West Bengal</option>
+                                                @foreach ([
+                                                    'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh', 
+                                                    'Goa', 'Gujarat', 'Haryana', 'Himachal Pradesh', 'Jharkhand', 
+                                                    'Karnataka', 'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Manipur', 
+                                                    'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Punjab', 
+                                                    'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana', 'Tripura', 
+                                                    'Uttar Pradesh', 'Uttarakhand', 'West Bengal', 'Andaman and Nicobar Islands', 
+                                                    'Chandigarh', 'Dadra and Nagar Haveli and Daman and Diu', 'Delhi', 
+                                                    'Jammu and Kashmir', 'Ladakh', 'Lakshadweep', 'Puducherry'] as $state)
+                                                    <option value="{{ $state }}">{{ $state }}</option>
+                                                @endforeach
                                             </select>
                                             @error('state')
                                                 <small class="text-danger">{{ $message }}</small>
@@ -212,7 +195,7 @@
 
                                         <div class="mb-3">
                                             <label for="pin_code" class="form-label">Pin Code</label>
-                                            <input type="text" name="pin_code" id="pin_code" class="form-control"
+                                            <input type="text" name="pin_code" id="pin_code" class="form-control" placeholder="Pin Code"
                                                 required>
                                             @error('pin_code')
                                                 <small class="text-danger">{{ $message }}</small>
@@ -247,8 +230,8 @@
                             <h6 class="mt-4">Other Addresses:</h6>
                             <ul class="list-group">
                                 @foreach ($addresses as $address)
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <div>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                        <div class="mb-2 mb-md-0">
                                             {{ $address->address }},
                                             {{ $address->address_2 ? $address->address_2 . ', ' : '' }}
                                             {{ $address->city }}, {{ $address->state }}, {{ $address->pin_code }}
@@ -262,6 +245,8 @@
                                                     <button class="btn btn-sm btn-primary">Set as Default</button>
                                                 </form>
                                             @endif
+                                            <button class="btn btn-sm btn-warning" data-bs-toggle="collapse"
+                                                data-bs-target="#editAddressForm{{ $address->id }}">Edit</button>
                                             <form action="{{ route('addresses.destroy', $address->id) }}" method="POST"
                                                 class="d-inline">
                                                 @csrf
@@ -270,12 +255,88 @@
                                             </form>
                                         </div>
                                     </li>
+                                    <div class="collapse mb-4" id="editAddressForm{{ $address->id }}">
+                                        <div class="card card-body">
+                                            <form method="POST" action="{{ route('addresses.update', $address->id) }}">
+                                                @csrf
+                                                @method('PUT')
+                                                <div class="mb-3">
+                                                    <label for="address" class="form-label">Address</label>
+                                                    <input name="address" id="address" class="form-control" value="{{ $address->address }}" placeholder="Flat / House No. / Floor / Building" required>
+                                                    @error('address')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="address_2" class="form-label">Address 2 (Optional)</label>
+                                                    <input type="text" name="address_2" id="address_2" placeholder="Address 2 (Optional)"
+                                                        class="form-control" value="{{ $address->address_2 }}">
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="city" class="form-label">City</label>
+                                                    <input type="text" name="city" id="city" class="form-control" placeholder="City"
+                                                        value="{{ $address->city }}" required>
+                                                    @error('city')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="state" class="form-label">State</label>
+                                                    <select id="state" class="form-control py-2" name="state" required>
+                                                        <option value="">Select State</option>
+                                                        @foreach ([
+                                                            'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh', 
+                                                            'Goa', 'Gujarat', 'Haryana', 'Himachal Pradesh', 'Jharkhand', 
+                                                            'Karnataka', 'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Manipur', 
+                                                            'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Punjab', 
+                                                            'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana', 'Tripura', 
+                                                            'Uttar Pradesh', 'Uttarakhand', 'West Bengal', 'Andaman and Nicobar Islands', 
+                                                            'Chandigarh', 'Dadra and Nagar Haveli and Daman and Diu', 'Delhi', 
+                                                            'Jammu and Kashmir', 'Ladakh', 'Lakshadweep', 'Puducherry'] as $state)
+                                                            <option value="{{ $state }}" {{ $address->state == $state ? 'selected' : '' }}>
+                                                                {{ $state }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('state')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="pin_code" class="form-label">Pin Code</label>
+                                                    <input type="text" name="pin_code" id="pin_code"
+                                                        class="form-control" value="{{ $address->pin_code }}" placeholder="Pin Code" required>
+                                                    @error('pin_code')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="form-check mb-3">
+                                                    <input type="checkbox" class="form-check-input" id="primary"
+                                                        name="primary" {{ $address->default_address ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="primary">Set as primary
+                                                        address</label>
+                                                </div>
+
+                                                <button type="submit" class="btn btn-success">Update Address</button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 @endforeach
                             </ul>
                         </div>
 
                     </div>
                 </div>
+
+                <form action="{{ route('logout') }}" method="POST" class="mt-3 w-100 d-md-none">
+                    @csrf
+                    <button type="button" class="btn btn-danger w-100" id="logoutBtn">Logout</button>
+                </form>
             </div>
         </div>
         </div>

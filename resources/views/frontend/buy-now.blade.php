@@ -10,13 +10,14 @@
                 <div class="col-md-6">
                     <!-- Product List -->
                     <div class="card custom-card-bg mb-4 check_product">
-                        <div class="card-body">
+                        <div class="card-body pb-0">
 
                             @if (session()->has('buy_now'))
                                 @php
                                     $buyNow = session()->get('buy_now');
                                 @endphp
-                                <div class="d-flex align-items-center mb-3 border-bottom pb-3">
+                                <a href="{{route('product.detail', $buyNow['slug'])}}" class="link-normal">
+                                <div class="d-flex align-items-center pb-3">
                                     <div class="position-relative">
                                         <img src="{{ $buyNow['img'] }}" alt="Product" class="img-thumbnail mr-3"
                                             style="width: 70px; height: 70px;">
@@ -28,12 +29,14 @@
                                     <div class="d-flex justify-content-between w-100 ms-2">
                                         <div>
                                             <h6 class="mb-1 fw-bold check_title">{{ $buyNow['name'] }}</h6>
-                                            <p class="mb-0 check_desc">
-                                                Size: {{ $buyNow['size'] }} | Color: &nbsp;
-
-                                                <span class="color-circle checkout-color"
+                                         
+                                            <p class="mb-0 check_desc d-flex align-items-center">
+                                                <span>
+                                                    Size: <b>{{ $buyNow['size'] }}</b>
+                                                </span>
+                                                &nbsp; | &nbsp; Color: &nbsp;
+                                                <span class="rounded-circle checkout-color border-dark border"
                                                     style="background-color: {{ $buyNow['color'] ?? '#ffffff' }};"></span>
-
                                             </p>
                                         </div>
                                         <div class="ml-auto">
@@ -42,6 +45,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                </a>
                             @else
                                 <p class="text-center text-muted">No items found in your cart.</p>
                             @endif
@@ -74,8 +78,18 @@
                         <div class="card-body">
                             @php
                                 $subtotal = $buyNow['price'];
-                                $tax = $subtotal * 0.18; // GST 18%
-                                $total = $subtotal + $tax;
+
+                                $discountAmount = 0;
+                                // If a coupon is applied, deduct discount from the subtotal.
+                                if (session('discount')) {
+                                    $discount = session('discount');
+                                    if ($discount['type'] == 'percentage') {
+                                        $discountAmount = ($subtotal * $discount['value']) / 100;
+                                    } elseif ($discount['type'] == 'fixed_amount') {
+                                        $discountAmount = $discount['value'];
+                                    }
+                                }
+                                $total = $subtotal + $discountAmount; // Assuming no shipping cost for now
                             @endphp
 
                             <ul class="list-group mb-3">
@@ -84,8 +98,10 @@
                                     <strong>₹{{ number_format($subtotal, 2) }}</strong>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between custom-card-bg">
-                                    <span>GST (18%)</span>
-                                    <strong>₹{{ number_format($tax, 2) }}</strong>
+                                    <span>Shipping</span>
+                                    <span id="shippingCost">
+                                        <small class="text-muted">Enter shipping address</small>
+                                    </span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between custom-card-bg">
                                     <span>Total</span>
@@ -177,55 +193,105 @@
                                                     Assam</option>
                                                 <option value="Bihar" {{ old('state', $buyNow['state']) == 'Bihar' ? 'selected' : '' }}>
                                                     Bihar</option>
-                                                <option value="Delhi" {{ old('state', $buyNow['state']) == 'Delhi' ? 'selected' : '' }}>
-                                                    Delhi</option>
+                                                <option value="Andaman and Nicobar Islands"
+                                                    {{ old('state', $buyNow['state']) == 'Andaman and Nicobar Islands' ? 'selected' : '' }}>Andaman and Nicobar Islands
+                                                </option>
+                                                <option value="Andhra Pradesh"
+                                                    {{ old('state', $buyNow['state']) == 'Andhra Pradesh' ? 'selected' : '' }}>Andhra Pradesh
+                                                </option>
+                                                <option value="Arunachal Pradesh"
+                                                    {{ old('state', $buyNow['state']) == 'Arunachal Pradesh' ? 'selected' : '' }}>Arunachal Pradesh
+                                                </option>
+                                                <option value="Assam"
+                                                    {{ old('state', $buyNow['state']) == 'Assam' ? 'selected' : '' }}>Assam
+                                                </option>
+                                                <option value="Bihar"
+                                                    {{ old('state', default: $buyNow['state']) == 'Bihar' ? 'selected' : '' }}>Bihar
+                                                </option>
+                                                <option value="Chandigarh"
+                                                    {{ old('state', $buyNow['state']) == 'Chandigarh' ? 'selected' : '' }}>Chandigarh
+                                                </option>
                                                 <option value="Chhattisgarh"
                                                     {{ old('state', $buyNow['state']) == 'Chhattisgarh' ? 'selected' : '' }}>Chhattisgarh
                                                 </option>
-                                                <option value="Goa" {{ old('state', $buyNow['state']) == 'Goa' ? 'selected' : '' }}>Goa
+                                                <option value="Dadra and Nagar Haveli and Daman and Diu"
+                                                    {{ old('state', $buyNow['state']) == 'Dadra and Nagar Haveli and Daman and Diu' ? 'selected' : '' }}>Dadra and Nagar Haveli and Daman and Diu
                                                 </option>
-                                                <option value="Gujarat" {{ old('state', $buyNow['state']) == 'Gujarat' ? 'selected' : '' }}>
-                                                    Gujarat</option>
-                                                <option value="Haryana" {{ old('state', $buyNow['state']) == 'Haryana' ? 'selected' : '' }}>
-                                                    Haryana</option>
+                                                <option value="Delhi"
+                                                    {{ old('state', $buyNow['state']) == 'Delhi' ? 'selected' : '' }}>Delhi
+                                                </option>
+                                                <option value="Goa"
+                                                    {{ old('state', $buyNow['state']) == 'Goa' ? 'selected' : '' }}>Goa
+                                                </option>
+                                                <option value="Gujarat"
+                                                    {{ old('state', $buyNow['state']) == 'Gujarat' ? 'selected' : '' }}>Gujarat
+                                                </option>
+                                                <option value="Haryana"
+                                                    {{ old('state', $buyNow['state']) == 'Haryana' ? 'selected' : '' }}>Haryana
+                                                </option>
                                                 <option value="Himachal Pradesh"
-                                                    {{ old('state', $buyNow['state']) == 'Himachal Pradesh' ? 'selected' : '' }}>Himachal
-                                                    Pradesh</option>
+                                                    {{ old('state', $buyNow['state']) == 'Himachal Pradesh' ? 'selected' : '' }}>Himachal Pradesh
+                                                </option>
+                                                <option value="Jammu and Kashmir"
+                                                    {{ old('state', $buyNow['state']) == 'Jammu and Kashmir' ? 'selected' : '' }}>Jammu and Kashmir
+                                                </option>
                                                 <option value="Jharkhand"
-                                                    {{ old('state', $buyNow['state']) == 'Jharkhand' ? 'selected' : '' }}>Jharkhand</option>
+                                                    {{ old('state', $buyNow['state']) == 'Jharkhand' ? 'selected' : '' }}>Jharkhand
+                                                </option>
                                                 <option value="Karnataka"
-                                                    {{ old('state', $buyNow['state']) == 'Karnataka' ? 'selected' : '' }}>Karnataka</option>
-                                                <option value="Kerala" {{ old('state', $buyNow['state']) == 'Kerala' ? 'selected' : '' }}>
-                                                    Kerala</option>
+                                                    {{ old('state', $buyNow['state']) == 'Karnataka' ? 'selected' : '' }}>Karnataka
+                                                </option>
+                                                <option value="Kerala"
+                                                    {{ old('state', $buyNow['state']) == 'Kerala' ? 'selected' : '' }}>Kerala
+                                                </option>
+                                                <option value="Ladakh"
+                                                    {{ old('state', $buyNow['state']) == 'Ladakh' ? 'selected' : '' }}>Ladakh
+                                                </option>
+                                                <option value="Lakshadweep"
+                                                    {{ old('state', $buyNow['state']) == 'Lakshadweep' ? 'selected' : '' }}>Lakshadweep
+                                                </option>
                                                 <option value="Madhya Pradesh"
                                                     {{ old('state', $buyNow['state']) == 'Madhya Pradesh' ? 'selected' : '' }}>Madhya Pradesh
                                                 </option>
                                                 <option value="Maharashtra"
                                                     {{ old('state', $buyNow['state']) == 'Maharashtra' ? 'selected' : '' }}>Maharashtra
                                                 </option>
-                                                <option value="Manipur" {{ old('state', $buyNow['state']) == 'Manipur' ? 'selected' : '' }}>
-                                                    Manipur</option>
+                                                <option value="Manipur"
+                                                    {{ old('state', $buyNow['state']) == 'Manipur' ? 'selected' : '' }}>Manipur
+                                                </option>
                                                 <option value="Meghalaya"
-                                                    {{ old('state', $buyNow['state']) == 'Meghalaya' ? 'selected' : '' }}>Meghalaya</option>
-                                                <option value="Mizoram" {{ old('state', $buyNow['state']) == 'Mizoram' ? 'selected' : '' }}>
-                                                    Mizoram</option>
+                                                    {{ old('state', $buyNow['state']) == 'Meghalaya' ? 'selected' : '' }}>Meghalaya
+                                                </option>
+                                                <option value="Mizoram"
+                                                    {{ old('state', $buyNow['state']) == 'Mizoram' ? 'selected' : '' }}>Mizoram
+                                                </option>
                                                 <option value="Nagaland"
-                                                    {{ old('state', $buyNow['state']) == 'Nagaland' ? 'selected' : '' }}>Nagaland</option>
-                                                <option value="Odisha" {{ old('state', $buyNow['state']) == 'Odisha' ? 'selected' : '' }}>
-                                                    Odisha</option>
-                                                <option value="Punjab" {{ old('state', $buyNow['state']) == 'Punjab' ? 'selected' : '' }}>
-                                                    Punjab</option>
+                                                    {{ old('state', $buyNow['state']) == 'Nagaland' ? 'selected' : '' }}>Nagaland
+                                                </option>
+                                                <option value="Odisha"
+                                                    {{ old('state', $buyNow['state']) == 'Odisha' ? 'selected' : '' }}>Odisha
+                                                </option>
+                                                <option value="Puducherry"
+                                                    {{ old('state', $buyNow['state']) == 'Puducherry' ? 'selected' : '' }}>Puducherry
+                                                </option>
+                                                <option value="Punjab"
+                                                    {{ old('state', $buyNow['state']) == 'Punjab' ? 'selected' : '' }}>Punjab
+                                                </option>
                                                 <option value="Rajasthan"
-                                                    {{ old('state', $buyNow['state']) == 'Rajasthan' ? 'selected' : '' }}>Rajasthan</option>
-                                                <option value="Sikkim" {{ old('state', $buyNow['state']) == 'Sikkim' ? 'selected' : '' }}>
-                                                    Sikkim</option>
+                                                    {{ old('state', $buyNow['state']) == 'Rajasthan' ? 'selected' : '' }}>Rajasthan
+                                                </option>
+                                                <option value="Sikkim"
+                                                    {{ old('state', $buyNow['state']) == 'Sikkim' ? 'selected' : '' }}>Sikkim
+                                                </option>
                                                 <option value="Tamil Nadu"
                                                     {{ old('state', $buyNow['state']) == 'Tamil Nadu' ? 'selected' : '' }}>Tamil Nadu
                                                 </option>
                                                 <option value="Telangana"
-                                                    {{ old('state', $buyNow['state']) == 'Telangana' ? 'selected' : '' }}>Telangana</option>
-                                                <option value="Tripura" {{ old('state', $buyNow['state']) == 'Tripura' ? 'selected' : '' }}>
-                                                    Tripura</option>
+                                                    {{ old('state', $buyNow['state']) == 'Telangana' ? 'selected' : '' }}>Telangana
+                                                </option>
+                                                <option value="Tripura"
+                                                    {{ old('state', $buyNow['state']) == 'Tripura' ? 'selected' : '' }}>Tripura
+                                                </option>
                                                 <option value="Uttar Pradesh"
                                                     {{ old('state', $buyNow['state']) == 'Uttar Pradesh' ? 'selected' : '' }}>Uttar Pradesh
                                                 </option>
@@ -256,7 +322,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
-                                            <input type="text" class="form-control py-2 custom-card-bg"
+                                            <input type="number" class="form-control py-2 custom-card-bg"
                                                 placeholder="Phone" name="phone"
                                                 value="{{ old('phone', Auth::user()->phone ?? '') }}" required>
                                             @error('phone')

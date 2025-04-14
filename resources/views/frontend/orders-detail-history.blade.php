@@ -10,7 +10,7 @@
 
             <div class="card">
                 <div class="card-body">
-                    <h6 class="fw-bold">Order #{{ $order->id }}</h6>
+                    <h6 class="fw-bold pb-2 border-bottom">Order #{{ $order->id }}</h6>
                     <p class="mb-2"><strong>Order Date:</strong> {{ $order->created_at->format('d M Y, h:i A') }}</p>
                     <p class="mb-2"><strong>Total Amount:</strong> ₹{{ number_format($order->total, 2) }}</p>
                     <p class="mb-2"><strong>Status:</strong>
@@ -28,8 +28,8 @@
                         <p><strong>Payment Status:</strong> </p>
                     @endif
 
-                    <h6 class="fw-bold mt-4 border-bottom pb-2">Order Items</h6>
-                    <table class="table">
+                    <h6 class="fw-bold mt-4 border-bottom pb-2 mb-3">Order Items</h6>
+                    <table class="table table-bordered ">
                         <thead>
                             <tr>
                                 <th>Product</th>
@@ -49,8 +49,8 @@
                                                     style="width: 60px; object-fit: cover; margin-right: 10px;">
                                                 <div>
                                                     <span class="fw-bold">{{ $item->product->name }}</span><br>
-                                                    <small>Size: {{ $item->size }}</small><br>
-                                                    <small>Color: <span
+                                                    <small>Size: <b>{{ $item->size }}</b></small><br>
+                                                    <small class="d-flex align-items-center">Color: &nbsp;<span
                                                             style="display: inline-block; width: 15px; height: 15px; background-color: {{ $item->color }}; border: 1px solid #000; border-radius: 50%;"></span></small>
                                                 </div>
                                             </div>

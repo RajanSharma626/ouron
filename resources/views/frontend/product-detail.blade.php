@@ -122,11 +122,9 @@
                 <div class="col-md-6 col-lg-5 col-12 p-md-5 py-4 py-md-0">
                     <div class="row justify-content-between align-items-center">
 
-                        <div class="col-12">
-                            <h2 class="fs-6 mb-0 fw-bold">{{ $product->category->name ?? '' }} > {{ $product->collection->name ?? '' }}</h2>
-                        </div>
                         <div class="col-10">
                             <h1 class="fs-6 mb-0 fw-bold">{{ $product->name }}</h1>
+                            <h1 class="fs-6 mb-0 fw-bold mb-2">{{ $product->category->name ?? '' }} | {{ $product->collection->name ?? '' }}</h1>
                         </div>
 
                         <div class="col text-end">
@@ -153,12 +151,13 @@
                             </div>
                         </div>
                     </div>
+                   
                     <h6>
                         <del>RS. {{ number_format($product->price, 2) }}</del>
                         &nbsp; RS.
                         {{ number_format($product->price - ($product->price * $product->discount_price) / 100, 2) }}
                     </h6>
-                    <p class="text-muted fs-12">MRP inclusive of all taxes </p>
+                    <p class="text-muted fs-12 mb-2">MRP inclusive of all taxes </p>
 
                     <form action="{{ route('buy.now') }}" method="post">
                         @csrf

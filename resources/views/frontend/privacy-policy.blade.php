@@ -18,9 +18,13 @@
                         </li>
 
                         <p>
-                            OURON LIFESTYLE & CO. ("we," "us," "our") values your privacy and is committed to protecting
-                            your personal information. This Privacy Policy explains how we collect, use, and safeguard your
-                            data when you visit <a href="mailto:www.ouron.in">www.ouron.in</a> ("Website").
+                            <small>
+
+                                OURON LIFESTYLE & CO. ("we," "us," "our") values your privacy and is committed to protecting
+                                your personal information. This Privacy Policy explains how we collect, use, and safeguard
+                                your
+                                data when you visit <a href="mailto:www.ouron.in">www.ouron.in</a> ("Website").
+                            </small>
                         </p>
 
                         <li class="text-normal">
@@ -28,38 +32,71 @@
                         </li>
 
                         <p>
-                            <b class="fw-bold">
-                                Personal Information:
-                            </b>
+                            <small>
+
+                                <b class="fw-bold">
+                                    Personal Information:
+                                </b>
+                            </small>
                         </p>
                         <p>
-                            When you make a purchase or interact with our Website, we may collect:
+                            <small>
+
+                                When you make a purchase or interact with our Website, we may collect:
+                            </small>
                         </p>
 
 
 
                         <ul class="mb-5">
-                            <li class="text-normal">Your name
+                            <li class="text-normal">
+                                <small>
+                                    Your name
+                                </small>
                             </li>
-                            <li class="text-normal">Email address</li>
-                            <li class="text-normal">Shipping address
+                            <li class="text-normal">
+                                <small>
+                                    Email address
+                                </small>
                             </li>
-                            <li class="text-normal">Payment details
+                            <li class="text-normal">
+                                <small>
+                                    Shipping address
+                                </small>
+                            </li>
+                            <li class="text-normal">
+                                <small>
+                                    Payment details
+                                </small>
                             </li>
                         </ul>
 
                         <p class="fw-bold">
-                            Non-Personal Information:
+                            <small>
+                                Non-Personal Information:
+                            </small>
                         </p>
 
                         <p>
-                            We also gather non-personal data such as:
+                            <small>
+                                We also gather non-personal data such as:
+                            </small>
                         </p>
                         <ul class="mb-5">
-                            <li class="text-normal">Your browser type
+                            <li class="text-normal">
+                                <small>
+                                    Your browser type
+                                </small>
                             </li>
-                            <li class="text-normal">IP address</li>
-                            <li class="text-normal">Pages visited on our Website
+                            <li class="text-normal">
+                                <small>
+                                    IP address
+                                </small>
+                            </li>
+                            <li class="text-normal">
+                                <small>
+                                    Pages visited on our Website
+                                </small>
                             </li>
                         </ul>
 
@@ -70,18 +107,30 @@
                         </li>
 
                         <p>
-                            We use the collected data to:
+                            <small>
+                                We use the collected data to:
+                            </small>
                         </p>
 
                         <ul class="mb-5">
-                            <li class="text-normal"><b class="fw-bold">Process Orders:</b> Fulfill and update you about your
-                                purchase.
+                            <li class="text-normal">
+                                <small>
+                                    <b class="fw-bold">
+                                        Process Orders:</b> Fulfill and update you about your
+                                    purchase.
+                                </small>
                             </li>
-                            <li class="text-normal"><b class="fw-bold">Improve Our Services:</b> Analyze trends to enhance
-                                our Website and customer experience.
+                            <li class="text-normal">
+                                <small>
+                                    <b class="fw-bold">Improve Our Services:</b> Analyze trends to enhance
+                                    our Website and customer experience.
+                                </small>
                             </li>
-                            <li class="text-normal"><b class="fw-bold">Marketing (With Your Consent):</b> Send promotional
-                                emails about our products and offers.
+                            <li class="text-normal">
+                                <small>
+                                    <b class="fw-bold">Marketing (With Your Consent):</b> Send promotional
+                                    emails about our products and offers.
+                                </small>
                             </li>
                         </ul>
 
@@ -92,9 +141,11 @@
                         </li>
 
                         <p>
-                            Our Website uses cookies to enhance your browsing experience. These small files help us
-                            recognize your browser and remember certain preferences. You can modify your cookie settings
-                            through your browser.
+                            <small>
+                                Our Website uses cookies to enhance your browsing experience. These small files help us
+                                recognize your browser and remember certain preferences. You can modify your cookie settings
+                                through your browser.
+                            </small>
                         </p>
 
                         <li>
@@ -104,16 +155,31 @@
                         </li>
 
                         <p>
-                            We do not sell, trade, or transfer your personal data to third parties, except:
+                            <small>
+
+                                We do not sell, trade, or transfer your personal data to third parties, except:
+                            </small>
                         </p>
 
                         <ul class="mb-5">
-                            <li class="text-normal">When required to fulfill orders (e.g., shipping partners).
+                            <li class="text-normal">
+                                <small>
+
+                                    When required to fulfill orders (e.g., shipping partners).
+                                </small>
                             </li>
-                            <li class="text-normal">When required by law.
+                            <li class="text-normal">
+                                <small>
+
+                                    When required by law.
+                                </small>
                             </li>
-                            <li class="text-normal">With trusted third parties assisting in our operations, under strict
-                                confidentiality agreements
+                            <li class="text-normal">
+                                <small>
+
+                                    With trusted third parties assisting in our operations, under strict
+                                    confidentiality agreements
+                                </small>
                             </li>
                         </ul>
 
@@ -124,8 +190,11 @@
                         </li>
 
                         <p>
-                            We implement security measures to protect your personal data. However, no online transmission or
-                            electronic storage method is 100% secure.
+                            <small>
+                                We implement security measures to protect your personal data. However, no online
+                                transmission or
+                                electronic storage method is 100% secure.
+                            </small>
                         </p>
 
                         <li>
@@ -135,8 +204,12 @@
                         </li>
 
                         <p>
-                            You can request access, correction, or deletion of your personal information by contacting us at
-                            <a href="mailto:contact@ouron.in.">contact@ouron.in</a>.
+                            <small>
+
+                                You can request access, correction, or deletion of your personal information by contacting
+                                us at
+                                <a href="mailto:contact@ouron.in.">contact@ouron.in</a>.
+                            </small>
                         </p>
 
                         <li>
@@ -146,8 +219,12 @@
                         </li>
 
                         <p>
-                            We may update this Privacy Policy from time to time. Any changes will be posted on this page,
-                            and significant updates may be communicated via email.
+                            <small>
+
+                                We may update this Privacy Policy from time to time. Any changes will be posted on this
+                                page,
+                                and significant updates may be communicated via email.
+                            </small>
                         </p>
 
                         <li>
@@ -155,12 +232,19 @@
                                 Refund, Return, and Exchange Policy
                             </h1>
                         </li>
-                        
+
                         <p>
-                            Please note that all purchases made on our Website are final. We do not offer refunds, returns, or exchanges under any circumstances. Kindly review your order carefully before proceeding with the payment.
+                            <small>
+
+                                Please note that all purchases made on our Website are final. We do not offer refunds,
+                                returns,
+                                or exchanges under any circumstances. Kindly review your order carefully before proceeding
+                                with
+                                the payment.
+                            </small>
                         </p>
 
-                        
+
                         <li>
                             <h1 class="fs-4">
                                 Contact Us
@@ -168,8 +252,12 @@
                         </li>
 
                         <p>
-                            You can request access, correction, or deletion of your personal information by contacting us at
-                            <a href="mailto:contact@ouron.in.">contact@ouron.in</a>.
+                            <small>
+
+                                You can request access, correction, or deletion of your personal information by contacting
+                                us at
+                                <a href="mailto:contact@ouron.in.">contact@ouron.in</a>.
+                            </small>
                         </p>
                     </ol>
                 </div>

@@ -121,10 +121,7 @@
                                 </div>
                                 <div
                                     class="card-footer d-flex flex-wrap align-items-center justify-content-between bg-light-subtle gap-2">
-                                    <p class="border rounded mb-0 px-2 py-1 bg-body"><i
-                                            class='bx bx-arrow-from-left align-middle fs-16'></i>
-                                        Estimated shipping date : <span class="text-dark fw-medium">Apr
-                                            25 , 2024</span></p>
+                                    <p class=""></p>
                                     <div>
                                         @if ($order->status == 'Pending')
                                             <a href="#"
@@ -179,10 +176,10 @@
                                                                 <div>
                                                                     <a href="#!"
                                                                         class="text-dark fw-medium fs-15">{{ $item->product->name }}</a>
-                                                                    <p class="text-muted mb-0 mt-1 fs-13">
-                                                                        <span>Size : </span>{{ $item->size ?? 'N/A' }}
-                                                                        &nbsp;
-                                                                        <span>Color : </span><span class="color-circle"
+                                                                    <p class="text-muted mb-0 mt-1 fs-13 d-flex align-items-center">
+                                                                        <span>Size :  &nbsp;</span><b>{{ $item->size ?? 'N/A' }}</b>
+                                                                        &nbsp;&nbsp;
+                                                                        <span>Color :  &nbsp;</span><span class="color-circle"
                                                                             style="background-color: {{ $item->color ?? '#ffffff' }};"></span>
                                                                     </p>
                                                                 </div>
@@ -249,7 +246,7 @@
                                                 <div
                                                     class="ms-2 d-flex flex-wrap gap-2 align-items-center justify-content-between">
                                                     <div>
-                                                        <h5 class="mb-2 text-dark fw-medium fs-15">4
+                                                        <h5 class="mb-2 text-dark fw-medium fs-15">
                                                             Order Placed by
                                                             <span
                                                                 class="link-primary">{{ $order->first_name . ' ' . $order->last_name }}</span>
@@ -261,7 +258,8 @@
                                                                 {{ $index + 1 }}</a>
                                                         @endforeach
                                                     </div>
-                                                    <p class="mb-0">April 23, 2024, 09:40 am</p>
+                                                    <p class="mb-0">{{ $order->created_at->format('M d, Y') }} at
+                                                        {{ $order->created_at->format('g:i a') }}</p>
                                                 </div>
                                             </div>
                                         </div>

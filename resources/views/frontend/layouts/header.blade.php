@@ -215,12 +215,11 @@
                         <i class="fas fa-chevron-down"></i>
                     </a>
                     <ul class="collapse list-unstyled ms-3" id="collectionDropdownMobile">
+                        @foreach ($collections as $collection)
                         <li>
-                            <a class="nav-link fw-400" href="#">Collection 1</a>
+                            <a class="nav-link fw-400" href="{{ route('collection-product', $collection->slug) }}">{{ $collection->name }}</a>
                         </li>
-                        <li>
-                            <a class="nav-link fw-400" href="#">Collection 2</a>
-                        </li>
+                    @endforeach
                     </ul>
                 </li>
 

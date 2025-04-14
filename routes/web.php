@@ -79,6 +79,7 @@ Route::middleware(['user.auth'])->group(function () {
     Route::post('/addresses', [UserAddressController::class, 'store'])->name('addresses.store');
     Route::delete('/addresses/{id}', [UserAddressController::class, 'destroy'])->name('addresses.destroy');
     Route::patch('/addresses/{id}/set-default', [UserAddressController::class, 'setDefault'])->name('addresses.setDefault');
+    Route::put('/addresses/update/{id}', [UserAddressController::class, 'update'])->name('addresses.update');
     Route::get('/profile/order-detail/{id}', [OrderController::class, 'show'])->name('orders.show');
 
     //checkout

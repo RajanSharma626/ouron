@@ -221,19 +221,19 @@ $(document).ready(function () {
                     total += itemTotal;
 
                     cartHtml += `
-                        <div class="cart-item d-flex justify-content-between align-items-center p-3 border-bottom">
+                        <div class="cart-item d-flex justify-content-between align-items-center py-2 p-md-3 border-bottom">
                             <div class="d-flex align-items-center">
                                 <img src="${
                                     item.product.firstimage.img
                                 }" alt="Product Image" class="img-fluid rounded" width="80">
                                 <div class="ms-3">
-                                    <h6 class="mb-1 fw-bold">${
+                                    <h6 class="mb-1 fw-bold cart_product_title">${
                                         item.product.name
                                     }</h6>
-                                    <small class="text-muted d-block">RS. ${discountedPrice.toFixed(
+                                    <small class="text-muted d-block cart_product_price">RS. ${discountedPrice.toFixed(
                                         2
                                     )}</small>
-                                    <small class="d-block">SIZE: ${
+                                    <small class="d-block cart_product_price">SIZE: ${
                                         item.size || "N/A"
                                     }</small>
                                     <div class="d-flex">
@@ -252,7 +252,7 @@ $(document).ready(function () {
                         item.quantity + 1
                     }">+</button>
                                         </div>
-                                        <button class="btn btn-sm text-danger ms-3 delete-cart" data-id="${
+                                        <button class="btn btn-sm text-danger ms-md-3 delete-cart" data-id="${
                                             item.id
                                         }">
                                             <i class="bi bi-trash"></i>
@@ -261,7 +261,7 @@ $(document).ready(function () {
                                 </div>
                             </div>
                             <div class="d-flex align-items-center">
-                                <span class="fw-bold text-end me-3">RS. ${itemTotal.toFixed(
+                                <span class="fw-bold text-end me-3 cart_product_title text-nowrap">RS. ${itemTotal.toFixed(
                                     2
                                 )}</span>
                             </div>
@@ -629,5 +629,36 @@ $(document).ready(function () {
                 $btn.find(".btn-text").text("Submit");
             },
         });
+    });
+});
+
+document.getElementById('logoutBtn').addEventListener('click', function () {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, logout!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            this.closest('form').submit();
+        }
+    });
+});
+document.getElementById('logoutBtn2').addEventListener('click', function () {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, logout!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            this.closest('form').submit();
+        }
     });
 });

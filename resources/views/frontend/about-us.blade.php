@@ -9,7 +9,7 @@
 
             <div class="row">
                 <div class="col-12">
-                    <h1 class="text-center mb-md-5 fs-3">ABOUT US</h1>
+                    <h1 class="text-center mb-md-5 fs-3 fw-bolder">ABOUT US</h1>
                 </div>
             </div>
             <div class="row">

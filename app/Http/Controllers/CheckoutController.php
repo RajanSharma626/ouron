@@ -35,6 +35,21 @@ class CheckoutController extends Controller
             'payment_method' => 'required'
         ]);
 
+        // Remove all non-digit characters from the phone input
+        $inputPhone = preg_replace('/\D/', '', $request->phone);
+
+        // If the phone number starts with '91' and is 12 digits long, remove the country code
+        if (strlen($inputPhone) == 12 && substr($inputPhone, 0, 2) == '91') {
+            $inputPhone = substr($inputPhone, 2);
+        }
+
+        // If the phone number is still not exactly 10 digits, return an error
+        if (strlen($inputPhone) != 10) {
+            return back()->withErrors(['phone' => 'Invalid phone number format.']);
+        }
+
+        $request->merge(['phone' => $inputPhone]);
+
         $cart = CartItem::where('user_id', Auth::id())->get();
         if ($cart->isEmpty()) {
             return redirect()->back()->with('error', 'Your cart is empty.');
@@ -61,7 +76,7 @@ class CheckoutController extends Controller
             'city' => $request->city,
             'state' => $request->state,
             'pin_code' => $request->pin_code,
-            'phone' => $request->phone,
+            'phone' => $inputPhone,
             'payment_method' => $request->payment_method,
             'subtotal' => $subtotal,
             'tax' => $tax,
@@ -119,6 +134,7 @@ class CheckoutController extends Controller
         // Store in session (temporary order)
         session(['buy_now' => [
             'name' => $product->name,
+            'slug' => $product->slug,
             'img' => $product->firstImage->img,
             'product_id' => $product->id,
             'color' => $request->color,
@@ -149,6 +165,21 @@ class CheckoutController extends Controller
             'payment_method' => 'required'
         ]);
 
+        // Remove all non-digit characters from the phone input
+        $inputPhone = preg_replace('/\D/', '', $request->phone);
+
+        // If the phone number starts with '91' and is 12 digits long, remove the country code
+        if (strlen($inputPhone) == 12 && substr($inputPhone, 0, 2) == '91') {
+            $inputPhone = substr($inputPhone, 2);
+        }
+
+        // If the phone number is still not exactly 10 digits, return an error
+        if (strlen($inputPhone) != 10) {
+            return back()->withErrors(['phone' => 'Invalid phone number format.']);
+        }
+
+        $request->merge(['phone' => $inputPhone]);
+
         if (!session()->has('buy_now')) {
             return redirect()->route('home')->with('error', 'No product selected for checkout.');
         }
@@ -171,7 +202,7 @@ class CheckoutController extends Controller
             'city' => $request->city,
             'state' => $request->state,
             'pin_code' => $request->pin_code,
-            'phone' => $request->phone,
+            'phone' => $inputPhone,
             'payment_method' => $request->payment_method,
             'subtotal' => $subtotal,
             'tax' => $tax,

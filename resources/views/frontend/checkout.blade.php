@@ -4,22 +4,24 @@
 
 @section('content')
 
-    <section class="product_detail py-md-5 py-3">
+    <section class="product_detail">
         <div class="container py-md-5">
             <div class="row">
 
                 <div class="col-12">
-                    <h1 class="fs-3 text-center mb-md-5 mb-3 fw-bold">Checkout</h1>
+                    <h1 class="fs-3 text-center mb-md-5 mb-3 fw-bold mt-3 mt-md-0">Checkout</h1>
                 </div>
                 <div class="col-md-6">
                     <!-- Product List -->
                     <div class="card custom-card-bg mb-4 check_product">
-                        <div class="card-body">
+                        <div class="card-body pb-0">
                             @if ($cart->isEmpty())
                                 <p class="text-center text-muted">No items found in your cart.</p>
                             @else
                                 @foreach ($cart as $item)
-                                    <div class="d-flex align-items-center mb-3 border-bottom pb-3">
+                                
+                                <a href="{{route('product.detail', $item->product->slug)}}" class="link-normal">
+                                    <div class="d-flex align-items-center pb-3">
                                         <div class="position-relative">
                                             <img src="{{ $item->product->firstImage->img }}" alt="Product"
                                                 class="img-thumbnail mr-3" style="width: 70px; height: 70px;">
@@ -31,9 +33,12 @@
                                         <div class="d-flex justify-content-between w-100 ms-2">
                                             <div>
                                                 <h6 class="mb-1 fw-bold check_title">{{ $item->product->name }}</h6>
-                                                <p class="mb-0 check_desc">
-                                                    Size: {{ $item->size ?? 'XS' }} | Color: &nbsp;
-                                                    <span class="color-circle checkout-color"
+                                                <p class="mb-0 check_desc d-flex align-items-center">
+                                                    <span>
+                                                        Size: <b>{{ $item->size ?? 'XS' }}</b>
+                                                    </span>
+                                                    &nbsp; | &nbsp; Color: &nbsp;
+                                                    <span class="rounded-circle checkout-color border-dark border"
                                                         style="background-color: {{ $item->color ?? '#ffffff' }};"></span>
                                                 </p>
                                             </div>
@@ -43,6 +48,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                </a>
                                 @endforeach
                             @endif
                         </div>
@@ -73,42 +79,30 @@
                     <div class="card custom-card-bg">
                         <div class="card-body">
                             @php
-                                // Calculate inclusive subtotal from cart items
-                                $subtotalInclusive = 0;
+                                // Calculate subtotal from cart items
+                                $subtotal = 0;
                                 foreach ($cart as $item) {
                                     $price = $item->product->price - (($item->product->price * $item->product->discount_price) / 100);
-                                    $subtotalInclusive += $price * $item->quantity;
+                                    $subtotal += $price * $item->quantity;
                                 }
-
-                                // Since the price is GST included, calculate net price (excl. GST) and GST amount.
-                                $netSubtotal = $subtotalInclusive / 1.18;
-                                $gst = $subtotalInclusive - $netSubtotal;
-                                $total = $subtotalInclusive;
+                                
                                 $discountAmount = 0;
-
-                                // If a coupon is applied, deduct discount on the net price first.
+                                // If a coupon is applied, deduct discount from the subtotal.
                                 if (session('discount')) {
                                     $discount = session('discount');
                                     if ($discount['type'] == 'percentage') {
-                                        $discountAmount = ($netSubtotal * $discount['value']) / 100;
+                                        $discountAmount = ($subtotal * $discount['value']) / 100;
                                     } elseif ($discount['type'] == 'fixed_amount') {
                                         $discountAmount = $discount['value'];
                                     }
-                                    // Deduct discount from the net subtotal and recalc GST and total price.
-                                    $netSubtotal -= $discountAmount;
-                                    $gst = $netSubtotal * 0.18;
-                                    $total = $netSubtotal + $gst;
                                 }
+                                $total = $subtotal - $discountAmount;
                             @endphp
 
                             <ul class="list-group mb-3">
                                 <li class="list-group-item d-flex justify-content-between custom-card-bg">
                                     <span>Subtotal</span>
-                                    <strong>₹{{ number_format($netSubtotal, 2) }}</strong>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between custom-card-bg">
-                                    <span>GST (18%)</span>
-                                    <strong>₹{{ number_format($gst, 2) }}</strong>
+                                    <strong>₹{{ number_format($subtotal, 2) }}</strong>
                                 </li>
                                 @if ($discountAmount > 0)
                                     <li class="list-group-item d-flex justify-content-between custom-card-bg">
@@ -117,6 +111,12 @@
                                         <strong>-₹{{ number_format($discountAmount, 2) }}</strong>
                                     </li>
                                 @endif
+                                <li class="list-group-item d-flex justify-content-between custom-card-bg">
+                                    <span>Shipping</span>
+                                    <span id="shippingCost">
+                                        <small class="text-muted">Enter shipping address</small>
+                                    </span>
+                                </li>
                                 <li class="list-group-item d-flex justify-content-between custom-card-bg">
                                     <span>Total</span>
                                     <strong>₹{{ number_format($total, 2) }}</strong>
@@ -130,14 +130,14 @@
                     <!-- Checkout Form -->
                     <div class="card custom-card-bg">
                         <div class="card-body">
-                            <h5 class="mb-4 fw-bold">Address Detail</h5>
+                            <h4 class="mb-4 fw-bold">Address Detail</h4>
                             <form method="post" action="{{ route('checkout.store') }}">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
                                             <input type="text" class="form-control py-2 custom-card-bg" name="first_name"
-                                                placeholder="First name"
+                                                placeholder="First name *"
                                                 value="{{ old('first_name', Auth::user()->name ?? '') }}" required>
                                             @error('first_name')
                                                 <div class="text-danger">{{ $message }}</div>
@@ -157,7 +157,7 @@
 
                                 <div class="form-group mb-3">
                                     <input type="email" class="form-control py-2 custom-card-bg" name="email"
-                                        id="emailAddress" placeholder="Enter email"
+                                        id="emailAddress" placeholder="Enter email *"
                                         value="{{ old('email', Auth::user()->email ?? '') }}" required>
                                     @error('email')
                                         <div class="text-danger">{{ $message }}</div>
@@ -165,7 +165,7 @@
                                 </div>
                                 <div class="form-group mb-3">
                                     <input type="text" class="form-control py-2 custom-card-bg"
-                                        placeholder="Flat / House No. / Floor / Building" name="address"
+                                        placeholder="Flat / House No. / Floor / Building *" name="address"
                                         value="{{ old('address', $defaultAddress->address ?? '') }}" required>
                                     @error('address')
                                         <div class="text-danger">{{ $message }}</div>
@@ -181,7 +181,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
                                             <input type="text" class="form-control py-2 custom-card-bg" id="city"
-                                                placeholder="City" name="city"
+                                                placeholder="City *" name="city"
                                                 value="{{ old('city', $defaultAddress->city ?? '') }}" required>
                                             @error('city')
                                                 <div class="text-danger">{{ $message }}</div>
@@ -192,27 +192,42 @@
                                         <div class="form-group mb-3">
                                             <select id="state" class="form-control py-2 custom-card-bg"
                                                 name="state" required>
-                                                <option value="">Select State</option>
+                                                <option value="">Select State *</option>
+                                                <option value="Andaman and Nicobar Islands"
+                                                    {{ old('state', $defaultAddress->state ?? '') == 'Andaman and Nicobar Islands' ? 'selected' : '' }}>
+                                                    Andaman and Nicobar Islands
+                                                </option>
                                                 <option value="Andhra Pradesh"
                                                     {{ old('state', $defaultAddress->state ?? '') == 'Andhra Pradesh' ? 'selected' : '' }}>
                                                     Andhra Pradesh
                                                 </option>
                                                 <option value="Arunachal Pradesh"
                                                     {{ old('state', $defaultAddress->state ?? '') == 'Arunachal Pradesh' ? 'selected' : '' }}>
-                                                    Arunachal
-                                                    Pradesh</option>
+                                                    Arunachal Pradesh
+                                                </option>
                                                 <option value="Assam"
                                                     {{ old('state', $defaultAddress->state ?? '') == 'Assam' ? 'selected' : '' }}>
-                                                    Assam</option>
+                                                    Assam
+                                                </option>
                                                 <option value="Bihar"
                                                     {{ old('state', $defaultAddress->state ?? '') == 'Bihar' ? 'selected' : '' }}>
-                                                    Bihar</option>
-                                                <option value="Delhi"
-                                                    {{ old('state', $defaultAddress->state ?? '') == 'Delhi' ? 'selected' : '' }}>
-                                                    Delhi</option>
+                                                    Bihar
+                                                </option>
+                                                <option value="Chandigarh"
+                                                    {{ old('state', $defaultAddress->state ?? '') == 'Chandigarh' ? 'selected' : '' }}>
+                                                    Chandigarh
+                                                </option>
                                                 <option value="Chhattisgarh"
                                                     {{ old('state', $defaultAddress->state ?? '') == 'Chhattisgarh' ? 'selected' : '' }}>
                                                     Chhattisgarh
+                                                </option>
+                                                <option value="Dadra and Nagar Haveli and Daman and Diu"
+                                                    {{ old('state', $defaultAddress->state ?? '') == 'Dadra and Nagar Haveli and Daman and Diu' ? 'selected' : '' }}>
+                                                    Dadra and Nagar Haveli and Daman and Diu
+                                                </option>
+                                                <option value="Delhi"
+                                                    {{ old('state', $defaultAddress->state ?? '') == 'Delhi' ? 'selected' : '' }}>
+                                                    Delhi
                                                 </option>
                                                 <option value="Goa"
                                                     {{ old('state', $defaultAddress->state ?? '') == 'Goa' ? 'selected' : '' }}>
@@ -220,23 +235,40 @@
                                                 </option>
                                                 <option value="Gujarat"
                                                     {{ old('state', $defaultAddress->state ?? '') == 'Gujarat' ? 'selected' : '' }}>
-                                                    Gujarat</option>
+                                                    Gujarat
+                                                </option>
                                                 <option value="Haryana"
                                                     {{ old('state', $defaultAddress->state ?? '') == 'Haryana' ? 'selected' : '' }}>
-                                                    Haryana</option>
+                                                    Haryana
+                                                </option>
                                                 <option value="Himachal Pradesh"
                                                     {{ old('state', $defaultAddress->state ?? '') == 'Himachal Pradesh' ? 'selected' : '' }}>
-                                                    Himachal
-                                                    Pradesh</option>
+                                                    Himachal Pradesh
+                                                </option>
+                                                <option value="Jammu and Kashmir"
+                                                    {{ old('state', $defaultAddress->state ?? '') == 'Jammu and Kashmir' ? 'selected' : '' }}>
+                                                    Jammu and Kashmir
+                                                </option>
                                                 <option value="Jharkhand"
                                                     {{ old('state', $defaultAddress->state ?? '') == 'Jharkhand' ? 'selected' : '' }}>
-                                                    Jharkhand</option>
+                                                    Jharkhand
+                                                </option>
                                                 <option value="Karnataka"
                                                     {{ old('state', $defaultAddress->state ?? '') == 'Karnataka' ? 'selected' : '' }}>
-                                                    Karnataka</option>
+                                                    Karnataka
+                                                </option>
                                                 <option value="Kerala"
                                                     {{ old('state', $defaultAddress->state ?? '') == 'Kerala' ? 'selected' : '' }}>
-                                                    Kerala</option>
+                                                    Kerala
+                                                </option>
+                                                <option value="Ladakh"
+                                                    {{ old('state', $defaultAddress->state ?? '') == 'Ladakh' ? 'selected' : '' }}>
+                                                    Ladakh
+                                                </option>
+                                                <option value="Lakshadweep"
+                                                    {{ old('state', $defaultAddress->state ?? '') == 'Lakshadweep' ? 'selected' : '' }}>
+                                                    Lakshadweep
+                                                </option>
                                                 <option value="Madhya Pradesh"
                                                     {{ old('state', $defaultAddress->state ?? '') == 'Madhya Pradesh' ? 'selected' : '' }}>
                                                     Madhya Pradesh
@@ -247,38 +279,52 @@
                                                 </option>
                                                 <option value="Manipur"
                                                     {{ old('state', $defaultAddress->state ?? '') == 'Manipur' ? 'selected' : '' }}>
-                                                    Manipur</option>
+                                                    Manipur
+                                                </option>
                                                 <option value="Meghalaya"
                                                     {{ old('state', $defaultAddress->state ?? '') == 'Meghalaya' ? 'selected' : '' }}>
-                                                    Meghalaya</option>
+                                                    Meghalaya
+                                                </option>
                                                 <option value="Mizoram"
                                                     {{ old('state', $defaultAddress->state ?? '') == 'Mizoram' ? 'selected' : '' }}>
-                                                    Mizoram</option>
+                                                    Mizoram
+                                                </option>
                                                 <option value="Nagaland"
                                                     {{ old('state', $defaultAddress->state ?? '') == 'Nagaland' ? 'selected' : '' }}>
-                                                    Nagaland</option>
+                                                    Nagaland
+                                                </option>
                                                 <option value="Odisha"
                                                     {{ old('state', $defaultAddress->state ?? '') == 'Odisha' ? 'selected' : '' }}>
-                                                    Odisha</option>
+                                                    Odisha
+                                                </option>
+                                                <option value="Puducherry"
+                                                    {{ old('state', $defaultAddress->state ?? '') == 'Puducherry' ? 'selected' : '' }}>
+                                                    Puducherry
+                                                </option>
                                                 <option value="Punjab"
                                                     {{ old('state', $defaultAddress->state ?? '') == 'Punjab' ? 'selected' : '' }}>
-                                                    Punjab</option>
+                                                    Punjab
+                                                </option>
                                                 <option value="Rajasthan"
                                                     {{ old('state', $defaultAddress->state ?? '') == 'Rajasthan' ? 'selected' : '' }}>
-                                                    Rajasthan</option>
+                                                    Rajasthan
+                                                </option>
                                                 <option value="Sikkim"
                                                     {{ old('state', $defaultAddress->state ?? '') == 'Sikkim' ? 'selected' : '' }}>
-                                                    Sikkim</option>
+                                                    Sikkim
+                                                </option>
                                                 <option value="Tamil Nadu"
                                                     {{ old('state', $defaultAddress->state ?? '') == 'Tamil Nadu' ? 'selected' : '' }}>
                                                     Tamil Nadu
                                                 </option>
                                                 <option value="Telangana"
                                                     {{ old('state', $defaultAddress->state ?? '') == 'Telangana' ? 'selected' : '' }}>
-                                                    Telangana</option>
+                                                    Telangana
+                                                </option>
                                                 <option value="Tripura"
                                                     {{ old('state', $defaultAddress->state ?? '') == 'Tripura' ? 'selected' : '' }}>
-                                                    Tripura</option>
+                                                    Tripura
+                                                </option>
                                                 <option value="Uttar Pradesh"
                                                     {{ old('state', $defaultAddress->state ?? '') == 'Uttar Pradesh' ? 'selected' : '' }}>
                                                     Uttar Pradesh
@@ -303,7 +349,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
                                             <input type="text" class="form-control py-2 custom-card-bg"
-                                                placeholder="PIN Code" name="pin_code"
+                                                placeholder="PIN Code *" name="pin_code"
                                                 value="{{ old('pin_code', $defaultAddress->pin_code ?? '') }}" required>
                                             @error('pin_code')
                                                 <div class="text-danger">{{ $message }}</div>
@@ -312,8 +358,8 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
-                                            <input type="text" class="form-control py-2 custom-card-bg"
-                                                placeholder="Phone" name="phone"
+                                            <input type="number" class="form-control py-2 custom-card-bg"
+                                                placeholder="Phone *" name="phone"
                                                 value="{{ old('phone', Auth::user()->phone ?? '') }}" required>
                                             @error('phone')
                                                 <div class="text-danger">{{ $message }}</div>
@@ -325,7 +371,7 @@
                                         <div class="form-group mb-3">
                                             <select class="form-control py-2 custom-card-bg" name="payment_method"
                                                 required>
-                                                <option value="" selected disabled>Payment Method</option>
+                                                <option value="" selected disabled>Payment Method *</option>
                                                 <option value="COD"
                                                     {{ old('payment_method') == 'COD' ? 'selected' : '' }}>COD
                                                 </option>
@@ -378,7 +424,7 @@
                     },
                     body: JSON.stringify({
                         coupon_code: couponCode,
-                        subtotal: {{ $netSubtotal }}
+                        subtotal: {{ $subtotal }}
                     })
                 })
                 .then(response => response.json())
