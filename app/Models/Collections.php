@@ -16,11 +16,8 @@ class Collections extends Model
        'meta_description',
        'meta_keywords',
    ];
-   protected $casts = [
-       'created_at' => 'datetime',
-       'updated_at' => 'datetime',
-       'deleted_at' => 'datetime',
-   ];
+
+
    public function products()
    {
        return $this->hasMany(Product::class, 'collection_id');

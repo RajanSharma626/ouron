@@ -21,7 +21,7 @@ class Product extends Model
         'best_seller',
         'sku',
         'weight',
-        'collection',
+        'collection_id',
         'category_id',
         'images',
         'status'

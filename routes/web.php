@@ -7,6 +7,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CatProductsController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\CustomersController;
@@ -50,7 +51,7 @@ Route::get('/best-seller', [CatProductsController::class, 'bestSellerProduct'])-
 Route::get('/live-search-suggestions', [SearchController::class, 'suggestions'])->name('live.search.suggestions');
 Route::get('/search', action: [SearchController::class, 'search'])->name('search.view');
 
-Route::post('/subscribe',[NewsLetterController::class, 'store'])->name('subscribe');
+Route::post('/subscribe', [NewsLetterController::class, 'store'])->name('subscribe');
 
 Route::post('/contact', [ContactController::class, 'submit']);
 
@@ -166,6 +167,15 @@ Route::middleware(['admin.auth'])->prefix('admin')->group(function () {
     Route::post('/category/store', [CategoryController::class, 'store'])->name('category.store');
     Route::get('/category/delete/{id}', [CategoryController::class, 'destroy'])->name('category.delete');
 
+    //Collection
+    Route::get('/collection', [CollectionController::class, 'index'])->name('admin.collection');
+
+    Route::get('/collection/add', function () {
+        return view('admin.collection-add');
+    })->name('admin.collection.add');
+
+    Route::post('/collection/store', [CollectionController::class, 'store'])->name('collection.store');
+
 
     //orders
     Route::get('/orders', [OrderController::class, 'index'])->name('admin.orders');
@@ -195,7 +205,7 @@ Route::middleware(['admin.auth'])->prefix('admin')->group(function () {
     Route::get('/contact-form', [ContactController::class, 'index'])->name('admin.contact');
 
     //newsletter
-    Route::get('/newsletter', [NewsLetterController::class,'index'])->name('admin.newsletter');
+    Route::get('/newsletter', [NewsLetterController::class, 'index'])->name('admin.newsletter');
 
     //cart
     Route::get('/cart', [CartController::class, 'adminCart'])->name('admin.cart');

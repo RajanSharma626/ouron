@@ -72,8 +72,7 @@
                     <ul class="navbar-nav gap-3 align-items-center d-flex">
                         <li class="nav-item">
                             <a href="javascript:void(0)" class="nav-link text-uppercase primary-font-size fw-400"
-                                data-bs-toggle="offcanvas" data-bs-target="#searchCanvas"
-                                aria-controls="search">Search</a>
+                                data-bs-toggle="modal" data-bs-target="#SearchModal">Search</a>
                         </li>
 
                         <li class="nav-item">
@@ -147,7 +146,7 @@
                 <!-- Right: Icons/Menu -->
                 <div class="col-4 align-items-center d-flex justify-content-end px-0">
                     <a class="nav-link text-uppercase primary-font-size fw-400 pe-2" href="javascript:void(0)"
-                        data-bs-toggle="offcanvas" data-bs-target="#searchCanvas" aria-controls="search">
+                        data-bs-toggle="modal" data-bs-target="#SearchModal">
                         <i class="bi bi-search fs-6 primary-color"></i>
                     </a>
 
@@ -248,24 +247,24 @@
     </div>
 
 
-    <div class="offcanvas offcanvas-top secondary-bg w-100 h-100" tabindex="-1" id="searchCanvas"
-        aria-labelledby="searchCanvasLabel">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="searchCanvasLabel">Search</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <form action="{{ route('search.view') }}" method="GET" id="searchForm">
-                <div class="position-relative w-100">
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="query" id="liveSearchInput"
-                            placeholder="Search for products..." autocomplete="off" required>
-                        <button class="btn primary-bg" type="submit">Search</button>
+    <div class="modal fade" id="SearchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+                    <div class="position-relative w-100">
+                        <form action="{{ route('search.view') }}" method="GET" id="searchForm">
+                            <div class="input-group">
+                                <input type="text" class="form-control py-2 px-3" name="query"
+                                    id="liveSearchInput" placeholder="Search..." autocomplete="off" required>
+                                <button class="btn primary-bg" type="submit"> <i
+                                        class="bi bi-search fs-6"></i></button>
+                            </div>
+                        </form>
+                        <div id="suggestionBox" class="list-group position-absolute w-100 mt-1 shadow"
+                            style="z-index: 1055;"></div>
                     </div>
-                    <div id="suggestionBox" class="list-group position-absolute w-100 mt-1 shadow"
-                        style="z-index: 1055;"></div>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 

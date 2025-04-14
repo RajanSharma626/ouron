@@ -31,18 +31,15 @@
                     </h5>
                     <p class="">We offer returns within 7 days from the date of delivery. Once your return request has
                         been accepted, a confirmation email will be sent to your registered email, and our logistics partner
-                        will attempt pickup within 24-48 hours. <b>We do not accept exchanges due to company policy.</b>
+                        will attempt pickup within 24-48 hours. We do not accept exchanges due to company policy.</b>
                     </p>
                     <ul class="mb-5">
                         <li class=""><b>Pickup Attempts:</b> Two pickup attempts will be made. If unsuccessful, you
-                            will need
-                            to ship the product back to our warehouse at your expense. Reverse pickup is subject to service
-                            availability in your area.
-
+                            will need to ship the product back to our warehouse at your expense. Reverse pickup is subject
+                            to service availability in your area.
                         </li>
                         <li class=""><b>Quality Check:</b> Upon receiving the returned product at our warehouse, it
-                            will go
-                            through a quality check. Once approved, the return process will proceed.
+                            will go through a quality check. Once approved, the return process will proceed.
 
                         </li>
                         <li class=""><b>Processing Time:</b> Return requests are processed within 7-10 working days.
@@ -79,10 +76,11 @@
                         ORDER CANCELLATION
                     </h5>
                     <ul class="mb-5">
-                        <li class=""><b>Cash on Delivery (COD) Orders:</b> Cancellations are only allowed before the order is dispatched from our warehouse.
-
+                        <li class=""><b>Cash on Delivery (COD) Orders:</b> Cancellations are only allowed before the
+                            order is dispatched from our warehouse.
                         </li>
-                        <li class=""><b>Prepaid Orders:</b> All prepaid orders are final and non-refundable. Any refunds will be issued in the form of store credit.
+                        <li class=""><b>Prepaid Orders:</b> All prepaid orders are final and non-refundable. Any
+                            refunds will be issued in the form of store credit.
 
                     </ul>
 
@@ -105,7 +103,7 @@
                     </ul>
 
                     <p>
-                       <b> To be eligible for return, the product must:</b>
+                        <b> To be eligible for return, the product must:</b>
                     </p>
 
                     <ul class="mb-5">
@@ -120,7 +118,7 @@
                     </ul>
 
                     <p>
-                       <b> We reserve the right to reject return/exchange requests if the above conditions are not met.</b>
+                        <b> We reserve the right to reject return/exchange requests if the above conditions are not met.</b>
                     </p>
 
                     <h5>
@@ -131,12 +129,13 @@
                         <li class=""><i class="bi bi-envelope"></i> Email: <a class="primary-color"
                                 href="mailto:support@ouron.in">support@ouron.in</a>
                         </li>
-                        <li class=""><i class="bi bi-telephone-inbound"></i> Phone: <a class="primary-color" href="tel:+91 8799232708">+91
+                        <li class=""><i class="bi bi-telephone-inbound"></i> Phone: <a class="primary-color"
+                                href="tel:+91 8799232708">+91
                                 8799232708</a>
                         </li>
-                        <li class=""><i class="bi bi-clock-history"></i> Support Hours: <b>Monday – Saturday</b>
+                        {{-- <li class=""><i class="bi bi-clock-history"></i> Support Hours: <b>Monday – Saturday</b>
                             | <b>11:30 AM – 7:00 PM IST</b>
-                        </li>
+                        </li> --}}
                     </ul>
                     <h5>
                         FINAL SALE ITEMS

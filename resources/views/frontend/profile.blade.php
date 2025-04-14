@@ -8,7 +8,7 @@
         <div class="container">
             <div class="profile-container row py-5">
                 <!-- Sidebar -->
-                <div class="col-md-4">
+                <div class="col-md-4 col-12">
                     <div class="list-group">
                         <a class="list-group-item list-group-item-action {{ session('activeTab', 'profileTab') == 'profileTab' ? 'active' : '' }}"
                             data-bs-toggle="tab" href="#profileTab">Profile</a>
@@ -17,7 +17,7 @@
                             History</a>
                         <a class="list-group-item list-group-item-action {{ session('activeTab') == 'addressesTab' ? 'active' : '' }}"
                             data-bs-toggle="tab" href="#addressesTab">Addresses</a>
-                        <form action="{{ route('logout') }}" method="POST" class="mt-3">
+                        <form action="{{ route('logout') }}" method="POST" class="mt-3 d-none d-md-block">
                             @csrf
                             <button type="submit" class="btn btn-danger">Logout</button>
                         </form>
@@ -25,7 +25,7 @@
                 </div>
 
                 <!-- Right Content -->
-                <div class="col-md-8">
+                <div class="col-md-8 col-12">
                     <div class="tab-content">
                         <!-- Profile Tab -->
                         <div class="tab-pane fade {{ session('activeTab', 'profileTab') == 'profileTab' ? 'show active' : '' }}"
@@ -42,7 +42,8 @@
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Name</label>
                                     <input type="text" name="name" class="form-control"
-                                        value="{{ old('name', auth()->user()->name) }}" disabled>
+                                        value="{{ old('name', auth()->user()->name) }}"
+                                        @if (!$errors->has('name')) disabled @endif>
                                     @error('name')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -50,7 +51,8 @@
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email</label>
                                     <input type="email" name="email" class="form-control"
-                                        value="{{ old('email', auth()->user()->email) }}" disabled>
+                                        value="{{ old('email', auth()->user()->email) }}"
+                                        @if (!$errors->has('email')) disabled @endif>
                                     @error('email')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -58,7 +60,8 @@
                                 <div class="mb-3">
                                     <label for="phone" class="form-label">Phone No</label>
                                     <input type="text" name="phone" class="form-control"
-                                        value="{{ old('phone', auth()->user()->phone) }}" disabled>
+                                        value="{{ old('phone', auth()->user()->phone) }}"
+                                        @if (!$errors->has('phone')) disabled @endif>
                                     @error('phone')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -104,9 +107,8 @@
 
                                                                 <br>
                                                                 <small class="card-text">Status:
-                                                                    <span
-                                                                        class="text-success">
-                                                                        {{ ucfirst($order->status == "Pending" ? "Confirmed" : $order->status) }}
+                                                                    <span class="text-success">
+                                                                        {{ ucfirst($order->status == 'Pending' ? 'Confirmed' : $order->status) }}
                                                                     </span>
                                                                 </small>
                                                                 <p class="card-text mt-2">

@@ -17,12 +17,12 @@
                 @forelse ($wishlist as $product)
                     @php
                         $imageBasePath = asset('uploads/products/');
-                        $filename = basename($product->product_image ?? 'default.jpg');
-                        $secondfilename = basename($product->hover_image ?? $filename);
+                        $filename = basename($product->product->firstimage->img ?? 'default.jpg');
+                        $secondfilename = basename($product->product->secondimage->img ?? $filename);
                     @endphp
 
                     <div class="col-6 col-md-3" data-aos="fade-up">
-                        <a href="{{ route('product.detail', $product->slug) }}" class="text-decoration-none">
+                        <a href="{{ route('product.detail', $product->product->slug) }}" class="text-decoration-none">
                             <div class="product_card">
                                 <div class="product_img position-relative">
 
@@ -60,7 +60,7 @@
                                             media="(max-width: 575px)">
                                         <source srcset="{{ $imageBasePath . '/165_' . $secondfilename }}"
                                             media="(max-width: 400px)">
-                                        <img src="{{ $imageBasePath . '/' . $secondfilename }}" alt="{{ $product->name }}"
+                                        <img src="{{ $imageBasePath . '/' . $secondfilename }}" alt="{{ $product->product->name }}"
                                             class="img-fluid hover_img">
                                     </picture>
 
@@ -68,26 +68,27 @@
                                     <div class="product_icons position-absolute top-0 end-0 p-2">
                                         <!-- Add to Cart -->
                                         <a href="javascript:void(0)" class="cart_icon add-to-cart"
-                                            data-id="{{ $product->id }}" data-name="{{ $product->name }}"
-                                            data-price="{{ number_format($product->price - ($product->price * $product->discount_price) / 100, 2) }}"
+                                            data-id="{{ $product->product->id }}"
+                                            data-name="{{ $product->product->name }}"
+                                            data-price="{{ number_format($product->product->price - ($product->product->price * $product->product->discount_price) / 100, 2) }}"
                                             data-image="{{ $imageBasePath . '/' . $secondfilename }}">
                                             <i class="bi bi-handbag"></i>
                                         </a>
 
                                         <!-- Wishlist -->
                                         <a href="javascript:void(0)" class="like_icon wishlist-btn"
-                                            data-id="{{ $product->id }}" title="Remove from Wishlist">
+                                            data-id="{{ $product->product->id }}" title="Remove from Wishlist">
                                             <i class="bi bi-heart-fill text-danger"></i>
                                         </a>
                                     </div>
                                 </div>
 
                                 <div class="product_info p-3">
-                                    <h3 class="product_title">{{ $product->name }}</h3>
+                                    <h3 class="product_title">{{ $product->product->name }}</h3>
                                     <p class="product_price mb-0 text-muted">
-                                        <del>RS. {{ number_format($product->price, 2) }}</del>
+                                        <del>RS. {{ number_format($product->product->price, 2) }}</del>
                                         &nbsp; RS.
-                                        {{ number_format($product->price - ($product->price * $product->discount_price) / 100, 2) }}
+                                        {{ number_format($product->product->price - ($product->product->price * $product->product->discount_price) / 100, 2) }}
                                     </p>
                                 </div>
                             </div>

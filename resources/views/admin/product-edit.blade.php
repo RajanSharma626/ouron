@@ -105,12 +105,12 @@
                                             data-choices data-choices-groups data-placeholder="Select Collection"
                                             name="choices-single-groups">
                                             <option value="">Choose a Collection</option>
-                                            <option value="edge-by-ouron"
-                                                {{ $product->collection == 'edge-by-ouron' ? 'selected' : '' }}>
-                                                Edge by Ouron</option>
-                                            <option value="legacy-origins"
-                                                {{ $product->collection == 'legacy-origins' ? 'selected' : '' }}>
-                                                Legacy:Origins</option>
+
+                                            @foreach ($collections as $collection)
+                                                <option value="{{ $collection->id }}"
+                                                    {{ $collection->id == $product->collection_id ? 'selected' : '' }}>
+                                                    {{ $collection->name }}</option>
+                                            @endforeach
 
                                         </select>
 
@@ -168,6 +168,13 @@
                                                 <label
                                                     class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
                                                     for="size-m1">M</label>
+
+                                                <input type="checkbox" class="btn-check" id="size-l1" name="sizes[]"
+                                                    value="L"
+                                                    {{ in_array('L', json_decode($product->sizes, true) ?? []) ? 'checked' : '' }}>
+                                                <label
+                                                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
+                                                    for="size-l1">L</label>
 
                                                 <input type="checkbox" class="btn-check" id="size-xl1" name="sizes[]"
                                                     value="XL"

@@ -114,9 +114,11 @@ class CatProductsController extends Controller
 
         $pageTitle = ucfirst($collection) . ' Collection';
         $pageHeading = ucfirst($collection);
-        
+
         $collection = Collections::where('slug', $collection)->first();
         $pageDesc = ucfirst($collection->description);
+
+        $collectionLogo = $collection->image;
 
         if (!$collection) {
             return redirect()->route('home')->with('error', 'Collection not found');
@@ -132,6 +134,6 @@ class CatProductsController extends Controller
                 return $product;
             });
 
-        return view('frontend.products', compact('products', 'pageTitle', 'pageHeading','pageDesc'));
+        return view('frontend.products', compact('products', 'pageTitle', 'pageHeading','pageDesc', 'collectionLogo'));
     }
 }

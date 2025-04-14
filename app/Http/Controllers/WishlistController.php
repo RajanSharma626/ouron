@@ -31,21 +31,10 @@ class WishlistController extends Controller
 
     public function getWishlist()
     {
-        $wishlist = Wishlist::where('wishlists.user_id', Auth::id())
-            ->join('products', 'wishlists.product_id', '=', 'products.id')
-            ->leftJoin('product_img as first_img', function ($join) {
-                $join->on('products.id', '=', 'first_img.product_id')
-                    ->where('first_img.is_main', true); // Fetch main image
-            })
-            ->leftJoin('product_img as second_img', function ($join) {
-                $join->on('products.id', '=', 'second_img.product_id')
-                    ->where('second_img.is_main', false); // Fetch secondary image (hover image)
-            })
-            ->get([
-                'products.*',
-                'first_img.img as product_image',
-                'second_img.img as hover_image'
-            ]);
+        $wishlist = Wishlist::with([
+            'product.firstimage',
+            'product.secondimage'
+        ])->where('user_id', Auth::id())->get();
 
         return view('frontend.wishlist', compact('wishlist'));
     }
@@ -57,11 +46,11 @@ class WishlistController extends Controller
             'products.name',
             DB::raw('COUNT(wishlists.id) as total_wishlist_count'),
             'first_img.img as product_image'
-            )
+        )
             ->join('products', 'wishlists.product_id', '=', 'products.id')
             ->leftJoin('product_img as first_img', function ($join) {
-            $join->on('products.id', '=', 'first_img.product_id')
-                ->where('first_img.is_main', true); // Fetch main image
+                $join->on('products.id', '=', 'first_img.product_id')
+                    ->where('first_img.is_main', true); // Fetch main image
             })
             ->groupBy('products.id', 'products.name', 'first_img.img')
             ->paginate(20);

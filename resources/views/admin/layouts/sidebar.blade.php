@@ -1,12 +1,12 @@
 <div class="main-nav">
     <!-- Sidebar Logo -->
     <div class="logo-box">
-        <a href="index.html" class="logo-dark">
+        <a href="{{ route('admin.dashboard') }}" class="logo-dark">
             <img src="{{ asset('admin/images/logo/admin-login-sm-logo-light.png') }}" class="logo-sm" alt="logo sm">
             <img src="{{ asset('admin/images/logo/admin-login-logo.png') }}" class="logo-lg" alt="logo dark">
         </a>
 
-        <a href="index.html" class="logo-light">
+        <a href="{{ route('admin.dashboard') }}" class="logo-light">
             <img src="{{ asset('admin/images/logo/admin-login-sm-logo-light.png') }}" class="logo-sm" alt="logo sm">
             <img src="{{ asset('admin/images/logo/admin-login-logo-light.png') }}" class="logo-lg" alt="logo light">
         </a>
@@ -46,6 +46,15 @@
                         <iconify-icon icon="solar:clipboard-list-bold-duotone"></iconify-icon>
                     </span>
                     <span class="nav-text"> Category </span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.collection') }}">
+                    <span class="nav-icon">
+                        <iconify-icon icon="solar:clipboard-list-bold-duotone"></iconify-icon>
+                    </span>
+                    <span class="nav-text"> Collection </span>
                 </a>
             </li>
 
@@ -115,7 +124,7 @@
                     <span class="nav-text"> Newsletter </span>
                 </a>
             </li>
-            
+
         </ul>
     </div>
 </div>

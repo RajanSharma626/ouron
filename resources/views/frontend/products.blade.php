@@ -5,12 +5,12 @@
 @section('content')
 
     <section class="product_detail">
-        <div class="container-fluid py-5">
+        <div class="container-fluid py-3">
             @if (isset($pageHeading) && isset($pageDesc))
                 <div class="row justify-content-center mb-3 align-items-center">
                     <div class="col-md-6 text-center">
                         <div class="heading-logo">
-                            <img src="{{asset('/uploads/collection/edge.png')}}" class="img-fluid" alt="" width="100px">
+                            <img src="{{asset($collectionLogo)}}" class="img-fluid" alt="" width="100px">
                         </div>
                         <h4 class="text-uppercase mb-0  text-center">{{ $pageHeading }}</h4>
                         <small class="text-uppercase text-muted">{{ $pageDesc }}</small>

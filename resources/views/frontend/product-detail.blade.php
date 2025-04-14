@@ -123,7 +123,7 @@
                     <div class="row justify-content-between align-items-center">
 
                         <div class="col-12">
-                            <h2 class="fs-6 mb-0 fw-bold">{{ $product->category->name }} > {{ $product->collection->name }}</h2>
+                            <h2 class="fs-6 mb-0 fw-bold">{{ $product->category->name ?? '' }} > {{ $product->collection->name ?? '' }}</h2>
                         </div>
                         <div class="col-10">
                             <h1 class="fs-6 mb-0 fw-bold">{{ $product->name }}</h1>
@@ -267,7 +267,7 @@
                                 </h2>
                                 <div id="flush-collapseOne" class="accordion-collapse collapse"
                                     data-bs-parent="#accordionFlushExample">
-                                    <div class="accordion-body fs-12">
+                                    <div class="accordion-body">
                                         {!! $product->description !!}
                                     </div>
                                 </div>

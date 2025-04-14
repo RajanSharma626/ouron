@@ -77,8 +77,9 @@
                                             data-choices data-choices-groups data-placeholder="Select Collection"
                                             name="choices-single-groups">
                                             <option value="">Choose a Collection</option>
-                                            <option value="edge-by-ouron">Edge by Ouron</option>
-                                            <option value="legacy-origins">Legacy:Origins</option>
+                                            @foreach ($collections as $collection)
+                                                <option value="{{ $collection->id }}">{{ $collection->name }}</option>
+                                            @endforeach
 
                                         </select>
 
@@ -135,6 +136,12 @@
                                                     class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
                                                     for="size-m1">M</label>
 
+                                                <input type="checkbox" class="btn-check" name="size[]" id="size-l1"
+                                                    value="L">
+                                                <label
+                                                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
+                                                    for="size-l1">L</label>
+
                                                 <input type="checkbox" class="btn-check" name="size[]" id="size-xl1"
                                                     value="XL">
                                                 <label
@@ -184,6 +191,21 @@
                                             <label for="description" class="form-label">Description</label>
                                             <textarea class="form-control bg-light-subtle" id="editor" name="description" rows="7"
                                                 placeholder="Short description about the product"></textarea>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label for="description" class="form-label">Detail</label>
+                                            <textarea class="form-control bg-light-subtle" id="DetailEditor" name="detail" rows="7"
+                                                placeholder="Short description about the product"> {{ $product->detail ?? '' }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label for="description" class="form-label">Shipping & Return</label>
+                                            <textarea class="form-control bg-light-subtle" id="ShipingReturnEditor" name="shipping_Return" rows="7"
+                                                placeholder="Short description about the product"> {{ $product->shipping_Return ?? '' }}</textarea>
                                         </div>
                                     </div>
                                 </div>

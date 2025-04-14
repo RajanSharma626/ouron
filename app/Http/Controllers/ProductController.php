@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Collections;
 use App\Models\Product;
 use App\Models\ProductImg;
 use Illuminate\Http\Request;
@@ -32,18 +33,20 @@ class ProductController extends Controller
     public function add()
     {
         $categories = Category::whereNull('deleted_at')->get();
-        return view('admin.product-add', compact('categories'));
+        $collections = Collections::whereNull('deleted_at')->get();
+        return view('admin.product-add', compact('categories', 'collections'));
     }
 
 
     public function edit($id)
     {
         $categories = Category::whereNull('deleted_at')->get();
+        $collections = Collections::whereNull('deleted_at')->get();
         $product = Product::with('productImg')->find($id);
         if (!$product) {
             return redirect()->route('admin.products')->with('error', 'Product not found');
         };
-        return view('admin.product-edit', compact('categories', 'product'));
+        return view('admin.product-edit', compact('categories', 'product', 'collections'));
     }
 
 

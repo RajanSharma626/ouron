@@ -51,17 +51,17 @@ class LoginAuth extends Controller
     {
         // Remove all non-digit characters from the phone input
         $inputPhone = preg_replace('/\D/', '', $request->phone);
-        
+
         // If the phone number starts with '91' and is 12 digits long, remove the country code
         if (strlen($inputPhone) == 12 && substr($inputPhone, 0, 2) == '91') {
             $inputPhone = substr($inputPhone, 2);
         }
-        
+
         // If the phone number is still not exactly 10 digits, return an error
         if (strlen($inputPhone) != 10) {
             return back()->withErrors(['phone' => 'Invalid phone number format.']);
         }
-        
+
         $request->merge(['phone' => $inputPhone]);
 
         // Lookup user by normalized phone number
@@ -80,10 +80,10 @@ class LoginAuth extends Controller
         } else {
             // Create a new user with normalized phone
             $user = User::create([
-            'phone' => $inputPhone,
-            'otp' => rand(100000, 999999),
-            'otp_expires_at' => now()->addMinutes(5),
-            'name' => 'User' . rand(1000, 9999)
+                'phone' => $inputPhone,
+                'otp' => rand(100000, 999999),
+                'otp_expires_at' => now()->addMinutes(5),
+                'name' => 'User' . rand(1000, 9999)
             ]);
 
             // Send OTP to user's phone using a service like Twilio
@@ -165,14 +165,31 @@ class LoginAuth extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'phone' => 'required|digits:10',
+            'email' => 'required|email|max:255|regex:/^[a-zA-Z0-9._%+-]+@gmail\.com$/',
+            'phone' => 'required',
         ]);
 
-        $user = Auth::user();
-        $user->update($request->all());
+        // Normalize the phone number
+        $inputPhone = preg_replace('/\D/', '', $request->phone);
 
-        return redirect()->route('profile')->with(['success', 'Profile updated successfully', 'activeTab' => 'profileTab']);
+        // If the phone number starts with '91' and is 12 digits long, remove the country code
+        if (strlen($inputPhone) == 12 && substr($inputPhone, 0, 2) == '91') {
+            $inputPhone = substr($inputPhone, 2);
+        }
+
+        // If the phone number is still not exactly 10 digits, return an error
+        if (strlen($inputPhone) != 10) {
+            return back()->withErrors(['phone' => 'Invalid phone number format.']);
+        }
+
+        $user = Auth::user();
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $inputPhone,
+        ]);
+
+        return back()->with('success', 'Profile updated successfully.');
     }
 
     public function logout()
