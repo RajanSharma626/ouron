@@ -46,5 +46,11 @@ return [
         'from' => env('TWILIO_FROM'),
     ],
 
+    'brevo' => [
+        'api_key' => env('BREVO_SMS_API_KEY'),
+        'sender' => env('BREVO_SMS_SENDER'),
+    ],
+
+
 
 ];

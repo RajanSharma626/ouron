@@ -190,7 +190,7 @@
                         data-bs-toggle="collapse" href="#apparelDropdownMobile" role="button" aria-expanded="false"
                         aria-controls="apparelDropdownMobile">
                         Apparel
-                        <i class="fas fa-chevron-down"></i>
+                        <i class="bi bi-chevron-down"></i>
                     </a>
                     <ul class="collapse list-unstyled ms-3" id="apparelDropdownMobile">
                         <li>
@@ -212,7 +212,7 @@
                         data-bs-toggle="collapse" href="#collectionDropdownMobile" role="button"
                         aria-expanded="false" aria-controls="collectionDropdownMobile">
                         Collection
-                        <i class="fas fa-chevron-down"></i>
+                        <i class="bi bi-chevron-down"></i>
                     </a>
                     <ul class="collapse list-unstyled ms-3" id="collectionDropdownMobile">
                         @foreach ($collections as $collection)

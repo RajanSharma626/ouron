@@ -8,10 +8,13 @@ use App\Models\CartItem;
 use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Payment;
 use App\Models\Product;
 use App\Models\UserAddress;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class CheckoutController extends Controller
 {
@@ -100,11 +103,74 @@ class CheckoutController extends Controller
         CartItem::where('user_id', Auth::id())->delete();
 
         // Dispatch Email Job
-        SendOrderConfirmationJob::dispatch($order);
+        // SendOrderConfirmationJob::dispatch($order);
 
         // Dispatch SMS
-        $smsMessage = "Dear {$order->first_name}, thank you for shopping with us! Your order #{$order->id} has been successfully placed and is now being processed. We will notify you once it is shipped.";
-        SendOrderSmsJob::dispatch($order->phone, $smsMessage);
+        // $smsMessage = "Dear {$order->first_name}, thank you for shopping with us! Your order #{$order->id} has been successfully placed and is now being processed. We will notify you once it is shipped.";
+        // SendOrderSmsJob::dispatch($order->phone, $smsMessage);
+
+
+        // 👉 If UPI selected, initiate PhonePe
+        if ($request->payment_method === 'UPI') {
+            $merchantId = env('PHONEPE_MERCHANT_ID');
+            $saltKey = env('PHONEPE_SALT_KEY');
+            $saltIndex = env('PHONEPE_SALT_INDEX');
+            $baseUrl = env('PHONEPE_BASE_URL');
+
+            Log::info('PhonePe ENV values', [
+                'merchantId' => env('PHONEPE_MERCHANT_ID'),
+                'saltKey' => env('PHONEPE_SALT_KEY'),
+                'saltIndex' => env('PHONEPE_SALT_INDEX'),
+            ]);
+
+
+            $transactionId = 'ORD_' . $order->id . '_' . time();
+
+            Payment::create([
+                'order_id' => $order->id,
+                'transaction_id' => $transactionId,
+                'payment_type' => 'UPI',
+                'status' => 'PENDING',
+            ]);
+
+            $payload = [
+                'merchantId' => $merchantId,
+                'merchantTransactionId' => $transactionId,
+                'merchantUserId' => 'USER_' . Auth::id(),
+                'amount' => (int)($total * 100),
+                'redirectUrl' => route('phonepe.callback'),
+                'redirectMode' => 'POST',
+                'callbackUrl' => route('phonepe.callback'),
+                'paymentInstrument' => ['type' => 'PAY_PAGE'],
+            ];
+
+            $jsonPayload = json_encode($payload);
+            $base64Payload = base64_encode($jsonPayload);
+            $checksum = hash('sha256', $base64Payload . "/pg/v1/pay" . $saltKey) . "###" . $saltIndex;
+
+            Log::info('PhonePe Checksum:', ['checksum' => $checksum]);
+            Log::info('PhonePe Payload:', ['payload' => $payload, 'encoded' => $base64Payload]);
+
+
+            $response = Http::withHeaders([
+                'Content-Type' => 'application/json',
+                'X-VERIFY' => $checksum
+            ])->post($baseUrl . '/pg/v1/pay', ['request' => $base64Payload]);
+
+            if ($response->successful() && isset($response['data']['instrumentResponse']['redirectInfo']['url'])) {
+                return redirect($response['data']['instrumentResponse']['redirectInfo']['url']);
+            }
+
+            Log::error('PhonePe payment failed', [
+                'status' => $response->status(),
+                'body' => $response->body(),
+                'json' => $response->json()
+            ]);
+
+
+            return  redirect()->route('orders.show', $order->id)->with('error', 'Payment failed.');
+        }
+
 
         return redirect()->route('order.success')->with('success', 'Order placed successfully!');
     }

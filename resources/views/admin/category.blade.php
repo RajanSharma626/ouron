@@ -64,7 +64,7 @@
                                     <tbody>
                                         @foreach ($categories as $category)
                                             <tr>
-                                                
+
                                                 <td>
                                                     <div class="d-flex align-items-center gap-2">
                                                         <div
@@ -79,9 +79,6 @@
                                                 <td>{{ $category->product_stock ?? 'N/A' }} Items</td>
                                                 <td>
                                                     <div class="d-flex gap-2">
-                                                        <a href="#!" class="btn btn-light btn-sm"><iconify-icon
-                                                                icon="solar:eye-broken"
-                                                                class="align-middle fs-18"></iconify-icon></a>
                                                         <a href="#!" class="btn btn-soft-primary btn-sm"><iconify-icon
                                                                 icon="solar:pen-2-broken"
                                                                 class="align-middle fs-18"></iconify-icon></a>

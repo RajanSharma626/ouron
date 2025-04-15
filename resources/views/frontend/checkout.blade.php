@@ -19,36 +19,35 @@
                                 <p class="text-center text-muted">No items found in your cart.</p>
                             @else
                                 @foreach ($cart as $item)
-                                
-                                <a href="{{route('product.detail', $item->product->slug)}}" class="link-normal">
-                                    <div class="d-flex align-items-center pb-3">
-                                        <div class="position-relative">
-                                            <img src="{{ $item->product->firstImage->img }}" alt="Product"
-                                                class="img-thumbnail mr-3" style="width: 70px; height: 70px;">
-                                            <span
-                                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill primary-bg">
-                                                {{ $item->quantity }}
-                                            </span>
-                                        </div>
-                                        <div class="d-flex justify-content-between w-100 ms-2">
-                                            <div>
-                                                <h6 class="mb-1 fw-bold check_title">{{ $item->product->name }}</h6>
-                                                <p class="mb-0 check_desc d-flex align-items-center">
-                                                    <span>
-                                                        Size: <b>{{ $item->size ?? 'XS' }}</b>
-                                                    </span>
-                                                    &nbsp; | &nbsp; Color: &nbsp;
-                                                    <span class="rounded-circle checkout-color border-dark border"
-                                                        style="background-color: {{ $item->color ?? '#ffffff' }};"></span>
-                                                </p>
+                                    <a href="{{ route('product.detail', $item->product->slug) }}" class="link-normal">
+                                        <div class="d-flex align-items-center pb-3">
+                                            <div class="position-relative">
+                                                <img src="{{ $item->product->firstImage->img }}" alt="Product"
+                                                    class="img-thumbnail mr-3" style="width: 70px; height: 70px;">
+                                                <span
+                                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill primary-bg">
+                                                    {{ $item->quantity }}
+                                                </span>
                                             </div>
-                                            <div class="ml-auto">
-                                                <h6>₹{{ number_format($item->product->price - ($item->product->price * $item->product->discount_price) / 100, 2) }}
-                                                </h6>
+                                            <div class="d-flex justify-content-between w-100 ms-2">
+                                                <div>
+                                                    <h6 class="mb-1 fw-bold check_title">{{ $item->product->name }}</h6>
+                                                    <p class="mb-0 check_desc d-flex align-items-center">
+                                                        <span>
+                                                            Size: <b>{{ $item->size ?? 'XS' }}</b>
+                                                        </span>
+                                                        &nbsp; | &nbsp; Color: &nbsp;
+                                                        <span class="rounded-circle checkout-color border-dark border"
+                                                            style="background-color: {{ $item->color ?? '#ffffff' }};"></span>
+                                                    </p>
+                                                </div>
+                                                <div class="ml-auto">
+                                                    <h6>₹{{ number_format($item->product->price - ($item->product->price * $item->product->discount_price) / 100, 2) }}
+                                                    </h6>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </a>
+                                    </a>
                                 @endforeach
                             @endif
                         </div>
@@ -82,10 +81,12 @@
                                 // Calculate subtotal from cart items
                                 $subtotal = 0;
                                 foreach ($cart as $item) {
-                                    $price = $item->product->price - (($item->product->price * $item->product->discount_price) / 100);
+                                    $price =
+                                        $item->product->price -
+                                        ($item->product->price * $item->product->discount_price) / 100;
                                     $subtotal += $price * $item->quantity;
                                 }
-                                
+
                                 $discountAmount = 0;
                                 // If a coupon is applied, deduct discount from the subtotal.
                                 if (session('discount')) {

@@ -119,7 +119,7 @@ $(document).ready(function () {
                 // Show success message
                 Swal.fire({
                     icon: "success",
-                    title: "Added to Cart",
+                    title: "",
                     showConfirmButton: false,
                     timer: 1500,
                 });
@@ -157,7 +157,7 @@ $(document).ready(function () {
             success: function (response) {
                 Swal.fire({
                     icon: "success",
-                    title: "Added to Cart",
+                    title: "",
                     showConfirmButton: false,
                     timer: 1500,
                 });

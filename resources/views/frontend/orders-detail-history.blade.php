@@ -5,7 +5,15 @@
 @section('content')
 
     <section class="product_detail">
+
         <div class="container py-5">
+            @if (session('error'))
+                <div class="container mb-3">
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                </div>
+            @endif
             <h4 class="fw-bold mb-3">Order Details</h4>
 
             <div class="card">
@@ -15,7 +23,7 @@
                     <p class="mb-2"><strong>Total Amount:</strong> ₹{{ number_format($order->total, 2) }}</p>
                     <p class="mb-2"><strong>Status:</strong>
                         <span class="badge bg-success">
-                            {{ ucfirst($order->status == "Pending" ? "Confimed" : $order->status) }}
+                            {{ ucfirst($order->status == 'Pending' ? 'Confimed' : $order->status) }}
                         </span>
                     </p>
 
@@ -38,11 +46,11 @@
                                 <th>Subtotal</th>
                             </tr>
                         </thead>
-                        <tbody> 
+                        <tbody>
                             @foreach ($order->items as $item)
                                 <tr>
                                     <td>
-                                        <a href="{{route('product.detail', $item->product->slug)}}" class="link-normal">
+                                        <a href="{{ route('product.detail', $item->product->slug) }}" class="link-normal">
                                             <div class="d-flex align-items-center">
                                                 <img src="{{ $item->product->firstimage->img }}"
                                                     alt="{{ $item->product->name }}"

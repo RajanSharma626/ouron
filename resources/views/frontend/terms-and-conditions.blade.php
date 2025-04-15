@@ -12,7 +12,7 @@
                     <h1 class="text-center mb-5 fs-3">Terms and Conditions</h1>
 
                     <ol class="mb-5">
-                        <li class="text-normal mb-3"> 
+                        <li class="text-normal mb-3">
                             <small>
                                 Introduction Welcome to <a href="www.ouron.in">www.ouron.in</a>. This
                                 website is operated by OURON LIFESTYLE &
@@ -22,9 +22,9 @@
                             </small>
                         </li>
                         <li class="text-normal mb-3">
-                            <small>
+                            <b>
                                 Use of the Website
-                            </small>
+                            </b>
                         </li>
                         <p>
                             <small>
@@ -36,9 +36,9 @@
                         </p>
 
                         <li class="text-normal mb-3">
-                            <small>
+                            <b>
                                 Intellectual Property
-                            </small>
+                            </b>
                         </li>
 
                         <p>
@@ -52,9 +52,9 @@
                         </p>
 
                         <li class="text-normal mb-3">
-                            <small>
+                            <b>
                                 Product Information
-                            </small>
+                            </b>
                         </li>
 
                         <p>
@@ -68,10 +68,10 @@
                         </p>
 
                         <li class="text-normal mb-3">
-                            <small>
+                            <b>
 
                                 Orders and Payments
-                            </small>
+                            </b>
                         </li>
 
                         <p>
@@ -88,9 +88,9 @@
 
 
                         <li class="text-normal mb-3">
-                            <small>
+                            <b>
                                 Shipping and Delivery
-                            </small>
+                            </b>
                         </li>
 
                         <p>
@@ -103,9 +103,9 @@
 
 
                         <li class="text-normal mb-3">
-                            <small>
+                            <b>
                                 Returns and Refunds
-                            </small>
+                            </b>
                         </li>
 
                         <p>
@@ -117,9 +117,9 @@
                         </p>
 
                         <li class="text-normal mb-3">
-                            <small>
+                            <b>
                                 Limitation of Liability
-                            </small>
+                            </b>
                         </li>
 
                         <p>
@@ -133,9 +133,9 @@
 
 
                         <li class="text-normal mb-3">
-                            <small>
+                            <b>
                                 Changes to Terms
-                            </small>
+                            </b>
                         </li>
 
                         <p>
@@ -148,9 +148,9 @@
 
 
                         <li class="text-normal mb-3">
-                            <small>
+                            <b>
                                 Governing Law
-                            </small>
+                            </b>
                         </li>
 
                         <p>
@@ -161,9 +161,9 @@
                         </p>
 
                         <li class="text-normal mb-3">
-                            <small>
+                            <b>
                                 Contact Information
-                            </small>
+                            </b>
                         </li>
 
                         <p>
@@ -174,7 +174,7 @@
                         </p>
                     </ol>
 
-                    <h5>
+                    <h5 class="fw-bold">
                         Privacy Policy
                     </h5>
                     <p class="text-normal">
@@ -197,10 +197,10 @@
 
                     <ul class="mb-5">
                         <li class="text-normal">
-                            <small>
+                            <b>
 
                                 Eligibility to use our site
-                            </small>
+                            </b>
                         </li>
                         <p>
                             <small>
@@ -211,10 +211,10 @@
                                 “OURON LIFESTYLE & CO.” reserves the right to terminate your access to the Site if it discovers
                                 that you are under the age of 18 years or suffers from any other disability, as recognized under
                                 Indian Contract Act, 1872.
-                                
+
                             </small>
                         </p>
-                        <li class="text-normal"><small>Membership</small></li>
+                        <li class="text-normal"><b>Membership</b></li>
                         <p>
                             <small>
                                 Although it's not essential to have an account to shop with “OURON”, you can shop as a guest. As
@@ -225,10 +225,10 @@
                             </small>
 
                         </p>
-                        <li class="text-normal"> 
-                            <small>
+                        <li class="text-normal">
+                            <b>
                                 Electronic Communications
-                            </small>
+                            </b>
                         </li>
 
                         <p>
@@ -242,9 +242,9 @@
 
 
                         <li class="text-normal">
-                            <small>
+                            <b>
                                 Reviews, Feedback, Submissions
-                            </small>
+                            </b>
                             </li>
 
                         <p>
@@ -261,9 +261,9 @@
                         </p>
 
                         <li class="text-normal">
-                            <small>
+                            <b>
                                 Accuracy of Content/ Information of Products on the Web Site
-                            </small>
+                            </b>
                         </li>
 
                         <p>

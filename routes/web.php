@@ -11,12 +11,14 @@ use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\CustomersController;
+use App\Http\Controllers\FaqController;
 use App\Http\Controllers\frontend\HomeController;
 use App\Http\Controllers\LoginAuth;
 use App\Http\Controllers\NewsLetterController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\frontend\ProductController as FrontendProductController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserAddressController;
 use App\Http\Controllers\WishlistController;
@@ -30,10 +32,6 @@ Route::get('/about-us', function () {
     return view('frontend.about-us');
 })->name('about.us');
 
-
-Route::get('/faq', function () {
-    return view('frontend.faq');
-})->name('faq');
 
 Route::get('/contact-us', function () {
     return view('frontend.contact-us');
@@ -54,6 +52,9 @@ Route::get('/search', action: [SearchController::class, 'search'])->name('search
 Route::post('/subscribe', [NewsLetterController::class, 'store'])->name('subscribe');
 
 Route::post('/contact', [ContactController::class, 'submit']);
+
+//faq
+Route::get('/faq', [FaqController::class, 'index'])->name('faq');
 
 
 // login
@@ -102,6 +103,9 @@ Route::middleware(['user.auth'])->group(function () {
     Route::get('/buy', [CheckoutController::class, 'buy'])->name('buy');
     Route::post('/buy-now', [CheckoutController::class, 'buyNow'])->name('buy.now');
     Route::post('/buy-now/store', [CheckoutController::class, 'buyNowStore'])->name('buy.now.store');
+
+    Route::post('/phonepe/callback', [PaymentController::class, 'phonepeCallback'])->name('phonepe.callback');
+
 });
 
 
@@ -225,4 +229,12 @@ Route::middleware(['admin.auth'])->prefix('admin')->group(function () {
 
     //delivered order
     Route::get('/order/delivered/{id}', [OrderController::class, 'delivered'])->name('admin.order.delivered');
+
+    //FAQ
+    Route::get('/faq', [FaqController::class, 'faq'])->name('admin.faq');
+    Route::get('/faq/add', [FaqController::class, 'faqAdd'])->name('admin.faq.add');
+    Route::post('/faq/store', [FaqController::class, 'faqStore'])->name('admin.faq.store');
+    Route::get('/faq/edit/{id}', [FaqController::class, 'faqEdit'])->name('admin.faq.edit');
+    Route::post('/faq/update/{id}', [FaqController::class, 'faqUpdate'])->name('admin.faq.update');
+    Route::get('/faq/delete/{id}', [FaqController::class, 'faqDelete'])->name('admin.faq.delete');
 });

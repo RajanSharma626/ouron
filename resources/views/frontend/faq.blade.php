@@ -34,147 +34,135 @@
                     <!-- Product FAQ Section -->
                     <div id="faq-product" class="faq-container">
                         <div class="accordion" id="faqAccordionProduct">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="productHeadingOne">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#productCollapseOne" aria-expanded="true"
-                                        aria-controls="productCollapseOne">
-                                        1. How do I order a product?
-                                    </button>
-                                </h2>
-                                <div id="productCollapseOne" class="accordion-collapse collapse show"
-                                    aria-labelledby="productHeadingOne" data-bs-parent="#faqAccordionProduct">
-                                    <div class="accordion-body">
-                                        <p>To order a product, simply navigate to the product page, click "Add to Cart," and
-                                            follow the checkout process.</p>
+                            @foreach ($faqsProduct as $faq)
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="productHeading{{ $loop->index }}">
+                                        <button class="accordion-button {{ $loop->first ? '' : 'collapsed' }}"
+                                            type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#productCollapse{{ $loop->index }}"
+                                            aria-expanded="{{ $loop->first ? 'true' : 'false' }}"
+                                            aria-controls="productCollapse{{ $loop->index }}">
+                                            {{ $faq->question }}
+                                        </button>
+                                    </h2>
+                                    <div id="productCollapse{{ $loop->index }}"
+                                        class="accordion-collapse collapse {{ $loop->first ? 'show' : '' }}"
+                                        aria-labelledby="productHeading{{ $loop->index }}"
+                                        data-bs-parent="#faqAccordionProduct">
+                                        <div class="accordion-body">
+                                            <p>{{ $faq->answer }}</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- Additional Product FAQ items can go here -->
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="productHeadingTwo">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#productCollapseTwo" aria-expanded="false"
-                                        aria-controls="productCollapseTwo">
-                                        2. What payment methods do you accept?
-                                    </button>
-                                </h2>
-                                <div id="productCollapseTwo" class="accordion-collapse collapse"
-                                    aria-labelledby="productHeadingTwo" data-bs-parent="#faqAccordionProduct">
-                                    <div class="accordion-body">
-                                        <p>We accept various payment methods including major credit cards, PayPal, and bank
-                                            transfers.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="productHeadingThree">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#productCollapseThree" aria-expanded="false"
-                                        aria-controls="productCollapseThree">
-                                        3. Can I return a product if I am not satisfied?
-                                    </button>
-                                </h2>
-                                <div id="productCollapseThree" class="accordion-collapse collapse"
-                                    aria-labelledby="productHeadingThree" data-bs-parent="#faqAccordionProduct">
-                                    <div class="accordion-body">
-                                        <p>Yes, you can return your product within 30 days of purchase provided it meets our
-                                            return criteria.</p>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
 
                     <!-- Delivery FAQ Section -->
                     <div id="faq-delivery" class="faq-container d-none">
                         <div class="accordion" id="faqAccordionDelivery">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="deliveryHeadingOne">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#deliveryCollapseOne" aria-expanded="true"
-                                        aria-controls="deliveryCollapseOne">
-                                        Delivery FAQ 1: What delivery options are available?
-                                    </button>
-                                </h2>
-                                <div id="deliveryCollapseOne" class="accordion-collapse collapse show"
-                                    aria-labelledby="deliveryHeadingOne" data-bs-parent="#faqAccordionDelivery">
-                                    <div class="accordion-body">
-                                        <p>We offer standard and express delivery options. Choose the one that suits you
-                                            best during checkout.</p>
+                            @foreach ($faqsDelivery as $faq)
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="deliveryHeading{{ $loop->index }}">
+                                        <button class="accordion-button {{ $loop->first ? '' : 'collapsed' }}"
+                                            type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#deliveryCollapse{{ $loop->index }}"
+                                            aria-expanded="{{ $loop->first ? 'true' : 'false' }}"
+                                            aria-controls="deliveryCollapse{{ $loop->index }}">
+                                            {{ $faq->question }}
+                                        </button>
+                                    </h2>
+                                    <div id="deliveryCollapse{{ $loop->index }}"
+                                        class="accordion-collapse collapse {{ $loop->first ? 'show' : '' }}"
+                                        aria-labelledby="deliveryHeading{{ $loop->index }}"
+                                        data-bs-parent="#faqAccordionDelivery">
+                                        <div class="accordion-body">
+                                            <p>{{ $faq->answer }}</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- Additional Delivery FAQ items can go here -->
+                            @endforeach
                         </div>
                     </div>
 
                     <!-- Order FAQ Section -->
                     <div id="faq-order" class="faq-container d-none">
                         <div class="accordion" id="faqAccordionOrder">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="orderHeadingOne">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#orderCollapseOne" aria-expanded="true"
-                                        aria-controls="orderCollapseOne">
-                                        Order FAQ 1: How do I update my order?
-                                    </button>
-                                </h2>
-                                <div id="orderCollapseOne" class="accordion-collapse collapse show"
-                                    aria-labelledby="orderHeadingOne" data-bs-parent="#faqAccordionOrder">
-                                    <div class="accordion-body">
-                                        <p>You can update your order before it is processed. Contact our support for
-                                            assistance.</p>
+                            @foreach ($faqsOrder as $faq)
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="orderHeading{{ $loop->index }}">
+                                        <button class="accordion-button {{ $loop->first ? '' : 'collapsed' }}"
+                                            type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#orderCollapse{{ $loop->index }}"
+                                            aria-expanded="{{ $loop->first ? 'true' : 'false' }}"
+                                            aria-controls="orderCollapse{{ $loop->index }}">
+                                            {{ $faq->question }}
+                                        </button>
+                                    </h2>
+                                    <div id="orderCollapse{{ $loop->index }}"
+                                        class="accordion-collapse collapse {{ $loop->first ? 'show' : '' }}"
+                                        aria-labelledby="orderHeading{{ $loop->index }}"
+                                        data-bs-parent="#faqAccordionOrder">
+                                        <div class="accordion-body">
+                                            <p>{{ $faq->answer }}</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- Additional Order FAQ items can go here -->
+                            @endforeach
                         </div>
                     </div>
 
                     <!-- Order Received FAQ Section -->
                     <div id="faq-order-received" class="faq-container d-none">
                         <div class="accordion" id="faqAccordionOrderReceived">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="orderReceivedHeadingOne">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#orderReceivedCollapseOne" aria-expanded="true"
-                                        aria-controls="orderReceivedCollapseOne">
-                                        Order Received FAQ 1: How do I confirm receipt of my order?
-                                    </button>
-                                </h2>
-                                <div id="orderReceivedCollapseOne" class="accordion-collapse collapse show"
-                                    aria-labelledby="orderReceivedHeadingOne" data-bs-parent="#faqAccordionOrderReceived">
-                                    <div class="accordion-body">
-                                        <p>Once you receive your order, please click on the "Order Received" button in your
-                                            account to confirm.</p>
+                            @foreach ($faqsOrderReceived as $faq)
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="orderReceivedHeading{{ $loop->index }}">
+                                        <button class="accordion-button {{ $loop->first ? '' : 'collapsed' }}"
+                                            type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#orderReceivedCollapse{{ $loop->index }}"
+                                            aria-expanded="{{ $loop->first ? 'true' : 'false' }}"
+                                            aria-controls="orderReceivedCollapse{{ $loop->index }}">
+                                            {{ $faq->question }}
+                                        </button>
+                                    </h2>
+                                    <div id="orderReceivedCollapse{{ $loop->index }}"
+                                        class="accordion-collapse collapse {{ $loop->first ? 'show' : '' }}"
+                                        aria-labelledby="orderReceivedHeading{{ $loop->index }}"
+                                        data-bs-parent="#faqAccordionOrderReceived">
+                                        <div class="accordion-body">
+                                            <p>{{ $faq->answer }}</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- Additional Order Received FAQ items can go here -->
+                            @endforeach
                         </div>
                     </div>
 
                     <!-- General FAQ Section -->
                     <div id="faq-general" class="faq-container d-none">
                         <div class="accordion" id="faqAccordionGeneral">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="generalHeadingOne">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#generalCollapseOne" aria-expanded="true"
-                                        aria-controls="generalCollapseOne">
-                                        General FAQ 1: How does your service work?
-                                    </button>
-                                </h2>
-                                <div id="generalCollapseOne" class="accordion-collapse collapse show"
-                                    aria-labelledby="generalHeadingOne" data-bs-parent="#faqAccordionGeneral">
-                                    <div class="accordion-body">
-                                        <p>Our service connects you with the best products and delivery options available
-                                            worldwide.</p>
+                            @foreach ($faqsGeneral as $faq)
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="generalHeading{{ $loop->index }}">
+                                        <button class="accordion-button {{ $loop->first ? '' : 'collapsed' }}"
+                                            type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#generalCollapse{{ $loop->index }}"
+                                            aria-expanded="{{ $loop->first ? 'true' : 'false' }}"
+                                            aria-controls="generalCollapse{{ $loop->index }}">
+                                            {{ $faq->question }}
+                                        </button>
+                                    </h2>
+                                    <div id="generalCollapse{{ $loop->index }}"
+                                        class="accordion-collapse collapse {{ $loop->first ? 'show' : '' }}"
+                                        aria-labelledby="generalHeading{{ $loop->index }}"
+                                        data-bs-parent="#faqAccordionGeneral">
+                                        <div class="accordion-body">
+                                            <p>{{ $faq->answer }}</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- Additional General FAQ items can go here -->
+                            @endforeach
                         </div>
                     </div>
                 </div>
