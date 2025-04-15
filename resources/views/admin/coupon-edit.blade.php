@@ -22,7 +22,7 @@
                 @csrf
                 <div class="row">
                     <div class="col-lg-5">
-                        <div class="card">
+                        {{-- <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">Coupon Status</h4>
                             </div>
@@ -65,7 +65,7 @@
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">Date Schedule</h4>

@@ -100,9 +100,19 @@
                                                 <td>₹{{ $product->discount_price }}
                                                 </td>
                                                 <td>
-                                                    <p class="mb-1 text-muted"><span
-                                                            class="text-dark fw-medium">{{ $product->stock }}
-                                                            Item</span> Left</p>
+                                                    @if ($product->stock == 0)
+                                                        <p class="mb-1 text-danger"><span
+                                                                class="text-danger fw-medium">{{ $product->stock }}
+                                                                Item</span> Left</p>
+                                                    @elseif ($product->stock <= 5)
+                                                        <p class="mb-1 text-warning"><span
+                                                                class="text-warning fw-medium">{{ $product->stock }}
+                                                                Item</span> Left</p>    
+                                                    @else
+                                                        <p class="mb-1 text-muted"><span
+                                                                class="text-dark fw-medium">{{ $product->stock }}
+                                                                Item</span> Left</p>
+                                                    @endif
                                                     {{-- <p class="mb-0 text-muted">155 Sold</p> --}}
                                                 </td>
                                                 <td> {{ $product->category->name ?? 'N/A' }}</td>
@@ -124,6 +134,7 @@
                                                                 icon="solar:pen-2-broken"
                                                                 class="align-middle fs-18"></iconify-icon></a>
                                                         <a href="{{ route('product.delete', $product->id) }}"
+                                                            onclick="event.preventDefault(); confirmAction('Delete this product?', 'This cannot be undone.', '{{ route('product.delete', $product->id) }}')"
                                                             class="btn btn-soft-danger btn-sm"><iconify-icon
                                                                 icon="solar:trash-bin-minimalistic-2-broken"
                                                                 class="align-middle fs-18"></iconify-icon></a>

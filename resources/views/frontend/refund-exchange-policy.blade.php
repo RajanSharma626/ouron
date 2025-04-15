@@ -9,7 +9,7 @@
             <div class="row">
 
                 <div class="col-12 policy-content">
-                    <h1 class="text-center mb-5 fs-3">OURON Return & Refund Policy</h1>
+                    <h1 class="text-center mb-5 fs-3 fw-bold">OURON Return & Refund Policy</h1>
 
                     <h5>
                         APPLICABILITY OF POLICY

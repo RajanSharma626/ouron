@@ -87,14 +87,22 @@ class CheckoutController extends Controller
 
         // Save Order Items
         foreach ($cart as $item) {
+            // Create order item
             OrderItem::create([
-                'order_id' => $order->id,
-                'product_id' => $item->product_id,
-                'quantity' => $item->quantity,
-                'price' => $item->product->discount_price,
-                'size' => $item->size,
-                'color' => $item->color
+            'order_id' => $order->id,
+            'product_id' => $item->product_id,
+            'quantity' => $item->quantity,
+            'price' => $item->product->discount_price,
+            'size' => $item->size,
+            'color' => $item->color
             ]);
+
+            // Deduct stock from product table
+            $product = Product::find($item->product_id);
+            if ($product) {
+            $product->stock -= $item->quantity;
+            $product->save();
+            }
         }
 
         // Clear the cart
@@ -170,7 +178,7 @@ class CheckoutController extends Controller
         }
 
 
-        return redirect()->route('order.success')->with('success', 'Order placed successfully!');
+        return redirect()->route('order.success',$order->id)->with('success', 'Order placed successfully!');
     }
 
     public function buy()
@@ -282,12 +290,19 @@ class CheckoutController extends Controller
             'color' => $buyNow['color'] ?? null,
         ]);
 
+        // Deduct stock from product table
+        $product = Product::find($buyNow['product_id']);
+        if ($product) {
+            $product->stock -= $buyNow['quantity'];
+            $product->save();
+        }
+
         // Clear Buy Now session
         session()->forget(['buy_now', 'from_buy_now']);
 
         SendOrderConfirmationJob::dispatch($order);
 
-        return redirect()->route('order.success')->with('success', 'Order placed successfully!');
+        return redirect()->route('order.success', $order->id)->with('success', 'Order placed successfully!');
     }
 
 

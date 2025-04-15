@@ -20,6 +20,22 @@
                 </div>
             </div>
             <div class="row">
+
+                @if (session('success'))
+                    <div class="col-12">
+                        <div class="alert alert-success text-truncate mb-3" role="alert">
+                            {{ session('success') }}
+                        </div>
+                    </div>
+                @endif
+                @if (session('error'))
+                    <div class="col-12">
+                        <div class="alert alert-danger text-truncate mb-3" role="alert">
+                            {{ session('error') }}
+                        </div>
+                    </div>
+                @endif
+
                 @foreach ($blogs as $blog)
                     <div class="col-xl-4 col-md-6">
                         <div class="card overflow-hidden">
@@ -30,14 +46,17 @@
                                 <div class="d-flex align-items-center gap-2 mt-2 mb-1">
                                     <div class="mt-3 d-flex gap-2">
 
-                                        <a href="{{ route('blog.detail', $blog->slug) }}" class="btn btn-soft-secondary btn-sm"><iconify-icon
-                                                icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
+                                        <a href="{{ route('blog.detail', $blog->slug) }}"
+                                            class="btn btn-soft-secondary btn-sm"><iconify-icon icon="solar:eye-broken"
+                                                class="align-middle fs-18"></iconify-icon></a>
 
-                                        <a href=""
+                                        <a href="{{ route('admin.blog.edit', $blog->id) }}"
                                             class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken"
                                                 class="align-middle fs-18"></iconify-icon></a>
 
-                                        <a href="" class="btn btn-soft-danger btn-sm"><iconify-icon
+                                        <a href="{{ route('admin.blog.delete', $blog->id) }}"
+                                            class="btn btn-soft-danger btn-sm"
+                                            onclick="event.preventDefault(); confirmAction('Delete this Blog?', 'This cannot be undone.', '{{ route('admin.blog.delete', $blog->id) }}')"><iconify-icon
                                                 icon="solar:trash-bin-minimalistic-2-broken"
                                                 class="align-middle fs-18"></iconify-icon></a>
 
@@ -51,14 +70,17 @@
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="qrModalLabel{{ $blog->id }}">QR Code
+                                                        <h5 class="modal-title" id="qrModalLabel{{ $blog->id }}">QR
+                                                            Code
                                                             for {{ $blog->title }}</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                             aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body text-center">
-                                                        <img src="{{ asset($blog->qr_code) }}" alt="QR Code"
-                                                            class="img-fluid">
+                                                        <img src="{{ asset($blog->qr_code) }}" alt="QR Code" id="qrImage{{ $blog->id }}"
+                                                            class="img-fluid" style="padding: 10px;"> <br>
+                                                        <a href="#" onclick="downloadQRCode({{ $blog->id }})"
+                                                            class="btn btn-primary mt-3 w-100">Download QR</a>
                                                     </div>
                                                 </div>
                                             </div>

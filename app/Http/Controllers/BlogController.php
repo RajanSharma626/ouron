@@ -9,12 +9,81 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
+
+
 class BlogController extends Controller
 {
     public function index()
     {
         $blogs = Blog::all();
         return view('admin.blogs', compact('blogs'));
+    }
+
+    public function edit($id)
+    {
+        $blog = Blog::find($id);
+        if ($blog) {
+            $products = Product::all();
+            return view('admin.blog-edit', compact('blog', 'products'));
+        }
+        return redirect()->route('admin.blogs')->with('error', 'Blog not found!');
+    }
+
+    public function update(Request $request)
+    {
+        $blog = Blog::find($request->input('id'));
+        if (!$blog) {
+            return redirect()->route('admin.blogs')->with('error', 'Blog not found!');
+        }
+
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'short_desc' => 'required|string|max:500',
+            'banner_image' => 'nullable|image|mimes:jpeg,png,jpg,webp',
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,webp',
+            'blog_content' => 'required',
+            'product_id' => 'required|exists:products,id',
+        ]);
+
+        // Handle image uploads
+        if ($request->hasFile('banner_image')) {
+            Storage::delete($blog->banner_image);
+            $bannerImage = $request->file('banner_image');
+            $bannerImageName = time() . '_banner.' . $bannerImage->getClientOriginalExtension();
+            $bannerImagePath = 'blogs/' . $bannerImageName;
+            $bannerImage->move(public_path('blogs'), $bannerImageName);
+            $blog->banner_image = $bannerImagePath;
+        }
+
+        if ($request->hasFile('cover_image')) {
+            Storage::delete($blog->cover_image);
+            $coverImage = $request->file('cover_image');
+            $coverImageName = time() . '_cover.' . $coverImage->getClientOriginalExtension();
+            $coverImagePath = 'blogs/' . $coverImageName;
+            $coverImage->move(public_path('blogs'), $coverImageName);
+            $blog->cover_image = $coverImagePath;
+        }
+
+        // Update blog details
+        $blog->title = $request->title;
+        $blog->slug = Str::slug($request->title) . '-' . uniqid();
+        $blog->short_desc = $request->short_desc;
+        $blog->blog_content = $request->blog_content;
+        $blog->product_id = $request->product_id;
+        $blog->save();
+
+        return redirect()->route('admin.blogs')->with('success', 'Blog updated successfully');
+    }
+    public function destroy($id)
+    {
+        $blog = Blog::find($id);
+        if ($blog) {
+            Storage::delete($blog->banner_image);
+            Storage::delete($blog->cover_image);
+            $blog->delete();
+            return redirect()->route('admin.blogs')->with('success', 'Blog deleted successfully');
+        }
+        return redirect()->route('admin.blogs')->with('error', 'Blog not found!');
     }
 
     public function homeIndex()

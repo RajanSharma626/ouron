@@ -62,6 +62,61 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/44.3.0/ckeditor5.umd.js"></script>
 
     <script>
+        function confirmAction(title, text, redirectUrl = null, callback = null) {
+            Swal.fire({
+                title: title || 'Are you sure?',
+                text: text || 'This action cannot be undone.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, proceed',
+                cancelButtonText: 'Cancel',
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    if (redirectUrl) {
+                        window.location.href = redirectUrl;
+                    } else if (typeof callback === 'function') {
+                        callback();
+                    }
+                }
+            });
+        }
+
+        function downloadQRCode(blogId) {
+        // Get the image source
+        var imgElement = document.getElementById('qrImage' + blogId);
+        var imgSrc = imgElement.src;
+
+        // Create a temporary image element to load the image
+        var img = new Image();
+        img.src = imgSrc;
+
+        img.onload = function() {
+            // Create a canvas element to draw the image
+            var canvas = document.createElement('canvas');
+            var ctx = canvas.getContext('2d');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img, 0, 0);
+
+            // Convert the canvas to a data URL (PNG format)
+            var dataURL = canvas.toDataURL('image/png');
+
+            // Create an anchor element to trigger the download
+            var link = document.createElement('a');
+            link.href = dataURL;
+            link.download = 'qr-code-' + blogId + '.png'; // Customize the filename
+
+            // Trigger the download by simulating a click on the anchor
+            link.click();
+        }
+
+        img.onerror = function() {
+            alert('Failed to load the image.');
+        }
+    }
+
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('browse-files').addEventListener('click', function() {
                 document.getElementById('product-images').click();

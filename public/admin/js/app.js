@@ -20,7 +20,7 @@ function confirmOrder(url) {
     })
 }
 
-function confirmAction(url, action) {
+function confirmAction2(url, action) {
     Swal.fire({
         title: 'Are you sure?',
         text: `Do you want to mark this order as ${action}?`,

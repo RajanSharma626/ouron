@@ -87,6 +87,7 @@
                                                                 icon="solar:pen-2-broken"
                                                                 class="align-middle fs-18"></iconify-icon></a>
                                                         <a href="{{ route('collection.delete', $collection->id) }}"
+                                                             onclick="event.preventDefault(); confirmAction('Delete this collection?', 'This cannot be undone.', '{{ route('collection.delete', $collection->id) }}')"
                                                             class="btn btn-soft-danger btn-sm"><iconify-icon
                                                                 icon="solar:trash-bin-minimalistic-2-broken"
                                                                 class="align-middle fs-18"></iconify-icon></a>

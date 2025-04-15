@@ -9,7 +9,7 @@
             <div class="row py-5">
                 <div class="row">
                     <div class="col-12">
-                        <h1 class="text-center fs-4">WTS? (What's the Story?)</h1>
+                        <h1 class="text-center fs-3 fw-bold">WTS? (What's the Story?)</h1>
                         <p class="text-center mb-5">
                             Every design at Ouron carries more than just style - it carries a story. "WTS?" is where we
                             revieal the inspiration behind each piece. Dicover the story. Feel the legacy. Wear the

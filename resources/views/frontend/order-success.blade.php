@@ -18,7 +18,10 @@
                             </div>
                             <h2 class="fs-4 fw-bold">Thank You for Your Order!</h2>
                             <p>Your order has been placed successfully. You will receive an email confirmation soon.</p>
-                            <a href="{{ route('home') }}" class="btn primary-bg">Continue Shopping</a>
+                            @php
+                                $id = request()->route('id');
+                            @endphp
+                            <a href="{{ route('orders.show', $id) }}" class="btn primary-bg">View Order</a>
                         </div>
                     </div>
                 </div>

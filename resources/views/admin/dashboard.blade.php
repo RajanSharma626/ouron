@@ -60,7 +60,7 @@
                                 <div>
 
                                 </div>
-                                <a href="#!" class="text-reset fw-semibold fs-12">View More</a>
+                                <a href="{{route('admin.customers')}}" class="text-reset fw-semibold fs-12">View More</a>
                             </div>
                         </div> <!-- end card body -->
                     </div> <!-- end card -->

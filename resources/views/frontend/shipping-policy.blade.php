@@ -9,7 +9,7 @@
             <div class="row">
 
                 <div class="col-12 policy-content">
-                    <h1 class="text-center mb-5 fs-3">Shipping POLICY</h1>
+                    <h1 class="text-center mb-5 fs-3 fw-bold">Shipping POLICY</h1>
 
                     <h5>
                         ORDER PLACEMENT

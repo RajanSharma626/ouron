@@ -96,8 +96,7 @@ class CategoryController extends Controller
     {
         $category = Category::find($id);
         if ($category) {
-            $category->deleted_at = now();
-            $category->save();
+            $category->delete();
             return redirect()->route('admin.category')->with('success', 'Category deleted successfully!');
         }
         return redirect()->route('admin.category')->with('error', 'Category not found!');

@@ -9,7 +9,7 @@
             <div class="row justify-content-center py-5">
 
                 <div class="col-12 mb-5 text-center">
-                    <h1 class="fs-4 text-center fw-bold">CONNECT WITH THE BRAND</h1>
+                    <h1 class="fs-3 text-center fw-bold">CONNECT WITH THE BRAND</h1>
                     <small class="text-center">We would love to hear about your feedback, interests and future
                         collaborations. Reach out to us on
                         email at contact@ouron.in. Our dedicated customer support number can be reached on +91 8799232708,

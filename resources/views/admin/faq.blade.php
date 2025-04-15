@@ -77,6 +77,7 @@
                                                         icon="solar:pen-2-broken"
                                                         class="align-middle fs-18"></iconify-icon></a>
                                                 <a href="{{ route('admin.faq.delete', $faq->id) }}"
+                                                    onclick="event.preventDefault(); confirmAction('Delete this FAQs?', 'This cannot be undone.', '{{ route('admin.faq.delete', $faq->id) }}')"
                                                     class="btn btn-soft-danger btn-sm"><iconify-icon
                                                         icon="solar:trash-bin-minimalistic-2-broken"
                                                         class="align-middle fs-18"></iconify-icon></a>

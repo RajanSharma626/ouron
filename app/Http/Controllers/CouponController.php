@@ -33,7 +33,6 @@ class CouponController extends Controller
             'coupons-limits' => 'required|integer|min:1',
             'discount-value' => 'required|numeric|min:0',
             'coupons-type'   => 'required|in:free_shipping,percentage,fixed_amount',
-            'status'         => 'required|in:active,inactive,future',
             'start-date'     => 'required|date',
             'end-date'       => 'required|date|after_or_equal:start-date',
         ]);
@@ -43,7 +42,6 @@ class CouponController extends Controller
             'coupon_limits' => $request->input('coupons-limits'),
             'discount_value' => $request->input('discount-value'),
             'coupon_type'   => $request->input('coupons-type'),
-            'status'        => $request->status,
             'start_date'    => $request->input('start-date'),
             'end_date'      => $request->input('end-date'),
         ]);
@@ -60,7 +58,6 @@ class CouponController extends Controller
             'coupon_limits' => $request->input('coupons-limits'),
             'discount_value' => $request->input('discount-value'),
             'coupon_type'   => $request->input('coupons-type'),
-            'status'        => $request->status,
             'start_date'    => $request->input('start-date'),
             'end_date'      => $request->input('end-date'),
         ]);

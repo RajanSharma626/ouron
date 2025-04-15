@@ -9,7 +9,7 @@
             <div class="row">
 
                 <div class="col-12 policy-content">
-                    <h1 class="text-center mb-5 fs-4">Privacy Policy</h1>
+                    <h1 class="text-center mb-5 fs-3 fw-bold">Privacy Policy</h1>
 
 
                     <ol class="mb-5">

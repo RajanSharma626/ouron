@@ -129,15 +129,15 @@
                                                 class="btn btn-primary">Make as Confirm Order</a>
                                         @elseif ($order->status == 'Confirmed')
                                             <a href="#"
-                                                onclick="confirmAction('{{ route('admin.order.packed', $order->id) }}', 'Packed')"
+                                                onclick="confirmAction2('{{ route('admin.order.packed', $order->id) }}', 'Packed')"
                                                 class="btn btn-primary">Make as Packed</a>
                                         @elseif ($order->status == 'Packed')
                                             <a href="#"
-                                                onclick="confirmAction('{{ route('admin.order.shipped', $order->id) }}', 'Ready to Shipped')"
+                                                onclick="confirmAction2('{{ route('admin.order.shipped', $order->id) }}', 'Ready to Shipped')"
                                                 class="btn btn-primary">Make as Ready To Shipped</a>
                                         @elseif ($order->status == 'Shipped')
                                             <a href="#"
-                                                onclick="confirmAction('{{ route('admin.order.delivered', $order->id) }}', 'Delivered')"
+                                                onclick="confirmAction2('{{ route('admin.order.delivered', $order->id) }}', 'Delivered')"
                                                 class="btn btn-primary">Make as Delivered</a>
                                         @elseif ($order->status == 'Delivered')
                                             <a class="btn border-success text-success">Delivered <i

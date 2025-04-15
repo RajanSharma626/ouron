@@ -9,7 +9,7 @@
             <div class="row">
 
                 <div class="col-12 policy-content">
-                    <h1 class="text-center mb-5 fs-3">Terms and Conditions</h1>
+                    <h1 class="text-center mb-5 fs-3 fw-bold">Terms and Conditions</h1>
 
                     <ol class="mb-5">
                         <li class="text-normal mb-3">

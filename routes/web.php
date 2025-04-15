@@ -93,7 +93,7 @@ Route::middleware(['user.auth'])->group(function () {
     Route::post('/checkout/store', [CheckoutController::class, 'store'])->name('checkout.store');
     Route::post('/checkout/{id}/edit', [CheckoutController::class, 'editView'])->name('checkout.edit');
 
-    Route::get('/order-success', function () {
+    Route::get('/order-success/{id}', function () {
         return view('frontend.order-success');
     })->name('order.success');
 
@@ -209,6 +209,10 @@ Route::middleware(['admin.auth'])->prefix('admin')->group(function () {
     Route::get('/blogs', [BlogController::class, 'index'])->name('admin.blogs');
     Route::get('/blogs/add', [BlogController::class, 'create'])->name('admin.blogs.add');
     Route::post('/blogs/store', [BlogController::class, 'store'])->name('admin.blog.store');
+    Route::get('/blog/edit/{id}', [BlogController::class, 'edit'])->name('admin.blog.edit');
+    Route::post('/blog/update', [BlogController::class, 'update'])->name('admin.blog.update');
+    Route::get('/blog/delete/{id}', [BlogController::class, 'destroy'])->name('admin.blog.delete');
+    Route::get('/download/qr/{id}', [BlogController::class, 'downloadQr'])->name('admin.blog.qr.download');
 
     //Contact Form
     Route::get('/contact-form', [ContactController::class, 'index'])->name('admin.contact');

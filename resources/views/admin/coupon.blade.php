@@ -100,6 +100,7 @@
                                                                 icon="solar:pen-2-broken"
                                                                 class="align-middle fs-18"></iconify-icon></a>
                                                         <a href="{{ route('admin.coupons.delete', $coupon->id) }}"
+                                                            onclick="event.preventDefault(); confirmAction('Delete this coupon?', 'This cannot be undone.', '{{ route('admin.coupons.delete', $coupon->id) }}')"
                                                             class="btn btn-soft-danger btn-sm"><iconify-icon
                                                                 icon="solar:trash-bin-minimalistic-2-broken"
                                                                 class="align-middle fs-18"></iconify-icon></a>

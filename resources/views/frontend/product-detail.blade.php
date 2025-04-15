@@ -223,8 +223,12 @@
 
                         <div class="row py-3 g-2">
                             <div class="col-6 mb-md-0">
+                                @if ($product->stock > 0)
                                 <button type="button" class="checkout_btn w-100 addToCartBtn" title="Add to Cart"
-                                    data-id="{{ $product->id }}">Add to Cart</button>
+                                data-id="{{ $product->id }}">Add to Cart</button>
+                                @else
+                                    <button type="button" class="checkout_btn w-100" disabled>Add to Cart</button>
+                                @endif
                             </div>
                             <div class="col-6 mb-md-0">
                                 <a href="{{ $product->blog ? route('blog.detail', $product->blog->slug) : '#' }}">
@@ -232,7 +236,11 @@
                                 </a>
                             </div>
                             <div class="col-12 mb-md-0">
-                                <button type="submit" class="checkout_btn w-100">Buy Now</button>
+                                @if ($product->stock > 0)
+                                    <button type="submit" class="checkout_btn w-100">Buy Now</button>
+                                @else
+                                    <button type="button" class="checkout_btn w-100" disabled>Out of Stock</button>
+                                @endif
 
                                 @if ($errors->any())
                                     <div class="alert alert-danger">
