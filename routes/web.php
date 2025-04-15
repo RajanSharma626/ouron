@@ -171,6 +171,8 @@ Route::middleware(['admin.auth'])->prefix('admin')->group(function () {
     })->name('admin.category.add');
     Route::post('/category/store', [CategoryController::class, 'store'])->name('category.store');
     Route::get('/category/delete/{id}', [CategoryController::class, 'destroy'])->name('category.delete');
+    Route::get('/category/edit/{id}', [CategoryController::class, 'edit'])->name('admin.category.edit');
+    Route::post('/category/update', [CategoryController::class, 'update'])->name('category.update');
 
     //Collection
     Route::get('/collection', [CollectionController::class, 'index'])->name('admin.collection');
