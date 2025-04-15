@@ -180,8 +180,10 @@ Route::middleware(['admin.auth'])->prefix('admin')->group(function () {
     Route::get('/collection/add', function () {
         return view('admin.collection-add');
     })->name('admin.collection.add');
-
     Route::post('/collection/store', [CollectionController::class, 'store'])->name('collection.store');
+    Route::get('/collection/edit/{id}', [CollectionController::class, 'edit'])->name('collection.edit');
+    Route::post('/collection/update', [CollectionController::class, 'update'])->name('collection.update');
+    Route::get('/collection/delete/{id}', [CollectionController::class, 'destroy'])->name('collection.delete');
 
 
     //orders

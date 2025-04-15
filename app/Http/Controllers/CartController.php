@@ -115,7 +115,7 @@ class CartController extends Controller
         return response()->json([
             'id' => $product->id,
             'name' => $product->name,
-            'price' => $product->price,
+            'price' => $product->discount_price,
             'image' => asset($product->firstimage->img),
             'sizes' => json_decode($product->sizes),
             'colors' => json_decode($product->colors),

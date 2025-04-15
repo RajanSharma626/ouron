@@ -42,7 +42,7 @@
                                                     </p>
                                                 </div>
                                                 <div class="ml-auto">
-                                                    <h6>₹{{ number_format($item->product->price - ($item->product->price * $item->product->discount_price) / 100, 2) }}
+                                                    <h6>₹{{ number_format($item->product->discount_price , 2) }}
                                                     </h6>
                                                 </div>
                                             </div>
@@ -82,8 +82,7 @@
                                 $subtotal = 0;
                                 foreach ($cart as $item) {
                                     $price =
-                                        $item->product->price -
-                                        ($item->product->price * $item->product->discount_price) / 100;
+                                        $item->product->discount_price ;
                                     $subtotal += $price * $item->quantity;
                                 }
 

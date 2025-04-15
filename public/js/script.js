@@ -213,10 +213,7 @@ $(document).ready(function () {
                 $(".cart-total-hide, .checkout_btn_hide").show(); // Show total & checkout button
 
                 cartItems.forEach((item) => {
-                    let discountedPrice =
-                        (item.product.price *
-                            (100 - item.product.discount_price)) /
-                        100;
+                    let discountedPrice = item.product.discount_price;
                     let itemTotal = discountedPrice * item.quantity;
                     total += itemTotal;
 

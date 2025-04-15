@@ -97,8 +97,7 @@
 
                                                 </td>
                                                 <td><s> ₹{{ $product->price }}</s></td>
-                                                <td>₹{{ $product->price - ($product->price * $product->discount_price) / 100 }}
-                                                    ({{ $product->discount_price }}%)
+                                                <td>₹{{ $product->discount_price }}
                                                 </td>
                                                 <td>
                                                     <p class="mb-1 text-muted"><span
@@ -117,7 +116,7 @@
 
                                                 <td>
                                                     <div class="d-flex gap-2">
-                                                        <a href="" class="btn btn-light btn-sm"><iconify-icon
+                                                        <a href="{{route('product.detail', $product->slug)}}" target="_blank" class="btn btn-light btn-sm"><iconify-icon
                                                                 icon="solar:eye-broken"
                                                                 class="align-middle fs-18"></iconify-icon></a>
                                                         <a href="{{ route('admin.products.edit', $product->id) }}"

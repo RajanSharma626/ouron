@@ -304,7 +304,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
-                                        <label for="product-discount" class="form-label">Discount</label>
+                                        <label for="product-discount" class="form-label">Discount Price</label>
                                         <div class="input-group mb-3">
                                             <span class="input-group-text fs-20"><i class='bx bxs-discount'></i></span>
                                             <input type="number" id="product-discount"
@@ -318,10 +318,10 @@
                         <div class="p-3 bg-light mb-3 rounded">
                             <div class="row justify-content-end g-2">
                                 <div class="col-lg-2">
-                                    <button type="submit" class="btn btn-outline-secondary w-100">Update Product</button>
+                                    <a href="{{ route('admin.products') }}" class="btn btn-primary w-100">Cancel</a>
                                 </div>
                                 <div class="col-lg-2">
-                                    <a href="{{ route('admin.products') }}" class="btn btn-primary w-100">Cancel</a>
+                                    <button type="submit" class="btn btn-outline-secondary w-100">Update Product</button>
                                 </div>
                             </div>
                         </div>

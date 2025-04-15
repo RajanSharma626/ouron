@@ -125,7 +125,7 @@
 
                                         <a href="javascript:void(0)" class="cart_icon add-to-cart" title="Add to Cart"
                                             data-id="{{ $product->id }}" data-name="{{ $product->name }}"
-                                            data-price="{{ number_format($product->price - ($product->price * $product->discount_price) / 100, 2) }}"
+                                            data-price="{{ number_format($product->discount_price, 2) }}"
                                             data-image="{{ $imageBasePath . '/' . $secondfilename }}"
                                             alt="{{ $product->name }}">
                                             <i class="bi bi-handbag"></i>
@@ -158,7 +158,7 @@
                                         <p class="product_price mb-0 text-muted">
                                             <del>RS. {{ number_format($product->price, 2) }}</del>
                                             &nbsp; RS.
-                                            {{ number_format($product->price - ($product->price * $product->discount_price) / 100, 2) }}
+                                            {{ number_format($product->discount_price, 2) }}
                                         </p>
                                     </div>
                                 </a>

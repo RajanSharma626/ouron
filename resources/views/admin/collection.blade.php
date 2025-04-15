@@ -80,13 +80,13 @@
                                                 <td>
                                                     <p class="text-dark fw-medium fs-15 mb-0">{{ $collection->name }}</p>
                                                 </td>
-                                                <td>{{ $collections->description ?? 'N/A' }}</td>
+                                                <td>{{ $collection->description ?? 'N/A' }}</td>
                                                 <td>
                                                     <div class="d-flex gap-2">
-                                                        <a href="#!" class="btn btn-soft-primary btn-sm"><iconify-icon
+                                                        <a href="{{route('collection.edit', $collection->id)}}" class="btn btn-soft-primary btn-sm"><iconify-icon
                                                                 icon="solar:pen-2-broken"
                                                                 class="align-middle fs-18"></iconify-icon></a>
-                                                        <a href="{{ route('category.delete', $collection->id) }}"
+                                                        <a href="{{ route('collection.delete', $collection->id) }}"
                                                             class="btn btn-soft-danger btn-sm"><iconify-icon
                                                                 icon="solar:trash-bin-minimalistic-2-broken"
                                                                 class="align-middle fs-18"></iconify-icon></a>

@@ -61,12 +61,11 @@ class CheckoutController extends Controller
         // Calculate totals
         $subtotal = 0;
         foreach ($cart as $item) {
-            $price = $item->product->price - ($item->product->price * $item->product->discount_price) / 100;
+            $price = $item->product->discount_price;
             $subtotal += $price * $item->quantity;
         }
 
-        $tax = $subtotal * 0.18; // 18% GST
-        $total = $subtotal + $tax;
+        $total = $subtotal;
 
         // Create Order
         $order = Order::create([
@@ -82,7 +81,6 @@ class CheckoutController extends Controller
             'phone' => $inputPhone,
             'payment_method' => $request->payment_method,
             'subtotal' => $subtotal,
-            'tax' => $tax,
             'total' => $total,
             'status' => 'Pending',
         ]);
@@ -93,7 +91,7 @@ class CheckoutController extends Controller
                 'order_id' => $order->id,
                 'product_id' => $item->product_id,
                 'quantity' => $item->quantity,
-                'price' => $item->product->price - ($item->product->price * $item->product->discount_price) / 100,
+                'price' => $item->product->discount_price,
                 'size' => $item->size,
                 'color' => $item->color
             ]);
@@ -205,7 +203,7 @@ class CheckoutController extends Controller
             'product_id' => $product->id,
             'color' => $request->color,
             'size' => $request->size,
-            'price' => $product->price - ($product->price * $product->discount_price) / 100,
+            'price' => $product->discount_price,
             'quantity' => 1,
             'address' => $defaultAddress ? $defaultAddress->address : null,
             'address2' => $defaultAddress ? $defaultAddress->address_2 : null,
@@ -254,8 +252,7 @@ class CheckoutController extends Controller
 
         // Calculate totals
         $subtotal = $buyNow['price'] * $buyNow['quantity'];
-        $tax = $subtotal * 0.18; // 18% GST
-        $total = $subtotal + $tax;
+        $total = $subtotal;
 
         // Create Order
         $order = Order::create([
@@ -271,7 +268,6 @@ class CheckoutController extends Controller
             'phone' => $inputPhone,
             'payment_method' => $request->payment_method,
             'subtotal' => $subtotal,
-            'tax' => $tax,
             'total' => $total,
             'status' => 'Pending',
         ]);

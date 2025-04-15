@@ -1,8 +1,8 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Add Collections')
+@section('title', 'Edit Collections')
 
-@section('page_title', 'Add Collections')
+@section('page_title', 'Edit Collections')
 
 @section('content')
     <div class="page-content">
@@ -27,7 +27,7 @@
             @endif
             
                 <div class="12">
-                    <form action="{{ route('collection.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('collection.update') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="card">
                             <div class="card-header">
@@ -37,11 +37,14 @@
                                 <!-- File Upload -->
 
                                 <div class="fallback">
-                                    <input name="file" class="form-control" type="file" required />
+                                    <input name="file" class="form-control" type="file" />
                                 </div>
                                 @error('file')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
+
+                                <input type="hidden" name="id" value="{{ old('id', $collections->id) }}">
+                                <img src="{{ asset($collections->image) }}" alt="" width="100px">
 
                             </div>
                         </div>
@@ -55,7 +58,7 @@
                                         <div class="mb-3">
                                             <label for="collection-title" class="form-label">Collection Title</label>
                                             <input type="text" name="collection-title" class="form-control"
-                                                placeholder="Enter Title" required>
+                                                placeholder="Enter Title" value="{{$collections->name}}" required>
                                         </div>
                                         @error('collection-title')
                                             <div class="alert alert-danger">{{ $message }}</div>
@@ -64,8 +67,8 @@
                                     <div class="col-lg-12">
                                         <div class="mb-0">
                                             <label for="description" class="form-label">Description</label>
-                                            <textarea class="form-control bg-light-subtle" name="description" rows="7" placeholder="Type description"
-                                                required></textarea>
+                                            <textarea class="form-control bg-light-subtle" name="description"  rows="7" placeholder="Type description"
+                                                required>{{$collections->description}}</textarea>
                                         </div>
                                         @error('description')
                                             <div class="alert alert-danger">{{ $message }}</div>
@@ -83,7 +86,7 @@
                                     <div class="col-lg-6">
                                         <div class="mb-3">
                                             <label for="meta-title" class="form-label">Meta Title</label>
-                                            <input type="text" class="form-control" name="meta-title"
+                                            <input type="text" class="form-control" name="meta-title" value="{{$collections->meta_title}}"
                                                 placeholder="Enter Title">
                                         </div>
                                         @error('meta-title')
@@ -93,7 +96,7 @@
                                     <div class="col-lg-6">
                                         <div class="mb-3">
                                             <label for="meta-tag" class="form-label">Meta Tag Keyword</label>
-                                            <input type="text" name="meta-tag" class="form-control"
+                                            <input type="text" name="meta-tag" class="form-control" value="{{$collections->meta_keywords}}"
                                                 placeholder="Enter word">
                                         </div>
                                         @error('meta-tag')
@@ -103,7 +106,7 @@
                                     <div class="col-lg-12">
                                         <div class="mb-0">
                                             <label for="description" class="form-label">Description</label>
-                                            <textarea class="form-control bg-light-subtle" name="meta-description" rows="4" placeholder="Type description"></textarea>
+                                            <textarea class="form-control bg-light-subtle" name="meta-description" rows="4" placeholder="Type description">{{ $collections->meta_description }}</textarea>
                                         </div>
 
                                         @error('meta-description')
