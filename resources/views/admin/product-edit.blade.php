@@ -37,36 +37,41 @@
                                     </span>
                                 </div>
                                 <div id="preview-container" class="row mt-3">
-                                    {{-- Show existing product images from the database --}}
-                                    @if ($product->productImg && $product->productImg->count())
-                                        @foreach ($product->productImg as $image)
-                                            <div class="col-md-3 mb-2 position-relative">
-                                                <img src="{{ asset($image->img) }}" class="img-thumbnail img-fluid"
-                                                    alt="Product Image">
-                                                <a href="{{ route('product.image.delete', $image->id) }}"
-                                                    class="position-absolute top-0 end-0 mt-2 me-2 btn btn-danger btn-sm"
-                                                    onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this image?')) {
-                                                       var form = document.createElement('form');
-                                                       form.method = 'POST';
-                                                       form.action = this.href;
-                                                       var token = document.createElement('input');
-                                                       token.type = 'hidden';
-                                                       token.name = '_token';
-                                                       token.value = '{{ csrf_token() }}';
-                                                       form.appendChild(token);
-                                                       var method = document.createElement('input');
-                                                       method.type = 'hidden';
-                                                       method.name = '_method';
-                                                       method.value = 'DELETE';
-                                                       form.appendChild(method);
-                                                       document.body.appendChild(form);
-                                                       form.submit(); }">
-                                                    Delete
-                                                </a>
-                                            </div>
-                                        @endforeach
-                                    @endif
+                                    
                                 </div>
+                            </div>
+
+                            <div class="row mt-3">
+                                {{-- Show uploaded images --}}
+                                {{-- Show existing product images from the database --}}
+                                @if ($product->productImg && $product->productImg->count())
+                                @foreach ($product->productImg as $image)
+                                    <div class="col-md-3 mb-2 position-relative">
+                                        <img src="{{ asset($image->img) }}" class="img-thumbnail img-fluid"
+                                            alt="Product Image">
+                                        <a href="{{ route('product.image.delete', $image->id) }}"
+                                            class="position-absolute top-0 end-0 mt-2 me-3 btn btn-danger btn-sm"
+                                            onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this image?')) {
+                                               var form = document.createElement('form');
+                                               form.method = 'POST';
+                                               form.action = this.href;
+                                               var token = document.createElement('input');
+                                               token.type = 'hidden';
+                                               token.name = '_token';
+                                               token.value = '{{ csrf_token() }}';
+                                               form.appendChild(token);
+                                               var method = document.createElement('input');
+                                               method.type = 'hidden';
+                                               method.name = '_method';
+                                               method.value = 'DELETE';
+                                               form.appendChild(method);
+                                               document.body.appendChild(form);
+                                               form.submit(); }">
+                                            Delete
+                                        </a>
+                                    </div>
+                                @endforeach
+                            @endif
                             </div>
 
 
