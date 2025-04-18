@@ -59,7 +59,7 @@ class LoginAuth extends Controller
 
         // If the phone number is still not exactly 10 digits, return an error
         if (strlen($inputPhone) != 10) {
-            return back()->withErrors(['phone' => 'Invalid phone number format.']);
+            return redirect()->route('login')->with(['phone' => 'Invalid phone number format.']);
         }
 
         $request->merge(['phone' => $inputPhone]);

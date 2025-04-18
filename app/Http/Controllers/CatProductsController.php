@@ -30,12 +30,12 @@ class CatProductsController extends Controller
             $pageTitle = 'Price: High to Low';
             $productsQuery = Product::with(['firstimage', 'secondimage'])
                 ->whereNull('deleted_at')
-                ->orderByRaw('(price - (price * discount_price / 100)) desc');
+                ->orderByRaw('discount_price desc');
         } elseif ($filter === 'low-to-high') {
             $pageTitle = 'Price: Low to High';
             $productsQuery = Product::with(['firstimage', 'secondimage'])
                 ->whereNull('deleted_at')
-                ->orderByRaw('(price - (price * discount_price / 100)) asc');
+                ->orderByRaw('discount_price asc');
         } else {
             $pageTitle = 'All Products';
             $productsQuery = Product::with(['firstimage', 'secondimage'])
@@ -112,11 +112,13 @@ class CatProductsController extends Controller
     {
         $userId = Auth::id();
 
+       
         $pageTitle = ucfirst($collection) . ' Collection';
-        $pageHeading = ucfirst($collection);
 
         $collection = Collections::where('slug', $collection)->first();
         $pageDesc = ucfirst($collection->description);
+
+        $pageHeading = ucfirst($collection->name);
 
         $collectionLogo = $collection->image;
 

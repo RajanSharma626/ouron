@@ -897,3 +897,32 @@ input[type="radio"]:checked + label .color-circle {
     overflow-y: auto;
 }
 
+.transform-none p,
+.transform-none h1,
+.transform-none h2,
+.transform-none h3,
+.transform-none h4,
+.transform-none h5,
+.transform-none h6,
+.transform-none li,
+.transform-none span,
+.transform-none strong,
+.transform-none em,
+.transform-none b,
+.transform-none i,
+.transform-none u,
+.transform-none a,
+.transform-none div,
+.transform-none label,
+.transform-none button,
+.transform-none input,
+.transform-none textarea,
+.transform-none select,
+.transform-none small{
+    text-transform: none !important;
+}
+
+.swal2-confirm{
+    background-color: var(--primary-color) !important;
+    color: var(--secondary-color) !important;
+}

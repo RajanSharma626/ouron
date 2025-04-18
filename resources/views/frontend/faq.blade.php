@@ -49,7 +49,7 @@
                                         class="accordion-collapse collapse {{ $loop->first ? 'show' : '' }}"
                                         aria-labelledby="productHeading{{ $loop->index }}"
                                         data-bs-parent="#faqAccordionProduct">
-                                        <div class="accordion-body">
+                                        <div class="accordion-body transform-none">
                                             <p>{{ $faq->answer }}</p>
                                         </div>
                                     </div>
@@ -76,7 +76,7 @@
                                         class="accordion-collapse collapse {{ $loop->first ? 'show' : '' }}"
                                         aria-labelledby="deliveryHeading{{ $loop->index }}"
                                         data-bs-parent="#faqAccordionDelivery">
-                                        <div class="accordion-body">
+                                        <div class="accordion-body transform-none">
                                             <p>{{ $faq->answer }}</p>
                                         </div>
                                     </div>
@@ -103,7 +103,7 @@
                                         class="accordion-collapse collapse {{ $loop->first ? 'show' : '' }}"
                                         aria-labelledby="orderHeading{{ $loop->index }}"
                                         data-bs-parent="#faqAccordionOrder">
-                                        <div class="accordion-body">
+                                        <div class="accordion-body transform-none">
                                             <p>{{ $faq->answer }}</p>
                                         </div>
                                     </div>
@@ -130,7 +130,7 @@
                                         class="accordion-collapse collapse {{ $loop->first ? 'show' : '' }}"
                                         aria-labelledby="orderReceivedHeading{{ $loop->index }}"
                                         data-bs-parent="#faqAccordionOrderReceived">
-                                        <div class="accordion-body">
+                                        <div class="accordion-body transform-none">
                                             <p>{{ $faq->answer }}</p>
                                         </div>
                                     </div>
@@ -157,7 +157,7 @@
                                         class="accordion-collapse collapse {{ $loop->first ? 'show' : '' }}"
                                         aria-labelledby="generalHeading{{ $loop->index }}"
                                         data-bs-parent="#faqAccordionGeneral">
-                                        <div class="accordion-body">
+                                        <div class="accordion-body transform-none">
                                             <p>{{ $faq->answer }}</p>
                                         </div>
                                     </div>

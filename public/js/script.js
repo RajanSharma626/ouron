@@ -122,6 +122,10 @@ $(document).ready(function () {
                     title: "",
                     showConfirmButton: false,
                     timer: 1500,
+                    background: "transparent",
+                    customClass: {
+                        icon: "swal-icon-large", // Add a custom class for larger icon
+                    },
                 });
                 let offcanvasElement = document.getElementById("cart");
                 let offcanvas = new bootstrap.Offcanvas(offcanvasElement);
@@ -160,6 +164,10 @@ $(document).ready(function () {
                     title: "",
                     showConfirmButton: false,
                     timer: 1500,
+                    background: "transparent",
+                    customClass: {
+                        icon: "swal-icon-large", // Add a custom class for larger icon
+                    },
                 });
 
                 let offcanvasElement = document.getElementById("cart");
@@ -549,6 +557,16 @@ $(document).ready(function () {
 
         let email = $(this).find('input[name="email"]').val();
 
+        // Validate email domain
+        if (!email.endsWith("@gmail.com")) {
+            Swal.fire({
+                icon: "error",
+                title: "Invalid Email",
+                text: "Only @gmail.com email addresses are allowed.",
+            });
+            return;
+        }
+
         $.ajax({
             url: "/subscribe", // Replace with your endpoint
             method: "POST",
@@ -601,6 +619,42 @@ $(document).ready(function () {
         let $btn = $("#submitBtn");
         $btn.prop("disabled", true);
         $btn.find(".btn-text").text("Submitting...");
+
+        let email = $(this).find('input[name="email"]').val();
+        let phone = $(this).find('input[name="phone"]').val();
+
+        // Validate email domain
+        if (!email.endsWith("@gmail.com")) {
+            Swal.fire({
+                icon: "error",
+                title: "Invalid Email",
+                text: "Only @gmail.com email addresses are allowed.",
+            });
+            $btn.prop("disabled", false);
+            $btn.find(".btn-text").text("Submit");
+            return;
+        }
+
+        // Validate phone number format
+        let formattedPhone = phone.startsWith("+91") ? phone.slice(3) : phone;
+        const phoneRegex = /^\d{10}$/;
+
+        if (formattedPhone.startsWith("91") && formattedPhone.length === 12) {
+            formattedPhone = formattedPhone.slice(2);
+        }
+
+        console.log("Formatted Phone:", formattedPhone);
+        
+        if (!phoneRegex.test(formattedPhone)) {
+            Swal.fire({
+            icon: "error",
+            title: "Invalid Phone Number",
+            text: "Phone number must contain exactly 10 digits.",
+            });
+            $btn.prop("disabled", false);
+            $btn.find(".btn-text").text("Submit");
+            return;
+        }
 
         $.ajax({
             url: "/contact",

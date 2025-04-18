@@ -274,7 +274,7 @@
                                 </h2>
                                 <div id="flush-collapseOne" class="accordion-collapse collapse"
                                     data-bs-parent="#accordionFlushExample">
-                                    <div class="accordion-body">
+                                    <div class="accordion-body transform-none">
                                         {!! $product->description !!}
                                     </div>
                                 </div>
@@ -289,7 +289,7 @@
                                 </h2>
                                 <div id="flush-collapseTwo" class="accordion-collapse collapse"
                                     data-bs-parent="#accordionFlushExample">
-                                    <div class="accordion-body">{!! $product->detail !!}</div>
+                                    <div class="accordion-body transform-none ">{!! $product->detail !!}</div>
                                 </div>
                             </div>
                             <div class="accordion-item">
@@ -302,7 +302,7 @@
                                 </h2>
                                 <div id="flush-collapseThree" class="accordion-collapse collapse"
                                     data-bs-parent="#accordionFlushExample">
-                                    <div class="accordion-body">{!! $product->shipping_Return !!}</div>
+                                    <div class="accordion-body transform-none ">{!! $product->shipping_Return !!}</div>
                                 </div>
                             </div>
                         </div>

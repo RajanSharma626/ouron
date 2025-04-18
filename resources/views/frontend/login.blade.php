@@ -19,9 +19,9 @@
                                     <input type="number" class="form-control p-2 text-normal bg-none"
                                         placeholder="Enter Mobile no." min="0" name="phone" required>
                                 </div>
-                                @if (session('error'))
+                                @if (session('phone'))
                                     <div class="text-danger text-normal">
-                                        {{ session('error') }}
+                                        {{ session('phone') }}
                                     </div>
                                 @endif
                                 <div class="form-group text-center mt-4">

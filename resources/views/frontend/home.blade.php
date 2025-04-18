@@ -520,7 +520,7 @@
                             drops, and inspiring stories!</p>
                         <form id="newsletterForm" class="newsletter_form">
                             <div class="input-group">
-                                <input type="email" class="form-control p-2 px-3" name="email" placeholder="Enter your email">
+                                <input type="email" class="form-control p-2 px-3" style="text-transform: none" name="email" placeholder="Enter your email" pattern="[a-zA-Z0-9._%+-]+@gmail\.com" title="Please enter a valid Gmail address">
                                 <button type="submit" class="btn subscribe_btn border-start">Subscribe</button>
                             </div>
                         </form>

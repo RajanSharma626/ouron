@@ -8,14 +8,14 @@
         <div class="container-fluid">
             <div class="row pb-5">
                 <div class="col-12">
-                    <h1 class="fs-5  text-center py-3">{{ $blog->title }}</h1>
+                    <h1 class="fs-3  text-center py-3 fw-bold">{{ $blog->title }}</h1>
                 </div>
                 <div class="col-12 px-0 py-3">
                     <img src="{{ asset($blog->banner_image) }}" class="img-fluid" alt="">
                 </div>
 
                 <div class="col-12">
-                    <div class="container">
+                    <div class="container transform-none ">
                         {!! $blog->blog_content !!}
                     </div>
                 </div>

@@ -19,7 +19,7 @@
                             data-bs-toggle="tab" href="#addressesTab">Addresses</a>
                         <form action="{{ route('logout') }}" method="POST" class="mt-3 d-none d-md-block">
                             @csrf
-                            <button type="submit" class="btn btn-danger" id="logoutBtn2">Logout</button>
+                            <button type="submit" class="btn btn-danger" id="logoutBtn2" style="background: #FAA0A0;color:black; border: #FAA0A0;">Logout</button>
                         </form>
                     </div>
                 </div>
@@ -142,7 +142,7 @@
                             @endif
 
                             <!-- Add Address Form -->
-                            <button class="btn btn-dark mb-3" data-bs-toggle="collapse" data-bs-target="#addAddressForm">
+                            <button class="btn primary-bg mb-3" data-bs-toggle="collapse" data-bs-target="#addAddressForm">
                                 Add New Address
                             </button>
 
@@ -151,7 +151,7 @@
                                     <form method="POST" action="{{ route('addresses.store') }}">
                                         @csrf
                                         <div class="mb-3">
-                                            <label for="address" class="form-label">Address</label>
+                                            <label for="address" class="form-label fw-bold">Address</label>
                                             <input type="text" name="address" id="address" class="form-control" placeholder="Flat / House No. / Floor / Building"  required>
                                             @error('address')
                                                 <small class="text-danger">{{ $message }}</small>
@@ -164,7 +164,7 @@
                                         </div>
 
                                         <div class="mb-3">
-                                            <label for="city" class="form-label">City</label>
+                                            <label for="city" class="form-label fw-bold">City</label>
                                             <input type="text" name="city" id="city" class="form-control" placeholder="City"
                                                 required>
                                             @error('city')
@@ -208,7 +208,7 @@
                                             <label class="form-check-label" for="primary">Set as primary address</label>
                                         </div>
 
-                                        <button type="submit" class="btn btn-success">Save Address</button>
+                                        <button type="submit" class="btn primary-bg">Save Address</button>
                                     </form>
                                 </div>
                             </div>
@@ -242,16 +242,16 @@
                                                     method="POST" class="d-inline">
                                                     @csrf
                                                     @method('PATCH')
-                                                    <button class="btn btn-sm btn-primary">Set as Default</button>
-                                                </form>
+                                                    <button class="btn btn-sm btn-primary text-black" style="background: #BBD8A3;border: #BBD8A3">Set as Default</button>
+                                                </form> 
                                             @endif
                                             <button class="btn btn-sm btn-warning" data-bs-toggle="collapse"
-                                                data-bs-target="#editAddressForm{{ $address->id }}">Edit</button>
+                                                data-bs-target="#editAddressForm{{ $address->id }}" style="background: #FFE6A9;border: #FFE6A9">Edit</button>
                                             <form action="{{ route('addresses.destroy', $address->id) }}" method="POST"
                                                 class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button class="btn btn-sm btn-danger">Delete</button>
+                                                <button class="btn btn-sm btn-danger" style="background: #FAA0A0;color:black; border: #FAA0A0;">Delete</button>
                                             </form>
                                         </div>
                                     </li>
