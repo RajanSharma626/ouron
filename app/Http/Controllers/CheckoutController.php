@@ -328,4 +328,14 @@ class CheckoutController extends Controller
 
         return redirect()->route('checkout')->with('coupon_success', 'Coupon applied successfully!');
     }
+
+    public function removeCoupon()
+    {
+        if (session()->has('discount')) {
+            session()->forget('discount');
+            return redirect()->route('checkout')->with('coupon_success', 'Coupon removed successfully!');
+        }
+
+        return redirect()->route('checkout')->with('coupon_error', 'No coupon applied to remove.');
+    }
 }

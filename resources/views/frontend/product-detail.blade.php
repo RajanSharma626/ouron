@@ -124,7 +124,23 @@
 
                         <div class="col-10">
                             <h1 class="fs-6 mb-0 fw-bold">{{ $product->name }}</h1>
-                            <h1 class="fs-6 mb-0 fw-bold mb-2">{{ $product->category->name ?? '' }} | {{ $product->collection->name ?? '' }}</h1>
+                            <h1 class="fs-6 mb-0 fw-bold mb-2">{{ $product->category->name ?? '' }} |
+                                {{ $product->collection->name ?? '' }}</h1>
+                        </div>
+
+                        <div class="modal fade" id="sizeChart" tabindex="-1" aria-labelledby="sizeChartLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header border-0">
+                                        <h1 class="modal-title fs-5" id="sizeChartLabel">Size Chart</h1>
+                                    </div>
+                                    <div class="modal-body">
+                                        <img src="{{ asset($product->category->image) }}" class="img-fluid"
+                                            alt="">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="col text-end">
@@ -151,7 +167,7 @@
                             </div>
                         </div>
                     </div>
-                   
+
                     <h6>
                         <del>RS. {{ number_format($product->price, 2) }}</del>
                         &nbsp; RS.
@@ -193,7 +209,8 @@
                         <div class="row justify-content-between align-items-center mb-2">
                             <div class="row justify-content-between align-items-center mb-2">
                                 <div class="col"><b>Size:</b></div>
-                                <div class="col text-end fs-12"><a href="#!" class="primary-color">Size Guide</a>
+                                <div class="col text-end fs-12"><a href="#!" class="primary-color"
+                                        data-bs-toggle="modal" data-bs-target="#sizeChart">Size Guide</a>
                                 </div>
                             </div>
                             <div class="col-12 d-flex gap-md-3 py-2">
@@ -224,8 +241,8 @@
                         <div class="row py-3 g-2">
                             <div class="col-6 mb-md-0">
                                 @if ($product->stock > 0)
-                                <button type="button" class="checkout_btn w-100 addToCartBtn" title="Add to Cart"
-                                data-id="{{ $product->id }}">Add to Cart</button>
+                                    <button type="button" class="checkout_btn w-100 addToCartBtn" title="Add to Cart"
+                                        data-id="{{ $product->id }}">Add to Cart</button>
                                 @else
                                     <button type="button" class="checkout_btn w-100" disabled>Add to Cart</button>
                                 @endif
@@ -431,6 +448,8 @@
             </div>
         </div>
     </section>
+
+
 
 @endsection
 

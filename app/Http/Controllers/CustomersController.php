@@ -9,7 +9,7 @@ class CustomersController extends Controller
 {
     public function index()
     {
-        $customers = User::paginate(20);
+        $customers = User::with('defaultAddress')->paginate(20);
         return view('admin.customers', compact('customers'));
     }
 }

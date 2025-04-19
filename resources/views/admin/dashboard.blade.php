@@ -60,7 +60,7 @@
                                 <div>
 
                                 </div>
-                                <a href="{{route('admin.customers')}}" class="text-reset fw-semibold fs-12">View More</a>
+                                <a href="{{ route('admin.customers') }}" class="text-reset fw-semibold fs-12">View More</a>
                             </div>
                         </div> <!-- end card body -->
                     </div> <!-- end card -->
@@ -122,6 +122,164 @@
                 </div> <!-- end col -->
 
             </div> <!-- end row -->
+
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <h4 class="card-title">
+                                    Recent Orders
+                                </h4>
+                            </div>
+                        </div>
+                        <!-- end card body -->
+                        <div class="table-responsive table-centered">
+                            <table class="table mb-0">
+                                <thead class="bg-light bg-opacity-50">
+                                    <tr>
+                                        <th class="ps-3">
+                                            Order ID.
+                                        </th>
+                                        <th>
+                                            Date
+                                        </th>
+                                        <th>
+                                            Product
+                                        </th>
+                                        <th>
+                                            Customer Name
+                                        </th>
+                                        <th>
+                                            Email ID
+                                        </th>
+                                        <th>
+                                            Phone No.
+                                        </th>
+                                        <th>
+                                            Address
+                                        </th>
+                                        <th>
+                                            Payment Type
+                                        </th>
+                                        <th>
+                                            Status
+                                        </th>
+                                        <th>
+                                            Action
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <!-- end thead-->
+                                <tbody>
+                                    @foreach ($orders as $order)
+                                        <tr>
+                                            <td>
+                                                #{{ $order->id }}
+                                            </td>
+                                            <td>{{ $order->created_at->format('d M, Y') }}</td>
+
+                                            <td>
+                                                <div class="d-flex align-items-center">
+
+                                                    <div class="avatar-sm flex-shrink-0 me-2">
+                                                        <img src="{{ asset($order->items->first()->product->firstimage->img) }}"
+                                                            alt="" class="img-fluid rouded">
+                                                    </div>
+
+                                                    <p class="mb-0 " style="font-size: 12px;">
+                                                        {{ $order->items->pluck('product.name')->join(', ') }}
+                                                    </p>
+                                                </div>
+
+                                            </td>
+                                            <td>
+                                                <a href="#!"
+                                                    class="link-primary fw-medium">{{ $order->first_name . ' ' . $order->last_name }}</a>
+                                            </td>
+                                            <td>
+                                                <a href="mailto:{{ $order->email }}">{{ $order->email }}</a>
+                                            </td>
+                                            <td>
+                                                <a href="tel:{{ $order->phone }}">{{ $order->phone }}</a>
+                                            </td>
+                                            <td>
+                                                {{ $order->address . ', ' . $order->city . ', ' . $order->state . ', ' . $order->pin_code }}
+                                            </td>
+
+                                            <td> <span
+                                                    class="badge bg-light text-dark  px-2 py-1 fs-13">{{ $order->payment_method }}</span>
+                                            </td>
+                                            <td>
+                                                @php
+                                                    $statusClass = match ($order->status) {
+                                                        'Pending' => 'bg-warning-subtle text-warning',
+                                                        'Confirmed' => 'bg-success-subtle text-success',
+                                                        'Packed' => 'bg-success-subtle text-success',
+                                                        'Shipped' => 'bg-success-subtle text-success',
+                                                        'Delivered' => 'bg-success-subtle text-success',
+                                                        'Cancelled' => 'bg-danger-subtle text-danger',
+                                                        default => 'bg-warning-subtle text-warning',
+                                                    };
+                                                @endphp
+                                                <span
+                                                    class="badge {{ $statusClass }}  px-2 py-1">{{ $order->status }}</span>
+
+                                            </td>
+                                            <td>
+                                                <div class="d-flex gap-2">
+                                                    <a href="{{ route('admin.order.view', $order->id) }}"
+                                                        class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken"
+                                                            class="align-middle fs-18"></iconify-icon></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                                <!-- end tbody -->
+                            </table>
+                            <!-- end table -->
+                        </div>
+                        <!-- table responsive -->
+
+                        <div class="card-footer border-top">
+                            <div class="row g-3">
+                                <div class="col-sm">
+                                    <div class="text-muted">
+                                        Showing
+                                        <span class="fw-semibold">5</span>
+                                        of
+                                        <span class="fw-semibold">90,521</span>
+                                        orders
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-auto">
+                                    <ul class="pagination m-0">
+                                        <li class="page-item">
+                                            <a href="#" class="page-link"><i class="bx bx-left-arrow-alt"></i></a>
+                                        </li>
+                                        <li class="page-item active">
+                                            <a href="#" class="page-link">1</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a href="#" class="page-link">2</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a href="#" class="page-link">3</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a href="#" class="page-link"><i class="bx bx-right-arrow-alt"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card -->
+                </div>
+                <!-- end col -->
+            </div>
 
         </div>
         <!-- End Container Fluid -->

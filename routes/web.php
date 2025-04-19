@@ -38,7 +38,6 @@ Route::get('/contact-us', function () {
 })->name('contact.us');
 
 
-
 Route::get('/product/{slug}', [FrontendProductController::class, 'detail'])->name('product.detail');
 Route::get('/new-in', [CatProductsController::class, 'newIn'])->name('new.in');
 Route::get('/all-product', [CatProductsController::class, 'allProduct'])->name('all-product');
@@ -89,6 +88,8 @@ Route::middleware(['user.auth'])->group(function () {
     //checkout store
     Route::post('/checkout/apply-coupon', [CheckoutController::class, 'applyCoupon'])->name('checkout.applyCoupon');
     Route::get('/remove-coupon', [CouponController::class, 'removeCoupon'])->name('coupon.remove');
+
+    Route::post('/checkout/remove-coupon', [CheckoutController::class, 'removeCoupon'])->name('checkout.removeCoupon');
 
     Route::post('/checkout/store', [CheckoutController::class, 'store'])->name('checkout.store');
     Route::post('/checkout/{id}/edit', [CheckoutController::class, 'editView'])->name('checkout.edit');

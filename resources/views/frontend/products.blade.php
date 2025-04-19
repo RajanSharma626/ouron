@@ -10,7 +10,7 @@
                 <div class="row justify-content-center mb-3 align-items-center">
                     <div class="col-md-6 text-center">
                         <div class="heading-logo">
-                            <img src="{{asset($collectionLogo)}}" class="img-fluid" alt="" width="200px">
+                            <img src="{{ asset($collectionLogo) }}" class="img-fluid" alt="" width="200px">
                         </div>
                         <h4 class="text-uppercase mb-0  text-center">{{ $pageHeading }}</h4>
                         <small class="text-uppercase text-muted">{{ $pageDesc }}</small>
@@ -33,9 +33,13 @@
                         <select id="sizeFilter" class="w-auto custom_filter px-3 py-1 fs-07rem"
                             onchange="window.location.href='{{ url()->current() }}?filter=' + this.value">
                             <option value="" {{ request('filter') == '' ? 'selected' : '' }}>All</option>
-                            <option value="new-in" {{ request('filter') == 'new-in' ? 'selected' : '' }}>New In</option>
-                            <option value="best-seller" {{ request('filter') == 'best-seller' ? 'selected' : '' }}>Best
-                                Seller</option>
+                            @if (!in_array(Route::currentRouteName(), ['best-seller', 'new.in']))
+                                <option value="new-in" {{ request('filter') == 'new-in' ? 'selected' : '' }}>New In</option>
+                            @endif
+                            @if (!in_array(Route::currentRouteName(), ['best-seller', 'new.in']))
+                                <option value="best-seller" {{ request('filter') == 'best-seller' ? 'selected' : '' }}>Best
+                                    Seller</option>
+                            @endif
                             <option value="high-to-low" {{ request('filter') == 'high-to-low' ? 'selected' : '' }}>Price -
                                 High to Low</option>
                             <option value="low-to-high" {{ request('filter') == 'low-to-high' ? 'selected' : '' }}>Price -

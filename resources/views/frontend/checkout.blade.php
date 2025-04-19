@@ -106,9 +106,12 @@
                                 </li>
                                 @if ($discountAmount > 0)
                                     <li class="list-group-item d-flex justify-content-between custom-card-bg">
-                                        <span>Discount Coupon : <small class="text-secondory">
-                                                <s>{{ $discount['coupon_code'] }}</s></small></span>
-                                        <strong>-₹{{ number_format($discountAmount, 2) }}</strong>
+                                        <span>Discount Coupon : <small class="text-secondary">
+                                                <s>{{ $discount['coupon_code'] }}</s></small> <form method="POST" action="{{ route('checkout.removeCoupon') }}">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-link btn-sm text-danger p-0">Remove</button>
+                                                </form></span>
+                                        <strong>-₹{{ number_format($discountAmount, 2) }} @if ($discount['type'] == 'percentage')  ({{number_format($discount['value'],0)}}%) @endif</strong>
                                     </li>
                                 @endif
                                 <li class="list-group-item d-flex justify-content-between custom-card-bg">
@@ -371,7 +374,7 @@
                                         <div class="form-group mb-3">
                                             <select class="form-control py-2 custom-card-bg" name="payment_method"
                                                 required>
-                                                <option value="" selected disabled>Payment Method *</option>
+                                                <option value="" selected disabled>Payment Method &#11206;</option>
                                                 <option value="COD"
                                                     {{ old('payment_method') == 'COD' ? 'selected' : '' }}>COD
                                                 </option>

@@ -40,11 +40,14 @@
                                         <tr>
                                             <th>Order ID</th>
                                             <th>Created at</th>
+                                            <th>Product</th>
                                             <th>Customer</th>
+                                            <th>Email</th>
+                                            <th>Phone</th>
+                                            <th>Address</th>
                                             <th>Total</th>
                                             <th>Payment Status</th>
                                             <th>Items</th>
-                                            <th>Delivery Number</th>
                                             <th>Order Status</th>
                                             <th>Action</th>
                                         </tr>
@@ -58,15 +61,39 @@
                                                 </td>
                                                 <td>{{ $order->created_at->format('d M, Y') }}</td>
                                                 <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="avatar-sm flex-shrink-0 me-2">
+                                                            <img src="{{ asset($order->items->first()->product->firstimage->img) }}"
+                                                                alt="" class="img-fluid rouded">
+                                                        </div>
+                                                        <div>
+                                                            <p class="mb-0 " style="font-size: 12px;">
+                                                                {{ $order->items->pluck('product.name')->join(', ') }}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
                                                     <a href="#!"
                                                         class="link-primary fw-medium">{{ $order->first_name . ' ' . $order->last_name }}</a>
+                                                </td>
+                                                <td>
+                                                    <a href="mailto:{{ $order->email }}"
+                                                        class="link-primary fw-medium">{{ $order->email }}</a>
+                                                </td>
+                                                <td>
+                                                    <a href="tel:{{ $order->phone }}"
+                                                        class="link-primary fw-medium">{{ $order->phone }}</a>
+                                                </td>
+                                                <td>
+                                                    {{ $order->address . ', ' . $order->city . ', ' . $order->state . ', ' . $order->pin_code }}
                                                 </td>
                                                 <td> ₹{{ number_format($order->total, 2) }}</td>
                                                 <td> <span
                                                         class="badge bg-light text-dark  px-2 py-1 fs-13">{{ $order->payment_method }}</span>
                                                 </td>
                                                 <td> {{ $order->items->sum('quantity') }} </td>
-                                                <td> -</td>
+
                                                 <td>
                                                     @php
                                                         $statusClass = match ($order->status) {

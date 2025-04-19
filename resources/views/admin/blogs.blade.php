@@ -37,7 +37,7 @@
                 @endif
 
                 @foreach ($blogs as $blog)
-                    <div class="col-xl-4 col-md-6">
+                    <div class="col-xl-3 col-md-6">
                         <div class="card overflow-hidden">
                             <img src="{{ asset($blog->cover_image) }}" alt="Cover Photo" class="img-fluid">
                             <div class="card-body">

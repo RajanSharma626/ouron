@@ -165,7 +165,7 @@ class LoginAuth extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|regex:/^[a-zA-Z0-9._%+-]+@gmail\.com$/|unique:users,email',
+            'email' => 'required|email|max:255|regex:/^[a-zA-Z0-9._%+-]+@gmail\.com$/|unique:users,email,' . Auth::id(),
             'phone' => 'required',
         ]);
 

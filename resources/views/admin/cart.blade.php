@@ -38,19 +38,21 @@
                                 <table class="table align-middle mb-0 table-hover table-centered">
                                     <thead class="bg-light-subtle">
                                         <tr>
-                                        
+
                                             <th>Product Name & Size</th>
                                             <th>Price</th>
                                             <th>Quantity</th>
                                             <th>Category</th>
                                             <th>User</th>
+                                            <th>Email</th>
+                                            <th>Phone</th>
                                         </tr>
                                     </thead>
                                     <tbody>
 
                                         @foreach ($cartItems as $cart)
                                             <tr>
-                            
+
                                                 <td>
                                                     <div class="d-flex align-items-center gap-2">
                                                         <div
@@ -87,6 +89,16 @@
                                                 <td>
                                                     <p class="mb-1 text-muted"><span
                                                             class="text-dark fw-medium">{{ $cart->user->name ?? 'Guest' }}
+                                                        </span> </p>
+                                                </td>
+                                                <td>
+                                                    <p class="mb-1 text-muted"><span
+                                                            class="text-dark fw-medium">{{ $cart->user->email ?? 'Guest' }}
+                                                        </span> </p>
+                                                </td>
+                                                <td>
+                                                    <p class="mb-1 text-muted"><span
+                                                            class="text-dark fw-medium">{{ $cart->user->phone ?? 'Guest' }}
                                                         </span> </p>
                                                 </td>
 

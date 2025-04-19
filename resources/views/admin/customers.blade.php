@@ -28,6 +28,7 @@
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Phone</th>
+                                            <th>Address</th>
                                             <th>Join at</th>
                                             <th>Action</th>
                                         </tr>
@@ -39,6 +40,7 @@
                                                 <td>{{ $customer->name }}</td>
                                                 <td>{{ $customer->email ?? 'N/A' }}</td>
                                                 <td>{{ $customer->phone }}</td>
+                                                <td>{{ $customer->defaultAddress ? $customer->defaultAddress->address . " " . $customer->defaultAddress->address_2 . ", " . $customer->defaultAddress->city. ", " . $customer->defaultAddress->state. ", " . $customer->defaultAddress->pin_code : 'N/A' }}</td>
                                                 <td>{{ $customer->created_at->diffForHumans() }}</td>
 
                                                 <td>

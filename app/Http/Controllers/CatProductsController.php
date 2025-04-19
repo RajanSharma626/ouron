@@ -14,30 +14,30 @@ class CatProductsController extends Controller
     {
         $userId = Auth::id();
         $filter = $request->query('filter', '');
-
+        $pageTitle = 'All Products';
         if ($filter === 'new-in') {
-            $pageTitle = 'New In';
+            // $pageTitle = 'New In';
             $productsQuery = Product::with(['firstimage', 'secondimage'])
                 ->whereNull('deleted_at')
                 ->orderBy('created_at', 'desc');
         } elseif ($filter === 'best-seller') {
-            $pageTitle = 'Best Seller';
+            // $pageTitle = 'Best Seller';
             $productsQuery = Product::with(['firstimage', 'secondimage'])
                 ->whereNull('deleted_at')
                 ->where('best_seller', true)
                 ->orderBy('created_at', 'desc');
         } elseif ($filter === 'high-to-low') {
-            $pageTitle = 'Price: High to Low';
+            // $pageTitle = 'Price: High to Low';
             $productsQuery = Product::with(['firstimage', 'secondimage'])
                 ->whereNull('deleted_at')
                 ->orderByRaw('discount_price desc');
         } elseif ($filter === 'low-to-high') {
-            $pageTitle = 'Price: Low to High';
+            // $pageTitle = 'Price: Low to High';
             $productsQuery = Product::with(['firstimage', 'secondimage'])
                 ->whereNull('deleted_at')
                 ->orderByRaw('discount_price asc');
         } else {
-            $pageTitle = 'All Products';
+            // $pageTitle = 'All Products';
             $productsQuery = Product::with(['firstimage', 'secondimage'])
                 ->whereNull('deleted_at');
         }
@@ -50,43 +50,77 @@ class CatProductsController extends Controller
         return view('frontend.products', compact('products', 'pageTitle'));
     }
 
-    public function newIn()
+    public function newIn(Request $request)
     {
         // Optionally, you can remove or repurpose this method now that filtering is handled in allProduct.
         $userId = Auth::id();
         $pageTitle = 'New In';
 
-        $products = Product::with(['firstimage', 'secondimage'])
-            ->whereNull('deleted_at')
-            ->orderBy('created_at', 'desc')
-            ->get()
-            ->map(function ($product) use ($userId) {
-                $product->liked = $userId ? $product->likes()->where('user_id', $userId)->exists() : false;
-                return $product;
-            });
+        $filter = $request->query('filter', '');
+
+        if ($filter === 'high-to-low') {
+            $productsQuery = Product::with(['firstimage', 'secondimage'])
+                ->whereNull('deleted_at')
+                ->orderByRaw('discount_price desc');
+        } elseif ($filter === 'low-to-high') {
+            $productsQuery = Product::with(['firstimage', 'secondimage'])
+                ->whereNull('deleted_at')
+                ->orderByRaw('discount_price asc');
+        } else {
+            $productsQuery = Product::with(['firstimage', 'secondimage'])
+                ->whereNull('deleted_at');
+        }
+
+        $products = $productsQuery->get()->map(function ($product) use ($userId) {
+            $product->liked = $userId ? $product->likes()->where('user_id', $userId)->exists() : false;
+            return $product;
+        });
+
+        // $products = Product::with(['firstimage', 'secondimage'])
+        //     ->whereNull('deleted_at')
+        //     ->orderBy('created_at', 'desc')
+        //     ->get()
+        //     ->map(function ($product) use ($userId) {
+        //         $product->liked = $userId ? $product->likes()->where('user_id', $userId)->exists() : false;
+        //         return $product;
+        //     });
 
         return view('frontend.products', compact('products', 'pageTitle'));
     }
 
-    public function bestSellerProduct()
+    public function bestSellerProduct(Request $request)
     {
         $userId = Auth::id();
         $pageTitle = 'Best Seller';
 
-        $products = Product::with(['firstimage', 'secondimage'])
-            ->whereNull('deleted_at')
-            ->where('best_seller', true)
-            ->orderBy('created_at', 'desc')
-            ->get()
-            ->map(function ($product) use ($userId) {
-                $product->liked = $userId ? $product->likes()->where('user_id', $userId)->exists() : false;
-                return $product;
-            });
+        $filter = $request->query('filter', '');
+
+        if ($filter === 'high-to-low') {
+            $productsQuery = Product::with(['firstimage', 'secondimage'])
+                ->whereNull('deleted_at')
+                ->where('best_seller', true)
+                ->orderByRaw('discount_price desc');
+        } elseif ($filter === 'low-to-high') {
+            $productsQuery = Product::with(['firstimage', 'secondimage'])
+                ->whereNull('deleted_at')
+                ->where('best_seller', true)
+                ->orderByRaw('discount_price asc');
+        } else {
+            $productsQuery = Product::with(['firstimage', 'secondimage'])
+                ->whereNull('deleted_at')
+                ->where('best_seller', true)
+                ->orderBy('created_at', 'desc');
+        }
+
+        $products = $productsQuery->get()->map(function ($product) use ($userId) {
+            $product->liked = $userId ? $product->likes()->where('user_id', $userId)->exists() : false;
+            return $product;
+        });
 
         return view('frontend.products', compact('products', 'pageTitle'));
     }
 
-    public function catProduct($cat)
+    public function catProduct(Request $request,$cat)
     {
         $userId = Auth::id();
         $pageTitle = ucfirst($cat) . ' Products';
@@ -97,27 +131,49 @@ class CatProductsController extends Controller
             return redirect()->route('home')->with('error', 'Category not found');
         }
 
-        $products = Product::with(['firstimage', 'secondimage'])
+        $filter = $request->query('filter', '');
+
+        if ($filter === 'best-seller') {
+            $productsQuery = Product::with(['firstimage', 'secondimage'])
             ->where('category_id', $category->id)
             ->whereNull('deleted_at')
-            ->get()
-            ->map(function ($product) use ($userId) {
-                $product->liked = $userId ? $product->likes()->where('user_id', $userId)->exists() : false;
-                return $product;
-            });
+            ->where('best_seller', true)
+            ->orderBy('created_at', 'desc');
+        } elseif ($filter === 'high-to-low') {
+            $productsQuery = Product::with(['firstimage', 'secondimage'])
+            ->where('category_id', $category->id)
+            ->whereNull('deleted_at')
+            ->orderByRaw('discount_price desc');
+        } elseif ($filter === 'low-to-high') {
+            $productsQuery = Product::with(['firstimage', 'secondimage'])
+            ->where('category_id', $category->id)
+            ->whereNull('deleted_at')
+            ->orderByRaw('discount_price asc');
+        } else {
+            $productsQuery = Product::with(['firstimage', 'secondimage'])
+            ->where('category_id', $category->id)
+            ->whereNull('deleted_at');
+        }
+
+        $products = $productsQuery->get()->map(function ($product) use ($userId) {
+            $product->liked = $userId ? $product->likes()->where('user_id', $userId)->exists() : false;
+            return $product;
+        });
 
         return view('frontend.products', compact('products', 'pageTitle'));
     }
-    public function collectionProduct($collection)
+
+
+    public function collectionProduct(Request $request,$collection)
     {
         $userId = Auth::id();
 
-       
-        $pageTitle = ucfirst($collection) . ' Collection';
+
 
         $collection = Collections::where('slug', $collection)->first();
         $pageDesc = ucfirst($collection->description);
 
+        $pageTitle = ucfirst($collection->name) . ' Collection';
         $pageHeading = ucfirst($collection->name);
 
         $collectionLogo = $collection->image;
@@ -127,15 +183,35 @@ class CatProductsController extends Controller
         }
 
 
-        $products = Product::with(['firstimage', 'secondimage'])
+        $filter = $request->query('filter', '');
+
+        if ($filter === 'best-seller') {
+            $productsQuery = Product::with(['firstimage', 'secondimage'])
             ->where('collection_id', $collection->id)
             ->whereNull('deleted_at')
-            ->get()
-            ->map(function ($product) use ($userId) {
-                $product->liked = $userId ? $product->likes()->where('user_id', $userId)->exists() : false;
-                return $product;
-            });
+            ->where('best_seller', true)
+            ->orderBy('created_at', 'desc');
+        } elseif ($filter === 'high-to-low') {
+            $productsQuery = Product::with(['firstimage', 'secondimage'])
+            ->where('collection_id', $collection->id)
+            ->whereNull('deleted_at')
+            ->orderByRaw('discount_price desc');
+        } elseif ($filter === 'low-to-high') {
+            $productsQuery = Product::with(['firstimage', 'secondimage'])
+            ->where('collection_id', $collection->id)
+            ->whereNull('deleted_at')
+            ->orderByRaw('discount_price asc');
+        } else {
+            $productsQuery = Product::with(['firstimage', 'secondimage'])
+            ->where('collection_id', $collection->id)
+            ->whereNull('deleted_at');
+        }
 
-        return view('frontend.products', compact('products', 'pageTitle', 'pageHeading','pageDesc', 'collectionLogo'));
+        $products = $productsQuery->get()->map(function ($product) use ($userId) {
+            $product->liked = $userId ? $product->likes()->where('user_id', $userId)->exists() : false;
+            return $product;
+        });
+
+        return view('frontend.products', compact('products', 'pageTitle', 'pageHeading', 'pageDesc', 'collectionLogo'));
     }
 }
