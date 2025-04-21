@@ -111,20 +111,22 @@ class CartController extends Controller
     public function getProductDetails($id)
     {
         $product = Product::findOrFail($id);
+        $variantStock = $product->variants->pluck('stock', 'size')->toArray(); // Assuming variants have size and stock fields
 
         return response()->json([
             'id' => $product->id,
             'name' => $product->name,
             'price' => $product->discount_price,
             'image' => asset($product->firstimage->img),
-            'sizes' => json_decode($product->sizes),
             'colors' => json_decode($product->colors),
+            'variantStock' => $variantStock, // Add variant stock data
         ]);
     }
 
+
     public function adminCart()
     {
-        $cartItems = CartItem::with(['product', 'product.firstimage', 'product.category','user'])
+        $cartItems = CartItem::with(['product', 'product.firstimage', 'product.category', 'user'])
             ->paginate(20);
         return view('admin.cart', compact('cartItems'));
     }

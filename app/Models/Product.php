@@ -64,4 +64,10 @@ class Product extends Model
     {
         return $this->hasOne(Blog::class, 'product_id');
     }
+
+    public function variants()
+{
+    return $this->hasMany(ProductVariant::class);
+}
+
 }

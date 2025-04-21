@@ -51,27 +51,41 @@ $(document).ready(function () {
     $(".add-to-cart").click(function (e) {
         e.preventDefault();
 
-        let productId = this.getAttribute("data-id");
+        let productId = $(this).data("id");
 
-        // Fetch product details via AJAX
         $.ajax({
             url: "/product/details/" + productId,
             type: "GET",
             success: function (product) {
-                // Update modal with product details
+                // Check if all variant stock is 0
+                let stockValues = Object.values(product.variantStock);
+                let hasStock = stockValues.some((stock) => parseInt(stock) > 0);
+
+                if (!hasStock) {
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Out of Stock",
+                        text: "This product is currently out of stock.",
+                    });
+                    return;
+                }
+
+                // Update modal content
                 $("#modalProductId").val(product.id);
                 $("#modalProductTitle").text(product.name);
                 $("#modalProductPrice").text(product.price);
                 $("#modalProductImage").attr("src", product.image);
 
-                // Populate sizes
+                // Show only available sizes
                 let sizeHtml = "";
-                product.sizes.forEach((size) => {
-                    sizeHtml += `
+                $.each(product.variantStock, function (size, stock) {
+                    if (parseInt(stock) > 0) {
+                        sizeHtml += `
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="size" id="size-${size}" value="${size}">
                                 <label class="form-check-label" for="size-${size}">${size}</label>
                             </div>`;
+                    }
                 });
                 $("#modalProductSizes").html(sizeHtml);
 
@@ -79,12 +93,12 @@ $(document).ready(function () {
                 let colorHtml = "";
                 product.colors.forEach((color) => {
                     colorHtml += `
-                            <div class="color">
-                                <input class="form-check-input d-none" type="radio" name="color" id="color-${color}" value="${color}">
-                                <label class="form-check-label" for="color-${color}">
-                                    <span class="color-circle" style="background-color: ${color};"></span>
-                                </label>
-                            </div>`;
+                        <div class="color">
+                            <input class="form-check-input d-none" type="radio" name="color" id="color-${color}" value="${color}">
+                            <label class="form-check-label" for="color-${color}">
+                                <span class="color-circle" style="background-color: ${color};"></span>
+                            </label>
+                        </div>`;
                 });
                 $("#modalProductColors").html(colorHtml);
 
@@ -644,12 +658,12 @@ $(document).ready(function () {
         }
 
         console.log("Formatted Phone:", formattedPhone);
-        
+
         if (!phoneRegex.test(formattedPhone)) {
             Swal.fire({
-            icon: "error",
-            title: "Invalid Phone Number",
-            text: "Phone number must contain exactly 10 digits.",
+                icon: "error",
+                title: "Invalid Phone Number",
+                text: "Phone number must contain exactly 10 digits.",
             });
             $btn.prop("disabled", false);
             $btn.find(".btn-text").text("Submit");
@@ -683,33 +697,33 @@ $(document).ready(function () {
     });
 });
 
-document.getElementById('logoutBtn').addEventListener('click', function () {
+document.getElementById("logoutBtn").addEventListener("click", function () {
     Swal.fire({
-        title: 'Are you sure?',
+        title: "Are you sure?",
         text: "You won't be able to revert this!",
-        icon: 'warning',
+        icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, logout!'
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, logout!",
     }).then((result) => {
         if (result.isConfirmed) {
-            this.closest('form').submit();
+            this.closest("form").submit();
         }
     });
 });
-document.getElementById('logoutBtn2').addEventListener('click', function () {
+document.getElementById("logoutBtn2").addEventListener("click", function () {
     Swal.fire({
-        title: 'Are you sure?',
+        title: "Are you sure?",
         text: "You won't be able to revert this!",
-        icon: 'warning',
+        icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, logout!'
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, logout!",
     }).then((result) => {
         if (result.isConfirmed) {
-            this.closest('form').submit();
+            this.closest("form").submit();
         }
     });
 });

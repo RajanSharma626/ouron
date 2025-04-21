@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Category;
 use App\Models\Collections;
+use App\Models\Coupon;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -25,8 +26,10 @@ class AppServiceProvider extends ServiceProvider
         View::composer('frontend.layouts.header', function ($view) {
             $categories = Category::all(); // Fetch all categories
             $collection = Collections::all();
+            $coupons = Coupon::get();
             $view->with('collections', $collection);
             $view->with('categories', $categories);
+            $view->with('coupon', $coupons);
         });
 
         View::composer('frontend.layouts.footer', function ($view) {

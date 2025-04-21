@@ -19,7 +19,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::whereNull('deleted_at')
-            ->with(['category', 'firstimage'])
+            ->with(['category', 'firstimage', 'variants'])
             ->paginate(10);
         return view('admin.product', compact('products'));
     }
@@ -42,7 +42,7 @@ class ProductController extends Controller
     {
         $categories = Category::whereNull('deleted_at')->get();
         $collections = Collections::whereNull('deleted_at')->get();
-        $product = Product::with('productImg')->find($id);
+        $product = Product::with('productImg', 'variants')->find($id);
         if (!$product) {
             return redirect()->route('admin.products')->with('error', 'Product not found');
         };
@@ -50,6 +50,13 @@ class ProductController extends Controller
     }
 
 
+    public function stock()
+    {
+        $products = Product::whereNull('deleted_at')
+            ->with(['category', 'firstimage', 'variants'])
+            ->paginate(10);
+        return view('admin.stock', compact('products'));
+    }
 
     // Store a new product
     public function store(Request $request)
@@ -58,12 +65,9 @@ class ProductController extends Controller
             'product_name' => 'required|string|max:255',
             'product_price' => 'required|numeric',
             'discount_price' => 'required|numeric',
-            'product_stock' => 'required|integer',
             'product_category' => 'nullable|string',
             'bestSeller' => 'nullable|string',
             'product_weight' => 'required|string',
-            'size' => 'nullable|array',
-            'size.*' => 'string',
             'color' => 'nullable|array',
             'color.*' => 'string',
             'images' => 'required|array',
@@ -78,17 +82,23 @@ class ProductController extends Controller
             'shipping_Return' => $request->shipping_Return,
             'price' => $request->product_price,
             'discount_price' => $request->discount_price,
-            'stock' => $request->product_stock,
             'gender' => $request->gender,
-            'sku' => $request->sku,
             'weight' => $request->product_weight,
             'collection_id' => $request->product_collection,
             'best_seller' => $request->bestSeller,
             'category_id' => $request->product_category,
-            'sizes' => json_encode($request->size),
             'colors' => json_encode($request->color),
             'status' => 'active',
         ]);
+
+        foreach ($request->size_stock as $size => $stock) {
+            if ($stock > 0) {
+                $product->variants()->create([
+                    'size' => $size,
+                    'stock' => $stock,
+                ]);
+            }
+        }
 
         // Process images
         if ($request->hasFile('images')) {
@@ -142,7 +152,7 @@ class ProductController extends Controller
 
         foreach ($sizes as $key => $width) {
             $resizedImage = $originalImage->scale($width);
-            $resizedImage->save("{$destinationPath}{$key}_{$filename}", quality: 75); // Adjust quality as needed
+            $resizedImage->save("{$destinationPath}{$key}_{$filename}", quality: 85);
         }
 
         // Store in database (use base path without 'uploads/')
@@ -168,11 +178,8 @@ class ProductController extends Controller
             'product_price' => 'required|numeric',
             'discount_price' => 'required|numeric',
             'product_weight' => 'required|string',
-            'product_stock' => 'required|integer',
             'product_category' => 'nullable|string',
             'bestSeller' => 'nullable|integer',
-            'sizes' => 'nullable|array',
-            'sizes.*' => 'string',
             'color' => 'nullable|array',
             'color.*' => 'string',
             'images' => 'nullable|array',
@@ -186,17 +193,28 @@ class ProductController extends Controller
             'shipping_Return' => $request->shipping_Return,
             'price' => $request->product_price,
             'discount_price' => $request->discount_price,
-            'stock' => $request->product_stock,
             'gender' => $request->gender,
-            'sku' => $request->sku,
             'weight' => $request->product_weight,
             'collection_id' => $request->product_collection,
             'best_seller' => $request->bestSeller,
             'category_id' => $request->product_category,
-            'sizes' => json_encode($request->sizes),
             'colors' => json_encode($request->color),
             'status' => $request->status ?? $product->status,
         ]);
+
+        foreach ($request->size_stock as $size => $stock) {
+            if ($stock > 0) {
+                // Update if exists, else create
+                $product->variants()->updateOrCreate(
+                    ['size' => $size],
+                    ['stock' => $stock]
+                );
+            } else {
+                // If stock is 0, delete variant if exists
+                $product->variants()->where('size', $size)->delete();
+            }
+        }
+
 
         if ($request->hasFile('images')) {
             $imagePaths = [];

@@ -253,7 +253,28 @@
             });
     </script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const priceInput = document.getElementById('product-price');
+        const discountInput = document.getElementById('product-discount');
+        const percentageInput = document.getElementById('discount-percentage');
 
+        function calculateDiscountPercentage() {
+            const price = parseFloat(priceInput.value);
+            const discountPrice = parseFloat(discountInput.value);
+
+            if (!isNaN(price) && !isNaN(discountPrice) && price > 0) {
+                const discountPercentage = (discountPrice / price) * 100;
+                percentageInput.value = discountPercentage.toFixed(2) + '%';
+            } else {
+                percentageInput.value = '';
+            }
+        }
+
+        priceInput.addEventListener('input', calculateDiscountPercentage);
+        discountInput.addEventListener('input', calculateDiscountPercentage);
+    });
+</script>
 
 
 </body>

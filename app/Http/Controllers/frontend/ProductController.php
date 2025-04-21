@@ -15,12 +15,12 @@ class ProductController extends Controller
         $userId = Auth::id();
 
         // Fetch product details using the slug
-        $product = tap(Product::with(['productImg','firstimage','collection','category', 'blog'])->where('slug', $slug)->firstOrFail(), function ($product) use ($userId) {
+        $product = tap(Product::with(['productImg','firstimage','collection','category', 'blog', 'variants'])->where('slug', $slug)->firstOrFail(), function ($product) use ($userId) {
             // Check if the product is liked by the user
             $product->liked = $userId ? $product->likes()->where('user_id', $userId)->exists() : false;
         });
 
-        $newProducts = Product::with(['firstimage', 'secondimage'])
+        $newProducts = Product::with(['firstimage', 'secondimage', 'variants'])
             ->latest()
             ->take(4)
             ->whereNull('deleted_at')

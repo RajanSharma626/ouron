@@ -165,6 +165,9 @@ Route::middleware(['admin.auth'])->prefix('admin')->group(function () {
     Route::post('/products/update', [ProductController::class, 'update'])->name('product.update');
     Route::delete('/product/image/delete/{id}', [ProductController::class, 'deleteImage'])->name('product.image.delete');
 
+    //Stock
+    Route::get('/stock', [ProductController::class, 'stock'])->name('admin.stock');
+
 
     Route::get('/category', [CategoryController::class, 'index'])->name('admin.category');
     Route::get('/category/add', function () {

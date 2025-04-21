@@ -67,65 +67,70 @@
 
                         $secondimage = $product->secondimage;
                         $secondfilename = basename($secondimage->img ?? '');
+
+                        $totalStock = $product->variants->sum('stock');
                     @endphp
 
                     <div class="col-6 col-md-3" data-aos="fade-up">
                         <a href="{{ route('product.detail', $product->slug) }}" class="text-decoration-none">
                             <div class="product_card">
                                 <div class="product_img position-relative">
-                                    <picture>
-                                        <!-- High-quality image for fast connections -->
-                                        <source srcset="{{ $imageBasePath . '/' . $filename }}" media="(min-width: 1400px)">
-                                        <source srcset="{{ $imageBasePath . '/' . $filename }}" media="(min-width: 1200px)">
-                                        <source srcset="{{ $imageBasePath . '/940_' . $filename }}"
-                                            media="(min-width: 992px)">
-                                        <source srcset="{{ $imageBasePath . '/720_' . $filename }}"
-                                            media="(min-width: 768px)">
-                                        <source srcset="{{ $imageBasePath . '/533_' . $filename }}"
-                                            media="(min-width: 576px)">
-                                        <source srcset="{{ $imageBasePath . '/360_' . $filename }}"
-                                            media="(max-width: 575px)">
-                                        <source srcset="{{ $imageBasePath . '/165_' . $filename }}"
-                                            media="(max-width: 400px)">
+                                    <div class="{{ $totalStock == 0 ? 'opacity-50' : '' }}">
+                                        <picture class="">
+                                            <!-- High-quality image for fast connections -->
+                                            <source srcset="{{ $imageBasePath . '/' . $filename }}"
+                                                media="(min-width: 1400px)">
+                                            <source srcset="{{ $imageBasePath . '/' . $filename }}"
+                                                media="(min-width: 1200px)">
+                                            <source srcset="{{ $imageBasePath . '/940_' . $filename }}"
+                                                media="(min-width: 992px)">
+                                            <source srcset="{{ $imageBasePath . '/720_' . $filename }}"
+                                                media="(min-width: 768px)">
+                                            <source srcset="{{ $imageBasePath . '/533_' . $filename }}"
+                                                media="(min-width: 576px)">
+                                            <source srcset="{{ $imageBasePath . '/360_' . $filename }}"
+                                                media="(max-width: 575px)">
+                                            <source srcset="{{ $imageBasePath . '/165_' . $filename }}"
+                                                media="(max-width: 400px)">
 
-                                        <!-- Original image as fallback -->
-                                        <img src="{{ $imageBasePath . '/' . $filename }}" alt="{{ $product->name }}"
-                                            class="img-fluid">
-                                    </picture>
+                                            <!-- Original image as fallback -->
+                                            <img src="{{ $imageBasePath . '/' . $filename }}" alt="{{ $product->name }}"
+                                                class="img-fluid">
+                                        </picture>
 
-                                    <picture>
-                                        <!-- High-quality image for fast connections -->
-                                        <source srcset="{{ $imageBasePath . '/' . $secondfilename }}"
-                                            media="(min-width: 1400px)">
-                                        <source srcset="{{ $imageBasePath . '/' . $secondfilename }}"
-                                            media="(min-width: 1200px)">
-                                        <source srcset="{{ $imageBasePath . '/940_' . $secondfilename }}"
-                                            media="(min-width: 992px)">
-                                        <source srcset="{{ $imageBasePath . '/720_' . $secondfilename }}"
-                                            media="(min-width: 768px)">
-                                        <source srcset="{{ $imageBasePath . '/533_' . $secondfilename }}"
-                                            media="(min-width: 576px)">
-                                        <source srcset="{{ $imageBasePath . '/360_' . $secondfilename }}"
-                                            media="(max-width: 575px)">
-                                        <source srcset="{{ $imageBasePath . '/165_' . $secondfilename }}"
-                                            media="(max-width: 400px)">
+                                        <picture class="">
+                                            <!-- High-quality image for fast connections -->
+                                            <source srcset="{{ $imageBasePath . '/' . $secondfilename }}"
+                                                media="(min-width: 1400px)">
+                                            <source srcset="{{ $imageBasePath . '/' . $secondfilename }}"
+                                                media="(min-width: 1200px)">
+                                            <source srcset="{{ $imageBasePath . '/940_' . $secondfilename }}"
+                                                media="(min-width: 992px)">
+                                            <source srcset="{{ $imageBasePath . '/720_' . $secondfilename }}"
+                                                media="(min-width: 768px)">
+                                            <source srcset="{{ $imageBasePath . '/533_' . $secondfilename }}"
+                                                media="(min-width: 576px)">
+                                            <source srcset="{{ $imageBasePath . '/360_' . $secondfilename }}"
+                                                media="(max-width: 575px)">
+                                            <source srcset="{{ $imageBasePath . '/165_' . $secondfilename }}"
+                                                media="(max-width: 400px)">
 
-                                        <!-- Original image as fallback -->
-                                        <img src="{{ $imageBasePath . '/' . $secondfilename }}" alt="{{ $product->name }}"
-                                            class="img-fluid hover_img">
-                                    </picture>
-
+                                            <!-- Original image as fallback -->
+                                            <img src="{{ $imageBasePath . '/' . $secondfilename }}"
+                                                alt="{{ $product->name }}" class="img-fluid hover_img">
+                                        </picture>
+                                    </div>
                                     <!-- Icons (Positioned correctly) -->
                                     <div class="product_icons position-absolute top-0 end-0 p-2">
-
-                                        <a href="javascript:void(0)" class="cart_icon add-to-cart" title="Add to Cart"
-                                            data-id="{{ $product->id }}" data-name="{{ $product->name }}"
-                                            data-price="{{ number_format($product->discount_price, 2) }}"
-                                            data-image="{{ $imageBasePath . '/' . $secondfilename }}"
-                                            alt="{{ $product->name }}">
-                                            <i class="bi bi-handbag"></i>
-                                        </a>
-
+                                        @if ($totalStock != 0)
+                                            <a href="javascript:void(0)" class="cart_icon add-to-cart" title="Add to Cart"
+                                                data-id="{{ $product->id }}" data-name="{{ $product->name }}"
+                                                data-price="{{ number_format($product->discount_price, 2) }}"
+                                                data-image="{{ $imageBasePath . '/' . $secondfilename }}"
+                                                alt="{{ $product->name }}">
+                                                <i class="bi bi-handbag"></i>
+                                            </a>
+                                        @endif
                                         @guest
                                             <a href="{{ route('login') }}" class="like_icon" title="Add to Wishlist">
                                                 <i class="bi bi-heart"></i>
@@ -144,6 +149,13 @@
                                             </a>
                                         @endauth
                                     </div>
+                                    @if ($totalStock == 0)
+                                        <div class="out_of_stock position-absolute top-0 start-0 p-2">
+                                            <button class="out_of_stocl btn primary-bg text-white btn-sm">
+                                                Out of Stock
+                                            </button>
+                                        </div>
+                                    @endif
                                 </div>
                                 <a href="{{ route('product.detail', $product->slug) }}" class="text-decoration-none">
                                     <div class="product_info p-3">
@@ -202,20 +214,23 @@
             <div class="row g-2">
                 {{-- Loop through the products --}}
                 @foreach ($allProducts as $product)
-                    @php
-                        $firstImage = $product->firstimage;
-                        $filename = basename($firstImage->img ?? '');
-                        $imageBasePath = asset('uploads/products/');
+                @php
+                    $firstImage = $product->firstimage;
+                    $filename = basename($firstImage->img ?? '');
+                    $imageBasePath = asset('uploads/products/');
 
-                        $secondimage = $product->secondimage;
-                        $secondfilename = basename($secondimage->img ?? '');
-                    @endphp
+                    $secondimage = $product->secondimage;
+                    $secondfilename = basename($secondimage->img ?? '');
 
-                    <div class="col-6 col-md-3" data-aos="fade-up">
-                        <a href="{{ route('product.detail', $product->slug) }}" class="text-decoration-none">
-                            <div class="product_card">
-                                <div class="product_img position-relative">
-                                    <picture>
+                    $totalStock = $product->variants->sum('stock');
+                @endphp
+
+                <div class="col-6 col-md-3" data-aos="fade-up">
+                    <a href="{{ route('product.detail', $product->slug) }}" class="text-decoration-none">
+                        <div class="product_card">
+                            <div class="product_img position-relative">
+                                <div class="{{ $totalStock == 0 ? 'opacity-50' : '' }}">
+                                    <picture class="">
                                         <!-- High-quality image for fast connections -->
                                         <source srcset="{{ $imageBasePath . '/' . $filename }}"
                                             media="(min-width: 1400px)">
@@ -237,7 +252,7 @@
                                             class="img-fluid">
                                     </picture>
 
-                                    <picture>
+                                    <picture class="">
                                         <!-- High-quality image for fast connections -->
                                         <source srcset="{{ $imageBasePath . '/' . $secondfilename }}"
                                             media="(min-width: 1400px)">
@@ -258,10 +273,10 @@
                                         <img src="{{ $imageBasePath . '/' . $secondfilename }}"
                                             alt="{{ $product->name }}" class="img-fluid hover_img">
                                     </picture>
-
-                                    <!-- Icons (Positioned correctly) -->
-                                    <div class="product_icons position-absolute top-0 end-0 p-2">
-
+                                </div>
+                                <!-- Icons (Positioned correctly) -->
+                                <div class="product_icons position-absolute top-0 end-0 p-2">
+                                    @if ($totalStock != 0)
                                         <a href="javascript:void(0)" class="cart_icon add-to-cart" title="Add to Cart"
                                             data-id="{{ $product->id }}" data-name="{{ $product->name }}"
                                             data-price="{{ number_format($product->discount_price, 2) }}"
@@ -269,42 +284,47 @@
                                             alt="{{ $product->name }}">
                                             <i class="bi bi-handbag"></i>
                                         </a>
+                                    @endif
+                                    @guest
+                                        <a href="{{ route('login') }}" class="like_icon" title="Add to Wishlist">
+                                            <i class="bi bi-heart"></i>
+                                        </a>
+                                    @endguest
 
+                                    @auth
+                                        <a href="javascript:void(0)" class="like_icon wishlist-btn"
+                                            data-id="{{ $product->id }}" title="Add to Wishlist">
 
-                                        @guest
-                                            <a href="{{ route('login') }}" class="like_icon" title="Add to Wishlist">
+                                            @if ($product->liked)
+                                                <i class="bi bi-heart-fill text-danger"></i>
+                                            @else
                                                 <i class="bi bi-heart"></i>
-                                            </a>
-                                        @endguest
-
-                                        @auth
-                                            <a href="javascript:void(0)" class="like_icon wishlist-btn"
-                                                data-id="{{ $product->id }}" title="Add to Wishlist">
-
-                                                @if ($product->liked)
-                                                    <i class="bi bi-heart-fill text-danger"></i>
-                                                @else
-                                                    <i class="bi bi-heart"></i>
-                                                @endif
-                                            </a>
-                                        @endauth
-                                    </div>
+                                            @endif
+                                        </a>
+                                    @endauth
                                 </div>
-
-                                <a href="{{ route('product.detail', $product->slug) }}" class="text-decoration-none">
-                                    <div class="product_info p-3">
-                                        <h3 class="product_title primary-color">{{ $product->name }}</h3>
-                                        <p class="product_price mb-0 text-muted">
-                                            <del>RS. {{ number_format($product->price, 2) }}</del>
-                                            &nbsp; RS.
-                                            {{ number_format($product->discount_price, 2) }}
-                                        </p>
+                                @if ($totalStock == 0)
+                                    <div class="out_of_stock position-absolute top-0 start-0 p-2">
+                                        <button class="out_of_stocl btn btn-sm primary-bg text-white">
+                                            Out of Stock
+                                        </button>
                                     </div>
-                                </a>
+                                @endif
                             </div>
-                        </a>
-                    </div>
-                @endforeach
+                            <a href="{{ route('product.detail', $product->slug) }}" class="text-decoration-none">
+                                <div class="product_info p-3">
+                                    <h3 class="product_title primary-color">{{ $product->name }}</h3>
+                                    <p class="product_price mb-0 text-muted">
+                                        <del>RS. {{ number_format($product->price, 2) }}</del>
+                                        &nbsp; RS.
+                                        {{ number_format($product->discount_price, 2) }}
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    </a>
+                </div>
+            @endforeach
             </div>
 
             <div class="row py-4">
@@ -332,20 +352,23 @@
 
             <div class="row g-2">
                 @foreach ($bestSellerProducts as $product)
-                    @php
-                        $firstImage = $product->firstimage;
-                        $filename = basename($firstImage->img ?? '');
-                        $imageBasePath = asset('uploads/products/');
+                @php
+                    $firstImage = $product->firstimage;
+                    $filename = basename($firstImage->img ?? '');
+                    $imageBasePath = asset('uploads/products/');
 
-                        $secondimage = $product->secondimage;
-                        $secondfilename = basename($secondimage->img ?? '');
-                    @endphp
+                    $secondimage = $product->secondimage;
+                    $secondfilename = basename($secondimage->img ?? '');
 
-                    <div class="col-6 col-md-3" data-aos="fade-up">
-                        <a href="{{ route('product.detail', $product->slug) }}" class="text-decoration-none">
-                            <div class="product_card">
-                                <div class="product_img position-relative">
-                                    <picture>
+                    $totalStock = $product->variants->sum('stock');
+                @endphp
+
+                <div class="col-6 col-md-3" data-aos="fade-up">
+                    <a href="{{ route('product.detail', $product->slug) }}" class="text-decoration-none">
+                        <div class="product_card">
+                            <div class="product_img position-relative">
+                                <div class="{{ $totalStock == 0 ? 'opacity-50' : '' }}">
+                                    <picture class="">
                                         <!-- High-quality image for fast connections -->
                                         <source srcset="{{ $imageBasePath . '/' . $filename }}"
                                             media="(min-width: 1400px)">
@@ -367,7 +390,7 @@
                                             class="img-fluid">
                                     </picture>
 
-                                    <picture>
+                                    <picture class="">
                                         <!-- High-quality image for fast connections -->
                                         <source srcset="{{ $imageBasePath . '/' . $secondfilename }}"
                                             media="(min-width: 1400px)">
@@ -388,53 +411,58 @@
                                         <img src="{{ $imageBasePath . '/' . $secondfilename }}"
                                             alt="{{ $product->name }}" class="img-fluid hover_img">
                                     </picture>
-
-                                    <!-- Icons (Positioned correctly) -->
-                                    <div class="product_icons position-absolute top-0 end-0 p-2">
-
+                                </div>
+                                <!-- Icons (Positioned correctly) -->
+                                <div class="product_icons position-absolute top-0 end-0 p-2">
+                                    @if ($totalStock != 0)
                                         <a href="javascript:void(0)" class="cart_icon add-to-cart" title="Add to Cart"
-                                        data-id="{{ $product->id }}" data-name="{{ $product->name }}"
-                                        data-price="{{ number_format($product->discount_price, 2) }}"
-                                        data-image="{{ $imageBasePath . '/' . $secondfilename }}"
-                                        alt="{{ $product->name }}">
+                                            data-id="{{ $product->id }}" data-name="{{ $product->name }}"
+                                            data-price="{{ number_format($product->discount_price, 2) }}"
+                                            data-image="{{ $imageBasePath . '/' . $secondfilename }}"
+                                            alt="{{ $product->name }}">
                                             <i class="bi bi-handbag"></i>
                                         </a>
+                                    @endif
+                                    @guest
+                                        <a href="{{ route('login') }}" class="like_icon" title="Add to Wishlist">
+                                            <i class="bi bi-heart"></i>
+                                        </a>
+                                    @endguest
 
+                                    @auth
+                                        <a href="javascript:void(0)" class="like_icon wishlist-btn"
+                                            data-id="{{ $product->id }}" title="Add to Wishlist">
 
-                                        @guest
-                                            <a href="{{ route('login') }}" class="like_icon" title="Add to Wishlist">
+                                            @if ($product->liked)
+                                                <i class="bi bi-heart-fill text-danger"></i>
+                                            @else
                                                 <i class="bi bi-heart"></i>
-                                            </a>
-                                        @endguest
-
-                                        @auth
-                                            <a href="javascript:void(0)" class="like_icon wishlist-btn"
-                                                data-id="{{ $product->id }}" title="Add to Wishlist">
-
-                                                @if ($product->liked)
-                                                    <i class="bi bi-heart-fill text-danger"></i>
-                                                @else
-                                                    <i class="bi bi-heart"></i>
-                                                @endif
-                                            </a>
-                                        @endauth
-                                    </div>
+                                            @endif
+                                        </a>
+                                    @endauth
                                 </div>
-
-                                <a href="{{ route('product.detail', $product->slug) }}" class="text-decoration-none">
-                                    <div class="product_info p-3">
-                                        <h3 class="product_title primary-color">{{ $product->name }}</h3>
-                                        <p class="product_price mb-0 text-muted">
-                                            <del>RS. {{ number_format($product->price, 2) }}</del>
-                                            &nbsp; RS.
-                                            {{ number_format($product->discount_price, 2) }}
-                                        </p>
+                                @if ($totalStock == 0)
+                                    <div class="out_of_stock position-absolute top-0 start-0 p-2">
+                                        <button class="out_of_stocl btn primary-bg text-white btn-sm">
+                                            Out of Stock
+                                        </button>
                                     </div>
-                                </a>
+                                @endif
                             </div>
-                        </a>
-                    </div>
-                @endforeach
+                            <a href="{{ route('product.detail', $product->slug) }}" class="text-decoration-none">
+                                <div class="product_info p-3">
+                                    <h3 class="product_title primary-color">{{ $product->name }}</h3>
+                                    <p class="product_price mb-0 text-muted">
+                                        <del>RS. {{ number_format($product->price, 2) }}</del>
+                                        &nbsp; RS.
+                                        {{ number_format($product->discount_price, 2) }}
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    </a>
+                </div>
+            @endforeach
             </div>
 
             <div class="row py-4">
@@ -520,7 +548,9 @@
                             drops, and inspiring stories!</p>
                         <form id="newsletterForm" class="newsletter_form">
                             <div class="input-group">
-                                <input type="email" class="form-control p-2 px-3" style="text-transform: none" name="email" placeholder="Enter your email" pattern="[a-zA-Z0-9._%+-]+@gmail\.com" title="Please enter a valid Gmail address">
+                                <input type="email" class="form-control p-2 px-3" style="text-transform: none"
+                                    name="email" placeholder="Enter your email" pattern="[a-zA-Z0-9._%+-]+@gmail\.com"
+                                    title="Please enter a valid Gmail address">
                                 <button type="submit" class="btn subscribe_btn border-start">Subscribe</button>
                             </div>
                         </form>

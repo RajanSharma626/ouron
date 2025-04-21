@@ -70,6 +70,9 @@
                 <div class="collapse" id="sidebarInventory">
                     <ul class="nav sub-navbar-nav">
                         <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="{{ route('admin.stock') }}">Stock</a>
+                        </li>
+                        <li class="sub-nav-item">
                             <a class="sub-nav-link" href="{{ route('admin.orders') }}">Orders</a>
                         </li>
                         <li class="sub-nav-item">

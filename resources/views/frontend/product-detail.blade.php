@@ -38,6 +38,8 @@
                             @php
                                 $filename = basename($image->img ?? '');
                                 $imageBasePath = asset('uploads/products/');
+
+                                $totalStock = $product->variants->sum('stock');
                             @endphp
 
                             <div class="col-lg-6 col-12 p-1">
@@ -215,36 +217,50 @@
                             </div>
                             <div class="col-12 d-flex gap-md-3 py-2">
                                 @php
-                                    $availableSizes = json_decode($product->sizes, true);
-                                    $firstSize = reset($availableSizes); // Get the first available size
+                                    $variantStock = $product->variants->pluck('stock', 'size')->toArray();
+                                    $sizeList = ['XS', 'S', 'M', 'L', 'XL'];
+                                    $firstAvailable = collect($variantStock)->filter(fn($stock) => $stock > 0)->keys()->first();
                                 @endphp
 
-                                @foreach (['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL'] as $size)
-                                    @if (in_array($size, $availableSizes))
-                                        <div class="size text-center">
-                                            <input class="form-check-input d-none" type="radio" name="size"
-                                                id="size-{{ $size }}" value="{{ $size }}"
-                                                {{ $size === $firstSize ? 'checked' : '' }} required>
-                                            <label class="form-check-label size-label" for="size-{{ $size }}">
-                                                <img src="{{ asset('/images/sizes/' . $size . '.png') }}"
-                                                    class="img-fluid size_img {{ $size === $firstSize ? 'active_size' : '' }} "
-                                                    alt="">
-                                            </label>
-                                        </div>
-                                    @endif
+                                @foreach ($sizeList as $size)
+                                    @php
+                                        $stock = $variantStock[$size] ?? 0;
+                                        $isOutOfStock = $stock <= 0;
+                                    @endphp
+
+                                    <div class="size text-center {{ $isOutOfStock ? 'opacity-50' : '' }}">
+                                        <input
+                                            class="form-check-input d-none"
+                                            type="radio"
+                                            name="size"
+                                            id="size-{{ $size }}"
+                                            value="{{ $size }}"
+                                            {{ $isOutOfStock ? 'disabled' : '' }}
+                                            {{ $size === $firstAvailable && !$isOutOfStock ? 'checked' : '' }}
+                                        >
+                                        <label class="form-check-label size-label" for="size-{{ $size }}">
+                                            <img
+                                                src="{{ asset('/images/sizes/' . $size . '.png') }}"
+                                                class="img-fluid size_img {{ $size === $firstAvailable && !$isOutOfStock ? 'active_size' : '' }}"
+                                                alt="{{ $size }}"
+                                            >
+                                        </label>
+                                    </div>
                                 @endforeach
                             </div>
+
 
                         </div>
 
 
                         <div class="row py-3 g-2">
                             <div class="col-6 mb-md-0">
-                                @if ($product->stock > 0)
+                                @if ($totalStock > 0)
                                     <button type="button" class="checkout_btn w-100 addToCartBtn" title="Add to Cart"
                                         data-id="{{ $product->id }}">Add to Cart</button>
                                 @else
-                                    <button type="button" class="checkout_btn w-100" disabled>Add to Cart</button>
+                                    <button type="button" class="checkout_btn w-100 opacity-50" disabled>Add to
+                                        Cart</button>
                                 @endif
                             </div>
                             <div class="col-6 mb-md-0">
@@ -253,10 +269,11 @@
                                 </a>
                             </div>
                             <div class="col-12 mb-md-0">
-                                @if ($product->stock > 0)
+                                @if ($totalStock > 0)
                                     <button type="submit" class="checkout_btn w-100">Buy Now</button>
                                 @else
-                                    <button type="button" class="checkout_btn w-100" disabled>Out of Stock</button>
+                                    <button type="button" class="checkout_btn w-100 opacity-50" disabled>Out of
+                                        Stock</button>
                                 @endif
 
                                 @if ($errors->any())
@@ -344,20 +361,23 @@
             <div class="row g-2">
 
                 @foreach ($newProducts as $product)
-                    @php
-                        $firstImage = $product->firstimage;
-                        $filename = basename($firstImage->img ?? '');
-                        $imageBasePath = asset('uploads/products/');
+                @php
+                    $firstImage = $product->firstimage;
+                    $filename = basename($firstImage->img ?? '');
+                    $imageBasePath = asset('uploads/products/');
 
-                        $secondimage = $product->secondimage;
-                        $secondfilename = basename($secondimage->img ?? '');
-                    @endphp
+                    $secondimage = $product->secondimage;
+                    $secondfilename = basename($secondimage->img ?? '');
 
-                    <div class="col-6 col-md-3" data-aos="fade-up">
-                        <a href="{{ route('product.detail', $product->slug) }}" class="text-decoration-none">
-                            <div class="product_card">
-                                <div class="product_img position-relative">
-                                    <picture>
+                    $totalStock = $product->variants->sum('stock');
+                @endphp
+
+                <div class="col-6 col-md-3" data-aos="fade-up">
+                    <a href="{{ route('product.detail', $product->slug) }}" class="text-decoration-none">
+                        <div class="product_card">
+                            <div class="product_img position-relative">
+                                <div class="{{ $totalStock == 0 ? 'opacity-50' : '' }}">
+                                    <picture class="">
                                         <!-- High-quality image for fast connections -->
                                         <source srcset="{{ $imageBasePath . '/' . $filename }}"
                                             media="(min-width: 1400px)">
@@ -379,7 +399,7 @@
                                             class="img-fluid">
                                     </picture>
 
-                                    <picture>
+                                    <picture class="">
                                         <!-- High-quality image for fast connections -->
                                         <source srcset="{{ $imageBasePath . '/' . $secondfilename }}"
                                             media="(min-width: 1400px)">
@@ -400,50 +420,58 @@
                                         <img src="{{ $imageBasePath . '/' . $secondfilename }}"
                                             alt="{{ $product->name }}" class="img-fluid hover_img">
                                     </picture>
-
-                                    <!-- Icons (Positioned correctly) -->
-                                    <div class="product_icons position-absolute top-0 end-0 p-2">
-
+                                </div>
+                                <!-- Icons (Positioned correctly) -->
+                                <div class="product_icons position-absolute top-0 end-0 p-2">
+                                    @if ($totalStock != 0)
                                         <a href="javascript:void(0)" class="cart_icon add-to-cart" title="Add to Cart"
                                             data-id="{{ $product->id }}" data-name="{{ $product->name }}"
-                                            data-price="{{ number_format($product->price - ($product->price * $product->discount_price) / 100, 2) }}"
+                                            data-price="{{ number_format($product->discount_price, 2) }}"
                                             data-image="{{ $imageBasePath . '/' . $secondfilename }}"
                                             alt="{{ $product->name }}">
                                             <i class="bi bi-handbag"></i>
                                         </a>
+                                    @endif
+                                    @guest
+                                        <a href="{{ route('login') }}" class="like_icon" title="Add to Wishlist">
+                                            <i class="bi bi-heart"></i>
+                                        </a>
+                                    @endguest
 
-                                        @guest
-                                            <a href="{{ route('login') }}" class="like_icon" title="Add to Wishlist">
+                                    @auth
+                                        <a href="javascript:void(0)" class="like_icon wishlist-btn"
+                                            data-id="{{ $product->id }}" title="Add to Wishlist">
+
+                                            @if ($product->liked)
+                                                <i class="bi bi-heart-fill text-danger"></i>
+                                            @else
                                                 <i class="bi bi-heart"></i>
-                                            </a>
-                                        @endguest
-
-                                        @auth
-                                            <a href="javascript:void(0)" class="like_icon wishlist-btn"
-                                                data-id="{{ $product->id }}" title="Add to Wishlist">
-
-                                                @if ($product->liked)
-                                                    <i class="bi bi-heart-fill text-danger"></i>
-                                                @else
-                                                    <i class="bi bi-heart"></i>
-                                                @endif
-                                            </a>
-                                        @endauth
-                                    </div>
+                                            @endif
+                                        </a>
+                                    @endauth
                                 </div>
-
+                                @if ($totalStock == 0)
+                                    <div class="out_of_stock position-absolute top-0 start-0 p-2">
+                                        <button class="out_of_stocl btn primary-bg text-white btn-sm">
+                                            Out of Stock
+                                        </button>
+                                    </div>
+                                @endif
+                            </div>
+                            <a href="{{ route('product.detail', $product->slug) }}" class="text-decoration-none">
                                 <div class="product_info p-3">
-                                    <h3 class="product_title">{{ $product->name }}</h3>
+                                    <h3 class="product_title primary-color">{{ $product->name }}</h3>
                                     <p class="product_price mb-0 text-muted">
                                         <del>RS. {{ number_format($product->price, 2) }}</del>
                                         &nbsp; RS.
-                                        {{ number_format($product->price - ($product->price * $product->discount_price) / 100, 2) }}
+                                        {{ number_format($product->discount_price, 2) }}
                                     </p>
                                 </div>
-                            </div>
-                        </a>
-                    </div>
-                @endforeach
+                            </a>
+                        </div>
+                    </a>
+                </div>
+            @endforeach
 
             </div>
         </div>

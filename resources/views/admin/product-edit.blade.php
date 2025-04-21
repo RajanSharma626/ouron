@@ -37,7 +37,7 @@
                                     </span>
                                 </div>
                                 <div id="preview-container" class="row mt-3">
-                                    
+
                                 </div>
                             </div>
 
@@ -45,13 +45,13 @@
                                 {{-- Show uploaded images --}}
                                 {{-- Show existing product images from the database --}}
                                 @if ($product->productImg && $product->productImg->count())
-                                @foreach ($product->productImg as $image)
-                                    <div class="col-md-3 mb-2 position-relative">
-                                        <img src="{{ asset($image->img) }}" class="img-thumbnail img-fluid"
-                                            alt="Product Image">
-                                        <a href="{{ route('product.image.delete', $image->id) }}"
-                                            class="position-absolute top-0 end-0 mt-2 me-3 btn btn-danger btn-sm"
-                                            onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this image?')) {
+                                    @foreach ($product->productImg as $image)
+                                        <div class="col-md-3 mb-2 position-relative">
+                                            <img src="{{ asset($image->img) }}" class="img-thumbnail img-fluid"
+                                                alt="Product Image">
+                                            <a href="{{ route('product.image.delete', $image->id) }}"
+                                                class="position-absolute top-0 end-0 mt-2 me-3 btn btn-danger btn-sm"
+                                                onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this image?')) {
                                                var form = document.createElement('form');
                                                form.method = 'POST';
                                                form.action = this.href;
@@ -67,11 +67,11 @@
                                                form.appendChild(method);
                                                document.body.appendChild(form);
                                                form.submit(); }">
-                                            Delete
-                                        </a>
-                                    </div>
-                                @endforeach
-                            @endif
+                                                Delete
+                                            </a>
+                                        </div>
+                                    @endforeach
+                                @endif
                             </div>
 
 
@@ -123,6 +123,20 @@
                                 </div>
 
                                 <div class="row">
+
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label for="product-stock" class="form-label">Best Seller</label>
+                                            <select class="form-control" id="bestSeller" name="bestSeller" data-choices
+                                                data-choices-groups data-placeholder="Best Seller" required>
+                                                <option value="">- Select -</option>
+                                                <option value="1" {{ $product->best_seller == 1 ? 'selected' : '' }}>
+                                                    Yes</option>
+                                                <option value="0" {{ $product->best_seller == 0 ? 'selected' : '' }}>
+                                                    No</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="col-lg-4">
                                         <div class="mb-3">
                                             <label for="product-weight" class="form-label">Weight</label>
@@ -148,63 +162,7 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-lg-4">
-                                        <div class="mt-3">
-                                            <h5 class="text-dark fw-medium">Size :</h5>
-                                            <div class="d-flex flex-wrap gap-2" role="group"
-                                                aria-label="Basic checkbox toggle button group">
-                                                <input type="checkbox" class="btn-check" id="size-xs1" name="sizes[]"
-                                                    value="XS"
-                                                    {{ in_array('XS', json_decode($product->sizes, true) ?? []) ? 'checked' : '' }}>
-                                                <label
-                                                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                    for="size-xs1">XS</label>
 
-                                                <input type="checkbox" class="btn-check" id="size-s1" name="sizes[]"
-                                                    value="S"
-                                                    {{ in_array('S', json_decode($product->sizes, true) ?? []) ? 'checked' : '' }}>
-                                                <label
-                                                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                    for="size-s1">S</label>
-
-                                                <input type="checkbox" class="btn-check" id="size-m1" name="sizes[]"
-                                                    value="M"
-                                                    {{ in_array('M', json_decode($product->sizes, true) ?? []) ? 'checked' : '' }}>
-                                                <label
-                                                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                    for="size-m1">M</label>
-
-                                                <input type="checkbox" class="btn-check" id="size-l1" name="sizes[]"
-                                                    value="L"
-                                                    {{ in_array('L', json_decode($product->sizes, true) ?? []) ? 'checked' : '' }}>
-                                                <label
-                                                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                    for="size-l1">L</label>
-
-                                                <input type="checkbox" class="btn-check" id="size-xl1" name="sizes[]"
-                                                    value="XL"
-                                                    {{ in_array('XL', json_decode($product->sizes, true) ?? []) ? 'checked' : '' }}>
-                                                <label
-                                                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                    for="size-xl1">XL</label>
-
-                                                <input type="checkbox" class="btn-check" id="size-xxl1" name="sizes[]"
-                                                    value="XXL"
-                                                    {{ in_array('XXL', json_decode($product->sizes, true) ?? []) ? 'checked' : '' }}>
-                                                <label
-                                                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                    for="size-xxl1">XXL</label>
-
-                                                <input type="checkbox" class="btn-check" id="size-3xl1" name="sizes[]"
-                                                    value="3XL"
-                                                    {{ in_array('3XL', json_decode($product->sizes, true) ?? []) ? 'checked' : '' }}>
-                                                <label
-                                                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                    for="size-3xl1">3XL</label>
-
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="row mb-4">
 
@@ -258,34 +216,30 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Size Stock</h4>
+                            </div>
+                            <div class="card-body">
                                 <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="mb-3">
-                                            <label for="product-id" class="form-label">Tag Number</label>
-                                            <input type="number" id="tag_no" name="" class="form-control"
-                                                placeholder="#******">
+                                    @php
+                                    $sizeOptions = ['S', 'M', 'L', 'XL'];
+                                        $stockMap = $product->variants->pluck('stock', 'size')->toArray();
+                                    @endphp
+
+                                    @foreach ($sizeOptions as $size)
+                                        <div class="col-lg-4">
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text">{{ $size }}</span>
+                                                <input type="number" name="size_stock[{{ $size }}]"
+                                                    class="form-control" value="{{ $stockMap[$size] ?? 0 }}"
+                                                    min="0">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="mb-3">
-                                            <label for="product-stock" class="form-label">Stock</label>
-                                            <input type="number" id="product-stock" value="{{ $product->stock ?? '' }}"
-                                                name="product_stock" class="form-control" placeholder="Quantity">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="mb-3">
-                                            <label for="product-stock" class="form-label">Best Seller</label>
-                                            <select class="form-control" id="bestSeller" name="bestSeller" data-choices
-                                                data-choices-groups data-placeholder="Best Seller" required>
-                                                <option value="">- Select -</option>
-                                                <option value="1" {{ $product->best_seller == 1 ? 'selected' : '' }}>
-                                                    Yes</option>
-                                                <option value="0" {{ $product->best_seller == 0 ? 'selected' : '' }}>
-                                                    No</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                    @endforeach
+
                                 </div>
                             </div>
                         </div>
@@ -310,6 +264,14 @@
                                             <input type="number" id="product-discount"
                                                 value="{{ $product->discount_price }}" name="discount_price"
                                                 class="form-control" placeholder="000">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <label for="discount-percentage" class="form-label">Discount Percentage</label>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text">%</span>
+                                            <input type="text" id="discount-percentage" class="form-control" placeholder="0%" readonly>
                                         </div>
                                     </div>
                                 </div>

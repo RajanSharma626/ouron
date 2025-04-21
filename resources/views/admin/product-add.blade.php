@@ -86,13 +86,17 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    {{-- <div class="col-lg-4">
+                                    <div class="col-lg-4">
                                         <div class="mb-3">
-                                            <label for="product-brand" class="form-label">Brand</label>
-                                            <input type="text" id="product-brand" name="product" class="form-control"
-                                                placeholder="Brand Name">
+                                            <label for="product-stock" class="form-label">Best Seller</label>
+                                            <select class="form-control" id="bestSeller" name="bestSeller" data-choices
+                                                data-choices-groups data-placeholder="Best Seller" required>
+                                                <option value="" selected disabled>- Select -</option>
+                                                <option value="1">Yes</option>
+                                                <option value="0">No</option>
+                                            </select>
                                         </div>
-                                    </div> --}}
+                                    </div>
                                     <div class="col-lg-4">
                                         <div class="mb-3">
                                             <label for="product-weight" class="form-label">Weight</label>
@@ -111,57 +115,10 @@
                                             <option value="Other">Other</option>
                                         </select>
                                     </div>
+
+
                                 </div>
                                 <div class="row mb-4">
-                                    <div class="col-lg-4">
-                                        <div class="mt-3">
-                                            <h5 class="text-dark fw-medium">Size :</h5>
-                                            <div class="d-flex flex-wrap gap-2" role="group"
-                                                aria-label="Basic checkbox toggle button group">
-                                                <input type="checkbox" class="btn-check" name="size[]" id="size-xs1"
-                                                    value="XS">
-                                                <label
-                                                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                    for="size-xs1">XS</label>
-
-                                                <input type="checkbox" class="btn-check" name="size[]" id="size-s1"
-                                                    value="S">
-                                                <label
-                                                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                    for="size-s1">S</label>
-
-                                                <input type="checkbox" class="btn-check" name="size[]" id="size-m1"
-                                                    value="M">
-                                                <label
-                                                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                    for="size-m1">M</label>
-
-                                                <input type="checkbox" class="btn-check" name="size[]" id="size-l1"
-                                                    value="L">
-                                                <label
-                                                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                    for="size-l1">L</label>
-
-                                                <input type="checkbox" class="btn-check" name="size[]" id="size-xl1"
-                                                    value="XL">
-                                                <label
-                                                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                    for="size-xl1">XL</label>
-
-                                                <input type="checkbox" class="btn-check" name="size[]" id="size-xxl1"
-                                                    value="XXL">
-                                                <label
-                                                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                    for="size-xxl1">XXL</label>
-                                                <input type="checkbox" class="btn-check" name="size[]" id="size-3xl1"
-                                                    value="3XL">
-                                                <label
-                                                    class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center"
-                                                    for="size-3xl1">3XL</label>
-
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div class="col-lg-5">
                                         <div class="mt-3">
                                             <h5 class="text-dark fw-medium">Colors :</h5>
@@ -209,32 +166,28 @@
                                         </div>
                                     </div>
                                 </div>
+
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Size Stock</h4>
+                            </div>
+                            <div class="card-body">
                                 <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="mb-3">
-                                            <label for="product-id" class="form-label">Tag Number</label>
-                                            <input type="number" id="product-id" name="product_id" class="form-control"
-                                                placeholder="#******">
+                                    @php
+                                        $sizeOptions = ['S', 'M', 'L', 'XL'];
+                                    @endphp
+
+                                    @foreach ($sizeOptions as $size)
+                                        <div class="col-lg-4">
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text ">{{ $size }}</span>
+                                                <input type="number" name="size_stock[{{ $size }}]"
+                                                    class="form-control" placeholder="0" min="0">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="mb-3">
-                                            <label for="product-stock" class="form-label">Stock</label>
-                                            <input type="number" id="product-stock" name="product_stock"
-                                                class="form-control" placeholder="Quantity" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="mb-3">
-                                            <label for="product-stock" class="form-label">Best Seller</label>
-                                            <select class="form-control" id="bestSeller" name="bestSeller" data-choices
-                                                data-choices-groups data-placeholder="Best Seller" required>
-                                                <option value="" selected disabled>- Select -</option>
-                                                <option value="1">Yes</option>
-                                                <option value="0">No</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -260,6 +213,15 @@
                                                 class="form-control" placeholder="000" required>
                                         </div>
                                     </div>
+
+                                    <div class="col-lg-4">
+                                        <label for="discount-percentage" class="form-label">Discount Percentage</label>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text">%</span>
+                                            <input type="text" id="discount-percentage" class="form-control" placeholder="0%" readonly>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>

@@ -1,8 +1,17 @@
 <header>
-
-    <div class="fs-07rem text-center primary-bg text-white py-2">
-        <strong>Coupon Offer:</strong> Use code <span class="fw-bold">SAVE20</span> at checkout for a 20% discount!
-    </div>
+    @if ($coupon->count() > 0)
+        @foreach ($coupon as $coupon)
+            <div class="fs-07rem text-center primary-bg text-white py-2">
+                @if ($coupon->coupon_type == 'percentage')
+                    <strong>Coupon Offer:</strong> Use code <span class="fw-bold">{{ $coupon->coupon_code }}</span> at
+                    checkout for a {{ number_format($coupon->discount_value, 0) }}% discount!
+                @elseif ($coupon->coupon_type == 'fixed_amount')
+                    <strong>Coupon Offer:</strong> Use code <span class="fw-bold">{{ $coupon->coupon_code }}</span> at
+                    checkout for a ₹{{ number_format($coupon->discount_value, 0) }} discount!
+                @endif
+            </div>
+        @endforeach
+    @endif
     <nav class="navbar navbar-expand-lg py-2 secondary-bg d-none d-lg-block">
         <div class="container-fluid px-4">
             <div class="d-flex w-100 justify-content-between align-items-center">
@@ -216,10 +225,11 @@
                     </a>
                     <ul class="collapse list-unstyled ms-3" id="collectionDropdownMobile">
                         @foreach ($collections as $collection)
-                        <li>
-                            <a class="nav-link fw-400" href="{{ route('collection-product', $collection->slug) }}">{{ $collection->name }}</a>
-                        </li>
-                    @endforeach
+                            <li>
+                                <a class="nav-link fw-400"
+                                    href="{{ route('collection-product', $collection->slug) }}">{{ $collection->name }}</a>
+                            </li>
+                        @endforeach
                     </ul>
                 </li>
 
@@ -228,8 +238,10 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link text-uppercase fw-400" href="{{ route('wishlist') }}">Wishlist</a>
+                    <a class="nav-link text-uppercase fw-400" href="{{ route('about.us') }}">About us</a>
                 </li>
+
+
 
                 @guest
                     <li class="nav-item">
