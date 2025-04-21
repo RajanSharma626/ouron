@@ -15,6 +15,12 @@ return Application::configure(basePath: dirname(__DIR__))
             'admin.auth' => \App\Http\Middleware\AdminAuth::class,
             'user.auth' => \App\Http\Middleware\UserAuth::class,
         ]);
+
+        $middleware->validateCsrfTokens(except: [
+            'phonepe/callback',      // no leading slash
+            'webhook/phonepe',       // add more if needed
+        ]);
+
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

@@ -127,6 +127,7 @@ class CheckoutController extends Controller
                 'merchantId' => env('PHONEPE_MERCHANT_ID'),
                 'saltKey' => env('PHONEPE_SALT_KEY'),
                 'saltIndex' => env('PHONEPE_SALT_INDEX'),
+                'baseUrl' => env('PHONEPE_BASE_URL'),
             ]);
 
 
@@ -145,7 +146,7 @@ class CheckoutController extends Controller
                 'merchantUserId' => 'USER_' . Auth::id(),
                 'amount' => (int)($total * 100),
                 'redirectUrl' => route('phonepe.callback'),
-                'redirectMode' => 'POST',
+                'redirectMode' => 'GET',
                 'callbackUrl' => route('phonepe.callback'),
                 'paymentInstrument' => ['type' => 'PAY_PAGE'],
             ];
@@ -153,9 +154,6 @@ class CheckoutController extends Controller
             $jsonPayload = json_encode($payload);
             $base64Payload = base64_encode($jsonPayload);
             $checksum = hash('sha256', $base64Payload . "/pg/v1/pay" . $saltKey) . "###" . $saltIndex;
-
-            Log::info('PhonePe Checksum:', ['checksum' => $checksum]);
-            Log::info('PhonePe Payload:', ['payload' => $payload, 'encoded' => $base64Payload]);
 
 
             $response = Http::withHeaders([
@@ -166,12 +164,6 @@ class CheckoutController extends Controller
             if ($response->successful() && isset($response['data']['instrumentResponse']['redirectInfo']['url'])) {
                 return redirect($response['data']['instrumentResponse']['redirectInfo']['url']);
             }
-
-            Log::error('PhonePe payment failed', [
-                'status' => $response->status(),
-                'body' => $response->body(),
-                'json' => $response->json()
-            ]);
 
 
             return  redirect()->route('orders.show', $order->id)->with('error', 'Payment failed.');

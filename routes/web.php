@@ -105,9 +105,9 @@ Route::middleware(['user.auth'])->group(function () {
     Route::post('/buy-now', [CheckoutController::class, 'buyNow'])->name('buy.now');
     Route::post('/buy-now/store', [CheckoutController::class, 'buyNowStore'])->name('buy.now.store');
 
-    Route::post('/phonepe/callback', [PaymentController::class, 'phonepeCallback'])->name('phonepe.callback');
 
 });
+Route::post('/phonepe/callback', [PaymentController::class, 'phonepeCallback'])->name('phonepe.callback');
 
 
 

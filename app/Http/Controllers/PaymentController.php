@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class PaymentController extends Controller
 {
@@ -36,19 +37,23 @@ class PaymentController extends Controller
             return response()->json(['message' => 'Unable to get payment status'], 500);
         }
 
+
         $data = $statusResponse['data'];
+
+        $status = $data['responseCode'] ?? $data['state'];
         $payment->update([
-            'status' => $data['status'],
+            'status' => $status,
             'response_payload' => json_encode($data),
         ]);
 
         $order = $payment->order;
-        if ($data['status'] === 'SUCCESS') {
+
+        if ($status === 'SUCCESS' || $data['state'] === 'COMPLETED') {
             $order->update(['payment_status' => 'Paid']);
-        } elseif ($data['status'] === 'FAILED') {
+        } elseif ($status === 'FAILED' || $data['state'] === 'FAILED') {
             $order->update(['payment_status' => 'Failed']);
         }
 
-        return redirect()->route('order.success')->with('success', 'Payment processed!');
+        return redirect()->route('order.success', $order->id)->with('success', 'Order placed successfully');
     }
 }
