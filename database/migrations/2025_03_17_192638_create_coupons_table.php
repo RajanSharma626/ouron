@@ -14,13 +14,20 @@ return new class extends Migration
         Schema::create('coupons', function (Blueprint $table) {
             $table->id();
             $table->string('coupon_code')->unique();
-            $table->integer('coupon_limits')->nullable();
+            $table->enum('for_type', ['all', 'category', 'collection', 'product'])->default('all');
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->unsignedBigInteger('collection_id')->nullable();
+            $table->unsignedBigInteger('product_id')->nullable();
             $table->decimal('discount_value', 10, 2);
-            $table->enum('coupon_type', ['percentage', 'fixed_amount']);
+            $table->enum('coupon_type', ['percentage', 'fixed_amount', 'free_shipping']);
             $table->enum('status', ['active', 'inactive', 'future']);
             $table->date('start_date');
             $table->date('end_date');
             $table->timestamps();
+
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('collection_id')->references('id')->on('collection')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
 

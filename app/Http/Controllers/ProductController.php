@@ -259,4 +259,45 @@ class ProductController extends Controller
 
         return redirect()->back()->with('success', 'Image deleted successfully');
     }
+
+
+    public function downloadCSV()
+    {
+        $products = Product::with('category', 'collection', 'variants')->get();
+
+        $csvFileName = 'products.csv';
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="' . $csvFileName . '"',
+        ];
+
+        $handle = fopen('php://temp', 'r+');
+        fputcsv($handle, ['ID', 'Name', 'Size', 'Category', 'Collection',  'Price', 'Discount Price', 'Weight', 'Colors']);
+
+        foreach ($products as $product) {
+            fputcsv($handle, [
+                $product->id,
+                $product->name,
+                $product->variants->map(function ($variant) {
+                    return $variant->size . ' (' . $variant->stock . ')';
+                })->implode(', '),
+                optional($product->category)->name,
+                optional($product->collection)->name,
+                $product->price,
+                $product->discount_price,
+                $product->weight,
+                collect(json_decode($product->colors))->implode(', '),
+            ]);
+        }
+
+        rewind($handle);
+
+        return response()->stream(
+            function () use ($handle) {
+                fpassthru($handle);
+            },
+            200,
+            $headers
+        );
+    }
 }

@@ -17,20 +17,11 @@
                             <div>
                                 <h4 class="card-title">All Order List</h4>
                             </div>
-                            {{-- <div class="dropdown">
-                                <a href="#" class="dropdown-toggle btn btn-sm btn-outline-light rounded"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    This Month
+                            <div class="dropdown">
+                                <a href="{{route('orders.csv.download')}}" class="btn btn-sm btn-primary">
+                                    Download CSV
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <!-- item-->
-                                    <a href="#!" class="dropdown-item">Download</a>
-                                    <!-- item-->
-                                    <a href="#!" class="dropdown-item">Export</a>
-                                    <!-- item-->
-                                    <a href="#!" class="dropdown-item">Import</a>
-                                </div>
-                            </div> --}}
+                            </div>
                         </div>
 
                         <div>

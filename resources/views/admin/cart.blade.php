@@ -32,6 +32,9 @@
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center gap-1">
                             <h4 class="card-title flex-grow-1">Cart Product List</h4>
+                            <a href="{{route('cart.csv.download')}}" class="btn btn-sm btn-primary">
+                                Download CSV
+                            </a>
                         </div>
                         <div>
                             <div class="table-responsive">

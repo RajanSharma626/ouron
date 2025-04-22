@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Collections;
 use App\Models\Coupon;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -11,14 +14,19 @@ class CouponController extends Controller
 
     public function index()
     {
-        $coupons = Coupon::paginate(15);
+        $coupons = Coupon::with('category', 'collection', 'product')->paginate(15);
         return view('admin.coupon', compact('coupons'));
     }
 
     public function edit($id)
     {
+
+        $categories = Category::all();
+        $collections = Collections::all();
+        $products = Product::all();
+
         $coupon = Coupon::findOrFail($id);
-        return view('admin.coupon-edit', compact('coupon'));
+        return view('admin.coupon-edit', compact('coupon', 'categories', 'collections', 'products'));
     }
 
     public function create()
@@ -30,21 +38,26 @@ class CouponController extends Controller
     {
         $request->validate([
             'coupons-code'   => 'required|string|unique:coupons,coupon_code',
-            'coupons-limits' => 'required|integer|min:1',
             'discount-value' => 'required|numeric|min:0',
             'coupons-type'   => 'required|in:free_shipping,percentage,fixed_amount',
             'start-date'     => 'required|date',
             'end-date'       => 'required|date|after_or_equal:start-date',
+            'for-type'       => 'required|in:all,category,collection,product',
         ]);
 
-        Coupon::create([
+        $couponData = [
             'coupon_code'   => $request->input('coupons-code'),
-            'coupon_limits' => $request->input('coupons-limits'),
             'discount_value' => $request->input('discount-value'),
             'coupon_type'   => $request->input('coupons-type'),
             'start_date'    => $request->input('start-date'),
             'end_date'      => $request->input('end-date'),
-        ]);
+            'for_type'      => $request->input('for-type'),
+            'category_id' => $request->input('category'),
+            'collection_id' => $request->input('collection'),
+            'product_id' => $request->input('product'),
+        ];
+
+        Coupon::create($couponData);
 
         return redirect()->route('admin.coupons')->with('success', 'Coupon created successfully!');
     }
@@ -52,15 +65,31 @@ class CouponController extends Controller
 
     public function update(Request $request)
     {
+        $request->validate([
+            'coupons-id'     => 'required|exists:coupons,id',
+            'coupons-code'   => 'required|string|unique:coupons,coupon_code,' . $request->input('coupons-id'),
+            'discount-value' => 'required|numeric|min:0',
+            'coupons-type'   => 'required|in:free_shipping,percentage,fixed_amount',
+            'start-date'     => 'required|date',
+            'end-date'       => 'required|date|after_or_equal:start-date',
+            'for-type'       => 'required|in:all,category,collection,product',
+        ]);
+
         $coupon = Coupon::findOrFail($request->input('coupons-id'));
-        $coupon->update([
+
+        $couponData = [
             'coupon_code'   => $request->input('coupons-code'),
-            'coupon_limits' => $request->input('coupons-limits'),
             'discount_value' => $request->input('discount-value'),
             'coupon_type'   => $request->input('coupons-type'),
             'start_date'    => $request->input('start-date'),
             'end_date'      => $request->input('end-date'),
-        ]);
+            'for_type'      => $request->input('for-type'),
+            'category_id'   => $request->input('category'),
+            'collection_id' => $request->input('collection'),
+            'product_id'    => $request->input('product'),
+        ];
+
+        $coupon->update($couponData);
 
         return redirect()->route('admin.coupons')->with('success', 'Coupon updated successfully.');
     }

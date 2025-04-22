@@ -33,31 +33,20 @@
                         <div class="card-header d-flex justify-content-between align-items-center gap-1">
                             <h4 class="card-title flex-grow-1">All Product List</h4>
 
+                            <a href="{{route('product.csv.download')}}" class="btn btn-sm btn-outline-primary">
+                                Download CSV
+                            </a>
+
                             <a href="{{ route('admin.products.add') }}" class="btn btn-sm btn-primary">
                                 Add Product
                             </a>
 
-                            {{-- <div class="dropdown">
-                                <a href="#" class="dropdown-toggle btn btn-sm btn-outline-light"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    This Month
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <!-- item-->
-                                    <a href="#!" class="dropdown-item">Download</a>
-                                    <!-- item-->
-                                    <a href="#!" class="dropdown-item">Export</a>
-                                    <!-- item-->
-                                    <a href="#!" class="dropdown-item">Import</a>
-                                </div>
-                            </div> --}}
                         </div>
                         <div>
                             <div class="table-responsive">
                                 <table class="table align-middle mb-0 table-hover table-centered">
                                     <thead class="bg-light-subtle">
                                         <tr>
-
                                             <th>Product Name & Size</th>
                                             <th>Price</th>
                                             <th>Discount</th>
@@ -76,7 +65,7 @@
 
                                         @foreach ($products as $product)
                                             <tr>
-                                               
+
                                                 <td>
                                                     <div class="d-flex align-items-center gap-2">
                                                         <div
@@ -107,7 +96,7 @@
                                                     @elseif ($product->stock <= 5)
                                                         <p class="mb-1 text-warning"><span
                                                                 class="text-warning fw-medium">{{ $product->stock }}
-                                                                Item</span> Left</p>    
+                                                                Item</span> Left</p>
                                                     @else
                                                         <p class="mb-1 text-muted"><span
                                                                 class="text-dark fw-medium">{{ $product->stock }}

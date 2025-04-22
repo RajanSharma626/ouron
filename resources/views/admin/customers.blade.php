@@ -18,6 +18,10 @@
                                 <h4 class="card-title">All Customers List</h4>
                             </div>
 
+                            <a href="{{ route('customers.csv.download') }}" class="btn btn-sm btn-primary">
+                                Download CSV
+                            </a>
+
                         </div>
                         <div>
                             <div class="table-responsive">

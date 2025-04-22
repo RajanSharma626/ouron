@@ -26,7 +26,7 @@
                                                 <img src="{{ asset($blog->cover_image) }}" alt="" class="img-fluid">
                                             </div>
                                             <div class="product_info p-2 pb-0">
-                                                <h3 class="blog_title">
+                                                <h3 class="blog_title mb-2">
                                                     {{ $blog->title }}
                                                 </h3>
                                                 <p class="blog_desc text-muted">

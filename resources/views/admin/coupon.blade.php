@@ -45,9 +45,12 @@
                                         <tr>
 
                                             <th>Code</th>
-                                            <th>Limit</th>
                                             <th>Value</th>
                                             <th>Type</th>
+                                            <th>Coupon For?</th>
+                                            <th>Category</th>
+                                            <th>Collection</th>
+                                            <th>Product</th>
                                             <th>Start Date</th>
                                             <th>End Date</th>
                                             <th>Status</th>
@@ -59,7 +62,6 @@
                                         @foreach ($coupons as $coupon)
                                             <tr>
                                                 <td>{{ $coupon->coupon_code }}</td>
-                                                <td>{{ $coupon->coupon_limits ?? '-' }}
                                                 <td>{{ $coupon->discount_value }}</td>
                                                 <td>
                                                     @if ($coupon->coupon_type == 'free_shipping')
@@ -68,6 +70,39 @@
                                                         Fixed Amount
                                                     @elseif($coupon->coupon_type == 'percentage')
                                                         Percentage
+                                                    @endif
+                                                </td>
+
+                                                <td>
+                                                    @if ($coupon->for_type == 'all')
+                                                        All
+                                                    @elseif($coupon->for_type == 'category')
+                                                        Category
+                                                    @elseif($coupon->for_type == 'collection')
+                                                        Collection
+                                                    @elseif($coupon->for_type == 'product')
+                                                        Product
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($coupon->category_id)
+                                                        {{ $coupon->category->name }}
+                                                    @else
+                                                        -
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($coupon->collection_id)
+                                                        {{ $coupon->collection->name }}
+                                                    @else
+                                                        -
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($coupon->product_id)
+                                                        {{ $coupon->product->name }}
+                                                    @else
+                                                        -
                                                     @endif
                                                 </td>
                                                 <td>{{ $coupon->start_date }}</td>

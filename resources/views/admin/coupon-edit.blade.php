@@ -22,50 +22,73 @@
                 @csrf
                 <div class="row">
                     <div class="col-lg-5">
-                        {{-- <div class="card">
+                        <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Coupon Status</h4>
+                                <h4 class="card-title">Coupon For</h4>
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="d-flex gap-2 align-items-center">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="status"
-                                                    id="flexRadioDefault9" value="active"
-                                                    {{ $coupon->status == 'active' ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="flexRadioDefault9">
-                                                    Active
-                                                </label>
-                                            </div>
-                                        </div>
+                                    <div class="col-lg-12 mb-3">
+                                        <label for="for-type" class="form-label text-dark">For?</label>
+                                        <select name="for-type" id="for-type" class="form-control" required>
+                                            <option value="all" {{ old('for-type', $coupon->for_type) == 'all' ? 'selected' : '' }}>All
+                                            </option>
+                                            <option value="category"
+                                                {{ old('for-type', $coupon->for_type) == 'category' ? 'selected' : '' }}>
+                                                Category</option>
+                                            <option value="collection"
+                                                {{ old('for-type') == 'collection' ? 'selected' : '' }}>Collection</option>
+                                            <option value="product" {{ old('for-type',  $coupon->for_type) == 'product' ? 'selected' : '' }}>
+                                                Product</option>
+                                        </select>
                                     </div>
-                                    <div class="col-lg-4">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="status"
-                                                id="flexRadioDefault10" value="inactive"
-                                                {{ $coupon->status == 'inactive' ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="flexRadioDefault10">
-                                                In Active
-                                            </label>
-                                        </div>
+                                    <div class="col-lg-12 mb-3 {{ $coupon->for_type == 'category' ? '' : 'd-none' }}"
+                                        id="category">
+                                        <label for="category-select" class="form-label text-dark">Category</label>
+                                        <select name="category" id="category-select" class="form-control">
+                                            <option value="" selected disabled>- Select -</option>
+                                            <option value="" {{ old('category', $coupon->category_id) == '' ? 'selected' : '' }}>All
+                                            </option>
+                                            @foreach ($categories as $category)
+                                                <option value="{{ $category->id }}"
+                                                    {{ old('category', $coupon->category_id) == $category->id ? 'selected' : '' }}>
+                                                    {{ $category->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
-                                    <div class="col-lg-4">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="status"
-                                                id="flexRadioDefault11" value="future"
-                                                {{ $coupon->status == 'future' ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="flexRadioDefault11">
-                                                Future Plan
-                                            </label>
-                                        </div>
+                                    <div class="col-lg-12 mb-3 {{ $coupon->for_type == 'collection' ? '' : 'd-none' }}" id="collection">
+                                        <label for="collection-select" class="form-label text-dark">Collection</label>
+                                        <select name="collection" id="collection-select" class="form-control">
+                                            <option value="" selected disabled>- Select -</option>
+                                            <option value="" {{ old('collection', $coupon->collection_id) == '' ? 'selected' : '' }}>All
+                                            </option>
+                                            @foreach ($collections as $collection)
+                                                <option value="{{ $collection->id }}"
+                                                    {{ old('collection', $coupon->collection_id) == $collection->id ? 'selected' : '' }}>
+                                                    {{ $collection->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-12 mb-3 {{ $coupon->for_type == 'product' ? '' : 'd-none' }}" id="product">
+                                        <label for="product-select" class="form-label text-dark">Product</label>
+                                        <select name="product" id="product-select" class="form-control">
+                                            <option value="" selected disabled>- Select -</option>
+                                            <option value="" {{ old('product',  $coupon->product_id) == '' ? 'selected' : '' }}>All
+                                            </option>
+                                            @foreach ($products as $product)
+                                                <option value="{{ $product->id }}"
+                                                    {{ old('product', $coupon->product_id) == $product->id ? 'selected' : '' }}>
+                                                    {{ $product->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
+
                                 @error('status')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                        </div> --}}
+                        </div>
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">Date Schedule</h4>
@@ -98,25 +121,13 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-12">
                                         <div class="mb-3">
                                             <label for="coupons-code" class="form-label">Coupons Code</label>
                                             <input type="text" id="coupons-code" name="coupons-code" class="form-control"
                                                 placeholder="Code enter" value="{{ $coupon->coupon_code }}">
                                             <input type="hidden" name="coupons-id" value="{{ $coupon->id }}">
                                             @error('coupons-code')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-6">
-                                        <div class="mb-3">
-                                            <label for="coupons-limits" class="form-label">Coupons Limits</label>
-                                            <input type="number" id="coupons-limits" name="coupons-limits"
-                                                class="form-control" placeholder="limits no."
-                                                value="{{ $coupon->coupon_limits }}}">
-                                            @error('coupons-limits')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>

@@ -22,6 +22,9 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserAddressController;
 use App\Http\Controllers\WishlistController;
+use App\Models\Category;
+use App\Models\Collections;
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index']);
@@ -104,8 +107,6 @@ Route::middleware(['user.auth'])->group(function () {
     Route::get('/buy', [CheckoutController::class, 'buy'])->name('buy');
     Route::post('/buy-now', [CheckoutController::class, 'buyNow'])->name('buy.now');
     Route::post('/buy-now/store', [CheckoutController::class, 'buyNowStore'])->name('buy.now.store');
-
-
 });
 Route::post('/phonepe/callback', [PaymentController::class, 'phonepeCallback'])->name('phonepe.callback');
 
@@ -143,15 +144,20 @@ Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.detail')
 
 // ====================================================== Admin Panel Routes =============================================================
 
-Route::prefix('admin')->group(function () {
+Route::prefix('admin-panel')->group(function () {
     Route::get('/login', [AdminAuthController::class, 'showLogin'])->name('admin.login');
     Route::post('/login', [AdminAuthController::class, 'login']);
     Route::get('/reset-password', [AdminAuthController::class, 'resetForm'])->name('admin.reset');
     Route::get('/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 });
 
+Route::get('admin-panel/', function () {
+    return redirect()->route('admin.dashboard');
+});
 
-Route::middleware(['admin.auth'])->prefix('admin')->group(function () {
+
+Route::middleware(['admin.auth'])->prefix('admin-panel')->group(function () {
+
 
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
@@ -164,10 +170,11 @@ Route::middleware(['admin.auth'])->prefix('admin')->group(function () {
     Route::get('/products/delete/{id}', [ProductController::class, 'destroy'])->name('product.delete');
     Route::post('/products/update', [ProductController::class, 'update'])->name('product.update');
     Route::delete('/product/image/delete/{id}', [ProductController::class, 'deleteImage'])->name('product.image.delete');
+    Route::get('product/download-csv', [ProductController::class, 'downloadCSV'])->name('product.csv.download');
 
     //Stock
     Route::get('/stock', [ProductController::class, 'stock'])->name('admin.stock');
-
+    Route::get('customers/download-csv', [CustomersController::class, 'downloadCSV'])->name('customers.csv.download');
 
     Route::get('/category', [CategoryController::class, 'index'])->name('admin.category');
     Route::get('/category/add', function () {
@@ -193,12 +200,16 @@ Route::middleware(['admin.auth'])->prefix('admin')->group(function () {
     //orders
     Route::get('/orders', [OrderController::class, 'index'])->name('admin.orders');
     Route::get('/order/view/{id}', [OrderController::class, 'view'])->name('admin.order.view');
+    Route::get('orders/download-csv', [OrderController::class, 'downloadCSV'])->name('orders.csv.download');
 
     //coupons
     Route::get('/coupons', [CouponController::class, 'index'])->name('admin.coupons');
 
     Route::get('/coupons/add', function () {
-        return view('admin.coupon-add');
+        $categories = Category::all();
+        $collections = Collections::all();
+        $products = Product::all();
+        return view('admin.coupon-add', compact('categories', 'collections', "products"));
     })->name('admin.coupons.add');
 
     Route::post('/coupons/store', [CouponController::class, 'store'])->name('admin.coupons.store');
@@ -208,6 +219,8 @@ Route::middleware(['admin.auth'])->prefix('admin')->group(function () {
 
     //Customers
     Route::get('/customers', [CustomersController::class, 'index'])->name('admin.customers');
+    Route::get('customers/download-csv', [CustomersController::class, 'downloadCSV'])->name('customers.csv.download');
+
 
     //Blogs
     Route::get('/blogs', [BlogController::class, 'index'])->name('admin.blogs');
@@ -220,12 +233,15 @@ Route::middleware(['admin.auth'])->prefix('admin')->group(function () {
 
     //Contact Form
     Route::get('/contact-form', [ContactController::class, 'index'])->name('admin.contact');
+    Route::get('contact/download-csv', [ContactController::class, 'downloadCSV'])->name('contact.csv.download');
 
     //newsletter
     Route::get('/newsletter', [NewsLetterController::class, 'index'])->name('admin.newsletter');
+    Route::get('newsletter/download-csv', [NewsLetterController::class, 'downloadCSV'])->name('newsletter.csv.download');
 
     //cart
     Route::get('/cart', [CartController::class, 'adminCart'])->name('admin.cart');
+    Route::get('cart/download-csv', [CartController::class, 'downloadCSV'])->name('cart.csv.download');
 
     //wishlist
     Route::get('/wishlist', [WishlistController::class, 'adminWishlist'])->name('admin.wishlist');

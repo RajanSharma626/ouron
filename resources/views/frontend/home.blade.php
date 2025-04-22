@@ -516,7 +516,7 @@
                                         class="img-fluid">
                                 </div>
                                 <div class="blog_info p-3">
-                                    <h3 class="blog_title">{{ $blog->title }}</h3>
+                                    <h3 class="blog_title mb-2">{{ $blog->title }}</h3>
                                     <p class="blog_short_desc mb-0 text-muted">
                                         {{ Str::limit(strip_tags($blog->short_desc), 100) }}
                                     </p>

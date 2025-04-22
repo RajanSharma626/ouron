@@ -84,38 +84,38 @@
         }
 
         function downloadQRCode(blogId) {
-        // Get the image source
-        var imgElement = document.getElementById('qrImage' + blogId);
-        var imgSrc = imgElement.src;
+            // Get the image source
+            var imgElement = document.getElementById('qrImage' + blogId);
+            var imgSrc = imgElement.src;
 
-        // Create a temporary image element to load the image
-        var img = new Image();
-        img.src = imgSrc;
+            // Create a temporary image element to load the image
+            var img = new Image();
+            img.src = imgSrc;
 
-        img.onload = function() {
-            // Create a canvas element to draw the image
-            var canvas = document.createElement('canvas');
-            var ctx = canvas.getContext('2d');
-            canvas.width = img.width;
-            canvas.height = img.height;
-            ctx.drawImage(img, 0, 0);
+            img.onload = function() {
+                // Create a canvas element to draw the image
+                var canvas = document.createElement('canvas');
+                var ctx = canvas.getContext('2d');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0);
 
-            // Convert the canvas to a data URL (PNG format)
-            var dataURL = canvas.toDataURL('image/png');
+                // Convert the canvas to a data URL (PNG format)
+                var dataURL = canvas.toDataURL('image/png');
 
-            // Create an anchor element to trigger the download
-            var link = document.createElement('a');
-            link.href = dataURL;
-            link.download = 'qr-code-' + blogId + '.png'; // Customize the filename
+                // Create an anchor element to trigger the download
+                var link = document.createElement('a');
+                link.href = dataURL;
+                link.download = 'qr-code-' + blogId + '.png'; // Customize the filename
 
-            // Trigger the download by simulating a click on the anchor
-            link.click();
+                // Trigger the download by simulating a click on the anchor
+                link.click();
+            }
+
+            img.onerror = function() {
+                alert('Failed to load the image.');
+            }
         }
-
-        img.onerror = function() {
-            alert('Failed to load the image.');
-        }
-    }
 
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('browse-files').addEventListener('click', function() {
@@ -253,29 +253,45 @@
             });
     </script>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const priceInput = document.getElementById('product-price');
-        const discountInput = document.getElementById('product-discount');
-        const percentageInput = document.getElementById('discount-percentage');
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const priceInput = document.getElementById('product-price');
+            const discountInput = document.getElementById('product-discount');
+            const percentageInput = document.getElementById('discount-percentage');
 
-        function calculateDiscountPercentage() {
-            const price = parseFloat(priceInput.value);
-            const discountPrice = parseFloat(discountInput.value);
+            function calculateDiscountPercentage() {
+                const price = parseFloat(priceInput.value);
+                const discountPrice = parseFloat(discountInput.value);
 
-            if (!isNaN(price) && !isNaN(discountPrice) && price > 0) {
-                const discountPercentage = (discountPrice / price) * 100;
-                percentageInput.value = discountPercentage.toFixed(2) + '%';
-            } else {
-                percentageInput.value = '';
+                if (!isNaN(price) && !isNaN(discountPrice) && price > 0) {
+                    const discountPercentage = (discountPrice / price) * 100;
+                    percentageInput.value = discountPercentage.toFixed(2) + '%';
+                } else {
+                    percentageInput.value = '';
+                }
             }
-        }
 
-        priceInput.addEventListener('input', calculateDiscountPercentage);
-        discountInput.addEventListener('input', calculateDiscountPercentage);
-    });
-</script>
+            priceInput.addEventListener('input', calculateDiscountPercentage);
+            discountInput.addEventListener('input', calculateDiscountPercentage);
+        });
+    </script>
 
+    <script>
+        document.getElementById('for-type').addEventListener('change', function() {
+            const selectedValue = this.value;
+            document.getElementById('category').classList.add('d-none');
+            document.getElementById('collection').classList.add('d-none');
+            document.getElementById('product').classList.add('d-none');
+
+            if (selectedValue === 'category') {
+                document.getElementById('category').classList.remove('d-none');
+            } else if (selectedValue === 'collection') {
+                document.getElementById('collection').classList.remove('d-none');
+            } else if (selectedValue === 'product') {
+                document.getElementById('product').classList.remove('d-none');
+            }
+        });
+    </script>
 
 </body>
 

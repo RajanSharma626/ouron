@@ -27,9 +27,9 @@ class OrderController extends Controller
         $order = Order::with(['items', 'user'])->findOrFail($id);
 
         $statusHistory = OrderStatusHistory::with('changedBy') // assuming relation for changed_by
-                        ->where('order_id', $id)
-                        ->orderBy('changed_at', 'desc')
-                        ->get();
+            ->where('order_id', $id)
+            ->orderBy('changed_at', 'desc')
+            ->get();
 
         return view('admin.order-detail', compact('order', 'statusHistory'));
     }
@@ -121,5 +121,44 @@ class OrderController extends Controller
         return redirect()->route('admin.order.view', $id)->with('success', 'Order marked as delivered successfully.');
     }
 
-    
+    public function downloadCSV()
+    {
+        $orders = Order::with(['items.product.firstimage', 'user'])->get();
+
+        $csvFileName = 'orders.csv';
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="' . $csvFileName . '"',
+        ];
+
+        $handle = fopen('php://temp', 'r+');
+        fputcsv($handle, ['ID', 'User', 'Product', 'Size', 'Email', 'Phone', 'Address', 'Total Amount', 'Payment Method', 'Quantity', 'Status', 'Created At']);
+
+        foreach ($orders as $order) {
+            fputcsv($handle, [
+                $order->id,
+                optional($order->user)->name,
+                $order->items->pluck('product.name')->filter()->implode(', '),
+                $order->items->pluck('size')->filter()->implode(', '),
+                $order->email,
+                $order->phone,
+                $order->address . " " . $order->address2 . " " . $order->city . ", " . $order->state . ", " . $order->pin_code,
+                $order->items->sum('price'), // Assuming you want the total price of all items
+                $order->payment_method,
+                $order->items->sum('quantity'), // Assuming you want the total quantity of all items
+                $order->status,
+                $order->created_at,
+            ]);
+        }
+
+        rewind($handle);
+
+        return response()->stream(
+            function () use ($handle) {
+                fpassthru($handle);
+            },
+            200,
+            $headers
+        );
+    }
 }

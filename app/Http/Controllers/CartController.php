@@ -130,4 +130,42 @@ class CartController extends Controller
             ->paginate(20);
         return view('admin.cart', compact('cartItems'));
     }
+
+    public function downloadCSV()
+    {
+        $cartItems = CartItem::with(['product', 'product.firstimage', 'product.category', 'user'])->get();
+
+        $csvFileName = 'cart-items.csv';
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="' . $csvFileName . '"',
+        ];
+
+        $handle = fopen('php://temp', 'r+');
+        fputcsv($handle, ['ID', 'Product Name', 'Quantity','Category', 'Size', 'Color', 'User Name', 'User Email', 'User Phone']);
+
+        foreach ($cartItems as $cartItem) {
+            fputcsv($handle, [
+                $cartItem->id,
+                $cartItem->product->name,
+                $cartItem->quantity,
+                $cartItem->product->category ? $cartItem->product->category->name : 'N/A',
+                $cartItem->size,
+                $cartItem->color,
+                $cartItem->user ? $cartItem->user->name : 'Guest',
+                $cartItem->user ? $cartItem->user->email : 'N/A',
+                $cartItem->user ? $cartItem->user->phone : 'N/A',
+            ]);
+        }
+
+        rewind($handle);
+
+        return response()->stream(
+            function () use ($handle) {
+                fpassthru($handle);
+            },
+            200,
+            $headers
+        );
+    }
 }

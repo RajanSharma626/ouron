@@ -243,37 +243,35 @@
                         <!-- table responsive -->
 
                         <div class="card-footer border-top">
-                            <div class="row g-3">
-                                <div class="col-sm">
-                                    <div class="text-muted">
-                                        Showing
-                                        <span class="fw-semibold">5</span>
-                                        of
-                                        <span class="fw-semibold">90,521</span>
-                                        orders
-                                    </div>
-                                </div>
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-end mb-0">
+                                    @if ($orders->onFirstPage())
+                                        <li class="page-item disabled"><a class="page-link"
+                                                href="javascript:void(0);">Previous</a></li>
+                                    @else
+                                        <li class="page-item"><a class="page-link"
+                                                href="{{ $orders->previousPageUrl() }}">Previous</a></li>
+                                    @endif
 
-                                <div class="col-sm-auto">
-                                    <ul class="pagination m-0">
-                                        <li class="page-item">
-                                            <a href="#" class="page-link"><i class="bx bx-left-arrow-alt"></i></a>
-                                        </li>
-                                        <li class="page-item active">
-                                            <a href="#" class="page-link">1</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a href="#" class="page-link">2</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a href="#" class="page-link">3</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a href="#" class="page-link"><i class="bx bx-right-arrow-alt"></i></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                                    @foreach ($orders->links()->elements[0] as $page => $url)
+                                        @if ($page == $orders->currentPage())
+                                            <li class="page-item active"><a class="page-link"
+                                                    href="javascript:void(0);">{{ $page }}</a></li>
+                                        @else
+                                            <li class="page-item"><a class="page-link"
+                                                    href="{{ $url }}">{{ $page }}</a></li>
+                                        @endif
+                                    @endforeach
+
+                                    @if ($orders->hasMorePages())
+                                        <li class="page-item"><a class="page-link"
+                                                href="{{ $orders->nextPageUrl() }}">Next</a></li>
+                                    @else
+                                        <li class="page-item disabled"><a class="page-link"
+                                                href="javascript:void(0);">Next</a></li>
+                                    @endif
+                                </ul>
+                            </nav>
                         </div>
                     </div>
                     <!-- end card -->

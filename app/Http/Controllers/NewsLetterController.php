@@ -41,4 +41,35 @@ class NewsLetterController extends Controller
             'message' => 'You’ve successfully subscribed to Ouron’s newsletter. Stay tuned for something amazing!'
         ]);
     }
+
+    public function downloadCSV()
+    {
+        $newsletters = Newsletter::all();
+
+        $csvFileName = 'newsletter.csv';
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="' . $csvFileName . '"',
+        ];
+
+        $handle = fopen('php://temp', 'r+');
+        fputcsv($handle, ['ID', 'Email']);
+
+        foreach ($newsletters as $newsletter) {
+            fputcsv($handle, [
+                $newsletter->id,
+                $newsletter->email,
+            ]);
+        }
+
+        rewind($handle);
+
+        return response()->stream(
+            function () use ($handle) {
+                fpassthru($handle);
+            },
+            200,
+            $headers
+        );
+    }
 }
