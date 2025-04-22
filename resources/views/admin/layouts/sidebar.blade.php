@@ -52,7 +52,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.collection') }}">
                     <span class="nav-icon">
-                        <iconify-icon icon="solar:clipboard-list-bold-duotone"></iconify-icon>
+                        <iconify-icon icon="solar:bookmark-square-bold-duotone"></iconify-icon>
                     </span>
                     <span class="nav-text"> Collection </span>
                 </a>
@@ -122,7 +122,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.newsletter') }}">
                     <span class="nav-icon">
-                        <iconify-icon icon="solar:calendar-bold-duotone"></iconify-icon>
+                        <iconify-icon icon="solar:book-bookmark-bold-duotone"></iconify-icon>
                     </span>
                     <span class="nav-text"> Newsletter </span>
                 </a>
@@ -131,7 +131,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.faq') }}">
                     <span class="nav-icon">
-                        <iconify-icon icon="solar:calendar-bold-duotone"></iconify-icon>
+                        <iconify-icon icon="solar:question-circle-bold-duotone"></iconify-icon>
                     </span>
                     <span class="nav-text"> FAQs </span>
                 </a>

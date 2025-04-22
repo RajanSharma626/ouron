@@ -33,7 +33,7 @@
                         <div class="card-header d-flex justify-content-between align-items-center gap-1">
                             <h4 class="card-title flex-grow-1">All Product List</h4>
 
-                            <a href="{{route('product.csv.download')}}" class="btn btn-sm btn-outline-primary">
+                            <a href="{{ route('product.csv.download') }}" class="btn btn-sm btn-outline-primary">
                                 Download CSV
                             </a>
 
@@ -79,7 +79,7 @@
                                                             <a href="#!"
                                                                 class="text-dark fw-medium fs-15">{{ $product->name }}</a>
                                                             <p class="text-muted mb-0 mt-1 fs-13"><span>Size :
-                                                                </span>{{ implode(', ', json_decode($product->sizes, true) ?? []) }}
+                                                                </span>{{ implode(', ', $product->variants->pluck('size')->toArray()) }}
                                                             </p>
                                                         </div>
                                                     </div>
@@ -89,20 +89,22 @@
                                                 <td>₹{{ $product->discount_price }}
                                                 </td>
                                                 <td>
-                                                    @if ($product->stock == 0)
+                                                    @php
+                                                        $totalStock = $product->variants->sum('stock');
+                                                    @endphp
+                                                    @if ($totalStock == 0)
                                                         <p class="mb-1 text-danger"><span
-                                                                class="text-danger fw-medium">{{ $product->stock }}
+                                                                class="text-danger fw-medium">{{ $totalStock }}
                                                                 Item</span> Left</p>
-                                                    @elseif ($product->stock <= 5)
+                                                    @elseif ($totalStock <= 5)
                                                         <p class="mb-1 text-warning"><span
-                                                                class="text-warning fw-medium">{{ $product->stock }}
+                                                                class="text-warning fw-medium">{{ $totalStock }}
                                                                 Item</span> Left</p>
                                                     @else
                                                         <p class="mb-1 text-muted"><span
-                                                                class="text-dark fw-medium">{{ $product->stock }}
+                                                                class="text-dark fw-medium">{{ $totalStock }}
                                                                 Item</span> Left</p>
                                                     @endif
-                                                    {{-- <p class="mb-0 text-muted">155 Sold</p> --}}
                                                 </td>
                                                 <td> {{ $product->category->name ?? 'N/A' }}</td>
                                                 <td>
@@ -115,7 +117,8 @@
 
                                                 <td>
                                                     <div class="d-flex gap-2">
-                                                        <a href="{{route('product.detail', $product->slug)}}" target="_blank" class="btn btn-light btn-sm"><iconify-icon
+                                                        <a href="{{ route('product.detail', $product->slug) }}"
+                                                            target="_blank" class="btn btn-light btn-sm"><iconify-icon
                                                                 icon="solar:eye-broken"
                                                                 class="align-middle fs-18"></iconify-icon></a>
                                                         <a href="{{ route('admin.products.edit', $product->id) }}"
