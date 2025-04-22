@@ -109,7 +109,7 @@ class CheckoutController extends Controller
         CartItem::where('user_id', Auth::id())->delete();
 
         // Dispatch Email Job
-        // SendOrderConfirmationJob::dispatch($order);
+        SendOrderConfirmationJob::dispatch($order);
 
         // Dispatch SMS
         // $smsMessage = "Dear {$order->first_name}, thank you for shopping with us! Your order #{$order->id} has been successfully placed and is now being processed. We will notify you once it is shipped.";

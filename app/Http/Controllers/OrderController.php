@@ -71,8 +71,8 @@ class OrderController extends Controller
         SendOrderEmailJob::dispatch($order, 'Packed');
 
         // Dispatch SMS
-        $smsMessage = "Dear {$order->first_name}, your order #{$order->id} has been carefully packed and is ready for shipment. Thank you for shopping with us!";
-        SendOrderSmsJob::dispatch($order->phone, $smsMessage);
+        // $smsMessage = "Dear {$order->first_name}, your order #{$order->id} has been carefully packed and is ready for shipment. Thank you for shopping with us!";
+        // SendOrderSmsJob::dispatch($order->phone, $smsMessage);
 
         return redirect()->route('admin.order.view', $id)->with('success', 'Order marked as packed successfully.');
     }
@@ -93,8 +93,8 @@ class OrderController extends Controller
         SendOrderEmailJob::dispatch($order, 'Shipped');
 
         // Dispatch SMS
-        $smsMessage = "Dear {$order->first_name}, your order #{$order->id} has been shipped and is on its way. Thank you for shopping with us!";
-        SendOrderSmsJob::dispatch($order->phone, $smsMessage);
+        // $smsMessage = "Dear {$order->first_name}, your order #{$order->id} has been shipped and is on its way. Thank you for shopping with us!";
+        // SendOrderSmsJob::dispatch($order->phone, $smsMessage);
 
         return redirect()->route('admin.order.view', $id)->with('success', 'Order marked as shipped successfully.');
     }
@@ -115,8 +115,8 @@ class OrderController extends Controller
         SendOrderEmailJob::dispatch($order, 'Delivered');
 
         // Dispatch SMS
-        $smsMessage = "Dear {$order->first_name}, we are pleased to inform you that your order #{$order->id} has been successfully delivered. Thank you for choosing us!";
-        SendOrderSmsJob::dispatch($order->phone, $smsMessage);
+        // $smsMessage = "Dear {$order->first_name}, we are pleased to inform you that your order #{$order->id} has been successfully delivered. Thank you for choosing us!";
+        // SendOrderSmsJob::dispatch($order->phone, $smsMessage);
 
         return redirect()->route('admin.order.view', $id)->with('success', 'Order marked as delivered successfully.');
     }
