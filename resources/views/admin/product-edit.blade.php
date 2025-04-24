@@ -225,7 +225,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     @php
-                                    $sizeOptions = ['S', 'M', 'L', 'XL'];
+                                    $sizeOptions = ['S', 'M', 'L', 'XL', 'XXL'];
                                         $stockMap = $product->variants->pluck('stock', 'size')->toArray();
                                     @endphp
 

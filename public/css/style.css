@@ -926,3 +926,32 @@ input[type="radio"]:checked + label .color-circle {
     background-color: var(--primary-color) !important;
     color: var(--secondary-color) !important;
 }
+
+
+.vertical-ticker {
+    height: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.ticker-items {
+    display: flex;
+    flex-direction: column;
+    animation: tickerScroll 10s linear infinite;
+}
+
+@keyframes tickerScroll {
+    0% { transform: translateY(0); }
+    20% { transform: translateY(-40px); }
+    40% { transform: translateY(-80px); }
+    60% { transform: translateY(-120px); }
+    80% { transform: translateY(-160px); }
+    100% { transform: translateY(0); }
+}
+
+.ticker-item {
+    height: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

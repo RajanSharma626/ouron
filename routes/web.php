@@ -75,6 +75,9 @@ Route::post('login/otp-verify', [LoginAuth::class, 'verifyOtp'])->name('verify-o
 // logout
 Route::post('/logout', [LoginAuth::class, 'logout'])->name('logout');
 
+//check User Ares Pin Code
+Route::get('/check-pincode/{pin}', [CheckoutController::class, 'checkPincode']);
+
 //profile
 Route::middleware(['user.auth'])->group(function () {
     Route::get('/profile', [LoginAuth::class, 'profile'])->name('profile');

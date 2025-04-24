@@ -36,6 +36,62 @@ $(document).ready(function () {
     //     });
     // });
 
+    function checkPincode(pin) {
+        // console.log("Checking PIN code:", pin);
+        if (pin.length === 6) {
+            $.ajax({
+                url: `/check-pincode/${pin}`,
+                type: "GET",
+                success: function (res) {
+                    if (res.status) {
+                        $("#pincode-message")
+                            .removeClass("text-danger")
+                            .addClass("text-success")
+                            .text("")
+                            .show();
+
+                            $('#pincode').removeClass('is-invalid');
+                            $('#pincode').addClass('is-valid');
+
+                            $('#checkpout').attr('disabled', false);
+                    } else {
+                        $("#pincode-message")
+                            .removeClass("text-success")
+                            .addClass("text-danger")
+                            .text("Delivery is not available at this PIN code")
+                            .show();
+
+                            $('#pincode').removeClass('is-valid');
+                            $('#pincode').addClass('is-invalid');
+                            $('#checkpout').attr('disabled', true);
+                    }
+                },
+                error: function () {
+                    $("#pincode-message")
+                        .removeClass("text-success")
+                        .addClass("text-danger")
+                        .text("Error checking PIN code")
+                        .show();
+                },
+            });
+        } else {
+            $("#pincode-message").hide();
+        }
+    }
+
+    // Check if old value exists
+    const oldPin = $("#pincode").val();
+    if (oldPin) {
+        checkPincode(oldPin);
+    }
+
+    // Check on input
+    $("#pincode").on("input", function () {
+        // console.log("Input event triggered");
+        const pin = $(this).val();
+        checkPincode(pin);
+    });
+
     let navbars = document.querySelectorAll(".navbar");
 
     window.addEventListener("scroll", function () {
@@ -150,10 +206,13 @@ $(document).ready(function () {
     });
 
     $(document).on("click", ".addToCartBtn", function (e) {
+        e.preventDefault();
+
         let productId = $(this).data("id");
         let size = $("input[name='size']:checked").val();
         let color = $("input[name='color']:checked").val();
 
+        // Step 1: Basic selection check
         if (!size || !color) {
             Swal.fire({
                 icon: "warning",
@@ -163,38 +222,78 @@ $(document).ready(function () {
             return;
         }
 
+        // Step 2: Fetch product details to validate stock
         $.ajax({
-            url: "/cart/add",
-            type: "POST",
-            data: {
-                product_id: productId,
-                size: size,
-                color: color,
-                _token: $('meta[name="csrf-token"]').attr("content"),
-            },
-            success: function (response) {
-                Swal.fire({
-                    icon: "success",
-                    title: "",
-                    showConfirmButton: false,
-                    timer: 1500,
-                    background: "transparent",
-                    customClass: {
-                        icon: "swal-icon-large", // Add a custom class for larger icon
+            url: "/product/details/" + productId,
+            type: "GET",
+            success: function (product) {
+                let sizeStock = product.variantStock[size]; // Check selected size stock
+                let isColorAvailable = product.colors.includes(color); // Check color exists
+
+                if (!isColorAvailable) {
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Color Not Available",
+                        text: "The selected color is not available for this product.",
+                    });
+                    return;
+                }
+
+                if (!sizeStock || parseInt(sizeStock) <= 0) {
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Out of Stock",
+                        text: `The selected size (${size}) is currently out of stock.`,
+                    });
+                    return;
+                }
+
+                // Step 3: Proceed to add to cart
+                $.ajax({
+                    url: "/cart/add",
+                    type: "POST",
+                    data: {
+                        product_id: productId,
+                        size: size,
+                        color: color,
+                        _token: $('meta[name="csrf-token"]').attr("content"),
+                    },
+                    success: function (response) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "",
+                            showConfirmButton: false,
+                            timer: 1500,
+                            background: "transparent",
+                            customClass: {
+                                icon: "swal-icon-large",
+                            },
+                        });
+
+                        let offcanvasElement = document.getElementById("cart");
+                        let offcanvas = new bootstrap.Offcanvas(
+                            offcanvasElement
+                        );
+                        offcanvas.show();
+
+                        loadCart(); // Refresh cart
+                    },
+                    error: function (xhr) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Something went wrong!",
+                            text:
+                                xhr.responseJSON?.message ||
+                                "Please try again.",
+                        });
                     },
                 });
-
-                let offcanvasElement = document.getElementById("cart");
-                let offcanvas = new bootstrap.Offcanvas(offcanvasElement);
-                offcanvas.show();
-
-                loadCart(); // Refresh cart contents
             },
-            error: function (xhr) {
+            error: function () {
                 Swal.fire({
                     icon: "error",
-                    title: "Something went wrong!",
-                    text: xhr.responseJSON?.message || "Please try again.",
+                    title: "Failed to fetch product info",
+                    text: "Please try again later.",
                 });
             },
         });
@@ -236,11 +335,20 @@ $(document).ready(function () {
 
                 cartItems.forEach((item) => {
                     let discountedPrice = item.product.discount_price;
-                    let itemTotal = discountedPrice * item.quantity;
-                    total += itemTotal;
+                    let itemStock = item.available_stock || 0;
+                    let isOutOfStock = itemStock < item.quantity;
+                    let itemTotal = isOutOfStock
+                        ? 0
+                        : discountedPrice * item.quantity;
+
+                    if (!isOutOfStock) {
+                        total += itemTotal;
+                    }
 
                     cartHtml += `
-                        <div class="cart-item d-flex justify-content-between align-items-center py-2 p-md-3 border-bottom">
+                        <div class="cart-item d-flex justify-content-between align-items-center py-2 p-md-3 border-bottom ${
+                            isOutOfStock ? "opacity-50" : ""
+                        }">
                             <div class="d-flex align-items-center">
                                 <img src="${
                                     item.product.firstimage.img
@@ -255,13 +363,18 @@ $(document).ready(function () {
                                     <small class="d-block cart_product_price">SIZE: ${
                                         item.size || "N/A"
                                     }</small>
+                                    ${
+                                        isOutOfStock
+                                            ? '<small class="text-danger">Out of Stock</small>'
+                                            : ""
+                                    }
                                     <div class="d-flex">
                                         <div class="d-flex align-items-center border px-2 rounded-pill">
                                             <button class="btn btn-sm border-0 px-2 update-cart" data-id="${
                                                 item.id
                                             }" data-quantity="${
                         item.quantity - 1
-                    }">-</button>
+                    }" ${isOutOfStock ? "disabled" : ""}>-</button>
                                             <span class="fw-bold mx-2">${
                                                 item.quantity
                                             }</span>
@@ -269,7 +382,7 @@ $(document).ready(function () {
                                                 item.id
                                             }" data-quantity="${
                         item.quantity + 1
-                    }">+</button>
+                    }" ${isOutOfStock ? "disabled" : ""}>+</button>
                                         </div>
                                         <button class="btn btn-sm text-danger ms-md-3 delete-cart" data-id="${
                                             item.id
@@ -280,9 +393,9 @@ $(document).ready(function () {
                                 </div>
                             </div>
                             <div class="d-flex align-items-center">
-                                <span class="fw-bold text-end me-3 cart_product_title text-nowrap">RS. ${itemTotal.toFixed(
-                                    2
-                                )}</span>
+                                <span class="fw-bold text-end me-3 cart_product_title text-nowrap">
+                                    RS. ${itemTotal.toFixed(2)}
+                                </span>
                             </div>
                         </div>`;
                 });

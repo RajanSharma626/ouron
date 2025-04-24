@@ -218,7 +218,7 @@
                             <div class="col-12 d-flex gap-md-3 py-2">
                                 @php
                                     $variantStock = $product->variants->pluck('stock', 'size')->toArray();
-                                    $sizeList = ['XS', 'S', 'M', 'L', 'XL'];
+                                    $sizeList = [ 'S', 'M', 'L', 'XL', 'XXL'];
                                     $firstAvailable = collect($variantStock)->filter(fn($stock) => $stock > 0)->keys()->first();
                                 @endphp
 
@@ -274,16 +274,6 @@
                                 @else
                                     <button type="button" class="checkout_btn w-100 opacity-50" disabled>Out of
                                         Stock</button>
-                                @endif
-
-                                @if ($errors->any())
-                                    <div class="alert alert-danger">
-                                        <ul class="mb-0">
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
                                 @endif
                             </div>
                         </div>

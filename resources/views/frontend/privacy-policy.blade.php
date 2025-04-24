@@ -24,6 +24,10 @@
                                 your personal information. This Privacy Policy explains how we collect, use, and safeguard
                                 your
                                 data when you visit <a href="mailto:www.ouron.in">www.ouron.in</a> ("Website").
+
+                                OURON LIFESTYLE & CO. ("we," "us," "our") values your privacy and is committed to protecting
+                                your personal information. This Privacy Policy explains how we collect, use, and safeguard
+                                your data when you visit <a href="www.ouron.in">www.ouron.in</a> ("Website").
                             </small>
                         </p>
 
@@ -41,7 +45,6 @@
                         </p>
                         <p>
                             <small>
-
                                 When you make a purchase or interact with our Website, we may collect:
                             </small>
                         </p>
@@ -227,23 +230,6 @@
                             </small>
                         </p>
 
-                        <li>
-                            <h1 class="fs-4">
-                                Refund, Return, and Exchange Policy
-                            </h1>
-                        </li>
-
-                        <p>
-                            <small>
-
-                                Please note that all purchases made on our Website are final. We do not offer refunds,
-                                returns,
-                                or exchanges under any circumstances. Kindly review your order carefully before proceeding
-                                with
-                                the payment.
-                            </small>
-                        </p>
-
 
                         <li>
                             <h1 class="fs-4">
@@ -254,12 +240,104 @@
                         <p>
                             <small>
 
-                                You can request access, correction, or deletion of your personal information by contacting
-                                us at
+                                For questions about this Privacy Policy or to request changes to your personal data, reach
+                                out to us at
                                 <a href="mailto:contact@ouron.in.">contact@ouron.in</a>.
                             </small>
                         </p>
                     </ol>
+
+
+                    <h1 class="fs-4">Privacy Policy </h1>
+                    <p>
+                        Thank you for accessing/shopping at OURON.IN. This site is owned by OURON LIFESTYLE & CO.
+                        (hereinafter referred to as “OURON”). By accessing, shopping on this site, you indicate your
+                        unconditional acceptance of these terms & conditions. We reserve this right, in our sole discretion,
+                        to update or revise these terms & conditions. Continued use of the site following the posting of any
+                        changes to the ‘terms & conditions’, constitutes your acceptance of those changes. At “OURON”, we
+                        try our best to create a space where you can explore and shop for all your favorite things in a safe
+                        and secure environment. All products and information displayed on “OURON” constitutes an "invitation
+                        to offer". “OURON LIFESTYLE & CO.” reserves the right to accept or reject your offer. Your order for
+                        purchase, constitutes your "offer" which shall be subject to the terms and conditions as listed
+                        below.
+                    </p>
+
+                    <ul class="mb-5">
+                        <li>
+                            <h1 class="fs-6">
+                                Eligibility to use our site
+                            </h1>
+                            <p>
+                                <small>
+                                    Use of the Site is available only to persons who can legally enter into contracts under
+                                    applicable laws. Persons who are "incompetent to contract", within the meaning of the
+                                    Indian Contract Act, 1872 including un-discharged insolvents etc. are not eligible to
+                                    use the Site. “OURON LIFESTYLE & CO.” reserves the right to terminate your access to the
+                                    Site if it discovers that you are under the age of 18 years or suffers from any other
+                                    disability, as recognized under Indian Contract Act, 1872.
+                                </small>
+                            </p>
+                        </li>
+                        <li>
+                            <h1 class="fs-6">
+                                Membership
+                            </h1>
+                            <p>
+                                <small>
+                                    Although it's not essential to have an account to shop with “OURON”, you can shop as a
+                                    guest. As a member, you agree to provide true, accurate, current, and complete
+                                    information about yourself as prompted by the site's registration form. Registration
+                                    where prohibited under any law shall be void. “OURON LIFESTYLE & CO.” reserves the right
+                                    to revoke or terminate your registration for any reason at any time, without notice.
+                                </small>
+                            </p>
+                        </li>
+                        <li>
+                            <h1 class="fs-6">
+                                Electronic Communications
+                            </h1>
+                            <p>
+                                <small>
+                                    When you use the site or send emails or other data, information or communicate to us,
+                                    you agree and understand that you are communicating with us electronically and give your
+                                    consent to receive communications electronically from us periodically, when required.
+                                </small>
+                            </p>
+                        </li>
+                        <li>
+                            <h1 class="fs-6">
+                                Reviews, Feedback, Submissions
+                            </h1>
+                            <p>
+                                <small>
+                                    All reviews, comments, feedback, postcards, suggestions, ideas, and other submissions
+                                    disclosed, submitted or offered to “OURON” directly or otherwise disclosed, submitted or
+                                    offered in connection with your use of this Site (collectively referred to "Comments")
+                                    will remain “OURON LIFESTYLE & CO.” property. Such disclosure, submission or offer of
+                                    any comments shall constitute an assignment to “OURON” of all worldwide rights, titles
+                                    and interests in all copyrights and other intellectual properties in the comments, thus,
+                                    it exclusively owns all such rights, titles and interests and shall not be limited in
+                                    any way in its use, commercial or otherwise.
+                                </small>
+                            </p>
+                        </li>
+                        <li>
+                            <h1 class="fs-6">
+                                Accuracy of Content/ Information of Products on the Web Site
+                            </h1>
+                            <p>
+                                <small>
+                                    While “OURON” strives to provide accurate product and pricing information, typographical
+                                    errors may occur. In the event that a product is listed at an incorrect price or with
+                                    incorrect information due to an error in pricing or product information, “OURON
+                                    LIFESTYLE & CO.” shall have the right, on our sole discretion, to modify the price of
+                                    the products, or information of the products or to refuse or cancel any orders placed
+                                    for that product, unless the product has already been dispatched.
+                                </small>
+                            </p>
+                        </li>
+                    </ul>
+
                 </div>
 
             </div>

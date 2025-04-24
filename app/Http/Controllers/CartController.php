@@ -75,17 +75,24 @@ class CartController extends Controller
         if (Auth::check()) {
             $userId = Auth::id();
             $cartItems = CartItem::where('user_id', $userId)
-                ->with(['product', 'product.firstimage'])
+                ->with(['product', 'product.firstimage', 'product.variants'])
                 ->get();
         } else {
             $sessionId = session()->getId();
             $cartItems = CartItem::where('session_id', $sessionId)
-                ->with(['product', 'product.firstimage'])
+                ->with(['product', 'product.firstimage', 'product.variants'])
                 ->get();
         }
 
+        // Attach available stock for the selected size
+        $cartItems->each(function ($item) {
+            $variant = $item->product->variants->where('size', $item->size)->first();
+            $item->available_stock = $variant ? $variant->stock : 0;
+        });
+
         return response()->json($cartItems);
     }
+
 
     // Update quantity
     public function updateCart(Request $request)
@@ -142,7 +149,7 @@ class CartController extends Controller
         ];
 
         $handle = fopen('php://temp', 'r+');
-        fputcsv($handle, ['ID', 'Product Name', 'Quantity','Category', 'Size', 'Color', 'User Name', 'User Email', 'User Phone']);
+        fputcsv($handle, ['ID', 'Product Name', 'Quantity', 'Category', 'Size', 'Color', 'User Name', 'User Email', 'User Phone']);
 
         foreach ($cartItems as $cartItem) {
             fputcsv($handle, [

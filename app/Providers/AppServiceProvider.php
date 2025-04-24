@@ -26,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
         View::composer('frontend.layouts.header', function ($view) {
             $categories = Category::all(); // Fetch all categories
             $collection = Collections::all();
-            $coupons = Coupon::get();
+            $coupons = Coupon::latest()->first();
             $view->with('collections', $collection);
             $view->with('categories', $categories);
             $view->with('coupon', $coupons);

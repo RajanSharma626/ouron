@@ -20,10 +20,59 @@ class CheckoutController extends Controller
 {
     public function index()
     {
-        $cart = CartItem::with(['product', 'product.firstImage'])->where('user_id', Auth::id())->get();
+        $cart = CartItem::where('user_id', Auth::id())
+            ->with(['product', 'product.firstImage', 'product.variants'])
+            ->get()
+            ->filter(function ($item) {
+                $variant = $item->product->variants->firstWhere('size', $item->size);
+                return $variant && $variant->stock >= $item->quantity;
+            });
+
         $defaultAddress = UserAddress::where('user_id', Auth::id())->where('default_address', 1)->first();
+
+        // Check if there's a coupon in session
+        if (session()->has('discount')) {
+            $couponCode = session('discount.coupon_code');
+            $coupon = Coupon::where('coupon_code', $couponCode)
+                ->where('status', 'active')
+                ->where('start_date', '<=', now())
+                ->where('end_date', '>=', now())
+                ->first();
+
+            $isValid = false;
+
+            if ($coupon) {
+                foreach ($cart as $item) {
+                    $product = $item->product;
+
+                    switch ($coupon->for_type) {
+                        case 'all':
+                            $isValid = true;
+                            break;
+                        case 'category':
+                            $isValid = ($coupon->category_id == NULL || $coupon->category_id == $product->category_id);
+                            break;
+                        case 'collection':
+                            $isValid = ($coupon->collection_id == NULL || $coupon->collection_id == $product->collection_id);
+                            break;
+                        case 'product':
+                            $isValid = ($coupon->product_id == NULL || $coupon->product_id == $product->id);
+                            break;
+                    }
+
+                    if ($isValid) break;
+                }
+            }
+
+            // If invalid, remove from session and flash message
+            if (!$isValid) {
+                session()->forget('discount');
+            }
+        }
+
         return view('frontend.checkout', compact('cart', 'defaultAddress'));
     }
+
 
     public function store(Request $request)
     {
@@ -89,19 +138,19 @@ class CheckoutController extends Controller
         foreach ($cart as $item) {
             // Create order item
             OrderItem::create([
-            'order_id' => $order->id,
-            'product_id' => $item->product_id,
-            'quantity' => $item->quantity,
-            'price' => $item->product->discount_price,
-            'size' => $item->size,
-            'color' => $item->color
+                'order_id' => $order->id,
+                'product_id' => $item->product_id,
+                'quantity' => $item->quantity,
+                'price' => $item->product->discount_price,
+                'size' => $item->size,
+                'color' => $item->color
             ]);
 
             // Deduct stock from product table
             $product = Product::find($item->product_id);
             if ($product) {
-            $product->stock -= $item->quantity;
-            $product->save();
+                $product->stock -= $item->quantity;
+                $product->save();
             }
         }
 
@@ -170,7 +219,7 @@ class CheckoutController extends Controller
         }
 
 
-        return redirect()->route('order.success',$order->id)->with('success', 'Order placed successfully!');
+        return redirect()->route('order.success', $order->id)->with('success', 'Order placed successfully!');
     }
 
     public function buy()
@@ -192,7 +241,16 @@ class CheckoutController extends Controller
         ]);
 
         // Fetch the product details
-        $product = Product::with('firstImage')->findOrFail($request->id);
+        $product = Product::with('firstImage', 'variants')->findOrFail($request->id);
+        $variant = $product->variants()
+            ->where('size', $request->size)
+            ->first();
+
+        // If variant does not exist or stock is 0
+        if (!$variant || $variant->stock < 1) {
+            return redirect()->back()->with('error', 'Selected variant is out of stock.');
+        }
+
         $defaultAddress = UserAddress::where('user_id', Auth::id())->where('default_address', 1)->first();
 
         // Store in session (temporary order)
@@ -311,7 +369,35 @@ class CheckoutController extends Controller
             return redirect()->route('checkout')->with('coupon_error', 'Invalid or expired coupon code.');
         }
 
-        // Store the coupon discount in session
+        $cartItems = CartItem::with('product')->where('user_id', Auth::id())->get();
+
+        $isValid = false;
+
+        foreach ($cartItems as $item) {
+            $product = $item->product;
+
+            switch ($coupon->for_type) {
+                case 'all':
+                    $isValid = true;
+                    break;
+                case 'category':
+                    $isValid = ($coupon->category_id == NULL || $coupon->category_id == $product->category_id);
+                    break;
+                case 'collection':
+                    $isValid = ($coupon->collection_id == NULL || $coupon->collection_id == $product->collection_id);
+                    break;
+                case 'product':
+                    $isValid = ($coupon->product_id == NULL || $coupon->product_id == $product->id);
+                    break;
+            }
+
+            if ($isValid) break; // No need to check further if valid
+        }
+
+        if (!$isValid) {
+            return redirect()->route('checkout')->with('coupon_error', 'Invalid Coupon');
+        }
+
         session(['discount' => [
             'value' => $coupon->discount_value,
             'type' => $coupon->coupon_type,
@@ -321,6 +407,7 @@ class CheckoutController extends Controller
         return redirect()->route('checkout')->with('coupon_success', 'Coupon applied successfully!');
     }
 
+
     public function removeCoupon()
     {
         if (session()->has('discount')) {
@@ -329,5 +416,49 @@ class CheckoutController extends Controller
         }
 
         return redirect()->route('checkout')->with('coupon_error', 'No coupon applied to remove.');
+    }
+
+
+    public function checkPincode($pin)
+    {
+        $token = $this->getShiprocketToken();
+
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->get('https://apiv2.shiprocket.in/v1/external/courier/serviceability/', [
+            'pickup_postcode' => '395006', // your warehouse pincode
+            'delivery_postcode' => $pin,
+            'cod' => 0,
+            'weight' => 1,
+            'declared_value' => 500
+        ]);
+
+        $data = $response->json();
+
+        // Log for debugging
+        // Log::info('Shiprocket Pincode Check', ['response' => $data]);
+
+        if (isset($data['data']['available_courier_companies']) && count($data['data']['available_courier_companies']) > 0) {
+            return response()->json(['status' => true]);
+        }
+
+        $errorMessage = $data['message'] ?? 'Delivery is not available at this PIN code';
+        return response()->json([
+            'status' => false,
+            'message' => $errorMessage
+        ]);
+    }
+
+
+
+
+    private function getShiprocketToken()
+    {
+        $response = Http::post('https://apiv2.shiprocket.in/v1/external/auth/login', [
+            'email' => env('SHIPROCKET_EMAIL'),
+            'password' => env('SHIPROCKET_PASSWORD'),
+        ]);
+
+        return $response['token'];
     }
 }

@@ -176,7 +176,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     @php
-                                        $sizeOptions = ['S', 'M', 'L', 'XL'];
+                                        $sizeOptions = ['S', 'M', 'L', 'XL', 'XXL'];
                                     @endphp
 
                                     @foreach ($sizeOptions as $size)

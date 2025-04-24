@@ -15,7 +15,7 @@ class HomeController extends Controller
 
         $userId = Auth::id();
 
-        $newProducts = Product::with(['firstimage', 'secondimage'])
+        $newProducts = Product::with(['firstimage', 'secondimage', 'variants'])
             ->latest()
             ->take(4)
             ->whereNull('deleted_at')
@@ -27,7 +27,7 @@ class HomeController extends Controller
             });
 
 
-        $allProducts = Product::with(['firstimage', 'secondimage'])
+        $allProducts = Product::with(['firstimage', 'secondimage', 'variants'])
             ->latest()
             ->take(8)
             ->whereNull('deleted_at')
@@ -39,7 +39,7 @@ class HomeController extends Controller
             });
 
 
-        $bestSellerProducts = Product::with(['firstimage', 'secondimage'])
+        $bestSellerProducts = Product::with(['firstimage', 'secondimage', 'variants'])
             ->latest()
             ->take(8)
             ->whereNull('deleted_at')

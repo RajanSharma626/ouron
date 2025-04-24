@@ -1,16 +1,18 @@
 <header>
-    @if ($coupon->count() > 0)
-        @foreach ($coupon as $coupon)
-            <div class="fs-07rem text-center primary-bg text-white py-2">
-                @if ($coupon->coupon_type == 'percentage')
-                    <strong>Coupon Offer:</strong> Use code <span class="fw-bold">{{ $coupon->coupon_code }}</span> at
-                    checkout for a {{ number_format($coupon->discount_value, 0) }}% discount!
-                @elseif ($coupon->coupon_type == 'fixed_amount')
-                    <strong>Coupon Offer:</strong> Use code <span class="fw-bold">{{ $coupon->coupon_code }}</span> at
-                    checkout for a ₹{{ number_format($coupon->discount_value, 0) }} discount!
-                @endif
-            </div>
-        @endforeach
+    @if ($coupon)
+        <div class="fs-07rem text-center primary-bg text-white py-2">
+
+            @if ($coupon->coupon_type == 'percentage')
+                Use code <span class="fw-bold">{{ $coupon->coupon_code }}</span> at
+                checkout for a {{ number_format($coupon->discount_value, 0) }}% discount!
+            @elseif ($coupon->coupon_type == 'fixed_amount')
+                Use code <span class="fw-bold">{{ $coupon->coupon_code }}</span> at
+                checkout for a ₹{{ number_format($coupon->discount_value, 0) }} discount!
+            @elseif ($coupon->coupon_type == 'free_shipping')
+                Use code <span class="fw-bold">{{ $coupon->coupon_code }}</span> at
+                checkout for free shipping!
+            @endif
+        </div>
     @endif
     <nav class="navbar navbar-expand-lg py-2 secondary-bg d-none d-lg-block">
         <div class="container-fluid px-4">

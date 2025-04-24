@@ -138,6 +138,15 @@
                                             </label>
                                         </div>
                                     </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="coupons-type"
+                                                id="flexRadioDefault14" value="free_shipping" {{ old('coupons-type') == 'free_shipping' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="flexRadioDefault14">
+                                                Fixed Amount
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
                                 @error('coupons-type')
                                     <div class="text-danger">{{ $message }}</div>

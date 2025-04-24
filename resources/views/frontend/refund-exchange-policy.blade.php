@@ -16,20 +16,17 @@
                     </h5>
 
                     <p>
-
                         <small>
                             By using the Ouron.in website and/or placing an order for our products, you agree to the terms
                             outlined in this Refund Policy. If you do not agree with these terms, we advise you not to
-                            proceed
-                            with a purchase.
+                            proceed with a purchase.
                         </small>
                     </p>
 
                     <p>
                         <small>
                             We reserve the right to update this policy at any time, so we recommend reviewing it
-                            periodically to
-                            stay informed of any changes.
+                            periodically to stay informed of any changes.
                         </small>
                     </p>
 
@@ -38,32 +35,27 @@
                     </h5>
                     <p>
                         <small>
-                            We offer returns within 7 days from the date of delivery. Once your return request has
-                            been accepted, a confirmation email will be sent to your registered email, and our logistics
-                            partner
+                            We offer returns within 7 days from the date of delivery. Once your return request has been
+                            accepted, a confirmation email will be sent to your registered email, and our logistics partner
                             will attempt pickup within 24-48 hours. We do not accept exchanges due to company policy.
                         </small>
                     </p>
                     <ul class="mb-5">
                         <li>
                             <small>
-                                <b>Pickup Attempts:</b> Two pickup attempts will be made. If unsuccessful, you
-                                will need to ship the product back to our warehouse at your expense. Reverse pickup is
-                                subject
-                                to service availability in your area.
+                                <b>Pickup Attempts:</b> Two pickup attempts will be made. If unsuccessful, you will need to
+                                ship the product back to our warehouse at your expense. Reverse pickup is subject to service
+                                availability in your area.
                             </small>
                         </li>
                         <li>
                             <small>
-
-                                <b>Quality Check:</b> Upon receiving the returned product at our warehouse, it
-                                will go through a quality check. Once approved, the return process will proceed.
+                                <b>Quality Check:</b> Upon receiving the returned product at our warehouse, it will go
+                                through a quality check. Once approved, the return process will proceed.
                             </small>
-
                         </li>
                         <li>
                             <small>
-
                                 <b>Processing Time:</b> Return requests are processed within 7-10 working days.
                             </small>
 
@@ -76,11 +68,10 @@
 
                     <p>
                         <small>
-                            For all return orders, refunds are issued in the form of store credit once the product passes
-                            our
-                            quality check. The store credit will be sent to your registered email and can be redeemed online
-                            or
-                            at any of our stores.
+                            For all return orders, refunds will be issued to the original payment method once the returned
+                            product passes our quality check. The refund amount will be credited directly to your bank
+                            account or the payment method used during purchase. Please allow <b>5–7 business days for the
+                                amount to reflect after the quality check is completed</b>.
                         </small>
                     </p>
 
@@ -90,24 +81,14 @@
                         </small>
                     </p>
                     <ul class="mb-5">
-                        <li class=""> <small>
-                                Products must be returned in their original condition, unworn, unwashed, and
-                            </small>
-                            undamaged, with all tags and packaging intact.
-                        </li>
-                        <li class=""> <small>
-
-                                Products showing signs of wear or use will not be eligible for return.
+                        <li class=""> 
+                            <small>
+                            Products must be returned in their original condition, unworn, unwashed, and undamaged, with all tags and packaging intact.
                             </small>
                         </li>
-                        <li class=""> <small>
-
-                                Store credits are valid for 3 months and are non-refundable.
-                            </small>
-                        </li>
-                        <li class=""> <small>
-
-                                Shipping charges are non-refundable.
+                        <li class=""> 
+                            <small>
+                            Products showing signs of wear or use will not be eligible for return.
                             </small>
                         </li>
                     </ul>
@@ -119,15 +100,13 @@
                         <li class="">
                             <small>
 
-                                <b>Cash on Delivery (COD) Orders:</b> Cancellations are only allowed before the
-                                order is dispatched from our warehouse.
+                                <b>Cash on Delivery (COD) Orders:</b> You can cancel your order only before it is dispatched from our warehouse.
                             </small>
                         </li>
                         <li class="">
                             <small>
 
-                                <b>Prepaid Orders:</b> All prepaid orders are final and non-refundable. Any
-                                refunds will be issued in the form of store credit.
+                                <b>Prepaid Orders:</b> All prepaid orders are final and cannot be cancelled. However, you may return the product after delivery as per our return policy.
                             </small>
 
                     </ul>
@@ -205,7 +184,7 @@
                     <p>
                         <small>
 
-                            <b> We reserve the right to reject return/exchange requests if the above conditions are not
+                            <b> We reserve the right to reject return requests if the above conditions are not
                                 met.</b>
                         </small>
                     </p>
@@ -231,7 +210,7 @@
 
                                 <i class="bi bi-telephone-inbound"></i> Phone: <a class="primary-color"
                                     href="tel:+91 8799232708">+91
-                                    8799232708</a>
+                                    8799 232 708</a>
                             </small>
                         </li>
                         {{-- <li class=""><i class="bi bi-clock-history"></i> Support Hours: <b>Monday – Saturday</b>
@@ -244,7 +223,7 @@
                     <p>
                         <small>
 
-                            All Blind Box or special promotional items are final sale—no returns or exchanges. Please order
+                            All Blind Box or special promotional items are final sale—no returns. Please order
                             only
                             if you accept the random selection process.
                         </small>

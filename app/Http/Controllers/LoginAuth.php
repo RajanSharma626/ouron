@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\CartItem;
 use App\Models\User;
+use Brevo\Client\Api\TransactionalSMSApi;
+use Brevo\Client\Configuration;
+use Brevo\Client\Model\SendTransacSms;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -116,6 +120,49 @@ class LoginAuth extends Controller
             Log::error("Twilio Error: " . $e->getMessage());
             throw new \Exception("Error sending OTP via Twilio: " . $e->getMessage());
         }
+
+
+        // $apiKey = env('BREVO_API_KEY');
+        // $sender = env('BREVO_SENDER');
+
+        // try {
+        //     // Debugging: Check if credentials are loaded
+        //     if (!$apiKey) {
+        //         Log::error("Brevo API key is missing in .env");
+        //         throw new \Exception("Brevo API key is missing. Check your .env file.");
+        //     }
+
+        //     // Configure API key authorization
+        //     $config = Configuration::getDefaultConfiguration()
+        //         ->setApiKey('api-key', $apiKey);
+
+        //     // Initialize API instance
+        //     $apiInstance = new TransactionalSMSApi(
+        //         new Client(),
+        //         $config
+        //     );
+
+        //     // Create SMS request model
+        //     $sendTransacSms = new SendTransacSms();
+        //     $sendTransacSms['sender'] = $sender;
+        //     $sendTransacSms['recipient'] = $phone;
+        //     $sendTransacSms['content'] = "Your Ouron Login OTP is: $otp";
+        //     $sendTransacSms['type'] = 'transactional';
+
+        //     // Send the SMS
+        //     $result = $apiInstance->sendTransacSms($sendTransacSms);
+
+        //     // Log success
+        //     Log::info("Brevo SMS sent successfully", [
+        //         'messageId' => $result->getMessageId(),
+        //         'remainingCredits' => $result->getRemainingCredits()
+        //     ]);
+
+        //     return $result;
+        // } catch (\Exception $e) {
+        //     Log::error("Brevo Error: " . $e->getMessage());
+        //     throw new \Exception("Error sending OTP via Brevo: " . $e->getMessage());
+        // }
     }
 
 
@@ -166,7 +213,7 @@ class LoginAuth extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|regex:/^[a-zA-Z0-9._%+-]+@gmail\.com$/|unique:users,email,' . Auth::id(),
-            'phone' => 'required',
+            'phone' => 'required|unique:users,phone,' . Auth::id(),
         ]);
 
         // Normalize the phone number

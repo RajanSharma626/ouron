@@ -42,7 +42,7 @@
                                                     </p>
                                                 </div>
                                                 <div class="ml-auto">
-                                                    <h6>₹{{ number_format($item->product->discount_price , 2) }}
+                                                    <h6>₹{{ number_format($item->product->discount_price, 2) }}
                                                     </h6>
                                                 </div>
                                             </div>
@@ -81,8 +81,7 @@
                                 // Calculate subtotal from cart items
                                 $subtotal = 0;
                                 foreach ($cart as $item) {
-                                    $price =
-                                        $item->product->discount_price ;
+                                    $price = $item->product->discount_price;
                                     $subtotal += $price * $item->quantity;
                                 }
 
@@ -107,17 +106,23 @@
                                 @if ($discountAmount > 0)
                                     <li class="list-group-item d-flex justify-content-between custom-card-bg">
                                         <span>Discount Coupon : <small class="text-secondary">
-                                                <s>{{ $discount['coupon_code'] }}</s></small> <form method="POST" action="{{ route('checkout.removeCoupon') }}">
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-link btn-sm text-danger p-0">Remove</button>
-                                                </form></span>
-                                        <strong>-₹{{ number_format($discountAmount, 2) }} @if ($discount['type'] == 'percentage')  ({{number_format($discount['value'],0)}}%) @endif</strong>
+                                                <s>{{ $discount['coupon_code'] }}</s></small>
+                                            <form method="POST" action="{{ route('checkout.removeCoupon') }}">
+                                                @csrf
+                                                <button type="submit"
+                                                    class="btn btn-link btn-sm text-danger p-0">Remove</button>
+                                            </form>
+                                        </span>
+                                        <strong>-₹{{ number_format($discountAmount, 2) }} @if ($discount['type'] == 'percentage')
+                                                ({{ number_format($discount['value'], 0) }}%)
+                                            @endif
+                                        </strong>
                                     </li>
                                 @endif
                                 <li class="list-group-item d-flex justify-content-between custom-card-bg">
                                     <span>Shipping</span>
                                     <span id="shippingCost">
-                                        <small class="text-muted">Enter shipping address</small>
+                                        <small class="text-muted"><s>₹100</s> <span class="text-success">Free</span></small>
                                     </span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between custom-card-bg">
@@ -351,9 +356,14 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
+
                                             <input type="text" class="form-control py-2 custom-card-bg"
-                                                placeholder="PIN Code *" name="pin_code"
-                                                value="{{ old('pin_code', $defaultAddress->pin_code ?? '') }}" required>
+                                                placeholder="PIN Code *" name="pin_code" id="pincode"
+                                                value="{{ old('pin_code', $defaultAddress->pin_code ?? '') }}"
+                                                maxlength="6" pattern="\d{6}" title="Please enter a valid 6-digit PIN code" required>
+                                            <small id="pincode-message" class="text-danger d-block mt-1"
+                                                style="display:none;"></small>
+
                                             @error('pin_code')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
@@ -394,7 +404,7 @@
                                             <a href="{{ route('home') }}" class="checkout_btn w-100 link-normal">Continue
                                                 Shopping</a>
                                         @else
-                                            <button type="submit" class="checkout_btn w-100">Buy Now</button>
+                                            <button type="submit" class="checkout_btn w-100" id="checkpout" disabled>Buy Now</button>
                                         @endif
                                     </div>
                                 </div>
@@ -442,6 +452,7 @@
                 .catch(error => console.log(error));
         });
     </script>
+
 
 
 @endsection
