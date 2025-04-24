@@ -58,6 +58,12 @@ class OrderController extends Controller
     public function cancel(Request $request, $id)
     {
         $order = Order::findOrFail($id);
+
+        // Check if the order is not already confirmed
+        if ($order->status === 'Confirmed') {
+            return redirect()->route('orders.show', $id)->withErrors(['error' => 'Order cannot be cancelled as it is already Prepared.']);
+        }
+
         $order->update(['status' => 'Cancelled']);
 
         // Store history
@@ -260,6 +266,28 @@ class OrderController extends Controller
         // SendOrderSmsJob::dispatch($order->phone, $smsMessage);
 
         return redirect()->route('admin.order.view', $id)->with('success', 'Order marked as shipped successfully.');
+    }
+
+    public function outForDelivery(Request $request, $id)
+    {
+        $order = Order::findOrFail($id);
+        $order->update(['status' => 'Out for Delivery']);
+
+        // Store history
+        $order->statusHistories()->create([
+            'status' => 'out_for_delivery',
+            'comment' => $request->input('comment', null),
+            'changed_by' => Auth::id(),
+        ]);
+
+        // Dispatch Email Job
+        SendOrderEmailJob::dispatch($order, 'Out for Delivery');
+
+        // Dispatch SMS
+        // $smsMessage = "Dear {$order->first_name}, your order #{$order->id} is out for delivery. Thank you for shopping with us!";
+        // SendOrderSmsJob::dispatch($order->phone, $smsMessage);
+
+        return redirect()->route('admin.order.view', $id)->with('success', 'Order marked as out for delivery successfully.');
     }
 
     public function delivered(Request $request, $id)

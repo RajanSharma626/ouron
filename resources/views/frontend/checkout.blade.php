@@ -360,7 +360,8 @@
                                             <input type="text" class="form-control py-2 custom-card-bg"
                                                 placeholder="PIN Code *" name="pin_code" id="pincode"
                                                 value="{{ old('pin_code', $defaultAddress->pin_code ?? '') }}"
-                                                maxlength="6" pattern="\d{6}" title="Please enter a valid 6-digit PIN code" required>
+                                                maxlength="6" pattern="\d{6}"
+                                                title="Please enter a valid 6-digit PIN code" required>
                                             <small id="pincode-message" class="text-danger d-block mt-1"
                                                 style="display:none;"></small>
 
@@ -396,7 +397,14 @@
                                             @error('payment_method')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
+                                            @if (session('error'))
+                                                <p class="text-danger">
+                                                    {{ session('error') }}
+                                                </p>
+                                            @endif
                                         </div>
+
+
                                     </div>
 
                                     <div class="col-12 text-end py-3">
@@ -404,7 +412,8 @@
                                             <a href="{{ route('home') }}" class="checkout_btn w-100 link-normal">Continue
                                                 Shopping</a>
                                         @else
-                                            <button type="submit" class="checkout_btn w-100" id="checkpout" disabled>Buy Now</button>
+                                            <button type="submit" class="checkout_btn w-100" id="checkpout" disabled>Buy
+                                                Now</button>
                                         @endif
                                     </div>
                                 </div>

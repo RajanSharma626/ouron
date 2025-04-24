@@ -78,6 +78,9 @@ Route::post('/logout', [LoginAuth::class, 'logout'])->name('logout');
 //check User Ares Pin Code
 Route::get('/check-pincode/{pin}', [CheckoutController::class, 'checkPincode']);
 
+//track order
+Route::get('track/order', [CheckoutController::class,'trackOrder'])->name('track.order');
+
 //profile
 Route::middleware(['user.auth'])->group(function () {
     Route::get('/profile', [LoginAuth::class, 'profile'])->name('profile');

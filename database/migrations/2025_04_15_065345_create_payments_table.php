@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_id')->constrained()->onDelete('cascade');
+            $table->foreignId('order_id')->constrained()->onDelete('cascade')->nullable();
             $table->string('transaction_id')->unique();
             $table->string('payment_type'); // e.g., UPI, PAY_PAGE, etc.
             $table->string('status')->default('PENDING');       // PENDING, SUCCESS, FAILED
             $table->text('response_payload')->nullable(); // Raw response if needed
+            $table->unsignedBigInteger('user_id')->nullable()->after('id');
+            $table->longText('payload')->nullable()->after('status');
             $table->timestamps();
         });
 

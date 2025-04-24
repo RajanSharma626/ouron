@@ -24,7 +24,9 @@ class Order extends Model
         'subtotal',
         'tax',
         'total',
-        'status'
+        'status',
+        'tracking_number',
+        'payment_status',
     ];
 
     public function items()

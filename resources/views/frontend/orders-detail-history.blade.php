@@ -176,15 +176,17 @@
                     <!-- Action Buttons -->
                     <div class="mt-4 d-flex flex-wrap gap-2">
                         @if ($order->status == 'Pending')
-                            <a href="javascript:void(0);" class="btn btn-danger" onclick="CancelOrder('Cancel Order', 'Are you sure you want to cancel this order?', '{{ route('order.cancel', $order->id) }}')">
+                            <a href="javascript:void(0);" class="btn btn-danger"
+                                onclick="CancelOrder('Cancel Order', 'Are you sure you want to cancel this order?', '{{ route('order.cancel', $order->id) }}')">
                                 <i class="bi bi-x-circle me-1"></i>Cancel Order
                             </a>
                         @elseif ($order->status == 'Shipped' || $order->status == 'Out for Delivery')
                             <a href="{{ route('track.order', $order->id) }}" class="btn btn-primary">
                                 <i class="bi bi-truck me-1"></i> Track Order
                             </a>
-                        @elseif ($order->status == 'Delivered')
-                            <a href="javascript:void(0);" class="btn btn-danger" onclick="CancelOrder('Return Order', 'Are you sure you want to return this order?', '{{ route('return.request', $order->id) }}')">
+                        @elseif ($order->status == 'Delivered' && $order->created_at->diffInDays(now()) <= 7)
+                            <a href="javascript:void(0);" class="btn btn-danger"
+                                onclick="CancelOrder('Return Order', 'Are you sure you want to return this order?', '{{ route('return.request', $order->id) }}')">
                                 <i class="bi bi-arrow-left-circle me-1"></i> Return Order
                             </a>
                         @endif
@@ -194,6 +196,31 @@
         </div>
     </section>
 @endsection
+
+@push('script')
+    <script>
+        function CancelOrder(title, text, redirectUrl = null, callback = null) {
+            Swal.fire({
+                title: title || 'Are you sure?',
+                text: text || 'This action cannot be undone.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, proceed',
+                cancelButtonText: 'Cancel',
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    if (redirectUrl) {
+                        window.location.href = redirectUrl;
+                    } else if (typeof callback === 'function') {
+                        callback();
+                    }
+                }
+            });
+        }
+    </script>
+@endpush
 
 @push('styles')
     <style>

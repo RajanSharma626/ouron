@@ -34,21 +34,50 @@
                                     <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
                                         <div>
                                             <h4 class="fw-medium text-dark d-flex align-items-center gap-2">
-                                                #{{ $order->id }}
+                                                Order#{{ $order->id }}
 
                                                 @if ($order->status == 'Pending')
-                                                    <span
-                                                        class="border border-warning text-warning fs-13 px-2 py-1 rounded">Pending</span>
-                                                @elseif ($order->status == 'Confirmed')
-                                                    <span
-                                                        class="border border-success text-success fs-13 px-2 py-1 rounded">Confirmed</span>
-                                                @elseif ($order->status == 'Shipped')
-                                                    <span
-                                                        class="border border-success text-success fs-13 px-2 py-1 rounded">Shipped</span>
-                                                @elseif ($order->status == 'Delivered')
-                                                    <span
-                                                        class="border border-success text-success fs-13 px-2 py-1 rounded">Delivered</span>
-                                                @endif
+                                                <span
+                                                    class="border border-warning text-warning fs-13 px-2 py-1 rounded">Order
+                                                    Placed</span>
+                                            @elseif ($order->status == 'Cancelled')
+                                                <span
+                                                    class="border border-danger text-danger fs-13 px-2 py-1 rounded">Order
+                                                    Cancelled</span>
+                                            @elseif ($order->status == 'Confirmed')
+                                                <span
+                                                    class="border border-success text-success fs-13 px-2 py-1 rounded">Order
+                                                    Confirmed</span>
+                                            @elseif ($order->status == 'Shipped')
+                                                <span
+                                                    class="border border-success text-success fs-13 px-2 py-1 rounded">Order
+                                                    Shipped</span>
+                                            @elseif ($order->status == 'Out for Delivery')
+                                                <span
+                                                    class="border border-success text-success fs-13 px-2 py-1 rounded">Out
+                                                    of Delivery</span>
+                                            @elseif ($order->status == 'Delivered')
+                                                <span
+                                                    class="border border-success text-success fs-13 px-2 py-1 rounded"><i
+                                                        class="bx bx-check-double"></i> Order Delivered </span>
+                                            @elseif ($order->status == 'Returned')
+                                                <span
+                                                    class="border border-danger text-danger fs-13 px-2 py-1 rounded">Order
+                                                    Returned</span>
+                                            @elseif ($order->status == 'Refunded')
+                                                <span
+                                                    class="border border-danger text-danger fs-13 px-2 py-1 rounded">Order
+                                                    Refunded</span>
+                                            @elseif ($order->status == 'Return Requested')
+                                                <span
+                                                    class="border border-warning text-warning fs-13 px-2 py-1 rounded">Return
+                                                    Requested</span>
+                                            @elseif ($order->status == 'Return Approved')
+                                                <span
+                                                    class="border border-success text-success fs-13 px-2 py-1 rounded">Return
+                                                    Approved</span>
+
+                                            @endif
 
                                             </h4>
                                             <p class="mb-0">
@@ -58,7 +87,9 @@
                                         <div>
                                             <a href="{{ route('admin.orders') }}" class="btn btn-outline-secondary">Back</a>
                                             @if ($order->status == 'Pending')
-                                                <a href="#!" class="btn btn-danger">Cancel Order</a>
+                                                <a href="{{ route('admin.order.cancel', $order->id) }}"
+                                                    class="btn btn-danger">Cancel
+                                                    Order</a>
                                             @endif
                                         </div>
 
@@ -67,7 +98,7 @@
                                     <div class="mt-4">
                                         <h4 class="fw-medium text-dark">Progress</h4>
                                     </div>
-                                    <div class="row row-cols-xxl-4 row-cols-md-2 row-cols-1">
+                                    <div class="row row-cols-md-4">
                                         <div class="col">
                                             <div class="progress mt-3" style="height: 10px;">
                                                 <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
@@ -79,9 +110,9 @@
                                         </div>
                                         <div class="col">
                                             <div class="progress mt-3" style="height: 10px;">
-                                                <div class="progress-bar progress-bar-striped progress-bar-animated {{ $order->status == 'Pending' ? 'bg-warning' : ($order->status == 'Confirmed' || $order->status == 'Packed' || $order->status == 'Shipped' || $order->status == 'Delivered' ? 'bg-success' : 'bg-primary') }}"
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated {{ $order->status == 'Pending' ? 'bg-warning' : ($order->status == 'Confirmed' || $order->status == 'Shipped' || $order->status == 'Out for Delivery' || $order->status == 'Delivered' || $order->status == 'Returned' || $order->status == 'Refunded' || $order->status == 'Return Requested' || $order->status == 'Return Approved' || $order->status == 'Returned Cancelled' ? 'bg-success' : 'bg-primary') }}"
                                                     role="progressbar"
-                                                    style="width: {{ $order->status == 'Pending' ? '60%' : ($order->status == 'Confirmed' || $order->status == 'Packed' || $order->status == 'Shipped' || $order->status == 'Delivered' ? '100%' : '0%') }}"
+                                                    style="width: {{ $order->status == 'Pending' ? '60%' : ($order->status == 'Confirmed' || $order->status == 'Shipped' || $order->status == 'Out for Delivery' || $order->status == 'Delivered' || $order->status == 'Returned' || $order->status == 'Refunded' || $order->status == 'Return Requested' || $order->status == 'Return Approved' || $order->status == 'Returned Cancelled' ? '100%' : '0%') }}"
                                                     aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
                                                 </div>
                                             </div>
@@ -89,19 +120,9 @@
                                         </div>
                                         <div class="col">
                                             <div class="progress mt-3" style="height: 10px;">
-                                                <div class="progress-bar progress-bar-striped progress-bar-animated {{ $order->status == 'Confirmed' ? 'bg-warning' : ($order->status == 'Packed' || $order->status == 'Shipped' || $order->status == 'Delivered' ? 'bg-success' : 'bg-primary') }}"
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated {{ $order->status == 'Confirmed' ? 'bg-warning' : ($order->status == 'Shipped' || $order->status == 'Out for Delivery' || $order->status == 'Delivered' || $order->status == 'Returned' || $order->status == 'Refunded' || $order->status == 'Return Requested' || $order->status == 'Return Approved' || $order->status == 'Returned Cancelled' ? 'bg-success' : 'bg-primary') }}"
                                                     role="progressbar"
-                                                    style="width: {{ $order->status == 'Confirmed' ? '60%' : ($order->status == 'Packed' || $order->status == 'Shipped' || $order->status == 'Delivered' ? '100%' : '0%') }}"
-                                                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                                                </div>
-                                            </div>
-                                            <p class="mb-0 mt-2">Packed</p>
-                                        </div>
-                                        <div class="col">
-                                            <div class="progress mt-3" style="height: 10px;">
-                                                <div class="progress-bar progress-bar-striped progress-bar-animated {{ $order->status == 'Packed' ? 'bg-warning' : ($order->status == 'Shipped' || $order->status == 'Delivered' ? 'bg-success' : 'bg-primary') }}"
-                                                    role="progressbar"
-                                                    style="width: {{ $order->status == 'Packed' ? '60%' : ($order->status == 'Shipped' || $order->status == 'Delivered' ? '100%' : '0%') }}"
+                                                    style="width: {{ $order->status == 'Confirmed' ? '60%' : ($order->status == 'Shipped' || $order->status == 'Out for Delivery' || $order->status == 'Delivered' || $order->status == 'Returned' || $order->status == 'Refunded' || $order->status == 'Return Requested' || $order->status == 'Return Approved' || $order->status == 'Returned Cancelled' ? '100%' : '0%') }}"
                                                     aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
                                                 </div>
                                             </div>
@@ -109,9 +130,19 @@
                                         </div>
                                         <div class="col">
                                             <div class="progress mt-3" style="height: 10px;">
-                                                <div class="progress-bar progress-bar-striped progress-bar-animated {{ $order->status == 'Shipped' ? 'bg-warning' : ($order->status == 'Delivered' ? 'bg-success' : 'bg-primary') }}"
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated {{ $order->status == 'Shipped' ? 'bg-warning' : ($order->status == 'Out for Delivery' || $order->status == 'Delivered' || $order->status == 'Returned' || $order->status == 'Refunded' || $order->status == 'Return Requested' || $order->status == 'Return Approved' || $order->status == 'Returned Cancelled' ? 'bg-success' : 'bg-primary') }}"
                                                     role="progressbar"
-                                                    style="width: {{ $order->status == 'Shipped' ? '60%' : ($order->status == 'Delivered' ? '100%' : '0%') }}"
+                                                    style="width: {{ $order->status == 'Shipped' ? '60%' : ($order->status == 'Out for Delivery' || $order->status == 'Delivered' || $order->status == 'Returned' || $order->status == 'Refunded' || $order->status == 'Return Requested' || $order->status == 'Return Approved' || $order->status == 'Returned Cancelled' ? '100%' : '0%') }}"
+                                                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                                </div>
+                                            </div>
+                                            <p class="mb-0 mt-2">Out for Delivery</p>
+                                        </div>
+                                        <div class="col">
+                                            <div class="progress mt-3" style="height: 10px;">
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated {{ $order->status == 'Out for Delivery' ? 'bg-warning' : ($order->status == 'Delivered' || $order->status == 'Returned' || $order->status == 'Refunded' || $order->status == 'Return Requested' || $order->status == 'Return Approved' || $order->status == 'Returned Cancelled' ? 'bg-success' : 'bg-primary') }}"
+                                                    role="progressbar"
+                                                    style="width: {{ $order->status == 'Out for Delivery' ? '60%' : ($order->status == 'Delivered' || $order->status == 'Returned' || $order->status == 'Refunded' || $order->status == 'Return Requested' || $order->status == 'Return Approved' || $order->status == 'Returned Cancelled' ? '100%' : '0%') }}"
                                                     aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
                                                 </div>
                                             </div>
@@ -200,6 +231,7 @@
                                                         class="bx bx-check-double"></i></a>
                                             @endif
                                         @endif
+
                                     </div>
                                 </div>
                             </div>

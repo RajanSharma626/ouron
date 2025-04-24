@@ -87,103 +87,53 @@ class CheckoutController extends Controller
             'payment_method' => 'required'
         ]);
 
-        // Remove all non-digit characters from the phone input
         $inputPhone = preg_replace('/\D/', '', $request->phone);
-
-        // If the phone number starts with '91' and is 12 digits long, remove the country code
         if (strlen($inputPhone) == 12 && substr($inputPhone, 0, 2) == '91') {
             $inputPhone = substr($inputPhone, 2);
         }
-
-        // If the phone number is still not exactly 10 digits, return an error
         if (strlen($inputPhone) != 10) {
             return back()->withErrors(['phone' => 'Invalid phone number format.']);
         }
-
-        $request->merge(['phone' => $inputPhone]);
 
         $cart = CartItem::where('user_id', Auth::id())->get();
         if ($cart->isEmpty()) {
             return redirect()->back()->with('error', 'Your cart is empty.');
         }
 
-        // Calculate totals
         $subtotal = 0;
         foreach ($cart as $item) {
-            $price = $item->product->discount_price;
-            $subtotal += $price * $item->quantity;
+            $subtotal += $item->product->discount_price * $item->quantity;
         }
 
         $total = $subtotal;
 
-        // Create Order
-        $order = Order::create([
-            'user_id' => Auth::id(),
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'email' => $request->email,
-            'address' => $request->address,
-            'address2' => $request->address2,
-            'city' => $request->city,
-            'state' => $request->state,
-            'pin_code' => $request->pin_code,
-            'phone' => $inputPhone,
-            'payment_method' => $request->payment_method,
-            'subtotal' => $subtotal,
-            'total' => $total,
-            'status' => 'Pending',
-        ]);
-
-        // Save Order Items
-        foreach ($cart as $item) {
-            // Create order item
-            OrderItem::create([
-                'order_id' => $order->id,
-                'product_id' => $item->product_id,
-                'quantity' => $item->quantity,
-                'price' => $item->product->discount_price,
-                'size' => $item->size,
-                'color' => $item->color
-            ]);
-
-            // Deduct stock from product table
-            $product = Product::find($item->product_id);
-            if ($product) {
-                $product->stock -= $item->quantity;
-                $product->save();
-            }
-        }
-
-        // Dispatch Email Job
-        SendOrderConfirmationJob::dispatch($order);
-
-        // Dispatch SMS
-        // $smsMessage = "Dear {$order->first_name}, thank you for shopping with us! Your order #{$order->id} has been successfully placed and is now being processed. We will notify you once it is shipped.";
-        // SendOrderSmsJob::dispatch($order->phone, $smsMessage);
-
-
-        // 👉 If UPI selected, initiate PhonePe
         if ($request->payment_method === 'UPI') {
             $merchantId = env('PHONEPE_MERCHANT_ID');
             $saltKey = env('PHONEPE_SALT_KEY');
             $saltIndex = env('PHONEPE_SALT_INDEX');
             $baseUrl = env('PHONEPE_BASE_URL');
 
-            Log::info('PhonePe ENV values', [
-                'merchantId' => env('PHONEPE_MERCHANT_ID'),
-                'saltKey' => env('PHONEPE_SALT_KEY'),
-                'saltIndex' => env('PHONEPE_SALT_INDEX'),
-                'baseUrl' => env('PHONEPE_BASE_URL'),
-            ]);
-
-
-            $transactionId = 'ORD_' . $order->id . '_' . time();
+            $transactionId = 'ORD' . Auth::id() . time();
 
             Payment::create([
-                'order_id' => $order->id,
                 'transaction_id' => $transactionId,
                 'payment_type' => 'UPI',
                 'status' => 'PENDING',
+                'user_id' => Auth::id(),
+                'payload' => json_encode([
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'email' => $request->email,
+                'address' => $request->address,
+                'address2' => $request->address2,
+                'city' => $request->city,
+                'state' => $request->state,
+                'pin_code' => $request->pin_code,
+                'phone' => $inputPhone,
+                'payment_method' => $request->payment_method,
+                'subtotal' => $subtotal,
+                'total' => $total,
+            ])
             ]);
 
             $payload = [
@@ -201,30 +151,66 @@ class CheckoutController extends Controller
             $base64Payload = base64_encode($jsonPayload);
             $checksum = hash('sha256', $base64Payload . "/pg/v1/pay" . $saltKey) . "###" . $saltIndex;
 
-
             $response = Http::withHeaders([
                 'Content-Type' => 'application/json',
                 'X-VERIFY' => $checksum
             ])->post($baseUrl . '/pg/v1/pay', ['request' => $base64Payload]);
 
             if ($response->successful() && isset($response['data']['instrumentResponse']['redirectInfo']['url'])) {
-                // Clear the cart
-                CartItem::where('user_id', Auth::id())->delete();
                 return redirect($response['data']['instrumentResponse']['redirectInfo']['url']);
             } else {
                 Log::error('PhonePe payment initiation failed', [
                     'response' => $response->json(),
-                    'order_id' => $order->id,
+                    'transaction_id' => $transactionId,
                 ]);
-                return  redirect()->route('checkout')->with('error', 'Payment failed.');
+                return redirect()->route('checkout')->with('error', 'Payment initiation failed.');
+            }
+        } elseif ($request->payment_method == 'COD') {
+            $order = Order::create([
+                'user_id' => Auth::id(),
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'email' => $request->email,
+                'address' => $request->address,
+                'address2' => $request->address2,
+                'city' => $request->city,
+                'state' => $request->state,
+                'pin_code' => $request->pin_code,
+                'phone' => $inputPhone,
+                'payment_method' => $request->payment_method,
+                'subtotal' => $subtotal,
+                'total' => $total,
+                'status' => 'Pending',
+            ]);
+
+            foreach ($cart as $item) {
+                OrderItem::create([
+                    'order_id' => $order->id,
+                    'product_id' => $item->product_id,
+                    'quantity' => $item->quantity,
+                    'price' => $item->product->discount_price,
+                    'size' => $item->size ?? null,
+                    'color' => $item->color ?? null
+                ]);
+
+                // Deduct stock from product table
+                $product = Product::find($item->product_id);
+                if ($product) {
+                    $product->stock -= $item->quantity;
+                    $product->save();
+                }
             }
 
-            return  redirect()->route('checkout')->with('error', 'Payment failed.');
+            SendOrderConfirmationJob::dispatch($order);
+            
+            CartItem::where('user_id', Auth::id())->delete();
+
+            return redirect()->route('order.success', $order->id)->with('success', 'Order placed successfully!');
         }
 
-        CartItem::where('user_id', Auth::id())->delete();
-        return redirect()->route('order.success', $order->id)->with('success', 'Order placed successfully!');
+        return back()->with('error', 'Unsupported payment method.');
     }
+
 
     public function buy()
     {
