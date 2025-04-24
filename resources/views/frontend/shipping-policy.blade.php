@@ -184,7 +184,7 @@
                             <small>
 
                                 <i class="bi bi-envelope"></i> Email: <a class="primary-color"
-                                    href="mailto:support@ouron.com">support@ouron.com</a>
+                                    href="mailto:support@ouron.in">support@ouron.in</a>
                             </small>
                         </li>
                         <li class="text-normal">

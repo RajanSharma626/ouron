@@ -117,33 +117,89 @@
                                             </div>
                                             <p class="mb-0 mt-2">Delivered</p>
                                         </div>
+                                        <div class="col">
+                                            <div class="progress mt-3" style="height: 10px;">
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated {{ $order->status == 'Return Requested' ? 'bg-warning' : ($order->status == 'Return Approved' || $order->status == 'Returned' || $order->status == 'Return Approved' || $order->status == 'Refunded' ? 'bg-success' : 'bg-primary') }}"
+                                                    role="progressbar"
+                                                    style="width: {{ $order->status == 'Return Requested' ? '60%' : ($order->status == 'Return Approved' || $order->status == 'Returned' || $order->status == 'Return Approved' || $order->status == 'Refunded' ? '100%' : '0%') }}"
+                                                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                                </div>
+                                            </div>
+                                            <p class="mb-0 mt-2">Return Requested</p>
+                                        </div>
+                                        <div class="col">
+                                            <div class="progress mt-3" style="height: 10px;">
+                                                @if (isset($order->status))
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated {{ $order->status == 'Return Approved' ? 'bg-warning' : ($order->status == 'Returned' || $order->status == 'Refunded' ? 'bg-success' : 'bg-primary') }}"
+                                                        role="progressbar"
+                                                        style="width: {{ $order->status == 'Return Approved' ? '60%' : ($order->status == 'Returned' || $order->status == 'Refunded' ? '100%' : '0%') }}"
+                                                        aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                                    </div>
+                                                @else
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+                                                        role="progressbar" style="width: 0%" aria-valuenow="0"
+                                                        aria-valuemin="0" aria-valuemax="100">
+                                                    </div>
+                                                @endif
+                                            </div>
+                                            <p class="mb-0 mt-2">Returned</p>
+                                        </div>
+                                        <div class="col">
+                                            <div class="progress mt-3" style="height: 10px;">
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated {{ $order->status == 'Returned' ? 'bg-warning' : ($order->status == 'Refunded' ? 'bg-success' : 'bg-primary') }}"
+                                                    role="progressbar"
+                                                    style="width: {{ $order->status == 'Returned' ? '60%' : ($order->status == 'Refunded' ? '100%' : '0%') }}"
+                                                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                                </div>
+                                            </div>
+                                            <p class="mb-0 mt-2">Refunded</p>
+                                        </div>
                                     </div>
                                 </div>
                                 <div
                                     class="card-footer d-flex flex-wrap align-items-center justify-content-between bg-light-subtle gap-2">
                                     <p class=""></p>
                                     <div>
-                                        @if ($order->status == 'Pending')
-                                            <a href="#"
-                                                onclick="confirmOrder('{{ route('admin.order.confirm', $order->id) }}')"
-                                                class="btn btn-primary">Make as Confirm Order</a>
-                                        @elseif ($order->status == 'Confirmed')
-                                            <a href="#"
-                                                onclick="confirmAction2('{{ route('admin.order.packed', $order->id) }}', 'Packed')"
-                                                class="btn btn-primary">Make as Packed</a>
-                                        @elseif ($order->status == 'Packed')
-                                            <a href="#"
-                                                onclick="confirmAction2('{{ route('admin.order.shipped', $order->id) }}', 'Ready to Shipped')"
-                                                class="btn btn-primary">Make as Ready To Shipped</a>
-                                        @elseif ($order->status == 'Shipped')
-                                            <a href="#"
-                                                onclick="confirmAction2('{{ route('admin.order.delivered', $order->id) }}', 'Delivered')"
-                                                class="btn btn-primary">Make as Delivered</a>
-                                        @elseif ($order->status == 'Delivered')
-                                            <a class="btn border-success text-success">Delivered <i
-                                                    class="bx bx-check-double"></i></a>
+                                        @if ($order->status != 'Cancelled')
+                                            @if ($order->status == 'Pending')
+                                                <a href="#"
+                                                    onclick="confirmOrder('{{ route('admin.order.confirm', $order->id) }}')"
+                                                    class="btn btn-primary">Make as Confirm Order</a>
+                                            @elseif ($order->status == 'Confirmed')
+                                                <a href="#"
+                                                    onclick="confirmAction2('{{ route('admin.order.shipped', $order->id) }}', 'Ready to Shipped')"
+                                                    class="btn btn-primary">Make as Ready To Shipped</a>
+                                            @elseif ($order->status == 'Shipped')
+                                                <a href="#"
+                                                    onclick="confirmAction2('{{ route('admin.order.out.of.delivered', $order->id) }}', 'Out for Delivery')"
+                                                    class="btn btn-primary">Make as Out for Delivery</a>
+                                            @elseif ($order->status == 'Out for Delivery')
+                                                <a href="#"
+                                                    onclick="confirmAction2('{{ route('admin.order.delivered', $order->id) }}', 'Delivered')"
+                                                    class="btn btn-primary">Make as Delivered</a>
+                                            @elseif ($order->status == 'Delivered')
+                                                <a class="btn border-success text-success">Delivered <i
+                                                        class="bx bx-check-double"></i></a>
+                                            @elseif ($order->status == 'Return Requested')
+                                                <a href="#"
+                                                    onclick="confirmAction2('{{ route('admin.order.returnedApprove', $order->id) }}', 'Return Accepted')"
+                                                    class="btn btn-primary">Return Accept</a>
+                                                <a href="#"
+                                                    onclick="confirmAction2('{{ route('admin.order.returnedCancel', $order->id) }}', 'Return Cancel')"
+                                                    class="btn btn-danger">Return Cancel</a>
+                                            @elseif ($order->status == 'Return Approved')
+                                                <a href="#"
+                                                    onclick="confirmAction2('{{ route('admin.order.returned', $order->id) }}', 'Returned')"
+                                                    class="btn btn-primary">Make as Returned</a>
+                                            @elseif ($order->status == 'Returned')
+                                                <a href="#"
+                                                    onclick="confirmAction2('{{ route('admin.order.refunded', $order->id) }}', 'Returned')"
+                                                    class="btn btn-primary">Make as Refunded</a>
+                                            @else
+                                                <a class="btn border-success text-success">Completed <i
+                                                        class="bx bx-check-double"></i></a>
+                                            @endif
                                         @endif
-
                                     </div>
                                 </div>
                             </div>

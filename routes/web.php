@@ -110,6 +110,12 @@ Route::middleware(['user.auth'])->group(function () {
     Route::get('/buy', [CheckoutController::class, 'buy'])->name('buy');
     Route::post('/buy-now', [CheckoutController::class, 'buyNow'])->name('buy.now');
     Route::post('/buy-now/store', [CheckoutController::class, 'buyNowStore'])->name('buy.now.store');
+
+    //cancel order
+    Route::get('/order/cancel/{id}', [OrderController::class, 'cancel'])->name('order.cancel');
+
+    //return order
+    Route::get('/order/return/{id}', [OrderController::class, 'returnRequest'])->name('return.request');
 });
 Route::post('/phonepe/callback', [PaymentController::class, 'phonepeCallback'])->name('phonepe.callback');
 
@@ -252,12 +258,26 @@ Route::middleware(['admin.auth'])->prefix('admin-panel')->group(function () {
     //confirm Order
     Route::get('/order/confirm/{id}', [OrderController::class, 'confirm'])->name('admin.order.confirm');
 
+    //Return Order
+    Route::get('/order/return/approve/{id}', [OrderController::class, 'returnedApprove'])->name('admin.order.returnedApprove');
+    Route::get('/order/return/cancel/{id}', [OrderController::class, 'returnedCancel'])->name('admin.order.returnedCancel');
+    Route::get('/order/return/{id}', [OrderController::class, 'return'])->name('admin.order.returned');
+    Route::get('/order/refund/{id}', [OrderController::class, 'refund'])->name('admin.order.refunded');
+
+    //Cancel Order
+    Route::get('/order/cancel/{id}', [OrderController::class, 'AdminCancel'])->name('admin.order.cancel');
+
+
     //packed order
     Route::get('/order/packed/{id}', [OrderController::class, 'packed'])->name('admin.order.packed');
 
     //shipped order
     Route::get('/order/shipped/{id}', [OrderController::class, 'shipped'])->name('admin.order.shipped');
 
+     //out for delivery order
+     Route::get('/order/out-for-delivery/{id}', [OrderController::class, 'outForDelivery'])->name('admin.order.out.of.delivered');
+
+     
     //delivered order
     Route::get('/order/delivered/{id}', [OrderController::class, 'delivered'])->name('admin.order.delivered');
 

@@ -154,9 +154,6 @@ class CheckoutController extends Controller
             }
         }
 
-        // Clear the cart
-        CartItem::where('user_id', Auth::id())->delete();
-
         // Dispatch Email Job
         SendOrderConfirmationJob::dispatch($order);
 
@@ -211,14 +208,21 @@ class CheckoutController extends Controller
             ])->post($baseUrl . '/pg/v1/pay', ['request' => $base64Payload]);
 
             if ($response->successful() && isset($response['data']['instrumentResponse']['redirectInfo']['url'])) {
+                // Clear the cart
+                CartItem::where('user_id', Auth::id())->delete();
                 return redirect($response['data']['instrumentResponse']['redirectInfo']['url']);
+            } else {
+                Log::error('PhonePe payment initiation failed', [
+                    'response' => $response->json(),
+                    'order_id' => $order->id,
+                ]);
+                return  redirect()->route('checkout')->with('error', 'Payment failed.');
             }
 
-
-            return  redirect()->route('orders.show', $order->id)->with('error', 'Payment failed.');
+            return  redirect()->route('checkout')->with('error', 'Payment failed.');
         }
 
-
+        CartItem::where('user_id', Auth::id())->delete();
         return redirect()->route('order.success', $order->id)->with('success', 'Order placed successfully!');
     }
 

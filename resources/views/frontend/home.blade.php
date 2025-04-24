@@ -1,6 +1,7 @@
 @extends('frontend.layouts.app')
-
-@section('title', 'Welcome to Quron eCommerce')
+@section('title', 'Welcome to Ouron eCommerce')
+@section('description', 'Step into the world of Ouron – get first dibs on new collections, exclusive stories, and more.
+    Your story is waiting to be told.')
 
 @section('content')
 
@@ -493,12 +494,9 @@
     <section class="marquee-section primary-bg py-2">
         <div class="container-fluid d-flex align-items-center">
             <marquee behavior="scroll" direction="left" scrollamount="5" class="text-white">
-                Shipping worldwide &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; Free returns &nbsp;&nbsp;&nbsp; |
-                &nbsp;&nbsp;&nbsp; 24/7 Customer Support
-                | &nbsp;&nbsp;&nbsp; Shipping worldwide &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; Free returns
-                &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; 24/7 Customer Support
-                | &nbsp;&nbsp;&nbsp; Shipping worldwide &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; Free returns
-                &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; 24/7 Customer Support
+                100% Made With Indian Pride &nbsp;&nbsp;&nbsp; |
+                &nbsp;&nbsp;&nbsp; Free Shipping
+                | &nbsp;&nbsp;&nbsp; COD Available &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; 7-Day Easy Returns
             </marquee>
         </div>
     </section>

@@ -17,7 +17,7 @@
                             History</a>
                         <a class="list-group-item list-group-item-action {{ session('activeTab') == 'addressesTab' ? 'active' : '' }}"
                             data-bs-toggle="tab" href="#addressesTab">Addresses</a>
-                        <form action="{{ route('logout') }}" method="POST" class="mt-3 d-none d-md-block">
+                        <form action="{{ route('logout') }}" method="POST" class="mt-3 d-none d-md-block" id="logoutForm">
                             @csrf
                             <button type="submit" class="btn btn-danger" id="logoutBtn2" style="background: #FAA0A0;color:black; border: #FAA0A0;">Logout</button>
                         </form>

@@ -825,18 +825,40 @@ document.getElementById("logoutBtn").addEventListener("click", function () {
         }
     });
 });
-document.getElementById("logoutBtn2").addEventListener("click", function () {
+
+document.getElementById('logoutBtn2').addEventListener('click', function () {
     Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
+        title: 'Are you sure?',
+        text: "You will be logged out!",
+        icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, logout!",
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, logout!'
     }).then((result) => {
         if (result.isConfirmed) {
-            this.closest("form").submit();
+            document.getElementById('logoutForm').submit();
         }
     });
 });
+
+function CancelOrder(title, text, redirectUrl = null, callback = null) {
+    Swal.fire({
+        title: title || 'Are you sure?',
+        text: text || 'This action cannot be undone.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, proceed',
+        cancelButtonText: 'Cancel',
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            if (redirectUrl) {
+                window.location.href = redirectUrl;
+            } else if (typeof callback === 'function') {
+                callback();
+            }
+        }
+    });
+}

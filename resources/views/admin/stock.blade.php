@@ -60,6 +60,7 @@
                                             <th>M </th>
                                             <th>L </th>
                                             <th>XL </th>
+                                            <th>XXL </th>
                                             <th>Category</th>
                                             <th>Action</th>
                                         </tr>
@@ -110,6 +111,12 @@
                                                     <span class="badge
                                                         {{ ($variants['XL']->stock ?? 0) == 0 ? 'bg-danger' : (($variants['XL']->stock ?? 0) <= 5 ? 'bg-warning' : 'bg-success') }}">
                                                         {{ $variants['XL']->stock ?? '0' }}
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span class="badge
+                                                        {{ ($variants['XXL']->stock ?? 0) == 0 ? 'bg-danger' : (($variants['XXL']->stock ?? 0) <= 5 ? 'bg-warning' : 'bg-success') }}">
+                                                        {{ $variants['XXL']->stock ?? '0' }}
                                                     </span>
                                                 </td>
                                                 <td> {{ $product->category->name ?? 'N/A' }}</td>

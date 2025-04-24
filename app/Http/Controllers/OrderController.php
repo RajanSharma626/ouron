@@ -55,6 +55,169 @@ class OrderController extends Controller
         return redirect()->route('admin.order.view', $id)->with('success', 'Order marked as confirmed successfully.');
     }
 
+    public function cancel(Request $request, $id)
+    {
+        $order = Order::findOrFail($id);
+        $order->update(['status' => 'Cancelled']);
+
+        // Store history
+        $order->statusHistories()->create([
+            'status' => 'Cancelled',
+            'comment' => $request->input('comment', null),
+            'changed_by' => Auth::id(),
+        ]);
+
+        // Dispatch Email Job
+        SendOrderEmailJob::dispatch($order, 'Cancelled');
+
+        // Dispatch SMS
+        // $smsMessage = "Dear {$order->first_name}, your order #{$order->id} has been cancelled. Thank you for shopping with us!";
+        // SendOrderSmsJob::dispatch($order->phone, $smsMessage);
+
+        return redirect()->route('orders.show', $id)->with('success', 'Order cancelled successfully.');
+    }
+
+    public function AdminCancel(Request $request, $id)
+    {
+        $order = Order::findOrFail($id);
+        $order->update(['status' => 'Cancelled']);
+
+        // Store history
+        $order->statusHistories()->create([
+            'status' => 'Cancelled',
+            'comment' => $request->input('comment', null),
+            'changed_by' => Auth::id(),
+        ]);
+
+        // Dispatch Email Job
+        SendOrderEmailJob::dispatch($order, 'Cancelled');
+
+        // Dispatch SMS
+        // $smsMessage = "Dear {$order->first_name}, your order #{$order->id} has been cancelled. Thank you for shopping with us!";
+        // SendOrderSmsJob::dispatch($order->phone, $smsMessage);
+
+        return redirect()->route('admin.order.view', $id)->with('success', 'Order cancelled successfully.');
+    }
+
+    public function returnRequest(Request $request, $id)
+    {
+        $order = Order::findOrFail($id);
+
+        // Check if the order is within the 7-day return period
+        $orderDate = $order->created_at;
+        $currentDate = now();
+        if ($orderDate->diffInDays($currentDate) > 7) {
+            return redirect()->route('orders.show', $id)->withErrors(['error' => 'Return request cannot be submitted as the order exceeds the 7-day return period.']);
+        }
+
+        $order->update(['status' => 'Return Requested']);
+
+        // Store history
+        $order->statusHistories()->create([
+            'status' => 'Return Requested',
+            'comment' => $request->input('comment', null),
+            'changed_by' => Auth::id(),
+        ]);
+
+        // Dispatch Email Job
+        SendOrderEmailJob::dispatch($order, 'Return Requested');
+
+        // Dispatch SMS
+        // $smsMessage = "Dear {$order->first_name}, your return request for order #{$order->id} has been received. Thank you for shopping with us!";
+        // SendOrderSmsJob::dispatch($order->phone, $smsMessage);
+
+        return redirect()->route('orders.show', $id)->with('success', 'Return request submitted successfully.');
+    }
+
+    public function returnedApprove(Request $request, $id)
+    {
+        $order = Order::findOrFail($id);
+        $order->update(['status' => 'Return Approved']);
+
+        // Store history
+        $order->statusHistories()->create([
+            'status' => 'Return Approved',
+            'comment' => $request->input('comment', null),
+            'changed_by' => Auth::id(),
+        ]);
+
+        // Dispatch Email Job
+        SendOrderEmailJob::dispatch($order, 'Return Approved');
+
+        // Dispatch SMS
+        // $smsMessage = "Dear {$order->first_name}, your return request for order #{$order->id} has been approved. Thank you for shopping with us!";
+        // SendOrderSmsJob::dispatch($order->phone, $smsMessage);
+
+        return redirect()->route('admin.order.view', $id)->with('success', 'Return request approved successfully.');
+    }
+
+    public function returnedCancel(Request $request, $id)
+    {
+        $order = Order::findOrFail($id);
+        $order->update(['status' => 'Returned Cancelled']);
+
+        // Store history
+        $order->statusHistories()->create([
+            'status' => 'Returned Cancelled',
+            'comment' => $request->input('comment', null),
+            'changed_by' => Auth::id(),
+        ]);
+
+        // Dispatch Email Job
+        SendOrderEmailJob::dispatch($order, 'Returned Cancelled');
+
+        // Dispatch SMS
+        // $smsMessage = "Dear {$order->first_name}, your return request for order #{$order->id} has been cancelled. Thank you for shopping with us!";
+        // SendOrderSmsJob::dispatch($order->phone, $smsMessage);
+
+        return redirect()->route('admin.order.view', $id)->with('success', 'Return request cancelled successfully.');
+    }
+
+
+    public function return(Request $request, $id)
+    {
+        $order = Order::findOrFail($id);
+        $order->update(['status' => 'Returned']);
+
+        // Store history
+        $order->statusHistories()->create([
+            'status' => 'Returned',
+            'comment' => $request->input('comment', null),
+            'changed_by' => Auth::id(),
+        ]);
+
+        // Dispatch Email Job
+        SendOrderEmailJob::dispatch($order, 'Returned');
+
+        // Dispatch SMS
+        // $smsMessage = "Dear {$order->first_name}, your order #{$order->id} has been returned. Thank you for shopping with us!";
+        // SendOrderSmsJob::dispatch($order->phone, $smsMessage);
+
+        return redirect()->route('admin.order.view', $id)->with('success', 'Order marked as returned successfully.');
+    }
+
+    public function refund(Request $request, $id)
+    {
+        $order = Order::findOrFail($id);
+        $order->update(['status' => 'Refunded']);
+
+        // Store history
+        $order->statusHistories()->create([
+            'status' => 'Refunded',
+            'comment' => $request->input('comment', null),
+            'changed_by' => Auth::id(),
+        ]);
+
+        // Dispatch Email Job
+        SendOrderEmailJob::dispatch($order, 'Refunded');
+
+        // Dispatch SMS
+        // $smsMessage = "Dear {$order->first_name}, your order #{$order->id} has been refunded. Thank you for shopping with us!";
+        // SendOrderSmsJob::dispatch($order->phone, $smsMessage);
+
+        return redirect()->route('admin.order.view', $id)->with('success', 'Order marked as refunded successfully.');
+    }
+
     public function packed(Request $request, $id)
     {
         $order = Order::findOrFail($id);

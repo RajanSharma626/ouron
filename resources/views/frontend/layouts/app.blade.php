@@ -13,7 +13,7 @@
     <link rel="manifest" href="{{ asset('admin/images/favicon/site.webmanifest') }}" />
 
     <title>@yield('title', 'Ouron Ecommerce')</title>
-
+    <meta name="description" content="@yield('description', 'Ouron Ecommerce')">
     @yield('openGraph', '')
 
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
