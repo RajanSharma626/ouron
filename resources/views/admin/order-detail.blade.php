@@ -37,47 +37,46 @@
                                                 Order#{{ $order->id }}
 
                                                 @if ($order->status == 'Pending')
-                                                <span
-                                                    class="border border-warning text-warning fs-13 px-2 py-1 rounded">Order
-                                                    Placed</span>
-                                            @elseif ($order->status == 'Cancelled')
-                                                <span
-                                                    class="border border-danger text-danger fs-13 px-2 py-1 rounded">Order
-                                                    Cancelled</span>
-                                            @elseif ($order->status == 'Confirmed')
-                                                <span
-                                                    class="border border-success text-success fs-13 px-2 py-1 rounded">Order
-                                                    Confirmed</span>
-                                            @elseif ($order->status == 'Shipped')
-                                                <span
-                                                    class="border border-success text-success fs-13 px-2 py-1 rounded">Order
-                                                    Shipped</span>
-                                            @elseif ($order->status == 'Out for Delivery')
-                                                <span
-                                                    class="border border-success text-success fs-13 px-2 py-1 rounded">Out
-                                                    of Delivery</span>
-                                            @elseif ($order->status == 'Delivered')
-                                                <span
-                                                    class="border border-success text-success fs-13 px-2 py-1 rounded"><i
-                                                        class="bx bx-check-double"></i> Order Delivered </span>
-                                            @elseif ($order->status == 'Returned')
-                                                <span
-                                                    class="border border-danger text-danger fs-13 px-2 py-1 rounded">Order
-                                                    Returned</span>
-                                            @elseif ($order->status == 'Refunded')
-                                                <span
-                                                    class="border border-danger text-danger fs-13 px-2 py-1 rounded">Order
-                                                    Refunded</span>
-                                            @elseif ($order->status == 'Return Requested')
-                                                <span
-                                                    class="border border-warning text-warning fs-13 px-2 py-1 rounded">Return
-                                                    Requested</span>
-                                            @elseif ($order->status == 'Return Approved')
-                                                <span
-                                                    class="border border-success text-success fs-13 px-2 py-1 rounded">Return
-                                                    Approved</span>
-
-                                            @endif
+                                                    <span
+                                                        class="border border-warning text-warning fs-13 px-2 py-1 rounded">Order
+                                                        Placed</span>
+                                                @elseif ($order->status == 'Cancelled')
+                                                    <span
+                                                        class="border border-danger text-danger fs-13 px-2 py-1 rounded">Order
+                                                        Cancelled</span>
+                                                @elseif ($order->status == 'Confirmed')
+                                                    <span
+                                                        class="border border-success text-success fs-13 px-2 py-1 rounded">Order
+                                                        Confirmed</span>
+                                                @elseif ($order->status == 'Shipped')
+                                                    <span
+                                                        class="border border-success text-success fs-13 px-2 py-1 rounded">Order
+                                                        Shipped</span>
+                                                @elseif ($order->status == 'Out for Delivery')
+                                                    <span
+                                                        class="border border-success text-success fs-13 px-2 py-1 rounded">Out
+                                                        of Delivery</span>
+                                                @elseif ($order->status == 'Delivered')
+                                                    <span
+                                                        class="border border-success text-success fs-13 px-2 py-1 rounded"><i
+                                                            class="bx bx-check-double"></i> Order Delivered </span>
+                                                @elseif ($order->status == 'Returned')
+                                                    <span
+                                                        class="border border-danger text-danger fs-13 px-2 py-1 rounded">Order
+                                                        Returned</span>
+                                                @elseif ($order->status == 'Refunded')
+                                                    <span
+                                                        class="border border-danger text-danger fs-13 px-2 py-1 rounded">Order
+                                                        Refunded</span>
+                                                @elseif ($order->status == 'Return Requested')
+                                                    <span
+                                                        class="border border-warning text-warning fs-13 px-2 py-1 rounded">Return
+                                                        Requested</span>
+                                                @elseif ($order->status == 'Return Approved')
+                                                    <span
+                                                        class="border border-success text-success fs-13 px-2 py-1 rounded">Return
+                                                        Approved</span>
+                                                @endif
 
                                             </h4>
                                             <p class="mb-0">
@@ -247,7 +246,6 @@
                                                     <th>Product Name & Size</th>
                                                     <th>Quantity</th>
                                                     <th>Price</th>
-                                                    <th>Tax</th>
                                                     <th>Amount</th>
                                                 </tr>
                                             </thead>
@@ -264,20 +262,21 @@
                                                                 <div>
                                                                     <a href="#!"
                                                                         class="text-dark fw-medium fs-15">{{ $item->product->name }}</a>
-                                                                    <p class="text-muted mb-0 mt-1 fs-13 d-flex align-items-center">
-                                                                        <span>Size :  &nbsp;</span><b>{{ $item->size ?? 'N/A' }}</b>
+                                                                    <p
+                                                                        class="text-muted mb-0 mt-1 fs-13 d-flex align-items-center">
+                                                                        <span>Size :
+                                                                            &nbsp;</span><b>{{ $item->size ?? 'N/A' }}</b>
                                                                         &nbsp;&nbsp;
-                                                                        <span>Color :  &nbsp;</span><span class="color-circle"
+                                                                        <span>Color : &nbsp;</span><span
+                                                                            class="color-circle"
                                                                             style="background-color: {{ $item->color ?? '#ffffff' }};"></span>
                                                                     </p>
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td>{{ $item->quantity }}</td>
-                                                        <td>${{ number_format($item->price, 2) }}</td>
-                                                        <td>${{ number_format($item->price * 0.18, 2) }}</td>
-                                                        <!-- Example: 18% tax calculation -->
-                                                        <td>${{ number_format($item->price * $item->quantity, 2) }}</td>
+                                                        <td>{{ $item->quantity }} item</td>
+                                                        <td>₹{{ number_format($item->price, 2) }}</td>
+                                                        <td>₹{{ number_format($item->price * $item->quantity, 2) }}</td>
                                                     </tr>
                                                 @endforeach
 
@@ -409,7 +408,7 @@
                                                 <p class="d-flex mb-0 align-items-center gap-1">
                                                     <iconify-icon icon="solar:calculator-minimalistic-broken"
                                                         class="align-middle"></iconify-icon>
-                                                    Estimated Tax (18%) :
+                                                    Estimated Tax (12%) :
                                                 </p>
                                             </td>
                                             <td class="text-end text-dark fw-medium px-0">₹{{ $order->tax }}</td>
@@ -434,7 +433,7 @@
                             <h4 class="card-title">Payment Information</h4>
                         </div>
                         <div class="card-body">
-                            <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="d-flex align-items-center gap-3 {{ $order->payment_method == 'UPI' ? 'mb-3' : '' }}">
                                 <div>
                                     <p class="mb-1 text-dark fw-medium">{{ $order->payment_method }}</p>
                                 </div>
@@ -443,8 +442,11 @@
                                         class="fs-22 text-success"></iconify-icon>
                                 </div>
                             </div>
-                            <p class="text-dark mb-1 fw-medium">Transaction ID : <span class="text-muted fw-normal fs-13">
-                                    #IDN768139059</span></p>
+                            @if ($order->payment_method == 'UPI')
+                                <p class="text-dark mb-1 fw-medium">Transaction ID : <span
+                                        class="text-muted fw-normal fs-13">
+                                        #{{$order->payment->transaction_id ?? "NA"}}</span></p>
+                            @endif
 
                         </div>
                     </div>

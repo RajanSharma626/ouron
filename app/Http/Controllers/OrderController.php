@@ -24,7 +24,7 @@ class OrderController extends Controller
 
     public function view($id)
     {
-        $order = Order::with(['items', 'user'])->findOrFail($id);
+        $order = Order::with(['items', 'user', 'payment'])->findOrFail($id);
 
         $statusHistory = OrderStatusHistory::with('changedBy') // assuming relation for changed_by
             ->where('order_id', $id)
@@ -36,12 +36,18 @@ class OrderController extends Controller
 
     public function show($id)
     {
-        $order = Auth::user()->orders()->where('id', $id)->with('items.product', 'address')->firstOrFail();
+        $order = Auth::user()->orders()->where('id', $id)->with('items.product', 'address', 'payment')->firstOrFail();
         return view('frontend.orders-detail-history', compact('order'));
     }
 
     public function confirm(Request $request, $id)
     {
+        $order = Order::findOrFail($id);
+
+        if ($order->status === 'Cancelled') {
+            return redirect()->route('admin.order.view', $id)->withErrors(['error' => 'Order is already cancelled and cannot be confirmed.']);
+        }
+
         $order = Order::findOrFail($id);
         $order->update(['status' => 'Confirmed']);
 
@@ -86,6 +92,13 @@ class OrderController extends Controller
     public function AdminCancel(Request $request, $id)
     {
         $order = Order::findOrFail($id);
+
+        // Check if the order is not already confirmed
+        if ($order->status === 'Cancel' || $order->status === 'Confirmed') {
+            return redirect()->route('orders.show', $id)->withErrors(['error' => 'Order cannot be Confirmed/Cancel as it is already Prepared.']);
+        }
+
+
         $order->update(['status' => 'Cancelled']);
 
         // Store history

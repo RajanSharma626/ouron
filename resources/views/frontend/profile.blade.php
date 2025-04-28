@@ -221,11 +221,80 @@
                             <!-- Display Default Address -->
                             <h6 class="mt-4">Default Address:</h6>
                             @if ($defaultAddress)
-                                <div class="alert alert-primary">
-                                    <strong>{{ $defaultAddress->address }}</strong><br>
-                                    {{ $defaultAddress->address_2 ? $defaultAddress->address_2 . ', ' : '' }}
-                                    {{ $defaultAddress->city }}, {{ $defaultAddress->state }},
-                                    {{ $defaultAddress->pin_code }}
+                                <div
+                                    class="alert alert-primary d-flex justify-content-between align-items-center flex-wrap">
+                                    <div>
+                                        <strong>{{ $defaultAddress->address }}</strong><br>
+                                        {{ $defaultAddress->address_2 ? $defaultAddress->address_2 . ', ' : '' }}
+                                        {{ $defaultAddress->city }}, {{ $defaultAddress->state }},
+                                        {{ $defaultAddress->pin_code }}
+                                    </div>
+                                    <button class="btn btn-sm btn-warning" data-bs-toggle="collapse"
+                                        data-bs-target="#editDefaultAddressForm"
+                                        style="background: #FFE6A9;border: #FFE6A9; margin-top: 10px;">Edit</button>
+                                </div>
+
+                                <div class="collapse mb-4" id="editDefaultAddressForm">
+                                    <div class="card card-body">
+                                        <form method="POST"
+                                            action="{{ route('addresses.update', $defaultAddress->id) }}">
+                                            @csrf
+                                            @method('PUT')
+                                            <div class="mb-3">
+                                                <label for="address" class="form-label">Address</label>
+                                                <input name="address" id="address" class="form-control"
+                                                    value="{{ $defaultAddress->address }}"
+                                                    placeholder="Flat / House No. / Floor / Building" required>
+                                                @error('address')
+                                                    <small class="text-danger">{{ $message }}</small>
+                                                @enderror
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="address_2" class="form-label">Address 2 (Optional)</label>
+                                                <input type="text" name="address_2" id="address_2"
+                                                    placeholder="Address 2 (Optional)" class="form-control"
+                                                    value="{{ $defaultAddress->address_2 }}">
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="city" class="form-label">City</label>
+                                                <input type="text" name="city" id="city" class="form-control"
+                                                    placeholder="City" value="{{ $defaultAddress->city }}" required>
+                                                @error('city')
+                                                    <small class="text-danger">{{ $message }}</small>
+                                                @enderror
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="state" class="form-label">State</label>
+                                                <select id="state" class="form-control py-2" name="state" required>
+                                                    <option value="">Select State</option>
+                                                    @foreach (['Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh', 'Goa', 'Gujarat', 'Haryana', 'Himachal Pradesh', 'Jharkhand', 'Karnataka', 'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Manipur', 'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Punjab', 'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana', 'Tripura', 'Uttar Pradesh', 'Uttarakhand', 'West Bengal', 'Andaman and Nicobar Islands', 'Chandigarh', 'Dadra and Nagar Haveli and Daman and Diu', 'Delhi', 'Jammu and Kashmir', 'Ladakh', 'Lakshadweep', 'Puducherry'] as $state)
+                                                        <option value="{{ $state }}"
+                                                            {{ $defaultAddress->state == $state ? 'selected' : '' }}>
+                                                            {{ $state }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                @error('state')
+                                                    <small class="text-danger">{{ $message }}</small>
+                                                @enderror
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="pin_code" class="form-label">Pin Code</label>
+                                                <input type="text" name="pin_code" id="pin_code"
+                                                    class="form-control" value="{{ $defaultAddress->pin_code }}"
+                                                    placeholder="Pin Code" required>
+                                                @error('pin_code')
+                                                    <small class="text-danger">{{ $message }}</small>
+                                                @enderror
+                                            </div>
+
+                                            <button type="submit" class="btn btn-success">Update Default Address</button>
+                                        </form>
+                                    </div>
                                 </div>
                             @else
                                 <div class="alert alert-warning">No default address set.</div>

@@ -281,7 +281,7 @@
                     <div class="row">
                         <div class="col-12">
                             <p class="text-normal">
-                                <i class="bi bi-info-circle"></i> Delivery Time : 2-7 days
+                                <i class="bi bi-info-circle"></i> Delivery Time : 5-7 days
                             </p>
                         </div>
                     </div>

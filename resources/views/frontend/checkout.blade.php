@@ -96,6 +96,7 @@
                                     }
                                 }
                                 $total = $subtotal - $discountAmount;
+                                $tax = $total < 1000 ? $total * 0.05 : $total * 0.12; // 5% tax for total under 1000, 12% for 1000 and above
                             @endphp
 
                             <ul class="list-group mb-3">
@@ -126,6 +127,12 @@
                                     </span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between custom-card-bg">
+                                    <span>GST ({{ $total < 1000 ? '5%' : '12%' }})</span>
+                                    <span id="shippingCost">
+                                        <small class="text-muted"> ₹{{$tax ?? "0"}}</small>
+                                    </span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between custom-card-bg">
                                     <span>Total</span>
                                     <strong>₹{{ number_format($total, 2) }}</strong>
                                 </li>
@@ -144,11 +151,11 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
-                                            <input type="text" class="form-control py-2 custom-card-bg" name="first_name"
+                                            <input type="text" class="form-control py-2 custom-card-bg @error('first_name') is-invalid @enderror" name="first_name"
                                                 placeholder="First name *"
-                                                value="{{ old('first_name', Auth::user()->name ?? '') }}" required>
+                                                value="{{ old('first_name', Auth::user()->name ?? '') }}">
                                             @error('first_name')
-                                                <div class="text-danger">{{ $message }}</div>
+                                            <div class="text-danger transform-none"><span>{{ $message }}</span></div>
                                             @enderror
                                         </div>
                                     </div>
@@ -157,26 +164,26 @@
                                             <input type="text" class="form-control py-2 custom-card-bg"
                                                 placeholder="Last name" name="last_name" value="{{ old('last_name') }}">
                                             @error('last_name')
-                                                <div class="text-danger">{{ $message }}</div>
+                                            <div class="text-danger transform-none"><span>{{ $message }}</span></div>
                                             @enderror
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group mb-3">
-                                    <input type="email" class="form-control py-2 custom-card-bg" name="email"
+                                    <input type="email" class="form-control py-2 custom-card-bg @error('email') is-invalid @enderror" name="email"
                                         id="emailAddress" placeholder="Enter email *"
-                                        value="{{ old('email', Auth::user()->email ?? '') }}" required>
+                                        value="{{ old('email', Auth::user()->email ?? '') }}">
                                     @error('email')
-                                        <div class="text-danger">{{ $message }}</div>
+                                        <div class="text-danger transform-none"><span>{{ $message }}</span></div>
                                     @enderror
                                 </div>
                                 <div class="form-group mb-3">
-                                    <input type="text" class="form-control py-2 custom-card-bg"
+                                    <input type="text" class="form-control py-2 custom-card-bg @error('address') is-invalid @enderror"
                                         placeholder="Flat / House No. / Floor / Building *" name="address"
-                                        value="{{ old('address', $defaultAddress->address ?? '') }}" required>
+                                        value="{{ old('address', $defaultAddress->address ?? '') }}">
                                     @error('address')
-                                        <div class="text-danger">{{ $message }}</div>
+                                    <div class="text-danger transform-none"><span>{{ $message }}</span></div>
                                     @enderror
                                 </div>
                                 <div class="form-group mb-3">
@@ -188,18 +195,18 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
-                                            <input type="text" class="form-control py-2 custom-card-bg" id="city"
+                                            <input type="text" class="form-control py-2 custom-card-bg @error('city') is-invalid @enderror" id="city"
                                                 placeholder="City *" name="city"
-                                                value="{{ old('city', $defaultAddress->city ?? '') }}" required>
+                                                value="{{ old('city', $defaultAddress->city ?? '') }}">
                                             @error('city')
-                                                <div class="text-danger">{{ $message }}</div>
+                                            <div class="text-danger transform-none"><span>{{ $message }}</span></div>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
-                                            <select id="state" class="form-control py-2 custom-card-bg"
-                                                name="state" required>
+                                            <select id="state" class="form-control py-2 custom-card-bg @error('state') is-invalid @enderror"
+                                                name="state">
                                                 <option value="">Select State *</option>
                                                 <option value="Andaman and Nicobar Islands"
                                                     {{ old('state', $defaultAddress->state ?? '') == 'Andaman and Nicobar Islands' ? 'selected' : '' }}>
@@ -347,7 +354,7 @@
                                                 </option>
                                             </select>
                                             @error('state')
-                                                <div class="text-danger">{{ $message }}</div>
+                                            <div class="text-danger transform-none"><span>{{ $message }}</span></div>
                                             @enderror
                                         </div>
                                     </div>
@@ -357,34 +364,34 @@
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
 
-                                            <input type="text" class="form-control py-2 custom-card-bg"
+                                            <input type="text" class="form-control py-2 custom-card-bg @error('pin_code') is-invalid @enderror"
                                                 placeholder="PIN Code *" name="pin_code" id="pincode"
                                                 value="{{ old('pin_code', $defaultAddress->pin_code ?? '') }}"
                                                 maxlength="6" pattern="\d{6}"
-                                                title="Please enter a valid 6-digit PIN code" required>
+                                                title="Please enter a valid 6-digit PIN code">
                                             <small id="pincode-message" class="text-danger d-block mt-1"
                                                 style="display:none;"></small>
 
                                             @error('pin_code')
-                                                <div class="text-danger">{{ $message }}</div>
+                                               <div class="text-danger transform-none"><span>{{ $message }}</span></div>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
-                                            <input type="number" class="form-control py-2 custom-card-bg"
+                                            <input type="number" class="form-control py-2 custom-card-bg @error('phone') is-invalid @enderror"
                                                 placeholder="Phone *" name="phone"
-                                                value="{{ old('phone', Auth::user()->phone ?? '') }}" required>
+                                                value="{{ old('phone', Auth::user()->phone ?? '') }}">
                                             @error('phone')
-                                                <div class="text-danger">{{ $message }}</div>
+                                               <div class="text-danger transform-none"><span>{{ $message }}</span></div>
                                             @enderror
                                         </div>
                                     </div>
 
                                     <div class="col-md-12">
                                         <div class="form-group mb-3">
-                                            <select class="form-control py-2 custom-card-bg" name="payment_method"
-                                                required>
+                                            <select class="form-control py-2 custom-card-bg @error('payment_method') is-invalid @enderror" name="payment_method"
+                                                >
                                                 <option value="" selected disabled>Payment Method &#11206;</option>
                                                 <option value="COD"
                                                     {{ old('payment_method') == 'COD' ? 'selected' : '' }}>COD
@@ -395,7 +402,7 @@
                                                 </option>
                                             </select>
                                             @error('payment_method')
-                                                <div class="text-danger">{{ $message }}</div>
+                                               <div class="text-danger transform-none"><span>{{ $message }}</span></div>
                                             @enderror
                                             @if (session('error'))
                                                 <p class="text-danger">
@@ -461,7 +468,5 @@
                 .catch(error => console.log(error));
         });
     </script>
-
-
 
 @endsection

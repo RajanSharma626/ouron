@@ -85,22 +85,35 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <h6 class="text-muted fw-bold small text-uppercase">Order Information</h6>
-                                <div class="mt-3">
-                                    <p class="mb-2"><i class="bi bi-calendar3 me-2 text-primary"></i> <strong>Placed
-                                            on:</strong> {{ $order->created_at->format('d M Y, h:i A') }}</p>
-                                    <p class="mb-2"><i class="bi bi-credit-card me-2 text-primary"></i> <strong>Payment
-                                            Method:</strong>
-                                        {{ $order->payment_method == 'UPI' ? 'Prepaid' : 'Cash on Delivery (COD)' }}
+                                <div class="mt-3 transform-none">
+                                    <p class="mb-2"><span class="text-muted"><i class="bi bi-calendar3 me-1 "></i> Placed
+                                            on:</span> <small>{{ $order->created_at->format('d M Y, h:i A') }}</small></p>
+
+                                    <p class="mb-2"><span class="text-muted"><i class="bi bi-credit-card me-1 "></i>
+                                            Payment
+                                            Method:</span>
+                                        <small>{{ $order->payment_method == 'UPI' ? 'Prepaid' : 'Cash on Delivery (COD)' }}</small>
                                     </p>
-                                    <p class="mb-0"><i class="bi bi-currency-rupee me-2 text-primary"></i> <strong>Total
-                                            Amount:</strong> ₹{{ number_format($order->total, 2) }}</p>
+
+
+                                    <p class="mb-2"><span class="text-muted"><i class="bi bi-currency-rupee me-1 "></i>
+                                            Total
+                                            Amount:</span>
+                                        <small> ₹{{ $order->total ?? '0' }}</small>
+                                    </p>
+
+
 
                                     @if ($order->payment_method == 'UPI')
-                                        <p class="mb-2 mt-2"><i class="bi bi-upc me-2 text-primary"></i> <strong>Transaction
-                                                ID:</strong> {{ $order->transaction_id ?? 'N/A' }}</p>
-                                        <p class="mb-0"><i class="bi bi-check-circle me-2 text-primary"></i>
-                                            <strong>Payment Status:</strong> {{ $order->payment_status ?? 'Completed' }}
+                                        <p class="mb-2"><span class="text-muted"><i class="bi bi-upc me-1 "></i>
+                                                Transaction
+                                                ID:</span> <small>#{{ $order->payment->transaction_id ?? 'N/A' }}</small></p>
+
+                                        <p class="mb-2"><span class="text-muted"><i class="bi bi-check-circle me-1 "></i>
+                                                Payment Status:</span> <small>{{ $order->payment_status ?? 'Success' }}</small>
                                         </p>
+
+
                                     @endif
                                 </div>
                             </div>

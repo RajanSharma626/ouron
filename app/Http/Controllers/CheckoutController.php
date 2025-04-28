@@ -10,6 +10,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Payment;
 use App\Models\Product;
+use App\Models\ProductVariant;
 use App\Models\UserAddress;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -106,6 +107,30 @@ class CheckoutController extends Controller
         }
 
         $total = $subtotal;
+        $tax = $total < 1000 ? $total * 0.05 : $total * 0.12; // 5% tax for total under 1000, 12% for 1000 and above
+
+        $defaultAddress = UserAddress::where('user_id', Auth::id())->first();
+
+        if (!$defaultAddress) {
+            $defaultAddress = UserAddress::create([
+            'user_id' => Auth::id(),
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'address' => $request->address,
+            'address_2' => $request->address2,
+            'city' => $request->city,
+            'state' => $request->state,
+            'pin_code' => $request->pin_code,
+            'phone' => $inputPhone,
+            'default_address' => 1,
+            ]);
+        }
+
+        // Check if the user has an email, if not, update it
+        $user = Auth::user();
+        if (!$user->email) {
+            $user->update(['email' => $request->email]);
+        }
 
         if ($request->payment_method === 'UPI') {
             $merchantId = env('PHONEPE_MERCHANT_ID');
@@ -121,19 +146,20 @@ class CheckoutController extends Controller
                 'status' => 'PENDING',
                 'user_id' => Auth::id(),
                 'payload' => json_encode([
-                'first_name' => $request->first_name,
-                'last_name' => $request->last_name,
-                'email' => $request->email,
-                'address' => $request->address,
-                'address2' => $request->address2,
-                'city' => $request->city,
-                'state' => $request->state,
-                'pin_code' => $request->pin_code,
-                'phone' => $inputPhone,
-                'payment_method' => $request->payment_method,
-                'subtotal' => $subtotal,
-                'total' => $total,
-            ])
+                    'first_name' => $request->first_name,
+                    'last_name' => $request->last_name,
+                    'email' => $request->email,
+                    'address' => $request->address,
+                    'address2' => $request->address2,
+                    'city' => $request->city,
+                    'state' => $request->state,
+                    'pin_code' => $request->pin_code,
+                    'phone' => $inputPhone,
+                    'payment_method' => $request->payment_method,
+                    'subtotal' => $subtotal,
+                    'total' => $total,
+                    'tax'=> $tax,
+                ])
             ]);
 
             $payload = [
@@ -181,6 +207,7 @@ class CheckoutController extends Controller
                 'subtotal' => $subtotal,
                 'total' => $total,
                 'status' => 'Pending',
+                'tax' => $tax,
             ]);
 
             foreach ($cart as $item) {
@@ -194,15 +221,16 @@ class CheckoutController extends Controller
                 ]);
 
                 // Deduct stock from product table
-                $product = Product::find($item->product_id);
-                if ($product) {
-                    $product->stock -= $item->quantity;
-                    $product->save();
+                $variant = ProductVariant::where('product_id', $item->product_id)->where('size', $item->size)->first();
+
+                if ($variant) {
+                    $variant->stock -= $item->quantity;
+                    $variant->save();
                 }
             }
 
             SendOrderConfirmationJob::dispatch($order);
-            
+
             CartItem::where('user_id', Auth::id())->delete();
 
             return redirect()->route('order.success', $order->id)->with('success', 'Order placed successfully!');

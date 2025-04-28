@@ -11,9 +11,8 @@
                     <div class="col-12">
                         <h1 class="text-center fs-3 fw-bold">WTS? (What's the Story?)</h1>
                         <p class="text-center mb-5">
-                            Every design at Ouron carries more than just style - it carries a story. "WTS?" is where we
-                            revieal the inspiration behind each piece. Dicover the story. Feel the legacy. Wear the
-                            inspiration.
+                            WTS? Every tee tells a tale. Discover where we reveal the inspiration behind each piece—because
+                            every journey deserves to be celebrated.
                         </p>
                     </div>
                     <div class="col-12 py-4">

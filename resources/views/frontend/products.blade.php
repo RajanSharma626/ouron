@@ -12,7 +12,6 @@
                         <div class="heading-logo">
                             <img src="{{ asset($collectionLogo) }}" class="img-fluid" alt="" width="200px">
                         </div>
-                        <h4 class="text-uppercase mb-0  text-center">{{ $pageHeading }}</h4>
                         <small class="text-uppercase text-muted">{{ $pageDesc }}</small>
                     </div>
                 </div>

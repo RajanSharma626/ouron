@@ -75,7 +75,7 @@
                                                     </div>
 
                                                 </td>
-                                                <td>₹{{ ($cart->product->price - ($cart->product->price * $cart->product->discount_price) / 100) * $cart->quantity }}
+                                                <td>₹{{ $cart->product->discount_price }}
                                                 </td>
                                                 <td>
                                                     <p class="mb-1 text-muted"><span

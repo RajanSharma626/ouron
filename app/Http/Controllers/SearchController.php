@@ -13,6 +13,7 @@ class SearchController extends Controller
 
         $results = Product::where('name', 'like', '%' . $query . '%')
             ->take(4)
+            ->whereNull('deleted_at')
             ->get(['name', 'slug']);
 
         return response()->json($results);
@@ -22,7 +23,12 @@ class SearchController extends Controller
     {
         $query = $request->query('query');
 
-        $products = Product::where('name', 'like', '%' . $query . '%')->paginate(10);
+        $products = Product::where('name', 'like', '%' . $query . '%')->whereNull('deleted_at')
+            ->orWhere('description', 'like', '%' . $query . '%')
+            ->orWhereHas('category', function ($q) use ($query) {
+                $q->where('name', 'like', '%' . $query . '%');
+            })
+            ->get();
 
         return view('frontend.search', compact('products', 'query'));
     }
