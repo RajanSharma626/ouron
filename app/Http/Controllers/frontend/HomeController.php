@@ -18,7 +18,7 @@ class HomeController extends Controller
         $newProducts = Product::with(['firstimage', 'secondimage', 'variants'])
             ->latest()
             ->take(4)
-            ->whereNull('deleted_at')
+            ->whereNull('deleted_at') 
             ->get()
             ->map(function ($product) use ($userId) {
                 // Check if the product is liked by the user

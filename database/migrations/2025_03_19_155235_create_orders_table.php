@@ -27,9 +27,11 @@ return new class extends Migration
             $table->decimal('subtotal', 10, 2);
             $table->decimal('tax', 10, 2)->nullable();
             $table->decimal('total', 10, 2);
-            $table->string('status')->default('Pending'); // Order status
-            $table->string('tracking_number')->nullable(); // Tracking number for shipment
-            $table->string('payment_status')->nullable()->default('Pending'); // Shipping method used
+            $table->string('status')->default('Pending');
+            $table->string('return_reason')->nullable();
+            $table->string('return_image')->nullable();
+            $table->string('tracking_number')->nullable();
+            $table->string('payment_status')->nullable()->default('Pending');
             $table->timestamps();
         });
     }

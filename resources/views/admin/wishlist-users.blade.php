@@ -1,8 +1,8 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Customers')
+@section('title', 'Liked Users')
 
-@section('page_title', 'Customers')
+@section('page_title', 'Liked Users')
 
 @section('content')
     <div class="page-content">
@@ -15,12 +15,18 @@
                     <div class="card">
                         <div class="d-flex card-header justify-content-between align-items-center">
                             <div>
-                                <h4 class="card-title">All Customers List</h4>
+                                <h4 class="card-title">Users List</h4>
                             </div>
+                            <span>
 
-                            <a href="{{ route('customers.csv.download') }}" class="btn btn-sm btn-primary">
-                                Download CSV
-                            </a>
+                                <a href="{{ route('admin.wishlist') }}" class="btn btn-sm btn-outline-primary">
+                                   Back
+                                </a>
+
+                                <a href="{{ route('wishlist.csv.download', $id) }}" class="btn btn-sm btn-primary">
+                                    Download CSV
+                                </a>
+                            </span>
 
                         </div>
                         <div>
@@ -38,14 +44,16 @@
                                     </thead>
                                     <tbody>
 
-                                        @foreach ($customers as $customer)
+                                        @foreach ($users as $user)
                                             <tr>
-                                                <td>{{ $customer->name }}</td>
-                                                <td>{{ $customer->email ?? 'N/A' }}</td>
-                                                <td>{{ $customer->phone }}</td>
-                                                <td>{{ $customer->defaultAddress ? $customer->defaultAddress->address . " " . $customer->defaultAddress->address_2 . ", " . $customer->defaultAddress->city. ", " . $customer->defaultAddress->state. ", " . $customer->defaultAddress->pin_code : 'N/A' }}</td>
-                                                <td>{{ $customer->created_at->diffForHumans() }}</td>
+                                                <td>{{ $user->name }}</td>
+                                                <td>{{ $user->email ?? 'N/A' }}</td>
+                                                <td>{{ $user->phone }}</td>
+                                                <td>{{ $user->defaultAddress ? $user->defaultAddress->address . ' ' . $user->defaultAddress->address_2 . ', ' . $user->defaultAddress->city . ', ' . $user->defaultAddress->state . ', ' . $user->defaultAddress->pin_code : 'N/A' }}
+                                                </td>
+                                                <td>{{ $user->created_at->diffForHumans() }}</td>
 
+                                               
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -56,25 +64,25 @@
                         <div class="card-footer border-top">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-end mb-0">
-                                    @if ($customers->onFirstPage())
+                                    @if ($users->onFirstPage())
                                         <li class="page-item disabled">
                                             <span class="page-link">Previous</span>
                                         </li>
                                     @else
                                         <li class="page-item">
-                                            <a class="page-link" href="{{ $customers->previousPageUrl() }}">Previous</a>
+                                            <a class="page-link" href="{{ $users->previousPageUrl() }}">Previous</a>
                                         </li>
                                     @endif
 
-                                    @foreach ($customers->getUrlRange(1, $customers->lastPage()) as $page => $url)
-                                        <li class="page-item {{ $customers->currentPage() == $page ? 'active' : '' }}">
+                                    @foreach ($users->getUrlRange(1, $users->lastPage()) as $page => $url)
+                                        <li class="page-item {{ $users->currentPage() == $page ? 'active' : '' }}">
                                             <a class="page-link" href="{{ $url }}">{{ $page }}</a>
                                         </li>
                                     @endforeach
 
-                                    @if ($customers->hasMorePages())
+                                    @if ($users->hasMorePages())
                                         <li class="page-item">
-                                            <a class="page-link" href="{{ $customers->nextPageUrl() }}">Next</a>
+                                            <a class="page-link" href="{{ $users->nextPageUrl() }}">Next</a>
                                         </li>
                                     @else
                                         <li class="page-item disabled">

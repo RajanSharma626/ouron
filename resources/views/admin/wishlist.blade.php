@@ -1,8 +1,8 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Products')
+@section('title', 'Wishlist Products')
 
-@section('page_title', 'Products')
+@section('page_title', 'Wishlist Products')
 
 @section('content')
     <div class="page-content">
@@ -31,30 +31,31 @@
                     @endif
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center gap-1">
-                            <h4 class="card-title flex-grow-1">Cart Product List</h4>
+                            <h4 class="card-title flex-grow-1">Wishlist Product List</h4>
                         </div>
                         <div>
                             <div class="table-responsive">
                                 <table class="table align-middle mb-0 table-hover table-centered">
                                     <thead class="bg-light-subtle">
                                         <tr>
-                                           
+
                                             <th>Product Name</th>
                                             <th>Wishlist</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
 
                                         @foreach ($wishlistData as $wishlist)
                                             <tr>
-                                    
+
                                                 <td>
                                                     <div class="d-flex align-items-center gap-2">
                                                         <div
                                                             class="rounded bg-light avatar-md d-flex align-items-center justify-content-center">
 
-                                                            <img src="{{ asset($wishlist->product_image) }}"
-                                                                alt="" class="avatar-md">
+                                                            <img src="{{ asset($wishlist->product_image) }}" alt=""
+                                                                class="avatar-md">
 
                                                         </div>
                                                         <div>
@@ -66,6 +67,11 @@
                                                 <td>
                                                     <span
                                                         class="text-dark fw-medium">{{ $wishlist->total_wishlist_count }}</span>
+                                                </td>
+                                                <td>
+                                                    <a href="{{route('admin.wishlist.liked', $wishlist->id)}}" class="btn btn-light btn-sm"><iconify-icon
+                                                            icon="solar:eye-broken"
+                                                            class="align-middle fs-18"></iconify-icon></a>
                                                 </td>
                                             </tr>
                                         @endforeach

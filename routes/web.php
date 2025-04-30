@@ -118,7 +118,7 @@ Route::middleware(['user.auth'])->group(function () {
     Route::get('/order/cancel/{id}', [OrderController::class, 'cancel'])->name('order.cancel');
 
     //return order
-    Route::get('/order/return/{id}', [OrderController::class, 'returnRequest'])->name('return.request');
+    Route::post('/order/return/{id}', [OrderController::class, 'returnRequest'])->name('return.request');
 });
 Route::post('/phonepe/callback', [PaymentController::class, 'phonepeCallback'])->name('phonepe.callback');
 
@@ -257,6 +257,9 @@ Route::middleware(['admin.auth'])->prefix('admin-panel')->group(function () {
 
     //wishlist
     Route::get('/wishlist', [WishlistController::class, 'adminWishlist'])->name('admin.wishlist');
+    Route::get('/wishlist', [WishlistController::class, 'adminWishlist'])->name('admin.wishlist');
+    Route::get('/wishlist/{id}/liked-users', [WishlistController::class, 'adminWishlistLiked'])->name('admin.wishlist.liked');
+    Route::get('wishlist/download-csv/{id}', [WishlistController::class, 'downloadCSV'])->name('wishlist.csv.download');
 
     //confirm Order
     Route::get('/order/confirm/{id}', [OrderController::class, 'confirm'])->name('admin.order.confirm');
@@ -280,7 +283,7 @@ Route::middleware(['admin.auth'])->prefix('admin-panel')->group(function () {
      //out for delivery order
      Route::get('/order/out-for-delivery/{id}', [OrderController::class, 'outForDelivery'])->name('admin.order.out.of.delivered');
 
-     
+
     //delivered order
     Route::get('/order/delivered/{id}', [OrderController::class, 'delivered'])->name('admin.order.delivered');
 

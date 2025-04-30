@@ -120,6 +120,12 @@ class OrderController extends Controller
 
     public function returnRequest(Request $request, $id)
     {
+
+        $request->validate([
+            'reason' => 'required|string|max:255',
+            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+        
         $order = Order::findOrFail($id);
 
         // Check if the order is within the 7-day return period
@@ -129,14 +135,28 @@ class OrderController extends Controller
             return redirect()->route('orders.show', $id)->withErrors(['error' => 'Return request cannot be submitted as the order exceeds the 7-day return period.']);
         }
 
-        $order->update(['status' => 'Return Requested']);
+        $order->update(['status' => 'Return Requested', 'return_reason' => $request->input('reason', null)]);
 
         // Store history
         $order->statusHistories()->create([
             'status' => 'Return Requested',
-            'comment' => $request->input('comment', null),
+            'comment' => $request->input('reason', null), // Save the return reason
             'changed_by' => Auth::id(),
         ]);
+
+        // Handle uploaded images
+        if ($request->hasFile('images')) {
+            $imagePaths = [];
+            foreach ($request->file('images') as $image) {
+                if ($image->isValid()) { // Ensure the file is valid
+                    $path = $image->store('upload/returns', 'public'); // Save images in the 'upload/returns' directory
+                    $imagePaths[] = $path;
+                }
+            }
+            if (!empty($imagePaths)) {
+                $order->update(['return_image' => json_encode($imagePaths)]); // Store all image paths as a JSON array in the return_images column
+            }
+        }
 
         // Dispatch Email Job
         SendOrderEmailJob::dispatch($order, 'Return Requested');

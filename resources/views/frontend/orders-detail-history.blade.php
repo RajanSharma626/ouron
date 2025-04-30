@@ -107,13 +107,13 @@
                                     @if ($order->payment_method == 'UPI')
                                         <p class="mb-2"><span class="text-muted"><i class="bi bi-upc me-1 "></i>
                                                 Transaction
-                                                ID:</span> <small>#{{ $order->payment->transaction_id ?? 'N/A' }}</small></p>
-
-                                        <p class="mb-2"><span class="text-muted"><i class="bi bi-check-circle me-1 "></i>
-                                                Payment Status:</span> <small>{{ $order->payment_status ?? 'Success' }}</small>
+                                                ID:</span> <small>#{{ $order->payment->transaction_id ?? 'N/A' }}</small>
                                         </p>
 
-
+                                        <p class="mb-2"><span class="text-muted"><i class="bi bi-check-circle me-1 "></i>
+                                                Payment Status:</span>
+                                            <small>{{ $order->payment_status ?? 'Success' }}</small>
+                                        </p>
                                     @endif
                                 </div>
                             </div>
@@ -198,10 +198,45 @@
                                 <i class="bi bi-truck me-1"></i> Track Order
                             </a>
                         @elseif ($order->status == 'Delivered' && $order->created_at->diffInDays(now()) <= 7)
-                            <a href="javascript:void(0);" class="btn btn-danger"
-                                onclick="CancelOrder('Return Order', 'Are you sure you want to return this order?', '{{ route('return.request', $order->id) }}')">
+                            <a href="javascript:void(0);" class="btn btn-danger" data-bs-toggle="modal"
+                                data-bs-target="#returnModal">
                                 <i class="bi bi-arrow-left-circle me-1"></i> Return Order
                             </a>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="returnModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Reason ?</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <form action="{{ route('return.request', $order->id) }}')" method="POST"  enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-12 mb-3">
+                                                        <label for="" class="form-label">Return Reason</label>
+                                                        <textarea class="form-control" name="reason" id="" required></textarea>
+                                                    </div>
+                                                    <div class="col-12 mb-3">
+                                                        <label for="" class="form-label">Product Images</label>
+                                                        <input class="form-control" name="images[]" type="file" multiple required>
+                                                        <small class="text-muted transform-none">Upload images of the product you want to return.</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Return</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         @endif
                     </div>
                 </div>

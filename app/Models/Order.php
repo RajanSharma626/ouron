@@ -25,6 +25,8 @@ class Order extends Model
         'tax',
         'total',
         'status',
+        'return_reason',
+        'return_image',
         'tracking_number',
         'payment_status',
     ];
