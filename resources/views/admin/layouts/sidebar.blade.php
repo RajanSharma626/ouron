@@ -137,6 +137,15 @@
                 </a>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.headline') }}">
+                    <span class="nav-icon">
+                        <iconify-icon icon="solar:question-circle-bold-duotone"></iconify-icon>
+                    </span>
+                    <span class="nav-text"> Headlines </span>
+                </a>
+            </li>
+
         </ul>
     </div>
 </div>

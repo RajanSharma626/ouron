@@ -13,6 +13,7 @@ use App\Http\Controllers\CouponController;
 use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\frontend\HomeController;
+use App\Http\Controllers\HeadlineController;
 use App\Http\Controllers\LoginAuth;
 use App\Http\Controllers\NewsLetterController;
 use App\Http\Controllers\OrderController;
@@ -216,18 +217,25 @@ Route::middleware(['admin.auth'])->prefix('admin-panel')->group(function () {
 
     //coupons
     Route::get('/coupons', [CouponController::class, 'index'])->name('admin.coupons');
-
     Route::get('/coupons/add', function () {
         $categories = Category::all();
         $collections = Collections::all();
         $products = Product::all();
         return view('admin.coupon-add', compact('categories', 'collections', "products"));
     })->name('admin.coupons.add');
-
     Route::post('/coupons/store', [CouponController::class, 'store'])->name('admin.coupons.store');
     Route::get('/coupons/delete/{id}', [CouponController::class, 'destroy'])->name('admin.coupons.delete');
     Route::get('/coupons/edit/{id}', [CouponController::class, 'edit'])->name('admin.coupons.edit');
     Route::post('/coupons/update', [CouponController::class, 'update'])->name('admin.coupons.update');
+
+    //Headlines
+    Route::get('/headline', [HeadlineController::class, 'index'])->name('admin.headline');
+    Route::post('/headline/store', [HeadlineController::class, 'store'])->name('admin.headline.store');
+    Route::get('/headline/add', [HeadlineController::class, 'create'])->name('admin.headline.add');
+    Route::get('/headline/delete/{id}', [HeadlineController::class, 'destroy'])->name('admin.headline.delete');
+    Route::get('/headline/edit/{id}', [HeadlineController::class, 'edit'])->name('admin.headline.edit');
+    Route::post('/headline/update', [HeadlineController::class, 'update'])->name('admin.headline.update');
+    Route::post('headling/status/update', [HeadlineController::class,'toggleStatus'])->name('admin.headline.status.update');
 
     //Customers
     Route::get('/customers', [CustomersController::class, 'index'])->name('admin.customers');

@@ -36,6 +36,36 @@ $(document).ready(function () {
     //     });
     // });
 
+    const ticker = document.querySelector(".ticker");
+    const items = document.querySelectorAll(".ticker-item");
+    const itemHeight = 40; // Height of each ticker item changed to 40px
+    const totalItems = items.length;
+
+    // Normal reading speed - 2.5 seconds per item
+    const style = document.createElement("style");
+    const duration = totalItems * 2.5; // 2.5 seconds per item for comfortable reading
+    const percentPerItem = 100 / totalItems;
+
+    let keyframes = "@keyframes tick {\n";
+    for (let i = 0; i < totalItems; i++) {
+        const top = i * -itemHeight;
+        const startPercent = i * percentPerItem;
+        const midPercent = startPercent + percentPerItem * 0.9; // Show for 90% of the time
+        const endPercent = (i + 1) * percentPerItem;
+
+        keyframes += `  ${startPercent}% { top: ${top}px; }\n`;
+        keyframes += `  ${midPercent}% { top: ${top}px; }\n`;
+        keyframes += `  ${endPercent}% { top: ${(i + 1) * -itemHeight}px; }\n`;
+    }
+    keyframes += "}";
+
+    style.innerHTML = keyframes;
+    document.head.appendChild(style);
+
+    ticker.style.animation = `tick ${duration}s infinite cubic-bezier(0.23, 1, 0.32, 1)`;
+
+    
+
     function checkPincode(pin) {
         // console.log("Checking PIN code:", pin);
         if (pin.length === 6) {
@@ -50,10 +80,10 @@ $(document).ready(function () {
                             .text("")
                             .show();
 
-                            $('#pincode').removeClass('is-invalid');
-                            $('#pincode').addClass('is-valid');
+                        $("#pincode").removeClass("is-invalid");
+                        $("#pincode").addClass("is-valid");
 
-                            $('#checkpout').attr('disabled', false);
+                        $("#checkpout").attr("disabled", false);
                     } else {
                         $("#pincode-message")
                             .removeClass("text-success")
@@ -61,9 +91,9 @@ $(document).ready(function () {
                             .text("Delivery is not available at this PIN code")
                             .show();
 
-                            $('#pincode').removeClass('is-valid');
-                            $('#pincode').addClass('is-invalid');
-                            $('#checkpout').attr('disabled', true);
+                        $("#pincode").removeClass("is-valid");
+                        $("#pincode").addClass("is-invalid");
+                        $("#checkpout").attr("disabled", true);
                     }
                 },
                 error: function () {
@@ -826,18 +856,18 @@ document.getElementById("logoutBtn").addEventListener("click", function () {
     });
 });
 
-document.getElementById('logoutBtn2').addEventListener('click', function () {
+document.getElementById("logoutBtn2").addEventListener("click", function () {
     Swal.fire({
-        title: 'Are you sure?',
+        title: "Are you sure?",
         text: "You will be logged out!",
-        icon: 'warning',
+        icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Yes, logout!'
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Yes, logout!",
     }).then((result) => {
         if (result.isConfirmed) {
-            document.getElementById('logoutForm').submit();
+            document.getElementById("logoutForm").submit();
         }
     });
 });

@@ -1,5 +1,5 @@
 <header>
-    @if ($coupon)
+    {{-- @if ($coupon)
         <div class="fs-07rem text-center primary-bg text-white py-2">
 
             @if ($coupon->coupon_type == 'percentage')
@@ -13,7 +13,20 @@
                 checkout for free shipping!
             @endif
         </div>
+    @endif --}}
+
+    @if ($headline->isNotEmpty())
+        <div class="ticker-container fs-07rem text-center primary-bg text-white py-2 w-100">
+            <div class="ticker">
+                @foreach ($headline as $item)
+                    <div class="ticker-item">
+                        {{ $item->headline }}
+                    </div>
+                @endforeach
+            </div>
+        </div>
     @endif
+
     <nav class="navbar navbar-expand-lg py-2 secondary-bg d-none d-lg-block">
         <div class="container-fluid px-4">
             <div class="d-flex w-100 justify-content-between align-items-center">

@@ -959,3 +959,58 @@ input[type="radio"]:checked + label .color-circle {
     align-items: center;
     justify-content: center;
 }
+
+
+.ticker-container {
+    height: 40px;
+    overflow: hidden;
+    position: relative;
+}
+
+.ticker {
+    position: absolute;
+    top: 0;
+    animation: tick 4s infinite cubic-bezier(0.23, 1, 0.32, 1);
+    width: 100%;
+}
+
+.ticker-item {
+    height: 40px;
+    /* display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center; */
+    /* padding: 0 20px; */
+    /* box-sizing: border-box; */
+    width: 100%;
+}
+
+@keyframes tick {
+    0% {
+        top: 0;
+    }
+    22.5% {
+        top: 0;
+    }
+    25% {
+        top: -40px;
+    }
+    47.5% {
+        top: -40px;
+    }
+    50% {
+        top: -80px;
+    }
+    72.5% {
+        top: -80px;
+    }
+    75% {
+        top: -120px;
+    }
+    97.5% {
+        top: -120px;
+    }
+    100% {
+        top: 0;
+    }
+}
