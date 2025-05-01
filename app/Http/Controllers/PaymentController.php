@@ -10,6 +10,7 @@ use App\Models\Payment;
 use App\Models\Product;
 use App\Models\ProductVariant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -22,6 +23,19 @@ class PaymentController extends Controller
 
         $payment = Payment::where('transaction_id', $transactionId)->first();
         if (!$payment) return response()->json(['message' => 'Payment record not found'], 404);
+
+        // Check if an order already exists for this payment to prevent duplicates
+        if ($payment->order_id) {
+            $order = Order::find($payment->order_id);
+            if ($order) {
+                // Order already processed, return appropriate redirect
+                if ($order->payment_status === 'Paid') {
+                    return redirect()->route('order.success', $order->id);
+                } else {
+                    return redirect()->route('checkout')->with('error', 'Payment verification in progress.');
+                }
+            }
+        }
 
         $merchantId = env('PHONEPE_MERCHANT_ID');
         $saltKey = env('PHONEPE_SALT_KEY');
@@ -40,52 +54,64 @@ class PaymentController extends Controller
         }
 
         $data = $statusResponse['data'];
-        $order = $data['responseCode'] ?? $data['state'];
+        $orderStatus = $data['responseCode'] ?? $data['state'];
 
         $payment->update([
-            'status' => $order,
+            'status' => $orderStatus,
             'response_payload' => json_encode($data),
         ]);
 
-        if ($order === 'SUCCESS' || $data['state'] === 'COMPLETED') {
-            $orderData = $payment->payload ? json_decode($payment->payload, true) : [];
+        if ($orderStatus === 'SUCCESS' || $data['state'] === 'COMPLETED') {
+            // Use DB transaction to ensure data consistency
+            DB::beginTransaction();
 
-            $order = Order::create(array_merge($orderData, [
-                'user_id' => $payment->user_id,
-                'status' => 'Pending',
-                'payment_status' => 'Paid'
-            ]));
+            try {
+                $orderData = $payment->payload ? json_decode($payment->payload, true) : [];
 
-            $payment->update([
-                'order_id' => $order->id,
-            ]);
+                $order = Order::create(array_merge($orderData, [
+                    'user_id' => $payment->user_id,
+                    'status' => 'Pending',
+                    'payment_status' => 'Paid'
+                ]));
 
-            $cart = CartItem::where('user_id', $payment->user_id)->get();
-
-            foreach ($cart as $item) {
-                OrderItem::create([
+                $payment->update([
                     'order_id' => $order->id,
-                    'product_id' => $item->product_id,
-                    'quantity' => $item->quantity,
-                    'price' => $item->product->discount_price,
-                    'size' => $item->size,
-                    'color' => $item->color
                 ]);
 
-                $variant = ProductVariant::where('product_id', $item->product_id)->where('size', $item->size)->first();
+                $cart = CartItem::where('user_id', $payment->user_id)->get();
 
-                if ($variant) {
-                    $variant->stock -= $item->quantity;
-                    $variant->save();
+                foreach ($cart as $item) {
+                    OrderItem::create([
+                        'order_id' => $order->id,
+                        'product_id' => $item->product_id,
+                        'quantity' => $item->quantity,
+                        'price' => $item->product->discount_price,
+                        'size' => $item->size,
+                        'color' => $item->color
+                    ]);
+
+                    $variant = ProductVariant::where('product_id', $item->product_id)
+                        ->where('size', $item->size)
+                        ->first();
+
+                    if ($variant) {
+                        $variant->stock -= $item->quantity;
+                        $variant->save();
+                    }
                 }
+
+                CartItem::where('user_id', $payment->user_id)->delete();
+
+                DB::commit();
+
+                SendOrderConfirmationJob::dispatch($order);
+
+                return redirect()->route('order.success', $order->id)->with('success', 'Order placed successfully');
+            } catch (\Exception $e) {
+                DB::rollBack();
+                Log::error('Order creation failed: ' . $e->getMessage());
+                return redirect()->route('checkout')->with('error', 'Order processing failed. Please contact support.');
             }
-
-
-            CartItem::where('user_id', $payment->user_id)->delete();
-
-            SendOrderConfirmationJob::dispatch($order);
-
-            return redirect()->route('order.success', $order->id)->with('success', 'Order placed successfully');
         } else {
             return redirect()->route('checkout')->with('error', 'Payment failed.');
         }

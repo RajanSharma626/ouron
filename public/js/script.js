@@ -1,56 +1,21 @@
-$(document).ready(function () {
-    // Add to Cart
-    // $(".add-to-cart").click(function (e) {
-    //     e.preventDefault();
-
-    //     let $button = $(this);
-    //     let $icon = $button.find("i");
-    //     let originalIconClass = $icon.attr("class");
-
-    //     // Show loading spinner inside icon
-    //     $icon.attr("class", "spinner-border spinner-border-sm");
-
-    //     let productId = $button.data("id");
-    //     let price = $button.data("price");
-
-    //     $.ajax({
-    //         url: "/cart/add",
-    //         type: "POST",
-    //         data: {
-    //             product_id: productId,
-    //             price: price,
-    //             _token: $('meta[name="csrf-token"]').attr("content"),
-    //         },
-    //         success: function (response) {
-    //             // Open the offcanvas after adding to cart
-    //             let offcanvasElement = document.getElementById("cart");
-    //             let offcanvas = new bootstrap.Offcanvas(offcanvasElement);
-    //             offcanvas.show();
-
-    //             loadCart();
-    //         },
-    //         complete: function () {
-    //             // Restore original icon once the AJAX call is complete
-    //             $icon.attr("class", originalIconClass);
-    //         },
-    //     });
-    // });
-
+document.addEventListener("DOMContentLoaded", function () {
     const ticker = document.querySelector(".ticker");
     const items = document.querySelectorAll(".ticker-item");
-    const itemHeight = 40; // Height of each ticker item changed to 40px
+
+    if (!ticker || items.length === 0) return; // ✅ Safeguard
+
+    const itemHeight = 40;
     const totalItems = items.length;
 
-    // Normal reading speed - 2.5 seconds per item
     const style = document.createElement("style");
-    const duration = totalItems * 2.5; // 2.5 seconds per item for comfortable reading
+    const duration = totalItems * 2.5;
     const percentPerItem = 100 / totalItems;
 
     let keyframes = "@keyframes tick {\n";
     for (let i = 0; i < totalItems; i++) {
         const top = i * -itemHeight;
         const startPercent = i * percentPerItem;
-        const midPercent = startPercent + percentPerItem * 0.9; // Show for 90% of the time
+        const midPercent = startPercent + percentPerItem * 0.9;
         const endPercent = (i + 1) * percentPerItem;
 
         keyframes += `  ${startPercent}% { top: ${top}px; }\n`;
@@ -63,8 +28,10 @@ $(document).ready(function () {
     document.head.appendChild(style);
 
     ticker.style.animation = `tick ${duration}s infinite cubic-bezier(0.23, 1, 0.32, 1)`;
+});
 
-    
+
+$(document).ready(function () {
 
     function checkPincode(pin) {
         // console.log("Checking PIN code:", pin);
@@ -689,17 +656,21 @@ document.addEventListener("DOMContentLoaded", function () {
         setTimeout(() => $("#suggestionBox").hide(), 200);
     });
 
-    document.getElementById("editBtn").addEventListener("click", function () {
-        // Remove disabled attribute from text, email, and phone inputs
-        this.closest("form")
-            .querySelectorAll("input")
-            .forEach(function (input) {
-                input.removeAttribute("disabled");
-            });
-        // Hide edit button and show save button
-        document.getElementById("editBtn").classList.add("d-none");
-        document.getElementById("saveBtn").classList.remove("d-none");
-    });
+    const editBtn = document.getElementById("editBtn");
+
+    if (editBtn) {
+        editBtn.addEventListener("click", function () {
+            // Remove disabled attribute from text, email, and phone inputs
+            this.closest("form")
+                .querySelectorAll("input")
+                .forEach(function (input) {
+                    input.removeAttribute("disabled");
+                });
+            // Hide edit button and show save button
+            document.getElementById("editBtn").classList.add("d-none");
+            document.getElementById("saveBtn").classList.remove("d-none");
+        });
+    }
 });
 
 $(document).ready(function () {
@@ -840,34 +811,41 @@ $(document).ready(function () {
     });
 });
 
-document.getElementById("logoutBtn").addEventListener("click", function () {
-    Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, logout!",
-    }).then((result) => {
-        if (result.isConfirmed) {
-            this.closest("form").submit();
-        }
+const logoutBtn = document.getElementById("logoutBtn");
+if (logoutBtn) {
+    logoutBtn.addEventListener("click", function () {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, logout!",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.closest("form").submit();
+            }
+        });
     });
-});
+}
 
-document.getElementById("logoutBtn2").addEventListener("click", function () {
-    Swal.fire({
-        title: "Are you sure?",
-        text: "You will be logged out!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#d33",
-        cancelButtonColor: "#3085d6",
-        confirmButtonText: "Yes, logout!",
-    }).then((result) => {
-        if (result.isConfirmed) {
-            document.getElementById("logoutForm").submit();
-        }
+const logoutBtn2 = document.getElementById("logoutBtn2");
+
+if (logoutBtn) {
+    logoutBtn2.addEventListener("click", function () {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You will be logged out!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Yes, logout!",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById("logoutForm").submit();
+            }
+        });
     });
-});
+}

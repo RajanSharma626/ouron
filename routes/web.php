@@ -120,8 +120,8 @@ Route::middleware(['user.auth'])->group(function () {
 
     //return order
     Route::post('/order/return/{id}', [OrderController::class, 'returnRequest'])->name('return.request');
+    Route::post('/phonepe/callback', [PaymentController::class, 'phonepeCallback'])->name('phonepe.callback');
 });
-Route::post('/phonepe/callback', [PaymentController::class, 'phonepeCallback'])->name('phonepe.callback');
 
 
 
