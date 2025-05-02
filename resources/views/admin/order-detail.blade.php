@@ -295,32 +295,60 @@
 
                                         @if (isset($statusHistory) && $statusHistory->isNotEmpty())
                                             @foreach ($statusHistory as $index => $history)
-                                                <div class="position-relative ps-4 mb-4">
-                                                    <span
-                                                        class="position-absolute start-0 avatar-sm translate-middle-x bg-light d-inline-flex align-items-center justify-content-center rounded-circle text-success fs-20">
-                                                        <i class='bx bx-check-circle'></i>
-                                                    </span>
-
-                                                    <div
-                                                        class="ms-2 d-flex flex-wrap gap-2 align-items-center justify-content-between">
-                                                        <div>
-                                                            <h5 class="mb-1 text-dark fw-medium fs-15">
-                                                                {{ ucfirst($history->status) }}
-                                                            </h5>
-                                                            @if ($history->comment)
-                                                                <p class="mb-2">{{ $history->comment }}</p>
-                                                            @endif
-                                                            @if ($history->changedBy)
-                                                                <p class="mb-0">Marked by
-                                                                    {{ $history->changedBy->name }}
+                                                @if ($history->status == 'invoice_generated')
+                                                    <div class="position-relative ps-4">
+                                                        <div class="mb-4">
+                                                            <span
+                                                                class="position-absolute start-0 avatar-sm translate-middle-x bg-light d-inline-flex align-items-center justify-content-center rounded-circle text-success fs-20">
+                                                                <i class="bx bx-check-circle"></i>
+                                                            </span>
+                                                            <div
+                                                                class="ms-2 d-flex flex-wrap gap-2 align-items-center justify-content-between">
+                                                                <div>
+                                                                    <h5 class="mb-1 text-dark fw-medium fs-15">The Invoice
+                                                                        has been created</h5>
+                                                                    @if ($history->changedBy)
+                                                                        <p class="mb-2">Invoice created by
+                                                                            {{ $history->changedBy->name }}</p>
+                                                                    @endif
+                                                                    <a href="{{asset($order->invoice->invoice_path)}}" class="btn btn-primary" download>Download
+                                                                        Invoice</a>
+                                                                </div>
+                                                                <p class="mb-0">
+                                                                    {{ \Carbon\Carbon::parse($history->changed_at)->format('F d, Y, h:i A') }}
                                                                 </p>
-                                                            @endif
+
+                                                            </div>
                                                         </div>
-                                                        <p class="mb-0">
-                                                            {{ \Carbon\Carbon::parse($history->changed_at)->format('F d, Y, h:i A') }}
-                                                        </p>
                                                     </div>
-                                                </div>
+                                                @else
+                                                    <div class="position-relative ps-4 mb-4">
+                                                        <span
+                                                            class="position-absolute start-0 avatar-sm translate-middle-x bg-light d-inline-flex align-items-center justify-content-center rounded-circle text-success fs-20">
+                                                            <i class='bx bx-check-circle'></i>
+                                                        </span>
+
+                                                        <div
+                                                            class="ms-2 d-flex flex-wrap gap-2 align-items-center justify-content-between">
+                                                            <div>
+                                                                <h5 class="mb-1 text-dark fw-medium fs-15">
+                                                                    {{ ucfirst($history->status) }}
+                                                                </h5>
+                                                                @if ($history->comment)
+                                                                    <p class="mb-2">{{ $history->comment }}</p>
+                                                                @endif
+                                                                @if ($history->changedBy)
+                                                                    <p class="mb-0">Marked by
+                                                                        {{ $history->changedBy->name }}
+                                                                    </p>
+                                                                @endif
+                                                            </div>
+                                                            <p class="mb-0">
+                                                                {{ \Carbon\Carbon::parse($history->changed_at)->format('F d, Y, h:i A') }}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                @endif
                                             @endforeach
                                         @endif
 
@@ -433,7 +461,8 @@
                             <h4 class="card-title">Payment Information</h4>
                         </div>
                         <div class="card-body">
-                            <div class="d-flex align-items-center gap-3 {{ $order->payment_method == 'UPI' ? 'mb-3' : '' }}">
+                            <div
+                                class="d-flex align-items-center gap-3 {{ $order->payment_method == 'UPI' ? 'mb-3' : '' }}">
                                 <div>
                                     <p class="mb-1 text-dark fw-medium">{{ $order->payment_method }}</p>
                                 </div>
@@ -445,7 +474,7 @@
                             @if ($order->payment_method == 'UPI')
                                 <p class="text-dark mb-1 fw-medium">Transaction ID : <span
                                         class="text-muted fw-normal fs-13">
-                                        #{{$order->payment->transaction_id ?? "NA"}}</span></p>
+                                        #{{ $order->payment->transaction_id ?? 'NA' }}</span></p>
                             @endif
 
                         </div>

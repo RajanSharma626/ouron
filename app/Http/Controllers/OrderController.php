@@ -5,11 +5,19 @@ namespace App\Http\Controllers;
 use App\Jobs\SendOrderEmailJob;
 use App\Jobs\SendOrderSmsJob;
 use App\Models\Coupon;
+use App\Models\Invoice;
 use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\OrderStatusHistory;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
+use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
+use Mpdf\Mpdf;
+use TCPDF;
 
 class OrderController extends Controller
 {
@@ -24,7 +32,7 @@ class OrderController extends Controller
 
     public function view($id)
     {
-        $order = Order::with(['items', 'user', 'payment'])->findOrFail($id);
+        $order = Order::with(['items', 'user', 'payment', 'invoice'])->findOrFail($id);
 
         $statusHistory = OrderStatusHistory::with('changedBy') // assuming relation for changed_by
             ->where('order_id', $id)
@@ -36,7 +44,7 @@ class OrderController extends Controller
 
     public function show($id)
     {
-        $order = Auth::user()->orders()->where('id', $id)->with('items.product', 'address', 'payment')->firstOrFail();
+        $order = Auth::user()->orders()->where('id', $id)->with('items.product', 'address', 'payment', 'invoice')->firstOrFail();
         return view('frontend.orders-detail-history', compact('order'));
     }
 
@@ -58,7 +66,52 @@ class OrderController extends Controller
             'changed_by' => Auth::id(),
         ]);
 
+        // Generate invoice after confirmation
+        $this->generateInvoice($order);
+
+        // ✅ History for invoice generation
+        $order->statusHistories()->create([
+            'status' => 'invoice_generated',
+            'comment' => 'Invoice has been generated.',
+            'changed_by' => Auth::id(),
+        ]);
+
         return redirect()->route('admin.order.view', $id)->with('success', 'Order marked as confirmed successfully.');
+    }
+
+    public function generateInvoice($order)
+    {
+        $invoiceNumber = 'INV' . str_pad($order->id, 8, '0', STR_PAD_LEFT);
+        $items = OrderItem::with('product')->where('order_id', $order->id)->get();
+
+        // Initialize mPDF
+        $mpdf = new Mpdf();
+
+        // Load the view and render HTML content
+        $pdfContent = view('admin.invoice', compact('order', 'invoiceNumber', 'items'))->render();
+
+        // Write HTML to PDF
+        $mpdf->WriteHTML($pdfContent);
+
+        // Output the PDF
+        $fileName = 'invoice_' . $order->id . '.pdf';
+        $filePath = public_path('invoices/' . $fileName);
+
+        // Ensure the invoices folder exists
+        if (!file_exists(public_path('invoices'))) {
+            mkdir(public_path('invoices'), 0777, true);
+        }
+
+        // Save the PDF to file
+        $mpdf->Output($filePath, 'F');
+
+        // Store invoice details in the database
+        $invoice = new Invoice();
+        $invoice->invoice_number = $invoiceNumber;
+        $invoice->user_id = $order->user_id;
+        $invoice->order_id = $order->id;
+        $invoice->invoice_path = 'invoices/' . $fileName;
+        $invoice->save();
     }
 
     public function cancel(Request $request, $id)
@@ -125,7 +178,7 @@ class OrderController extends Controller
             'reason' => 'required|string|max:255',
             'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-        
+
         $order = Order::findOrFail($id);
 
         // Check if the order is within the 7-day return period
