@@ -268,30 +268,6 @@
     </section>
 @endsection
 
-@push('script')
-    <script>
-        function CancelOrder(title, text, redirectUrl = null, callback = null) {
-            Swal.fire({
-                title: title || 'Are you sure?',
-                text: text || 'This action cannot be undone.',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, proceed',
-                cancelButtonText: 'Cancel',
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    if (redirectUrl) {
-                        window.location.href = redirectUrl;
-                    } else if (typeof callback === 'function') {
-                        callback();
-                    }
-                }
-            });
-        }
-    </script>
-@endpush
 
 @push('styles')
     <style>

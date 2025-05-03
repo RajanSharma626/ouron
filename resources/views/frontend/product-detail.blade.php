@@ -177,7 +177,7 @@
                     </h6>
                     <p class="text-muted fs-12 mb-2">MRP inclusive of all taxes </p>
 
-                    <form action="{{ route('buy.now') }}" method="post">
+                    <form action="{{ route('buy.now') }}" method="get">
                         @csrf
                         <input type="hidden" name="id" value="{{ $product->id }}">
                         <div class="row justify-content-between align-items-center mb-2">

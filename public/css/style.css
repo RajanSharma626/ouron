@@ -1014,3 +1014,30 @@ input[type="radio"]:checked + label .color-circle {
         top: 0;
     }
 }
+
+.marquee_container {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    background: #315b46;
+    padding: 0.2rem 0;
+  }
+  .marquee {
+    display: inline-block;
+    animation: marquee 10s linear infinite;
+  }
+  @keyframes marquee {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-100%, 0, 0);
+    }
+  }
+  .marquee p {
+    display: inline-block;
+    margin-right: 30px;
+    margin-bottom: 0px;
+    font-weight: 400;
+    color: #f0efdf;
+  }

@@ -24,6 +24,9 @@ return new class extends Migration
             $table->string('pin_code');
             $table->string('phone');
             $table->string('payment_method');
+            $table->string('coupon')->nullable();
+            $table->string('coupon_value')->nullable();
+            $table->string('coupon_type')->nullable();
             $table->decimal('subtotal', 10, 2);
             $table->decimal('tax', 10, 2)->nullable();
             $table->decimal('total', 10, 2);

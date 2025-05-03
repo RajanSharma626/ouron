@@ -96,6 +96,7 @@ Route::middleware(['user.auth'])->group(function () {
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
 
     //checkout store
+    Route::post('/checkout/buy/apply-coupon', [CheckoutController::class, 'applyBuyCoupon'])->name('checkout.buy.applyCoupon');
     Route::post('/checkout/apply-coupon', [CheckoutController::class, 'applyCoupon'])->name('checkout.applyCoupon');
     Route::get('/remove-coupon', [CouponController::class, 'removeCoupon'])->name('coupon.remove');
 
@@ -112,7 +113,7 @@ Route::middleware(['user.auth'])->group(function () {
     Route::get('/wishlist', [WishlistController::class, 'getWishlist'])->name('wishlist');
 
     Route::get('/buy', [CheckoutController::class, 'buy'])->name('buy');
-    Route::post('/buy-now', [CheckoutController::class, 'buyNow'])->name('buy.now');
+    Route::get('/buy-now', [CheckoutController::class, 'buyNow'])->name('buy.now');
     Route::post('/buy-now/store', [CheckoutController::class, 'buyNowStore'])->name('buy.now.store');
 
     //cancel order

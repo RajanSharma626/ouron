@@ -182,13 +182,45 @@
         </div>
 
         {{-- ============================================= Marquee Section Start ==================================== --}}
-        <section class="marquee-section primary-bg py-2">
-            <div class="container-fluid d-flex align-items-center">
-                <marquee behavior="scroll" direction="left" scrollamount="5" class="text-white">
-                    100% Made With Indian Pride &nbsp;&nbsp;&nbsp; |
-                    &nbsp;&nbsp;&nbsp; Free Shipping
-                    | &nbsp;&nbsp;&nbsp; COD Available &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; 7-Day Easy Returns
-                </marquee>
+        <section class="marquee-section">
+            {{-- <div class="marquee">
+                <div class="text-track mb-0 w-100">
+                    100% Made With Indian Pride &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; Free Shipping | &nbsp;&nbsp;&nbsp; COD
+                    Available &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; 7-Day Easy Returns
+                </div>
+            </div> --}}
+
+            <div class="marquee_container">
+                <div class="marquee">
+                    <p>100% Made With Indian Pride </p>
+                    <p>|</p>
+                    <p>Free Shipping</p>
+                    <p>|</p>
+                    <p>COD Available</p>
+                    <p>|</p>
+                    <p>7-Day Easy Returns</p>
+                    <p>|</p>
+                </div>
+                <div class="marquee">
+                    <p>100% Made With Indian Pride </p>
+                    <p>|</p>
+                    <p>Free Shipping</p>
+                    <p>|</p>
+                    <p>COD Available</p>
+                    <p>|</p>
+                    <p>7-Day Easy Returns</p>
+                    <p>|</p>
+                </div>
+                <div class="marquee">
+                    <p>100% Made With Indian Pride </p>
+                    <p>|</p>
+                    <p>Free Shipping</p>
+                    <p>|</p>
+                    <p>COD Available</p>
+                    <p>|</p>
+                    <p>7-Day Easy Returns</p>
+                    <p>|</p>
+                </div>
             </div>
         </section>
         {{-- ============================================= Marquee Section End ==================================== --}}

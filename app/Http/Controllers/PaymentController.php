@@ -68,6 +68,8 @@ class PaymentController extends Controller
             try {
                 $orderData = $payment->payload ? json_decode($payment->payload, true) : [];
 
+                $isBuyNow = $orderData['buy_now'] ?? false;
+
                 $order = Order::create(array_merge($orderData, [
                     'user_id' => $payment->user_id,
                     'status' => 'Pending',
@@ -78,29 +80,51 @@ class PaymentController extends Controller
                     'order_id' => $order->id,
                 ]);
 
-                $cart = CartItem::where('user_id', $payment->user_id)->get();
-
-                foreach ($cart as $item) {
+                if ($isBuyNow) {
+                    // Buy Now flow
                     OrderItem::create([
                         'order_id' => $order->id,
-                        'product_id' => $item->product_id,
-                        'quantity' => $item->quantity,
-                        'price' => $item->product->discount_price,
-                        'size' => $item->size,
-                        'color' => $item->color
+                        'product_id' => $orderData['product_id'],
+                        'quantity' => $orderData['quantity'] ?? 1,
+                        'price' => Product::find($orderData['product_id'])->discount_price,
+                        'size' => $orderData['size'] ?? null,
+                        'color' => $orderData['color'] ?? null,
                     ]);
 
-                    $variant = ProductVariant::where('product_id', $item->product_id)
-                        ->where('size', $item->size)
+                    $variant = ProductVariant::where('product_id', $orderData['product_id'])
+                        ->where('size', $orderData['size'] ?? null)
                         ->first();
 
                     if ($variant) {
-                        $variant->stock -= $item->quantity;
+                        $variant->stock -= $orderData['quantity'] ?? 1;
                         $variant->save();
                     }
-                }
+                } else {
+                    // Cart flow (your existing logic)
+                    $cart = CartItem::where('user_id', $payment->user_id)->get();
 
-                CartItem::where('user_id', $payment->user_id)->delete();
+                    foreach ($cart as $item) {
+                        OrderItem::create([
+                            'order_id' => $order->id,
+                            'product_id' => $item->product_id,
+                            'quantity' => $item->quantity,
+                            'price' => $item->product->discount_price,
+                            'size' => $item->size,
+                            'color' => $item->color
+                        ]);
+
+                        $variant = ProductVariant::where('product_id', $item->product_id)
+                            ->where('size', $item->size)
+                            ->first();
+
+                        if ($variant) {
+                            $variant->stock -= $item->quantity;
+                            $variant->save();
+                        }
+                    }
+
+                    CartItem::where('user_id', $payment->user_id)->delete();
+                }
 
                 DB::commit();
 

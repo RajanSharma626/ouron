@@ -88,17 +88,23 @@ class CheckoutController extends Controller
             'payment_method' => 'required'
         ]);
 
+        $pincodeCheck = $this->checkPincode($request->pin_code);
+
+        if (is_array($pincodeCheck) && isset($pincodeCheck['status']) && !$pincodeCheck['status']) {
+            return redirect()->back()->withErrors(['pin_code' => $pincodeCheck['message'] ?? 'Delivery is not available at this PIN code.']);
+        }
+
         $inputPhone = preg_replace('/\D/', '', $request->phone);
         if (strlen($inputPhone) == 12 && substr($inputPhone, 0, 2) == '91') {
             $inputPhone = substr($inputPhone, 2);
         }
         if (strlen($inputPhone) != 10) {
-            return back()->withErrors(['phone' => 'Invalid phone number format.']);
+            return redirect()->route('checkout')->withErrors(['phone' => 'Invalid phone number format.']);
         }
 
         $cart = CartItem::where('user_id', Auth::id())->get();
         if ($cart->isEmpty()) {
-            return redirect()->back()->with('error', 'Your cart is empty.');
+            return redirect()->route('checkout')->with('error', 'Your cart is empty.');
         }
 
         $subtotal = 0;
@@ -106,23 +112,53 @@ class CheckoutController extends Controller
             $subtotal += $item->product->discount_price * $item->quantity;
         }
 
-        $total = $subtotal;
+        if (session()->has('discount')) {
+            $discount = session('discount');
+
+            $coupon = Coupon::where('coupon_code', $discount['coupon_code'])
+                ->where('status', 'active')
+                ->where('start_date', '<=', now())
+                ->where('end_date', '>=', now())
+                ->first();
+            if (!$coupon) {
+                session()->forget('discount');
+                return redirect()->route('checkout')->with('coupon_error', 'Invalid or expired coupon code.');
+            } else {
+                $couponCode = $discount['coupon_code'];
+                $couponType = $discount['type'];
+
+                if ($discount['type'] === 'percentage') {
+                    $discountAmount = ($subtotal * $discount['value']) / 100;
+                } elseif ($discount['type'] === 'fixed_amount') {
+                    $discountAmount = $discount['value'];
+                } else {
+                    $discountAmount = 0;
+                }
+                $couponValue = $discountAmount;
+                $total = $subtotal - $discountAmount;
+            }
+        } else {
+            $discountAmount = 0;
+            $total = $subtotal;
+        }
+
+
         $tax = $total < 1000 ? $total * 0.05 : $total * 0.12; // 5% tax for total under 1000, 12% for 1000 and above
 
         $defaultAddress = UserAddress::where('user_id', Auth::id())->first();
 
         if (!$defaultAddress) {
             $defaultAddress = UserAddress::create([
-            'user_id' => Auth::id(),
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'address' => $request->address,
-            'address_2' => $request->address2,
-            'city' => $request->city,
-            'state' => $request->state,
-            'pin_code' => $request->pin_code,
-            'phone' => $inputPhone,
-            'default_address' => 1,
+                'user_id' => Auth::id(),
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'address' => $request->address,
+                'address_2' => $request->address2,
+                'city' => $request->city,
+                'state' => $request->state,
+                'pin_code' => $request->pin_code,
+                'phone' => $inputPhone,
+                'default_address' => 1,
             ]);
         }
 
@@ -156,9 +192,12 @@ class CheckoutController extends Controller
                     'pin_code' => $request->pin_code,
                     'phone' => $inputPhone,
                     'payment_method' => $request->payment_method,
+                    'coupon' => $couponCode ?? null,
+                    'coupon_value' => $couponValue ?? null,
+                    'coupon_type' => $couponType ?? null,
                     'subtotal' => $subtotal,
                     'total' => $total,
-                    'tax'=> $tax,
+                    'tax' => $tax,
                 ])
             ]);
 
@@ -204,6 +243,9 @@ class CheckoutController extends Controller
                 'pin_code' => $request->pin_code,
                 'phone' => $inputPhone,
                 'payment_method' => $request->payment_method,
+                'coupon' => $couponCode ?? null,
+                'coupon_value' => $couponValue ?? null,
+                'coupon_type' => $couponType ?? null,
                 'subtotal' => $subtotal,
                 'total' => $total,
                 'status' => 'Pending',
@@ -240,14 +282,14 @@ class CheckoutController extends Controller
     }
 
 
-    public function buy()
-    {
+    // public function buy($productSlug)
+    // {
 
-        if (!session()->has('buy_now')) {
-            return redirect()->route('home')->with('error', 'No product selected for checkout.');
-        }
-        return view('frontend.buy-now');
-    }
+    //     if (!session()->has('buy_now')) {
+    //         return redirect()->route('home')->with('error', 'No product selected for checkout.');
+    //     }
+    //     return view('frontend.buy-now');
+    // }
 
     public function buyNow(Request $request)
     {
@@ -266,30 +308,50 @@ class CheckoutController extends Controller
 
         // If variant does not exist or stock is 0
         if (!$variant || $variant->stock < 1) {
-            return redirect()->back()->with('error', 'Selected variant is out of stock.');
+            return redirect()->route('product.detail',)->with('error', 'Selected variant is out of stock.');
         }
 
         $defaultAddress = UserAddress::where('user_id', Auth::id())->where('default_address', 1)->first();
 
-        // Store in session (temporary order)
-        session(['buy_now' => [
-            'name' => $product->name,
-            'slug' => $product->slug,
-            'img' => $product->firstImage->img,
-            'product_id' => $product->id,
-            'color' => $request->color,
-            'size' => $request->size,
-            'price' => $product->discount_price,
-            'quantity' => 1,
-            'address' => $defaultAddress ? $defaultAddress->address : null,
-            'address2' => $defaultAddress ? $defaultAddress->address_2 : null,
-            'city' => $defaultAddress ? $defaultAddress->city : null,
-            'state' => $defaultAddress ? $defaultAddress->state : null,
-            'pin_code' => $defaultAddress ? $defaultAddress->pin_code : null,
-        ]]);
+        $color = $request->color;
+        $size = $request->size;
 
-        // Redirect to checkout page
-        return redirect()->route('buy')->with('defaultAddress', $defaultAddress);
+        // Check if there's a coupon in session
+        if (session()->has('discount')) {
+            $couponCode = session('discount.coupon_code');
+            $coupon = Coupon::where('coupon_code', $couponCode)
+                ->where('status', 'active')
+                ->where('start_date', '<=', now())
+                ->where('end_date', '>=', now())
+                ->first();
+
+            $isValid = false;
+
+            if ($coupon) {
+
+                switch ($coupon->for_type) {
+                    case 'all':
+                        $isValid = true;
+                        break;
+                    case 'category':
+                        $isValid = ($coupon->category_id == NULL || $coupon->category_id == $product->category_id);
+                        break;
+                    case 'collection':
+                        $isValid = ($coupon->collection_id == NULL || $coupon->collection_id == $product->collection_id);
+                        break;
+                    case 'product':
+                        $isValid = ($coupon->product_id == NULL || $coupon->product_id == $product->id);
+                        break;
+                }
+            }
+
+            // If invalid, remove from session and flash message
+            if (!$isValid) {
+                session()->forget('discount');
+            }
+        }
+
+        return view('frontend.buy-now', compact('color', 'size', 'product', 'defaultAddress'));
     }
 
     public function buyNowStore(Request $request)
@@ -302,79 +364,229 @@ class CheckoutController extends Controller
             'state' => 'required',
             'pin_code' => 'required',
             'phone' => 'required',
-            'payment_method' => 'required'
+            'payment_method' => 'required',
+            'color' => 'required',
+            'size' => 'required',
+            'product_id' => 'required|exists:products,id'
         ]);
 
-        // Remove all non-digit characters from the phone input
-        $inputPhone = preg_replace('/\D/', '', $request->phone);
+        $pincodeCheck = $this->checkPincode($request->pin_code);
 
-        // If the phone number starts with '91' and is 12 digits long, remove the country code
+        if (is_array($pincodeCheck) && isset($pincodeCheck['status']) && !$pincodeCheck['status']) {
+            return redirect()->back()->withErrors(['pin_code' => $pincodeCheck['message'] ?? 'Delivery is not available at this PIN code.']);
+        }
+
+        $inputPhone = preg_replace('/\D/', '', $request->phone);
         if (strlen($inputPhone) == 12 && substr($inputPhone, 0, 2) == '91') {
             $inputPhone = substr($inputPhone, 2);
         }
-
-        // If the phone number is still not exactly 10 digits, return an error
         if (strlen($inputPhone) != 10) {
-            return back()->withErrors(['phone' => 'Invalid phone number format.']);
+            return redirect()->back()->withErrors(['phone' => 'Invalid phone number format.']);
         }
 
-        $request->merge(['phone' => $inputPhone]);
+        $product = Product::with('variants')->findOrFail($request->product_id);
+        $variant = $product->variants()->where('size', $request->size)->first();
 
-        if (!session()->has('buy_now')) {
-            return redirect()->route('home')->with('error', 'No product selected for checkout.');
+        if (!$variant || $variant->stock < 1) {
+            return redirect()->back()->with('error', 'Selected variant is out of stock.');
         }
 
-        $buyNow = session('buy_now');
+        $subtotal = $product->discount_price;
 
-        // Calculate totals
-        $subtotal = $buyNow['price'] * $buyNow['quantity'];
-        $total = $subtotal;
+        if (session()->has('discount')) {
+            $discount = session('discount');
 
-        // Create Order
-        $order = Order::create([
-            'user_id' => Auth::id(),
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'email' => $request->email,
-            'address' => $request->address,
-            'address2' => $request->address2,
-            'city' => $request->city,
-            'state' => $request->state,
-            'pin_code' => $request->pin_code,
-            'phone' => $inputPhone,
-            'payment_method' => $request->payment_method,
-            'subtotal' => $subtotal,
-            'total' => $total,
-            'status' => 'Pending',
-        ]);
+            $coupon = Coupon::where('coupon_code', $discount['coupon_code'])
+                ->where('status', 'active')
+                ->where('start_date', '<=', now())
+                ->where('end_date', '>=', now())
+                ->first();
+            if (!$coupon) {
+                session()->forget('discount');
+                return redirect()->back()->with('coupon_error', 'Invalid or expired coupon code.');
+            } else {
+                $couponCode = $discount['coupon_code'];
+                $couponType = $discount['type'];
 
-        // Save Order Item
-        OrderItem::create([
-            'order_id' => $order->id,
-            'product_id' => $buyNow['product_id'],
-            'quantity' => $buyNow['quantity'],
-            'price' => $buyNow['price'],
-            'size' => $buyNow['size'] ?? null,
-            'color' => $buyNow['color'] ?? null,
-        ]);
-
-        // Deduct stock from product table
-        $product = Product::find($buyNow['product_id']);
-        if ($product) {
-            $product->stock -= $buyNow['quantity'];
-            $product->save();
+                if ($discount['type'] === 'percentage') {
+                    $discountAmount = ($subtotal * $discount['value']) / 100;
+                } elseif ($discount['type'] === 'fixed_amount') {
+                    $discountAmount = $discount['value'];
+                } else {
+                    $discountAmount = 0;
+                }
+                $couponValue = $discountAmount;
+                $total = $subtotal - $discountAmount;
+            }
+        } else {
+            $discountAmount = 0;
+            $total = $subtotal;
         }
 
-        // Clear Buy Now session
-        session()->forget(['buy_now', 'from_buy_now']);
+        $tax = $total < 1000 ? $total * 0.05 : $total * 0.12;
 
-        SendOrderConfirmationJob::dispatch($order);
+        if ($request->payment_method === 'UPI') {
+            $merchantId = env('PHONEPE_MERCHANT_ID');
+            $saltKey = env('PHONEPE_SALT_KEY');
+            $saltIndex = env('PHONEPE_SALT_INDEX');
+            $baseUrl = env('PHONEPE_BASE_URL');
 
-        return redirect()->route('order.success', $order->id)->with('success', 'Order placed successfully!');
+            $transactionId = 'ORD' . Auth::id() . time();
+
+            Payment::create([
+                'transaction_id' => $transactionId,
+                'payment_type' => 'UPI',
+                'status' => 'PENDING',
+                'user_id' => Auth::id(),
+                'payload' => json_encode([
+                    'buy_now' => true,
+                    'first_name' => $request->first_name,
+                    'last_name' => $request->last_name,
+                    'email' => $request->email,
+                    'address' => $request->address,
+                    'address2' => $request->address2,
+                    'city' => $request->city,
+                    'state' => $request->state,
+                    'pin_code' => $request->pin_code,
+                    'phone' => $inputPhone,
+                    'payment_method' => $request->payment_method,
+                    'coupon' => $couponCode ?? null,
+                    'coupon_value' => $couponValue ?? null,
+                    'coupon_type' => $couponType ?? null,
+                    'subtotal' => $subtotal,
+                    'total' => $total,
+                    'tax' => $tax,
+                    'product_id' => $request->product_id,
+                    'color' => $request->color,
+                    'size' => $request->size,
+
+                ])
+            ]);
+
+            $payload = [
+                'merchantId' => $merchantId,
+                'merchantTransactionId' => $transactionId,
+                'merchantUserId' => 'USER_' . Auth::id(),
+                'amount' => (int)($total * 100),
+                'redirectUrl' => route('phonepe.callback'),
+                'redirectMode' => 'GET',
+                'callbackUrl' => route('phonepe.callback'),
+                'paymentInstrument' => ['type' => 'PAY_PAGE'],
+            ];
+
+            $jsonPayload = json_encode($payload);
+            $base64Payload = base64_encode($jsonPayload);
+            $checksum = hash('sha256', $base64Payload . "/pg/v1/pay" . $saltKey) . "###" . $saltIndex;
+
+            $response = Http::withHeaders([
+                'Content-Type' => 'application/json',
+                'X-VERIFY' => $checksum
+            ])->post($baseUrl . '/pg/v1/pay', ['request' => $base64Payload]);
+
+            if ($response->successful() && isset($response['data']['instrumentResponse']['redirectInfo']['url'])) {
+                return redirect($response['data']['instrumentResponse']['redirectInfo']['url']);
+            } else {
+                Log::error('PhonePe payment initiation failed', [
+                    'response' => $response->json(),
+                    'transaction_id' => $transactionId,
+                ]);
+                return redirect()->route('checkout')->with('error', 'Payment initiation failed.');
+            }
+        } elseif ($request->payment_method == 'COD') {
+            $order = Order::create([
+                'user_id' => Auth::id(),
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'email' => $request->email,
+                'address' => $request->address,
+                'address2' => $request->address2,
+                'city' => $request->city,
+                'state' => $request->state,
+                'pin_code' => $request->pin_code,
+                'phone' => $inputPhone,
+                'payment_method' => $request->payment_method,
+                'coupon' => $couponCode ?? null,
+                'coupon_value' => $couponValue ?? null,
+                'coupon_type' => $couponType ?? null,
+                'subtotal' => $subtotal,
+                'total' => $total,
+                'status' => 'Pending',
+                'tax' => $tax,
+            ]);
+
+            OrderItem::create([
+                'order_id' => $order->id,
+                'product_id' => $product->id,
+                'quantity' => 1,
+                'price' => $product->discount_price,
+                'size' => $request->size,
+                'color' => $request->color
+            ]);
+
+            $variant->stock -= 1;
+            $variant->save();
+
+            SendOrderConfirmationJob::dispatch($order);
+
+            return redirect()->route('order.success', $order->id)->with('success', 'Order placed successfully!');
+        }
+
+        return back()->with('error', 'Unsupported payment method.');
     }
 
 
     public function applyCoupon(Request $request)
+    {
+        $couponCode = strtoupper($request->input('coupon_code'));
+        $coupon = Coupon::where('coupon_code', $couponCode)
+            ->where('status', 'active')
+            ->where('start_date', '<=', now())
+            ->where('end_date', '>=', now())
+            ->first();
+
+        if (!$coupon) {
+            return redirect()->back()->with('coupon_error', 'Invalid or expired coupon code.');
+        }
+
+        $cartItems = CartItem::with('product')->where('user_id', Auth::id())->get();
+
+        $isValid = false;
+
+        foreach ($cartItems as $item) {
+            $product = $item->product;
+
+            switch ($coupon->for_type) {
+                case 'all':
+                    $isValid = true;
+                    break;
+                case 'category':
+                    $isValid = ($coupon->category_id == NULL || $coupon->category_id == $product->category_id);
+                    break;
+                case 'collection':
+                    $isValid = ($coupon->collection_id == NULL || $coupon->collection_id == $product->collection_id);
+                    break;
+                case 'product':
+                    $isValid = ($coupon->product_id == NULL || $coupon->product_id == $product->id);
+                    break;
+            }
+
+            if ($isValid) break; // No need to check further if valid
+        }
+
+        if (!$isValid) {
+            return redirect()->back()->with('coupon_error', 'Invalid Coupon');
+        }
+
+        session(['discount' => [
+            'value' => $coupon->discount_value,
+            'type' => $coupon->coupon_type,
+            'coupon_code' => $coupon->coupon_code,
+        ]]);
+
+        return redirect()->back()->with('coupon_success', 'Coupon applied successfully!');
+    }
+
+    public function applyBuyCoupon(Request $request)
     {
         $couponCode = strtoupper($request->input('coupon_code'));
         $coupon = Coupon::where('coupon_code', $couponCode)
@@ -430,10 +642,10 @@ class CheckoutController extends Controller
     {
         if (session()->has('discount')) {
             session()->forget('discount');
-            return redirect()->route('checkout')->with('coupon_success', 'Coupon removed successfully!');
+            return redirect()->back()->with('coupon_success', 'Coupon removed successfully!');
         }
 
-        return redirect()->route('checkout')->with('coupon_error', 'No coupon applied to remove.');
+        return redirect()->back()->with('coupon_error', 'No coupon applied to remove.');
     }
 
 
