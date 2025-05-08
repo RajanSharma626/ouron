@@ -23,7 +23,7 @@ class CouponController extends Controller
 
         $categories = Category::all();
         $collections = Collections::all();
-        $products = Product::all();
+        $products = Product::whereNull('deleted_at')->get();
 
         $coupon = Coupon::findOrFail($id);
         return view('admin.coupon-edit', compact('coupon', 'categories', 'collections', 'products'));

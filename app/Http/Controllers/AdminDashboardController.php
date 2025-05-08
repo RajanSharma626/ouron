@@ -13,7 +13,7 @@ class AdminDashboardController extends Controller
     {
         $TotalOrders = Order::count();
         $TotalUsers = User::count();
-        $TotalProducts = Product::count();
+        $TotalProducts = Product::whereNull('deleted_at')->count();
         $TotalOrdersAmount = Order::sum('total');
 
         $orders = Order::with(['items.product.firstimage', 'user'])

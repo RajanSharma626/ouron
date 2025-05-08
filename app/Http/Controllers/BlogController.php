@@ -23,7 +23,7 @@ class BlogController extends Controller
     {
         $blog = Blog::find($id);
         if ($blog) {
-            $products = Product::all();
+            $products = Product::whereNull('deleted_at')->get();
             return view('admin.blog-edit', compact('blog', 'products'));
         }
         return redirect()->route('admin.blogs')->with('error', 'Blog not found!');
@@ -94,7 +94,7 @@ class BlogController extends Controller
 
     public function create()
     {
-        $products = Product::all();
+        $products = Product::whereNull('deleted_at')->get();
         return view('admin.blog-create', compact('products'));
     }
 

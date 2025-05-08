@@ -23,7 +23,8 @@ class SearchController extends Controller
     {
         $query = $request->query('query');
 
-        $products = Product::where('name', 'like', '%' . $query . '%')->whereNull('deleted_at')
+        $products = Product::where('name', 'like', '%' . $query . '%')
+        ->whereNull('deleted_at')
             ->orWhere('description', 'like', '%' . $query . '%')
             ->orWhereHas('category', function ($q) use ($query) {
                 $q->where('name', 'like', '%' . $query . '%');
