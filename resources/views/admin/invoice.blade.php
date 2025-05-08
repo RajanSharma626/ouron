@@ -157,8 +157,8 @@
                     <div class="section-title">From</div>
                     <div class="company-name">OURON Lifestyle & Co.</div>
                     <div>
-                        GSTIN: 12ABCDE3456F7Z8<br>
-                        +91 75679 89517<br>
+                        GSTIN: 24AAJFO4572G1Z6<br>
+                        +91 87992 32708<br>
                         contact@ouron.com<br>
                         www.ouron.in
                     </div>
