@@ -10,6 +10,7 @@ use Brevo\Client\Model\SendTransacSms;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 class LoginAuth extends Controller
@@ -99,71 +100,26 @@ class LoginAuth extends Controller
 
     private function sendOtpToPhone($phone, $otp)
     {
+        $apiKey = '6818b17956ac4'; // You should ideally store this in your .env and config/services.php
+        $sender = 'OURON';
+        $baseUrl = 'https://sms.mobileadz.in/api/push';
 
-        $sid = config('services.twilio.sid');
-        $token = config('services.twilio.token');
-        $twilioPhone = config('services.twilio.from');
-
-        // Debugging: Check if credentials are loaded
-        if (!$sid || !$token || !$twilioPhone) {
-            Log::error("Twilio credentials are missing in .env");
-            throw new \Exception("Twilio credentials are missing. Check your .env file.");
-        }
+        $text = urlencode("Your Ouron OTP: $otp This is your one-time OTP. Every great story starts with a step-use it to continue yours");
+        $url = "$baseUrl?apikey=$apiKey&sender=$sender&mobileno=$phone&text=$text";
 
         try {
-            $twilio = new \Twilio\Rest\Client($sid, $token);
-            $message = $twilio->messages->create($phone, [
-                'from' => $twilioPhone,
-                'body' => "Your Ouron Login OTP is: $otp"
-            ]);
+            $response = Http::get($url);
+
+            if (!$response->successful()) {
+                Log::error("SMS API Error: " . $response->body());
+                throw new \Exception("Error sending OTP via MobileAdz: " . $response->body());
+            }
         } catch (\Exception $e) {
-            Log::error("Twilio Error: " . $e->getMessage());
-            throw new \Exception("Error sending OTP via Twilio: " . $e->getMessage());
+            Log::error("SMS Sending Failed: " . $e->getMessage());
+            throw new \Exception("Error sending OTP: " . $e->getMessage());
         }
-
-
-        // $apiKey = env('BREVO_API_KEY');
-        // $sender = env('BREVO_SENDER');
-
-        // try {
-        //     // Debugging: Check if credentials are loaded
-        //     if (!$apiKey) {
-        //         Log::error("Brevo API key is missing in .env");
-        //         throw new \Exception("Brevo API key is missing. Check your .env file.");
-        //     }
-
-        //     // Configure API key authorization
-        //     $config = Configuration::getDefaultConfiguration()
-        //         ->setApiKey('api-key', $apiKey);
-
-        //     // Initialize API instance
-        //     $apiInstance = new TransactionalSMSApi(
-        //         new Client(),
-        //         $config
-        //     );
-
-        //     // Create SMS request model
-        //     $sendTransacSms = new SendTransacSms();
-        //     $sendTransacSms['sender'] = $sender;
-        //     $sendTransacSms['recipient'] = $phone;
-        //     $sendTransacSms['content'] = "Your Ouron Login OTP is: $otp";
-        //     $sendTransacSms['type'] = 'transactional';
-
-        //     // Send the SMS
-        //     $result = $apiInstance->sendTransacSms($sendTransacSms);
-
-        //     // Log success
-        //     Log::info("Brevo SMS sent successfully", [
-        //         'messageId' => $result->getMessageId(),
-        //         'remainingCredits' => $result->getRemainingCredits()
-        //     ]);
-
-        //     return $result;
-        // } catch (\Exception $e) {
-        //     Log::error("Brevo Error: " . $e->getMessage());
-        //     throw new \Exception("Error sending OTP via Brevo: " . $e->getMessage());
-        // }
     }
+
 
 
     public function otpVerify()
