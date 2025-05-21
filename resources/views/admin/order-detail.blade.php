@@ -337,6 +337,17 @@
                                                                 @if ($history->comment)
                                                                     <p class="mb-2">{{ $history->comment }}</p>
                                                                 @endif
+
+                                                                @if ($history->status == 'Return Requested' && !empty($order->return_image))
+                                                                    <div class="mb-2">
+                                                                        @foreach (json_decode($order->return_image, true) as $img)
+                                                                            <a href="{{ asset(Storage::url($img)) }}" data-lightbox="return-{{ $order->id }}" data-title="Return Image">
+                                                                                <img src="{{ asset(Storage::url($img)) }}" alt="Return Image" style="height: 60px; margin-right: 8px; border-radius: 4px; border: 1px solid #eee;">
+                                                                            </a>
+                                                                        @endforeach
+                                                                    </div>
+                                                                @endif
+
                                                                 @if ($history->changedBy)
                                                                     <p class="mb-0">Marked by
                                                                         {{ $history->changedBy->name }}

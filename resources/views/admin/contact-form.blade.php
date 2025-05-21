@@ -46,7 +46,7 @@
                                             <th>Email</th>
                                             <th>Phone</th>
                                             <th>Comment</th>
-                                            <th>Created At</th>
+                                            <th class="text-nowrap">Created At</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -79,8 +79,8 @@
                                                     {{ $contact->comment }}
                                                 </td>
 
-                                                <td>
-                                                    {{ \Carbon\Carbon::parse($contact->created_at)->format('d-m-Y') }}
+                                                <td class="text-nowrap">
+                                                    {{ \Carbon\Carbon::parse($contact->created_at)->format('d M,Y h:i A') }}
                                                 </td>
 
                                             </tr>

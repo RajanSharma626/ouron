@@ -9,7 +9,7 @@ class CustomersController extends Controller
 {
     public function index()
     {
-        $customers = User::with('defaultAddress')->paginate(20);
+        $customers = User::with('defaultAddress')->orderBy('created_at', 'desc')->paginate(20);
         return view('admin.customers', compact('customers'));
     }
 

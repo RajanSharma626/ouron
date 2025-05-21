@@ -62,6 +62,10 @@
                                 <span class="badge bg-secondary rounded-pill px-3 py-2">
                                     <i class="bi bi-clock me-1"></i> Return Requested
                                 </span>
+                            @elseif ($order->status == 'Return Approved')
+                                <span class="badge bg-success rounded-pill px-3 py-2">
+                                    <i class="bi bi-check-circle me-1"></i> Return Accepted
+                                </span>
                             @elseif ($order->status == 'Returned')
                                 <span class="badge bg-success rounded-pill px-3 py-2">
                                     <i class="bi bi-arrow-left-circle me-1"></i> Returned
