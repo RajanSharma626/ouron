@@ -136,29 +136,31 @@ class ProductController extends Controller
         // Save the original file
         $image->move($destinationPath, $filename);
 
-        // Create multiple sizes
-        $sizes = [
-            '165' => 165,
-            '360' => 360,
-            '533' => 533,
-            '720' => 720,
-            '940' => 940,
-            '1066' => 1066,
-            '1080' => 1080
-        ];
-
+        // Create mobile-optimized version
         $manager = new ImageManager(new Driver());
         $originalImage = $manager->read($destinationPath . $filename);
 
-        foreach ($sizes as $key => $width) {
-            $resizedImage = $originalImage->scale($width);
-            $resizedImage->save("{$destinationPath}{$key}_{$filename}", quality: 85);
+        // Get original dimensions
+        $originalWidth = $originalImage->width();
+        $originalHeight = $originalImage->height();
+
+        // Create mobile version (720px width max while maintaining aspect ratio)
+        $mobileWidth = 720;
+
+        // Only resize if original is larger than mobile size
+        if ($originalWidth > $mobileWidth) {
+            $mobileImage = $originalImage->scale(width: $mobileWidth);
+            $mobileImage->save("{$destinationPath}mobile_{$filename}", quality: 90);
+        } else {
+            // If original is smaller than mobile size, just copy it
+            copy($destinationPath . $filename, "{$destinationPath}mobile_{$filename}");
         }
 
-        // Store in database (use base path without 'uploads/')
+        // Store in database with both original and mobile paths
         ProductImg::create([
             'product_id' => $product_id,
-            'img' => "/uploads/products/{$filename}",
+            'img' => "/uploads/products/{$filename}", // Original image
+            'img_mobile' => "/uploads/products/mobile_{$filename}", // Mobile optimized
             'is_main' => $is_main,
             'sort' => 0,
         ]);

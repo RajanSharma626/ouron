@@ -10,7 +10,7 @@
                 <div class="col-md-5 mx-auto">
                     <div class="card">
                         <div class="card-header ">
-                            <h5>OTP Verify</h5>
+                            <h5 class="text-center">OTP Verify</h5>
                         </div>
                         <div class="card-body">
 

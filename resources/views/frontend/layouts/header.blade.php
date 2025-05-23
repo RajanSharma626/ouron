@@ -294,24 +294,24 @@
         </div>
     </div>
 
-    <!-- Modal -->
+    {{-- <!-- Modal -->
     @if (session('success') === 'Logged in successfully')
         <div class="modal fade show" id="welcomeModal" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true" style="display: block;">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-body">
-                        <img src="{{ asset('/images/banner/welcome.jpg') }}" class="img-fluid" alt="">
+                        <img src="{{ asset('/images/banner/welcome.png') }}" class="img-fluid" alt="">
                     </div>
                 </div>
             </div>
         </div>
         <script>
-            document.addEventListener('DOMContentLoaded', function () {
+            document.addEventListener('DOMContentLoaded', function() {
                 var welcomeModal = new bootstrap.Modal(document.getElementById('welcomeModal'));
                 welcomeModal.show();
             });
         </script>
-    @endif
+    @endif --}}
 
 </header>

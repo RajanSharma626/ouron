@@ -43,54 +43,36 @@
                                 <div class="product_img position-relative">
                                     <div class="{{ $totalStock == 0 ? 'opacity-50' : '' }}">
                                         <picture class="">
-                                            <!-- High-quality image for fast connections -->
+                                            <!-- Desktop: Original high-quality image -->
                                             <source srcset="{{ $imageBasePath . '/' . $filename }}"
-                                                media="(min-width: 1400px)">
-                                            <source srcset="{{ $imageBasePath . '/' . $filename }}"
-                                                media="(min-width: 1200px)">
-                                            <source srcset="{{ $imageBasePath . '/940_' . $filename }}"
-                                                media="(min-width: 992px)">
-                                            <source srcset="{{ $imageBasePath . '/720_' . $filename }}"
                                                 media="(min-width: 768px)">
-                                            <source srcset="{{ $imageBasePath . '/533_' . $filename }}"
-                                                media="(min-width: 576px)">
-                                            <source srcset="{{ $imageBasePath . '/360_' . $filename }}"
-                                                media="(max-width: 575px)">
-                                            <source srcset="{{ $imageBasePath . '/165_' . $filename }}"
-                                                media="(max-width: 400px)">
-
-                                            <!-- Original image as fallback -->
+                                            <!-- Mobile: Compressed but high-quality image -->
+                                            <source srcset="{{ $imageBasePath . '/mobile_' . $filename }}"
+                                                media="(max-width: 767px)">
+                                            <!-- Fallback -->
                                             <img src="{{ $imageBasePath . '/' . $filename }}" alt="{{ $product->name }}"
-                                                class="img-fluid">
+                                                class="img-fluid" loading="lazy">
+
                                         </picture>
 
                                         <picture class="">
-                                            <!-- High-quality image for fast connections -->
+                                            <!-- Desktop: Original high-quality image -->
                                             <source srcset="{{ $imageBasePath . '/' . $secondfilename }}"
-                                                media="(min-width: 1400px)">
-                                            <source srcset="{{ $imageBasePath . '/' . $secondfilename }}"
-                                                media="(min-width: 1200px)">
-                                            <source srcset="{{ $imageBasePath . '/940_' . $secondfilename }}"
-                                                media="(min-width: 992px)">
-                                            <source srcset="{{ $imageBasePath . '/720_' . $secondfilename }}"
                                                 media="(min-width: 768px)">
-                                            <source srcset="{{ $imageBasePath . '/533_' . $secondfilename }}"
-                                                media="(min-width: 576px)">
-                                            <source srcset="{{ $imageBasePath . '/360_' . $secondfilename }}"
-                                                media="(max-width: 575px)">
-                                            <source srcset="{{ $imageBasePath . '/165_' . $secondfilename }}"
-                                                media="(max-width: 400px)">
-
-                                            <!-- Original image as fallback -->
+                                            <!-- Mobile: Compressed but high-quality image -->
+                                            <source srcset="{{ $imageBasePath . '/mobile_' . $secondfilename }}"
+                                                media="(max-width: 767px)">
+                                            <!-- Fallback -->
                                             <img src="{{ $imageBasePath . '/' . $secondfilename }}"
-                                                alt="{{ $product->name }}" class="img-fluid hover_img">
+                                                alt="{{ $product->name }}" class="img-fluid hover_img" loading="lazy">
                                         </picture>
                                     </div>
                                     <!-- Icons (Positioned correctly) -->
                                     <div class="product_icons position-absolute top-0 end-0 p-2">
                                         @if ($totalStock != 0)
-                                            <a href="javascript:void(0)" class="cart_icon add-to-cart" title="Add to Cart"
-                                                data-id="{{ $product->id }}" data-name="{{ $product->name }}"
+                                            <a href="javascript:void(0)" class="cart_icon add-to-cart"
+                                                title="Add to Cart" data-id="{{ $product->id }}"
+                                                data-name="{{ $product->name }}"
                                                 data-price="{{ number_format($product->discount_price, 2) }}"
                                                 data-image="{{ $imageBasePath . '/' . $secondfilename }}"
                                                 alt="{{ $product->name }}">
@@ -117,7 +99,7 @@
                                     </div>
                                     @if ($totalStock == 0)
                                         <div class="out_of_stock position-absolute top-0 start-0 p-2">
-                                            <button class="out_of_stocl btn primary-bg text-white">
+                                            <button class="out_of_stocl btn primary-bg text-white btn-sm">
                                                 Out of Stock
                                             </button>
                                         </div>
@@ -126,10 +108,20 @@
                                 <a href="{{ route('product.detail', $product->slug) }}" class="text-decoration-none">
                                     <div class="product_info p-3">
                                         <h3 class="product_title primary-color">{{ $product->name }}</h3>
-                                        <p class="product_price mb-0 text-muted">
-                                            <del>RS. {{ number_format($product->price, 2) }}</del>
-                                            &nbsp; RS.
-                                            {{ number_format($product->discount_price, 2) }}
+                                        <p
+                                            class="product_price mb-0 text-muted d-flex align-items-center justify-content-between">
+                                            <span>
+
+                                                <del>RS. {{ number_format($product->price, 2) }}</del>
+                                                &nbsp; RS.
+                                                {{ number_format($product->discount_price, 2) }}
+                                            </span>
+                                            @php
+                                                $totalStock = $product->variants->sum('stock');
+                                            @endphp
+                                            @if ($totalStock <= 5 && $totalStock > 0)
+                                                <span class="text-danger fw-bold "> {{ $totalStock }} left</span>
+                                            @endif
                                         </p>
                                     </div>
                                 </a>

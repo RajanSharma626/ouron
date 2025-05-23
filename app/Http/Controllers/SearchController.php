@@ -23,11 +23,13 @@ class SearchController extends Controller
     {
         $query = $request->query('query');
 
-        $products = Product::where('name', 'like', '%' . $query . '%')
-        ->whereNull('deleted_at')
-            ->orWhere('description', 'like', '%' . $query . '%')
-            ->orWhereHas('category', function ($q) use ($query) {
-                $q->where('name', 'like', '%' . $query . '%');
+        $products = Product::whereNull('deleted_at')
+            ->where(function ($q) use ($query) {
+            $q->where('name', 'like', '%' . $query . '%')
+              ->orWhere('description', 'like', '%' . $query . '%')
+              ->orWhereHas('category', function ($q2) use ($query) {
+                  $q2->where('name', 'like', '%' . $query . '%');
+              });
             })
             ->get();
 

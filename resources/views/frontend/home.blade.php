@@ -13,26 +13,23 @@
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                         <a href="">
-                            <img src="{{ asset('images/banner/banner.webp') }}" class="img-fluid d-none d-md-block"
+                            <img src="{{ asset('images/banner/1.webp') }}" class="w-100 img-fluid d-none d-md-block"
                                 alt="Slide 1">
-                            <img src="https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/banner-images/App_Banner_VkEP24P.jpg?format=webp&w=768&dpr=2.0"
-                                class="img-fluid d-md-none" alt="Slide 1">
+                            <img src="{{ asset('images/mob-banner/1.webp') }}" class="img-fluid d-md-none" alt="Slide 1">
                         </a>
                     </div>
                     <div class="swiper-slide">
                         <a href="">
-                            <img src="{{ asset('images/banner/banner-2.webp') }}" class="img-fluid d-none d-md-block"
+                            <img src="{{ asset('images/banner/2.webp') }}" class="w-100 img-fluid d-none d-md-block"
                                 alt="Slide 2">
-                            <img src="https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/banner-images/APP-BANNER_1_ZjJAKiL.jpg?format=webp&w=768&dpr=2.0"
-                                class="img-fluid d-md-none" alt="Slide 2">
+                            <img src="{{ asset('images/mob-banner/2.webp') }}" class="img-fluid d-md-none" alt="Slide 2">
                         </a>
                     </div>
                     <div class="swiper-slide">
                         <a href="">
-                            <img src="{{ asset('images/banner/banner-3.webp') }}" class="img-fluid d-none d-md-block"
+                            <img src="{{ asset('images/banner/3.webp') }}" class="w-100 img-fluid d-none d-md-block"
                                 alt="Slide 3">
-                            <img src="https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/banner-images/summer-app-banner_zIaYRHS.jpg?format=webp&w=768&dpr=2.0"
-                                class="img-fluid d-md-none" alt="Slide 3">
+                            <img src="{{ asset('images/mob-banner/3.webp') }}" class="img-fluid d-md-none" alt="Slide 3">
                         </a>
                     </div>
                 </div>
@@ -79,47 +76,27 @@
                                 <div class="product_img position-relative">
                                     <div class="{{ $totalStock == 0 ? 'opacity-50' : '' }}">
                                         <picture class="">
-                                            <!-- High-quality image for fast connections -->
-                                            <source srcset="{{ $imageBasePath . '/' . $filename }}"
-                                                media="(min-width: 1400px)">
-                                            <source srcset="{{ $imageBasePath . '/' . $filename }}"
-                                                media="(min-width: 1200px)">
-                                            <source srcset="{{ $imageBasePath . '/940_' . $filename }}"
-                                                media="(min-width: 992px)">
-                                            <source srcset="{{ $imageBasePath . '/720_' . $filename }}"
-                                                media="(min-width: 768px)">
-                                            <source srcset="{{ $imageBasePath . '/533_' . $filename }}"
-                                                media="(min-width: 576px)">
-                                            <source srcset="{{ $imageBasePath . '/360_' . $filename }}"
-                                                media="(max-width: 575px)">
-                                            <source srcset="{{ $imageBasePath . '/165_' . $filename }}"
-                                                media="(max-width: 400px)">
-
-                                            <!-- Original image as fallback -->
+                                            <!-- Desktop: Original high-quality image -->
+                                            <source srcset="{{ $imageBasePath . '/' . $filename }}" media="(min-width: 768px)">
+                                            <!-- Mobile: Compressed but high-quality image -->
+                                            <source srcset="{{ $imageBasePath . '/mobile_' . $filename }}"
+                                                media="(max-width: 767px)">
+                                            <!-- Fallback -->
                                             <img src="{{ $imageBasePath . '/' . $filename }}" alt="{{ $product->name }}"
-                                                class="img-fluid">
+                                                class="img-fluid" loading="lazy">
+
                                         </picture>
 
                                         <picture class="">
-                                            <!-- High-quality image for fast connections -->
+                                            <!-- Desktop: Original high-quality image -->
                                             <source srcset="{{ $imageBasePath . '/' . $secondfilename }}"
-                                                media="(min-width: 1400px)">
-                                            <source srcset="{{ $imageBasePath . '/' . $secondfilename }}"
-                                                media="(min-width: 1200px)">
-                                            <source srcset="{{ $imageBasePath . '/940_' . $secondfilename }}"
-                                                media="(min-width: 992px)">
-                                            <source srcset="{{ $imageBasePath . '/720_' . $secondfilename }}"
                                                 media="(min-width: 768px)">
-                                            <source srcset="{{ $imageBasePath . '/533_' . $secondfilename }}"
-                                                media="(min-width: 576px)">
-                                            <source srcset="{{ $imageBasePath . '/360_' . $secondfilename }}"
-                                                media="(max-width: 575px)">
-                                            <source srcset="{{ $imageBasePath . '/165_' . $secondfilename }}"
-                                                media="(max-width: 400px)">
-
-                                            <!-- Original image as fallback -->
+                                            <!-- Mobile: Compressed but high-quality image -->
+                                            <source srcset="{{ $imageBasePath . '/mobile_' . $secondfilename }}"
+                                                media="(max-width: 767px)">
+                                            <!-- Fallback -->
                                             <img src="{{ $imageBasePath . '/' . $secondfilename }}"
-                                                alt="{{ $product->name }}" class="img-fluid hover_img">
+                                                alt="{{ $product->name }}" class="img-fluid hover_img" loading="lazy">
                                         </picture>
                                     </div>
                                     <!-- Icons (Positioned correctly) -->
@@ -199,11 +176,10 @@
         <div class="row">
             <div class="col-12 px-0" data-aos="fade-up">
                 <a href="">
-                    <img src="https://crazymonk.in/cdn/shop/files/Banner_for_Website_front_page_1.jpg?v=1740377697&width=2000"
-                        class="img-fluid d-none d-md-block" alt="Slide 1">
+                    <img src="{{ asset('images/banner/4.webp') }}" class="w-100 img-fluid d-none d-md-block"
+                        alt="Slide 1">
 
-                    <img src="https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/banner-images/App-banner_exABeVx.jpg?format=webp&w=768&dpr=2.0"
-                        class="img-fluid d-md-none" alt="Slide 1">
+                    <img src="{{ asset('images/mob-banner/4.webp') }}" class="img-fluid d-md-none" alt="Slide 1">
                 </a>
             </div>
         </div>
@@ -243,47 +219,28 @@
                                 <div class="product_img position-relative">
                                     <div class="{{ $totalStock == 0 ? 'opacity-50' : '' }}">
                                         <picture class="">
-                                            <!-- High-quality image for fast connections -->
+                                            <!-- Desktop: Original high-quality image -->
                                             <source srcset="{{ $imageBasePath . '/' . $filename }}"
-                                                media="(min-width: 1400px)">
-                                            <source srcset="{{ $imageBasePath . '/' . $filename }}"
-                                                media="(min-width: 1200px)">
-                                            <source srcset="{{ $imageBasePath . '/940_' . $filename }}"
-                                                media="(min-width: 992px)">
-                                            <source srcset="{{ $imageBasePath . '/720_' . $filename }}"
                                                 media="(min-width: 768px)">
-                                            <source srcset="{{ $imageBasePath . '/533_' . $filename }}"
-                                                media="(min-width: 576px)">
-                                            <source srcset="{{ $imageBasePath . '/360_' . $filename }}"
-                                                media="(max-width: 575px)">
-                                            <source srcset="{{ $imageBasePath . '/165_' . $filename }}"
-                                                media="(max-width: 400px)">
-
-                                            <!-- Original image as fallback -->
+                                            <!-- Mobile: Compressed but high-quality image -->
+                                            <source srcset="{{ $imageBasePath . '/mobile_' . $filename }}"
+                                                media="(max-width: 767px)">
+                                            <!-- Fallback -->
                                             <img src="{{ $imageBasePath . '/' . $filename }}" alt="{{ $product->name }}"
-                                                class="img-fluid">
+                                                class="img-fluid" loading="lazy">
+
                                         </picture>
 
                                         <picture class="">
-                                            <!-- High-quality image for fast connections -->
+                                            <!-- Desktop: Original high-quality image -->
                                             <source srcset="{{ $imageBasePath . '/' . $secondfilename }}"
-                                                media="(min-width: 1400px)">
-                                            <source srcset="{{ $imageBasePath . '/' . $secondfilename }}"
-                                                media="(min-width: 1200px)">
-                                            <source srcset="{{ $imageBasePath . '/940_' . $secondfilename }}"
-                                                media="(min-width: 992px)">
-                                            <source srcset="{{ $imageBasePath . '/720_' . $secondfilename }}"
                                                 media="(min-width: 768px)">
-                                            <source srcset="{{ $imageBasePath . '/533_' . $secondfilename }}"
-                                                media="(min-width: 576px)">
-                                            <source srcset="{{ $imageBasePath . '/360_' . $secondfilename }}"
-                                                media="(max-width: 575px)">
-                                            <source srcset="{{ $imageBasePath . '/165_' . $secondfilename }}"
-                                                media="(max-width: 400px)">
-
-                                            <!-- Original image as fallback -->
+                                            <!-- Mobile: Compressed but high-quality image -->
+                                            <source srcset="{{ $imageBasePath . '/mobile_' . $secondfilename }}"
+                                                media="(max-width: 767px)">
+                                            <!-- Fallback -->
                                             <img src="{{ $imageBasePath . '/' . $secondfilename }}"
-                                                alt="{{ $product->name }}" class="img-fluid hover_img">
+                                                alt="{{ $product->name }}" class="img-fluid hover_img" loading="lazy">
                                         </picture>
                                     </div>
                                     <!-- Icons (Positioned correctly) -->
@@ -318,7 +275,7 @@
                                     </div>
                                     @if ($totalStock == 0)
                                         <div class="out_of_stock position-absolute top-0 start-0 p-2">
-                                            <button class="out_of_stocl btn btn-sm primary-bg text-white">
+                                            <button class="out_of_stocl btn primary-bg text-white btn-sm">
                                                 Out of Stock
                                             </button>
                                         </div>
@@ -327,10 +284,20 @@
                                 <a href="{{ route('product.detail', $product->slug) }}" class="text-decoration-none">
                                     <div class="product_info p-3">
                                         <h3 class="product_title primary-color">{{ $product->name }}</h3>
-                                        <p class="product_price mb-0 text-muted">
-                                            <del>RS. {{ number_format($product->price, 2) }}</del>
-                                            &nbsp; RS.
-                                            {{ number_format($product->discount_price, 2) }}
+                                        <p
+                                            class="product_price mb-0 text-muted d-flex align-items-center justify-content-between">
+                                            <span>
+
+                                                <del>RS. {{ number_format($product->price, 2) }}</del>
+                                                &nbsp; RS.
+                                                {{ number_format($product->discount_price, 2) }}
+                                            </span>
+                                            @php
+                                                $totalStock = $product->variants->sum('stock');
+                                            @endphp
+                                            @if ($totalStock <= 5 && $totalStock > 0)
+                                                <span class="text-danger fw-bold "> {{ $totalStock }} left</span>
+                                            @endif
                                         </p>
                                     </div>
                                 </a>
@@ -382,47 +349,28 @@
                                 <div class="product_img position-relative">
                                     <div class="{{ $totalStock == 0 ? 'opacity-50' : '' }}">
                                         <picture class="">
-                                            <!-- High-quality image for fast connections -->
+                                            <!-- Desktop: Original high-quality image -->
                                             <source srcset="{{ $imageBasePath . '/' . $filename }}"
-                                                media="(min-width: 1400px)">
-                                            <source srcset="{{ $imageBasePath . '/' . $filename }}"
-                                                media="(min-width: 1200px)">
-                                            <source srcset="{{ $imageBasePath . '/940_' . $filename }}"
-                                                media="(min-width: 992px)">
-                                            <source srcset="{{ $imageBasePath . '/720_' . $filename }}"
                                                 media="(min-width: 768px)">
-                                            <source srcset="{{ $imageBasePath . '/533_' . $filename }}"
-                                                media="(min-width: 576px)">
-                                            <source srcset="{{ $imageBasePath . '/360_' . $filename }}"
-                                                media="(max-width: 575px)">
-                                            <source srcset="{{ $imageBasePath . '/165_' . $filename }}"
-                                                media="(max-width: 400px)">
-
-                                            <!-- Original image as fallback -->
+                                            <!-- Mobile: Compressed but high-quality image -->
+                                            <source srcset="{{ $imageBasePath . '/mobile_' . $filename }}"
+                                                media="(max-width: 767px)">
+                                            <!-- Fallback -->
                                             <img src="{{ $imageBasePath . '/' . $filename }}" alt="{{ $product->name }}"
-                                                class="img-fluid">
+                                                class="img-fluid" loading="lazy">
+
                                         </picture>
 
                                         <picture class="">
-                                            <!-- High-quality image for fast connections -->
+                                            <!-- Desktop: Original high-quality image -->
                                             <source srcset="{{ $imageBasePath . '/' . $secondfilename }}"
-                                                media="(min-width: 1400px)">
-                                            <source srcset="{{ $imageBasePath . '/' . $secondfilename }}"
-                                                media="(min-width: 1200px)">
-                                            <source srcset="{{ $imageBasePath . '/940_' . $secondfilename }}"
-                                                media="(min-width: 992px)">
-                                            <source srcset="{{ $imageBasePath . '/720_' . $secondfilename }}"
                                                 media="(min-width: 768px)">
-                                            <source srcset="{{ $imageBasePath . '/533_' . $secondfilename }}"
-                                                media="(min-width: 576px)">
-                                            <source srcset="{{ $imageBasePath . '/360_' . $secondfilename }}"
-                                                media="(max-width: 575px)">
-                                            <source srcset="{{ $imageBasePath . '/165_' . $secondfilename }}"
-                                                media="(max-width: 400px)">
-
-                                            <!-- Original image as fallback -->
+                                            <!-- Mobile: Compressed but high-quality image -->
+                                            <source srcset="{{ $imageBasePath . '/mobile_' . $secondfilename }}"
+                                                media="(max-width: 767px)">
+                                            <!-- Fallback -->
                                             <img src="{{ $imageBasePath . '/' . $secondfilename }}"
-                                                alt="{{ $product->name }}" class="img-fluid hover_img">
+                                                alt="{{ $product->name }}" class="img-fluid hover_img" loading="lazy">
                                         </picture>
                                     </div>
                                     <!-- Icons (Positioned correctly) -->
@@ -466,10 +414,20 @@
                                 <a href="{{ route('product.detail', $product->slug) }}" class="text-decoration-none">
                                     <div class="product_info p-3">
                                         <h3 class="product_title primary-color">{{ $product->name }}</h3>
-                                        <p class="product_price mb-0 text-muted">
-                                            <del>RS. {{ number_format($product->price, 2) }}</del>
-                                            &nbsp; RS.
-                                            {{ number_format($product->discount_price, 2) }}
+                                        <p
+                                            class="product_price mb-0 text-muted d-flex align-items-center justify-content-between">
+                                            <span>
+
+                                                <del>RS. {{ number_format($product->price, 2) }}</del>
+                                                &nbsp; RS.
+                                                {{ number_format($product->discount_price, 2) }}
+                                            </span>
+                                            @php
+                                                $totalStock = $product->variants->sum('stock');
+                                            @endphp
+                                            @if ($totalStock <= 5 && $totalStock > 0)
+                                                <span class="text-danger fw-bold "> {{ $totalStock }} left</span>
+                                            @endif
                                         </p>
                                     </div>
                                 </a>
@@ -616,7 +574,7 @@
 
                         <div class="row align-items-center">
                             <div class="col-md-6 p-md-3 mb-3 mb-md-0">
-                                <img src="{{ asset('images/banner/ouron-login.png') }}" class="img-fluid" alt="">
+                                <img src="{{ asset('images/banner/ouron-login.webp') }}" class="img-fluid" alt="">
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="logo text-center mb-4">

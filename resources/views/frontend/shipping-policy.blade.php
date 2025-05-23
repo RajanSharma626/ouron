@@ -116,14 +116,11 @@
                     <ul class="mb-5">
                         <li class="text-normal">
                             <small>
-                                Returns are accepted within 7 days of delivery, provided the product is unused, unworn, and
+                                Returns & Exchange are accepted within 7 days of delivery, provided the product is unused, unworn, and
                                 in its original condition and packaging.For more details, please refer to our [Returns &
                                 Exchanges Policy].
                             </small>
                             <ul>
-                                <li>
-                                    <small>We do not accept exchanges due to company policy.</small>
-                                </li>
                                 <li>
                                     <small>To initiate a return, contact our support team at <a
                                             href="maileto:support@ouron.in">support@ouron.in</a></small>
