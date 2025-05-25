@@ -52,7 +52,7 @@
                     </div>
 
                     <!-- Discount Code -->
-                    <div class="card custom-card-bg mb-4">
+                     <div class="card custom-card-bg mb-4">
                         <div class="card-body">
                             <form method="POST" action="{{ route('checkout.applyCoupon') }}">
                                 @csrf
@@ -149,22 +149,13 @@
                                 <input type="text" name="size" value="{{ $size }}" hidden>
                                 <input type="text" name="color" value="{{ $color }}" hidden>
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <div class="form-group mb-3">
                                             <input type="text"
                                                 class="form-control py-2 custom-card-bg @error('first_name') is-invalid @enderror"
-                                                name="first_name" placeholder="First name *"
+                                                name="first_name" placeholder="Full name *"
                                                 value="{{ old('first_name', Auth::user()->name ?? '') }}">
                                             @error('first_name')
-                                                <div class="text-danger transform-none"><span>{{ $message }}</span></div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group mb-3">
-                                            <input type="text" class="form-control py-2 custom-card-bg"
-                                                placeholder="Last name" name="last_name" value="{{ old('last_name') }}">
-                                            @error('last_name')
                                                 <div class="text-danger transform-none"><span>{{ $message }}</span></div>
                                             @enderror
                                         </div>

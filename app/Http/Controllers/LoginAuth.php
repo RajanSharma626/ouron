@@ -48,6 +48,10 @@ class LoginAuth extends Controller
 
     public function index()
     {
+
+        if (Auth::check()) {
+            return redirect()->route('home');
+        }
         return view('frontend.login');
     }
 
@@ -124,6 +128,9 @@ class LoginAuth extends Controller
 
     public function otpVerify()
     {
+        if (Auth::check()) {
+            return redirect()->route('home');
+        }
         return view('frontend.otp');
     }
 

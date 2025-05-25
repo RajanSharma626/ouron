@@ -138,8 +138,10 @@
         <table class="header-table">
             <tr>
                 <td width="50%" valign="top">
-                    <div class="invoice-title">Date: <span style="font-weight: normal">{{ $order->created_at->format('d-m-Y') }}</span></div>
-                    <div class="invoice-title" style="margin-top: 10px;">Invoice No: <span style="font-weight: normal">{{ $invoiceNumber }}</span></div>
+                    <div class="invoice-title">Date: <span
+                            style="font-weight: normal">{{ $order->created_at->format('d-m-Y') }}</span></div>
+                    <div class="invoice-title" style="margin-top: 10px;">Invoice No: <span
+                            style="font-weight: normal">{{ $invoiceNumber }}</span></div>
                 </td>
                 <td width="50%" align="right" valign="top">
                     <img src="https://ouron.in/images/logo/logo.svg" alt="Company Logo" class="logo-img">
@@ -238,9 +240,10 @@
         <div class="terms-section">
             <div class="section-title">Terms & Conditions</div>
             <div class="terms-content">
-                1. Payment is due within 15 days of invoice date.<br>
-                2. Please make payment via bank transfer to the account details provided.<br>
-                3. Late payments are subject to a 2% monthly interest charge.
+                1. All prices are inclusive of taxes and shown in INR.<br>
+                2. We accept UPI, cards, net banking, and wallets for payments.<br>
+                3. For billing help, contact us at <a href="mailto:help@ouron.in">help@ouron.in</a> or <a
+                    href="tel:+918799232708">+91 8799232708</a>.
             </div>
         </div>
     </div>

@@ -124,6 +124,7 @@ class PaymentController extends Controller
                     }
 
                     CartItem::where('user_id', $payment->user_id)->delete();
+                    session()->forget('discount');
                 }
 
                 DB::commit();

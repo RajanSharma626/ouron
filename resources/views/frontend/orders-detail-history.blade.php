@@ -125,11 +125,10 @@
 
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <h6 class="text-muted fw-bold small text-uppercase">Shipping Address</h6>
-                                <div class="p-3 bg-light rounded mt-3">
+                                <h6 class="text-muted fw-bold small text-uppercase "><i class="bi bi-geo-alt text-primary"></i> Shipping Address</h6>
+                                <div class="bg-light rounded">
                                     <address class="mb-0">
-                                        <i class="bi bi-geo-alt me-2 text-primary"></i>
-                                        {{ $order->address }}, {{ $order->city }}, <br>
+                                        <b>{{ $order->first_name }},</b> <br> {{ $order->address }}, {{ $order->city }}, <br>
                                         {{ $order->state }} - {{ $order->pin_code }}
                                     </address>
                                 </div>

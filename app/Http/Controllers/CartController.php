@@ -75,13 +75,23 @@ class CartController extends Controller
         if (Auth::check()) {
             $userId = Auth::id();
             $cartItems = CartItem::where('user_id', $userId)
-                ->with(['product', 'product.firstimage', 'product.variants'])
-                ->get();
+            ->whereHas('product', function ($query) {
+                $query->whereNull('deleted_at');
+            }) // Only include items with non-deleted products
+            ->with(['product' => function ($query) {
+                $query->whereNull('deleted_at');
+            }, 'product.firstimage', 'product.variants'])
+            ->get();
         } else {
             $sessionId = session()->getId();
             $cartItems = CartItem::where('session_id', $sessionId)
-                ->with(['product', 'product.firstimage', 'product.variants'])
-                ->get();
+            ->whereHas('product', function ($query) {
+                $query->whereNull('deleted_at');
+            }) // Only include items with non-deleted products
+            ->with(['product' => function ($query) {
+                $query->whereNull('deleted_at');
+            }, 'product.firstimage', 'product.variants'])
+            ->get();
         }
 
         // Attach available stock for the selected size
@@ -133,14 +143,25 @@ class CartController extends Controller
 
     public function adminCart()
     {
-        $cartItems = CartItem::with(['product', 'product.firstimage', 'product.category', 'user'])
+        $cartItems = CartItem::whereHas('product', function ($query) {
+            $query->whereNull('deleted_at');
+            })
+            ->with(['product' => function ($query) {
+            $query->whereNull('deleted_at');
+            }, 'product.firstimage', 'product.category', 'user'])
             ->paginate(20);
         return view('admin.cart', compact('cartItems'));
     }
 
     public function downloadCSV()
     {
-        $cartItems = CartItem::with(['product', 'product.firstimage', 'product.category', 'user'])->get();
+        $cartItems = CartItem::whereHas('product', function ($query) {
+            $query->whereNull('deleted_at');
+        })
+        ->with(['product' => function ($query) {
+            $query->whereNull('deleted_at');
+        }, 'product.firstimage', 'product.category', 'user'])
+        ->get();
 
         $csvFileName = 'cart-items.csv';
         $headers = [

@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Mpdf\Mpdf;
 use TCPDF;
 
@@ -76,6 +77,9 @@ class OrderController extends Controller
             'comment' => 'Invoice has been generated.',
             'changed_by' => Auth::id(),
         ]);
+
+        // ✅ Create order in Shiprocket
+        $this->createShiprocketOrder($order);
 
         return redirect()->route('admin.order.view', $id)->with('success', 'Order marked as confirmed successfully.');
     }
@@ -481,5 +485,69 @@ class OrderController extends Controller
         ]);
 
         return $response['token'];
+    }
+
+    private function createShiprocketOrder($order)
+    {
+        $token = $this->getShiprocketToken();
+
+        // Prepare the order items and calculate total weight
+        $items = [];
+        $totalWeight = 0;
+
+        foreach ($order->items as $item) {
+            $product = $item->product;
+            $items[] = [
+                'name' => $item->product->name,
+                'sku' => 'SKU_' . $item->product_id,
+                'units' => $item->quantity,
+                'selling_price' => $item->price,
+            ];
+
+            // Accumulate total weight
+            $totalWeight += (is_numeric($product->weight) ? (float)$product->weight : 0.5) * $item->quantity;
+        }
+
+        // Payload for Shiprocket API request
+        $payload = [
+            'order_id' => $order->id,
+            'order_date' => $order->created_at->format('Y-m-d'),
+            'pickup_location' => 'work',  // Ensure this location is defined in Shiprocket settings
+            'billing_customer_name' => $order->first_name,
+            'billing_last_name' => $order->last_name ?? '', // Fallback if last_name is missing
+            'billing_address' => $order->address,
+            'billing_address_2' => $order->address2 ?? '',
+            'billing_city' => $order->city,
+            'billing_pincode' => $order->pin_code,
+            'billing_state' => $order->state,
+            'billing_country' => 'India',
+            'billing_email' => $order->email,
+            'billing_phone' => $order->phone,
+            'shipping_is_billing' => true,  // Use the same billing address for shipping
+            'order_items' => $items,
+            'payment_method' => $order->payment_method === 'COD' ? 'COD' : 'Prepaid',
+            'sub_total' => $order->subtotal,
+            'length' => 10,
+            'breadth' => 10,
+            'height' => 5,
+            'weight' => $totalWeight,
+        ];
+
+        // Log the payload for debugging purposes
+        Log::info('Shiprocket Order Payload:', ['payload' => $payload]);
+
+        // Make the API call to Shiprocket
+        $response = Http::withToken($token)->post('https://apiv2.shiprocket.in/v1/external/orders/create/adhoc', $payload);
+
+        // Decode the response
+        $data = $response->json();
+
+        if (isset($data['order_id'])) {
+            // Save the Shiprocket order ID to the order table
+            $order->update(['shiprocket_order_id' => $data['order_id']]);
+        } else {
+            // Log error if the API call fails
+            Log::error('Shiprocket order creation failed', ['response' => $data]);
+        }
     }
 }

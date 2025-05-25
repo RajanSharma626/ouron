@@ -274,6 +274,7 @@ class CheckoutController extends Controller
             SendOrderConfirmationJob::dispatch($order);
 
             CartItem::where('user_id', Auth::id())->delete();
+            session()->forget('discount');
 
             return redirect()->route('order.success', $order->id)->with('success', 'Order placed successfully!');
         }
@@ -527,6 +528,7 @@ class CheckoutController extends Controller
             $variant->save();
 
             SendOrderConfirmationJob::dispatch($order);
+            session()->forget('discount');
 
             return redirect()->route('order.success', $order->id)->with('success', 'Order placed successfully!');
         }
@@ -648,4 +650,46 @@ class CheckoutController extends Controller
         return redirect()->back()->with('coupon_error', 'No coupon applied to remove.');
     }
 
+    public function checkPincode($pin)
+    {
+        $token = $this->getShiprocketToken();
+
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->get('https://apiv2.shiprocket.in/v1/external/courier/serviceability/', [
+            'pickup_postcode' => '395006', // your warehouse pincode
+            'delivery_postcode' => $pin,
+            'cod' => 0,
+            'weight' => 1,
+            'declared_value' => 500
+        ]);
+
+        $data = $response->json();
+
+        // Log for debugging
+        // Log::info('Shiprocket Pincode Check', ['response' => $data]);
+
+        if (isset($data['data']['available_courier_companies']) && count($data['data']['available_courier_companies']) > 0) {
+            return response()->json(['status' => true]);
+        }
+
+        $errorMessage = $data['message'] ?? 'Delivery is not available at this PIN code';
+        return response()->json([
+            'status' => false,
+            'message' => $errorMessage
+        ]);
+    }
+
+
+
+
+    private function getShiprocketToken()
+    {
+        $response = Http::post('https://apiv2.shiprocket.in/v1/external/auth/login', [
+            'email' => env('SHIPROCKET_EMAIL'),
+            'password' => env('SHIPROCKET_PASSWORD'),
+        ]);
+
+        return $response['token'];
+    }
 }
