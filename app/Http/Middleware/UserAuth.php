@@ -17,12 +17,9 @@ class UserAuth
     public function handle(Request $request, Closure $next): Response
     {
         // Check if the user is not authenticated
+        // Do not store intended URL for login or OTP routes
         if (!Auth::check()) {
-            // Store the current URL in the session
-            $request->session()->put('url.intended', $request->url());
-
-            // Redirect the user to the login page (or any other route as needed)
-            return redirect()->route('login');
+            return redirect()->guest(route('login'));
         }
 
         // Otherwise, continue with the request

@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Razorpay\Api\Api;
 
 class CheckoutController extends Controller
 {
@@ -169,15 +170,16 @@ class CheckoutController extends Controller
         }
 
         if ($request->payment_method === 'UPI') {
-            $merchantId = env('PHONEPE_MERCHANT_ID');
-            $saltKey = env('PHONEPE_SALT_KEY');
-            $saltIndex = env('PHONEPE_SALT_INDEX');
-            $baseUrl = env('PHONEPE_BASE_URL');
+            $api = new Api(env('RAZORPAY_KEY'), env('RAZORPAY_SECRET'));
+            $razorpayOrder = $api->order->create([
+                'receipt' => 'ORD' . Auth::id() . time(),
+                'amount' => (int)($total * 100), // Amount in paise
+                'currency' => 'INR',
+            ]);
 
-            $transactionId = 'ORD' . Auth::id() . time();
-
+            // Save payment info
             Payment::create([
-                'transaction_id' => $transactionId,
+                'transaction_id' => $razorpayOrder['id'],
                 'payment_type' => 'UPI',
                 'status' => 'PENDING',
                 'user_id' => Auth::id(),
@@ -201,35 +203,15 @@ class CheckoutController extends Controller
                 ])
             ]);
 
-            $payload = [
-                'merchantId' => $merchantId,
-                'merchantTransactionId' => $transactionId,
-                'merchantUserId' => 'USER_' . Auth::id(),
-                'amount' => (int)($total * 100),
-                'redirectUrl' => route('phonepe.callback'),
-                'redirectMode' => 'GET',
-                'callbackUrl' => route('phonepe.callback'),
-                'paymentInstrument' => ['type' => 'PAY_PAGE'],
-            ];
-
-            $jsonPayload = json_encode($payload);
-            $base64Payload = base64_encode($jsonPayload);
-            $checksum = hash('sha256', $base64Payload . "/pg/v1/pay" . $saltKey) . "###" . $saltIndex;
-
-            $response = Http::withHeaders([
-                'Content-Type' => 'application/json',
-                'X-VERIFY' => $checksum
-            ])->post($baseUrl . '/pg/v1/pay', ['request' => $base64Payload]);
-
-            if ($response->successful() && isset($response['data']['instrumentResponse']['redirectInfo']['url'])) {
-                return redirect($response['data']['instrumentResponse']['redirectInfo']['url']);
-            } else {
-                Log::error('PhonePe payment initiation failed', [
-                    'response' => $response->json(),
-                    'transaction_id' => $transactionId,
-                ]);
-                return redirect()->route('checkout')->with('error', 'Payment initiation failed.');
-            }
+            // Redirect to payment page (could be a view with Razorpay checkout script)
+            return view('razorpay.checkout', [
+                'order_id' => $razorpayOrder['id'],
+                'razorpay_key' => env('RAZORPAY_KEY'),
+                'amount' => $total * 100,
+                'name' => $request->first_name,
+                'email' => $request->email,
+                'phone' => $inputPhone,
+            ]);
         } elseif ($request->payment_method == 'COD') {
             $order = Order::create([
                 'user_id' => Auth::id(),
@@ -427,20 +409,20 @@ class CheckoutController extends Controller
         $tax = $total < 1000 ? $total * 0.05 : $total * 0.12;
 
         if ($request->payment_method === 'UPI') {
-            $merchantId = env('PHONEPE_MERCHANT_ID');
-            $saltKey = env('PHONEPE_SALT_KEY');
-            $saltIndex = env('PHONEPE_SALT_INDEX');
-            $baseUrl = env('PHONEPE_BASE_URL');
+            $api = new Api(env('RAZORPAY_KEY'), env('RAZORPAY_SECRET'));
+            $razorpayOrder = $api->order->create([
+                'receipt' => 'ORD' . Auth::id() . time(),
+                'amount' => (int)($total * 100), // Amount in paise
+                'currency' => 'INR',
+            ]);
 
-            $transactionId = 'ORD' . Auth::id() . time();
-
+            // Save payment info
             Payment::create([
-                'transaction_id' => $transactionId,
+                'transaction_id' => $razorpayOrder['id'],
                 'payment_type' => 'UPI',
                 'status' => 'PENDING',
                 'user_id' => Auth::id(),
                 'payload' => json_encode([
-                    'buy_now' => true,
                     'first_name' => $request->first_name,
                     'last_name' => $request->last_name,
                     'email' => $request->email,
@@ -457,42 +439,22 @@ class CheckoutController extends Controller
                     'subtotal' => $subtotal,
                     'total' => $total,
                     'tax' => $tax,
-                    'product_id' => $request->product_id,
-                    'color' => $request->color,
+                    'buy_now' => true,
+                    'product_id' => $product->id,
                     'size' => $request->size,
-
+                    'color' => $request->color
                 ])
             ]);
 
-            $payload = [
-                'merchantId' => $merchantId,
-                'merchantTransactionId' => $transactionId,
-                'merchantUserId' => 'USER_' . Auth::id(),
-                'amount' => (int)($total * 100),
-                'redirectUrl' => route('phonepe.callback'),
-                'redirectMode' => 'GET',
-                'callbackUrl' => route('phonepe.callback'),
-                'paymentInstrument' => ['type' => 'PAY_PAGE'],
-            ];
-
-            $jsonPayload = json_encode($payload);
-            $base64Payload = base64_encode($jsonPayload);
-            $checksum = hash('sha256', $base64Payload . "/pg/v1/pay" . $saltKey) . "###" . $saltIndex;
-
-            $response = Http::withHeaders([
-                'Content-Type' => 'application/json',
-                'X-VERIFY' => $checksum
-            ])->post($baseUrl . '/pg/v1/pay', ['request' => $base64Payload]);
-
-            if ($response->successful() && isset($response['data']['instrumentResponse']['redirectInfo']['url'])) {
-                return redirect($response['data']['instrumentResponse']['redirectInfo']['url']);
-            } else {
-                Log::error('PhonePe payment initiation failed', [
-                    'response' => $response->json(),
-                    'transaction_id' => $transactionId,
-                ]);
-                return redirect()->route('checkout')->with('error', 'Payment initiation failed.');
-            }
+            // Redirect to payment page (could be a view with Razorpay checkout script)
+            return view('razorpay.checkout', [
+                'order_id' => $razorpayOrder['id'],
+                'razorpay_key' => env('RAZORPAY_KEY'),
+                'amount' => $total * 100,
+                'name' => $request->first_name,
+                'email' => $request->email,
+                'phone' => $inputPhone,
+            ]);
         } elseif ($request->payment_method == 'COD') {
             $order = Order::create([
                 'user_id' => Auth::id(),

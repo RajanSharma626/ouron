@@ -22,7 +22,7 @@
                                     {{-- <label for="" class="text-normal form-label">Enter One Time Password
                                         (OTP)</label> --}}
                                     <input type="number" class="form-control p-2 text-normal" name="otp"
-                                        placeholder="Enter OTP" required>
+                                        placeholder="Enter OTP" required autofocus>
                                     @if ($errors->has('otp'))
                                         <span class="text-danger">{{ $errors->first('otp') }}</span>
                                     @endif

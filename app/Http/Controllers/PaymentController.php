@@ -13,94 +13,80 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Razorpay\Api\Api;
 
 class PaymentController extends Controller
 {
-    public function phonepeCallback(Request $request)
+    public function razorpayCallback(Request $request)
     {
-        $transactionId = $request->input('transactionId');
-        if (!$transactionId) return response()->json(['message' => 'Missing transaction ID'], 400);
+        $razorpayPaymentId = $request->input('razorpay_payment_id');
+        $razorpayOrderId = $request->input('razorpay_order_id');
 
-        $payment = Payment::where('transaction_id', $transactionId)->first();
-        if (!$payment) return response()->json(['message' => 'Payment record not found'], 404);
-
-        // Check if an order already exists for this payment to prevent duplicates
-        if ($payment->order_id) {
-            $order = Order::find($payment->order_id);
-            if ($order) {
-                // Order already processed, return appropriate redirect
-                if ($order->payment_status === 'Paid') {
-                    return redirect()->route('order.success', $order->id);
-                } else {
-                    return redirect()->route('checkout')->with('error', 'Payment verification in progress.');
-                }
-            }
+        $payment = Payment::where('transaction_id', $razorpayOrderId)->first();
+        if (!$payment) {
+            return redirect()->route('checkout')->with('error', 'Payment record not found.');
         }
 
-        $merchantId = env('PHONEPE_MERCHANT_ID');
-        $saltKey = env('PHONEPE_SALT_KEY');
-        $saltIndex = env('PHONEPE_SALT_INDEX');
-        $baseUrl = env('PHONEPE_BASE_URL');
+        // Verify the payment using Razorpay API
+        $api = new Api(env('RAZORPAY_KEY'), env('RAZORPAY_SECRET'));
 
-        $checksum = hash('sha256', "/pg/v1/status/$merchantId/$transactionId" . $saltKey) . "###" . $saltIndex;
+        try {
+            $razorpayPayment = $api->payment->fetch($razorpayPaymentId);
+            if ($razorpayPayment['status'] === 'captured') {
+                DB::beginTransaction();
 
-        $statusResponse = Http::withHeaders([
-            'Content-Type' => 'application/json',
-            'X-VERIFY' => $checksum,
-        ])->get("$baseUrl/pg/v1/status/$merchantId/$transactionId");
+                $payload = json_decode($payment->payload, true);
+                $isBuyNow = $payload['buy_now'] ?? false;
 
-        if (!$statusResponse->successful()) {
-            return response()->json(['message' => 'Unable to get payment status'], 500);
-        }
-
-        $data = $statusResponse['data'];
-        $orderStatus = $data['responseCode'] ?? $data['state'];
-
-        $payment->update([
-            'status' => $orderStatus,
-            'response_payload' => json_encode($data),
-        ]);
-
-        if ($orderStatus === 'SUCCESS' || $data['state'] === 'COMPLETED') {
-            // Use DB transaction to ensure data consistency
-            DB::beginTransaction();
-
-            try {
-                $orderData = $payment->payload ? json_decode($payment->payload, true) : [];
-
-                $isBuyNow = $orderData['buy_now'] ?? false;
-
-                $order = Order::create(array_merge($orderData, [
+                $order = Order::create([
                     'user_id' => $payment->user_id,
+                    'first_name' => $payload['first_name'],
+                    'last_name' => $payload['last_name'],
+                    'email' => $payload['email'],
+                    'address' => $payload['address'],
+                    'address2' => $payload['address2'] ?? null,
+                    'city' => $payload['city'],
+                    'state' => $payload['state'],
+                    'pin_code' => $payload['pin_code'],
+                    'phone' => $payload['phone'],
+                    'payment_method' => 'UPI',
+                    'coupon' => $payload['coupon'] ?? null,
+                    'coupon_value' => $payload['coupon_value'] ?? 0,
+                    'coupon_type' => $payload['coupon_type'] ?? null,
+                    'subtotal' => $payload['subtotal'],
+                    'total' => $payload['total'],
                     'status' => 'Pending',
-                    'payment_status' => 'Paid'
-                ]));
+                    'payment_status' => 'Paid',
+                    'tax' => $payload['tax'],
+                ]);
 
                 $payment->update([
+                    'status' => 'SUCCESS',
                     'order_id' => $order->id,
+                    'response_payload' => json_encode($razorpayPayment)
                 ]);
 
                 if ($isBuyNow) {
-                    // Buy Now flow
+                    // Handle buy now product order
                     OrderItem::create([
                         'order_id' => $order->id,
-                        'product_id' => $orderData['product_id'],
-                        'quantity' => $orderData['quantity'] ?? 1,
-                        'price' => Product::find($orderData['product_id'])->discount_price,
-                        'size' => $orderData['size'] ?? null,
-                        'color' => $orderData['color'] ?? null,
+                        'product_id' => $payload['product_id'],
+                        'quantity' => 1,
+                        'price' => $payload['subtotal'],
+                        'size' => $payload['size'],
+                        'color' => $payload['color'],
                     ]);
 
-                    $variant = ProductVariant::where('product_id', $orderData['product_id'])
-                        ->where('size', $orderData['size'] ?? null)
+                    $variant = ProductVariant::where('product_id', $payload['product_id'])
+                        ->where('size', $payload['size'])
                         ->first();
 
                     if ($variant) {
-                        $variant->stock -= $orderData['quantity'] ?? 1;
+                        $variant->stock -= 1;
                         $variant->save();
                     }
                 } else {
-                    // Cart flow (your existing logic)
+                    // Cart flow
                     $cart = CartItem::where('user_id', $payment->user_id)->get();
 
                     foreach ($cart as $item) {
@@ -131,14 +117,17 @@ class PaymentController extends Controller
 
                 SendOrderConfirmationJob::dispatch($order);
 
-                return redirect()->route('order.success', $order->id)->with('success', 'Order placed successfully');
-            } catch (\Exception $e) {
-                DB::rollBack();
-                Log::error('Order creation failed: ' . $e->getMessage());
-                return redirect()->route('checkout')->with('error', 'Order processing failed. Please contact support.');
+                return response()->json([
+                    'status' => 'success',
+                    'redirect' => route('order.success', $order->id)
+                ]);
+            } else {
+                return redirect()->route('checkout')->with('error', 'Payment not captured.');
             }
-        } else {
-            return redirect()->route('checkout')->with('error', 'Payment failed.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Razorpay payment verification failed: ' . $e->getMessage());
+            return redirect()->route('checkout')->with('error', 'Payment verification failed.');
         }
     }
 }

@@ -152,11 +152,11 @@
                         </div>
                     </div>
 
-                    <h6>
+                    <h5>
                         <del>RS. {{ number_format($product->price, 2) }}</del>
                         &nbsp; RS.
                         {{ number_format($product->discount_price, 2) }}
-                    </h6>
+                    </h5>
                     <p class="text-muted fs-12 mb-2">MRP inclusive of all taxes </p>
 
                     <form action="{{ route('buy.now') }}" method="get">

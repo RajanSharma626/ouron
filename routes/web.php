@@ -61,29 +61,26 @@ Route::get('/faq', [FaqController::class, 'index'])->name('faq');
 
 
 // login
-Route::get('/login', [LoginAuth::class, 'index'])->name('login');
-Route::post('/login', [LoginAuth::class, 'login'])->name('login.auth');
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [LoginAuth::class, 'index'])->name('login');
+    Route::post('/login', [LoginAuth::class, 'login'])->name('login.auth');
 
-// register
-// Route::get('/register', [LoginAuth::class, 'register'])->name('register');
-// Route::post('/register', [LoginAuth::class, 'registerUser'])->name('registerUser');
-
-
-// verify otp
-Route::get('login/otp-verify', [LoginAuth::class, 'otpVerify'])->name('otp-verify');
-Route::post('login/otp-verify', [LoginAuth::class, 'verifyOtp'])->name('verify-otp');
-
-// logout
-Route::post('/logout', [LoginAuth::class, 'logout'])->name('logout');
+    // verify otp
+    Route::get('login/otp-verify', [LoginAuth::class, 'otpVerify'])->name('otp-verify');
+    Route::post('login/otp-verify', [LoginAuth::class, 'verifyOtp'])->name('verify-otp');
+});
 
 //check User Ares Pin Code
 Route::get('/check-pincode/{pin}', [OrderController::class, 'checkPincode']);
 
 //track order
-Route::get('track/order', [CheckoutController::class,'trackOrder'])->name('track.order');
+Route::get('track/order', [CheckoutController::class, 'trackOrder'])->name('track.order');
 
 //profile
 Route::middleware(['user.auth'])->group(function () {
+    // logout
+    Route::post('/logout', [LoginAuth::class, 'logout'])->name('logout');
+
     Route::get('/profile', [LoginAuth::class, 'profile'])->name('profile');
     Route::post('/profile-update', [LoginAuth::class, 'updateProfile'])->name('profile.update');
     Route::post('/addresses', [UserAddressController::class, 'store'])->name('addresses.store');
@@ -121,7 +118,7 @@ Route::middleware(['user.auth'])->group(function () {
 
     //return order
     Route::post('/order/return/{id}', [OrderController::class, 'returnRequest'])->name('return.request');
-    Route::post('/phonepe/callback', [PaymentController::class, 'phonepeCallback'])->name('phonepe.callback');
+    Route::post('/razorpay/callback', [PaymentController::class, 'razorpayCallback'])->name('razorpay.callback');
 });
 
 
@@ -236,7 +233,7 @@ Route::middleware(['admin.auth'])->prefix('admin-panel')->group(function () {
     Route::get('/headline/delete/{id}', [HeadlineController::class, 'destroy'])->name('admin.headline.delete');
     Route::get('/headline/edit/{id}', [HeadlineController::class, 'edit'])->name('admin.headline.edit');
     Route::post('/headline/update', [HeadlineController::class, 'update'])->name('admin.headline.update');
-    Route::post('headling/status/update', [HeadlineController::class,'toggleStatus'])->name('admin.headline.status.update');
+    Route::post('headling/status/update', [HeadlineController::class, 'toggleStatus'])->name('admin.headline.status.update');
 
     //Customers
     Route::get('/customers', [CustomersController::class, 'index'])->name('admin.customers');
@@ -289,8 +286,8 @@ Route::middleware(['admin.auth'])->prefix('admin-panel')->group(function () {
     //shipped order
     Route::get('/order/shipped/{id}', [OrderController::class, 'shipped'])->name('admin.order.shipped');
 
-     //out for delivery order
-     Route::get('/order/out-for-delivery/{id}', [OrderController::class, 'outForDelivery'])->name('admin.order.out.of.delivered');
+    //out for delivery order
+    Route::get('/order/out-for-delivery/{id}', [OrderController::class, 'outForDelivery'])->name('admin.order.out.of.delivered');
 
 
     //delivered order
